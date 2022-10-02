@@ -1,0 +1,80 @@
+{"collections": [{ 
+    "_id":{"$oid":"633828a8bc8cbff8d3a0f1bd"},
+    "_authorId": "author_id",
+    "name": "JsBooks",
+    "authorName": "Petya",
+    "icon": "https://res.cloudinary.com/drfjcq9hg/image/upload/v1664618858/bushik123/seenff6gjs5f4zxfbghl.gif",
+    "collectionDescription": "books to stydy JS",
+    "postsTemplate": {
+   
+      "date": {
+        "type": "date",
+        "description": "some text here"
+      },
+      "rock": {
+        "type": "checkbox",
+        "description": "some text here"
+      }
+    },
+    "liked": [],
+    "comments": [],
+    "posts": [{
+        "_id":{"$oid":"6338300abc8cbff8d3a0f1bf"},
+        "name": "learn JS",
+        "tags": ["#goodBook", "#nice"],
+        "fields": {
+          "date": "1664625623477",
+          "rock": true
+        }  
+      },
+      {
+        "_id":{"$oid":"6338300abc8cbff8d3a0f1bf"},
+        "name": "just JS",
+        "tags": ["#cool", "#nice"],
+        "fields": {
+          "date": "1664625623477",
+          "rock": true
+        }  
+      }]
+  },
+  { 
+    "_id":{"$oid":"633828a8bc8cbff8qqqq"},
+    "_authorId": "author_id",
+    "name": "JsBooks",
+    "authorName": "learnJS",
+    "icon": "https://res.cloudinary.com/drfjcq9hg/image/upload/v1664542794/bushik123/qn2gcojqsisjtq0tvxvh.jpg",
+    "collectionDescription": "books to stydy JS",
+    "postsTemplate": {
+   
+      "date": {
+        "type": "date",
+        "description": "some text here"
+      },
+      "rock": {
+        "type": "checkbox",
+        "description": "some text here"
+      }
+    },
+    "liked": [],
+    "comments": [],
+    "posts": [{
+        "_id":{"$oid":"6338300abc8cbff8d3a0f1bf"},
+        "name": "learn JS",
+        "tags": ["#goodBook", "#nice"],
+        "fields": {
+          "date": "1664625623477",
+          "rock": true
+        }  
+      },
+      {
+        "_id":{"$oid":"6338300abc8cbff8d3a0f1bf"},
+        "name": "just JS",
+        "tags": ["#cool", "#nice"],
+        "fields": {
+          "date": "1664625623477",
+          "rock": true
+        }  
+      }]
+  }
+
+]}
