@@ -1,8 +1,9 @@
 import React from 'react';
 import axios from 'axios';
 import UserCollection from '../ui/userCollection';
-import Modal from '../common/modal/modal';
-import EditModal from '../../Components/common/modal/editModal';
+import Modal from '../common/modal/collectionModal/modal';
+import EditModal from '../../Components/common/modal/collectionModal/editModal';
+import EditButtons from '../common/editButtons';
 function UserPage() {
   const [collections, setCollections] = React.useState();
   const [activeModal, setActiveModal] = React.useState('');
@@ -15,28 +16,10 @@ function UserPage() {
   const toggleActiveModal = (value) => setActiveModal(value);
   return (
     <>
-      <div className="m-3">
-        <button
-          type="button"
-          className="btn btn-light ms-3"
-          onClick={() => toggleActiveModal('create')}>
-          Create
-        </button>
-        <button
-          type="button"
-          className="btn btn-light ms-3"
-          onClick={() => toggleActiveModal('edit')}>
-          Edit
-        </button>
-        <button
-          type="button"
-          className="btn btn-light ms-3"
-          onClick={() => toggleActiveModal('delete')}>
-          Delete
-        </button>
-      </div>
+      <EditButtons onToggle={toggleActiveModal} />
 
       <div className="d-flex">
+        {/* передать ID коллекции в пропс */}
         {activeModal === 'create' && <Modal onActive={toggleActiveModal} />}
         {activeModal === 'edit' && (
           <EditModal collections={collections} modalType={'Edit'} onActive={toggleActiveModal} />

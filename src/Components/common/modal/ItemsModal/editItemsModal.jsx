@@ -1,9 +1,9 @@
 import React from 'react';
-import SelectField from '../form/selectedField';
-import TextAreaField from '../form/textAreaField';
-import TextField from '../form/textField';
+import SelectField from '../../form/selectedField';
+import TextAreaField from '../../form/textAreaField';
+import TextField from '../../form/textField';
 
-function EditModal({ modalType, collections, onActive }) {
+function EditItemsModal({ modalType, collections, onActive }) {
   let targetElement;
   const [editItem, setEditItem] = React.useState({
     item: '',
@@ -84,4 +84,4 @@ function EditModal({ modalType, collections, onActive }) {
   );
 }
 
-export default EditModal;
+export default EditItemsModal;
