@@ -41,7 +41,6 @@ function EditItemsModal({ modalType, collections, onActive }) {
             defaultOption="Choose.."
             onChange={handleChange}
             value={editItem.item}
-            // error={errors.theme}
           />
         </div>
         {modalType === 'Edit' && editItem.item && (

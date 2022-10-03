@@ -4,7 +4,15 @@ import SelectField from './selectedField';
 import TextField from './textField';
 import { validator } from '../../utils/validator';
 
-function AddFieldForm({ handleChangeField, dataType, dataDescription, index, onDelete }) {
+function AddFieldForm({
+  handleChangeField,
+  dataType,
+  dataDescription,
+  index,
+  onDelete,
+  type,
+  delitingForm,
+}) {
   const handleChange = (e) => {
     handleChangeField(e.value, index, e.name);
   };
@@ -28,11 +36,30 @@ function AddFieldForm({ handleChangeField, dataType, dataDescription, index, onD
       },
     },
   };
+  const CustomField = () => {
+    if (dataType) {
+      return (
+        <TextField
+          label="description"
+          // type={dataType}
+          type="checkbox"
+          name="description"
+          value={dataDescription}
+          onChange={handleChange}
+          error={errors.description}
+        />
+      );
+    }
+  };
   return (
     <div className="mt-2">
-      <button className="btn btn-danger float-end mb-2" onClick={() => onDelete(index)}>
-        delete
-      </button>
+      {!delitingForm ? (
+        <button className="btn btn-danger float-end mb-2" onClick={() => onDelete(index)}>
+          delete
+        </button>
+      ) : (
+        ''
+      )}
       <SelectField
         label="Select the field to add"
         name="type"
@@ -42,14 +69,18 @@ function AddFieldForm({ handleChangeField, dataType, dataDescription, index, onD
         value={dataType}
         error={errors.type}
       />
-      <TextField
-        label="description"
-        type="text"
-        name="description"
-        value={dataDescription}
-        onChange={handleChange}
-        error={errors.description}
-      />
+      {type === 'multiField' ? (
+        <CustomField />
+      ) : (
+        <TextField
+          label="description"
+          type="text"
+          name="description"
+          value={dataDescription}
+          onChange={handleChange}
+          error={errors.description}
+        />
+      )}
     </div>
   );
 }

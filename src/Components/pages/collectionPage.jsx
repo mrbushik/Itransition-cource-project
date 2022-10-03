@@ -12,7 +12,6 @@ function CollectionPage() {
   let postsTemplate;
   const [collectionData, setCollectionData] = React.useState();
   const [activeModal, setActiveModal] = React.useState('');
-
   React.useEffect(() => {
     axios
       .get(`http://localhost:5000/api/collection/${params.Id}`)
@@ -31,7 +30,7 @@ function CollectionPage() {
       <button className="btn btn-secondary ms-3 mt-3" onClick={goBack}>
         Back
       </button>
-      <EditButtons onToggle={toggleActiveModal} />
+      {collectionData && <EditButtons onToggle={toggleActiveModal} />}
       {/* {collectionData && (
         <EditItemsModal
           collections={collectionData.posts}
@@ -39,7 +38,10 @@ function CollectionPage() {
           onActive={toggleActiveModal}
         />
       )} */}
-      <CreateItemsModal />
+      {collectionData && (
+        // если будут лишние поля проблема тут
+        <CreateItemsModal fieldsCount={collectionData.postsTemplate.length - 1} />
+      )}
       {collectionData && (
         <>
           <h2 className="text-center mt-3">{collectionData.name}</h2>

@@ -9,7 +9,7 @@ import AddFieldForm from '../../form/addFieldForm';
 import { validator } from '../../../utils/validator';
 import TagsField from '../../form/tagsField';
 
-function CreateItemsModal({ onActive }) {
+function CreateItemsModal({ onActive, fieldsCount }) {
   // потом надо будте хранить айди автора и его имя
   const [collection, setCollection] = React.useState({
     name: '',
@@ -74,10 +74,15 @@ function CreateItemsModal({ onActive }) {
     }
   };
 
-  const handleAddField = () => {
-    const newField = [...fieldValue, { type: '', description: '' }];
-    setFieldValue(newField);
-  };
+  React.useEffect(() => {
+    let count = fieldsCount;
+    const fieldArr = [];
+    while (count > 0) {
+      count--;
+      fieldArr.push({ type: '', description: '' });
+    }
+    setFieldValue(fieldArr);
+  }, []);
   const handleChangeField = (event, index, fieldType) => {
     const inputdata = [...fieldValue];
     if (fieldType === 'type') {
@@ -87,11 +92,7 @@ function CreateItemsModal({ onActive }) {
     }
     setFieldValue(inputdata);
   };
-  const handleDelete = (index) => {
-    const deleteData = [...fieldValue];
-    deleteData.splice(index, 1);
-    setFieldValue(deleteData);
-  };
+
   const handleChange = (target) => {
     setCollection((prevState) => ({
       ...prevState,
@@ -101,17 +102,18 @@ function CreateItemsModal({ onActive }) {
   //test
   const [tags, setTags] = React.useState([]);
 
-  function handleKeyDown(e) {
+  const handleKeyDown = (e) => {
     if (e.key !== 'Enter') return;
     const value = e.target.value;
     if (!value.trim()) return;
     setTags([...tags, value]);
     e.target.value = '';
-  }
+  };
 
-  function handleDeletTag(index) {
+  const handleDeletTag = (index) => {
     setTags(tags.filter((el, i) => i !== index));
-  }
+  };
+
   //test
   return (
     <>
@@ -123,48 +125,20 @@ function CreateItemsModal({ onActive }) {
               <span>x</span>
             </button>
           </div>
-          {/* <div className="modal-body">
-            <div>
-              <TextField
-                label="collection name"
-                type="text"
-                name="name"
-                value={collection.name}
-                onChange={handleChange}
-                error={errors.name}
-              />
-              <SelectField
-                label="Choose collection type"
-                name="theme"
-                options={['books', 'clothes', 'sings']}
-                defaultOption="Choose.."
-                onChange={handleChange}
-                value={collection.theme}
-                error={errors.theme}
-              />
-            </div>
-
-            <div>
-              <div className="d-flex justify-content-between mt-3 mb-3">
-                <h5>Additional fields</h5>
-                <button className="btn btn-secondary  " onClick={() => handleAddField()}>
-                  add field
-                </button>
-              </div>
-              {fieldValue.map((data, index) => (
-                <AddFieldForm
-                  key={index}
-                  handleChangeField={handleChangeField}
-                  index={index}
-                  dataType={data.type}
-                  dataDescription={data.description}
-                  onDelete={handleDelete}
-                />
-              ))}
-            </div>
-          </div> */}
 
           <TagsField tags={tags} onDeleteTag={handleDeletTag} onKeyDown={handleKeyDown} />
+
+          {fieldValue.map((data, index) => (
+            <AddFieldForm
+              type="multiField"
+              key={index}
+              handleChangeField={handleChangeField}
+              index={index}
+              dataType={data.type}
+              dataDescription={data.description}
+              delitingForm={true}
+            />
+          ))}
           <div className="modal-footer">
             <button
               type="button"
