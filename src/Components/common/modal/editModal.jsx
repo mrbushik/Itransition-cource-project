@@ -3,7 +3,7 @@ import SelectField from '../form/selectedField';
 import TextAreaField from '../form/textAreaField';
 import TextField from '../form/textField';
 
-function EditModal({ modalType, collections }) {
+function EditModal({ modalType, collections, onActive }) {
   let targetElement;
   const [editItem, setEditItem] = React.useState({
     item: '',
@@ -19,7 +19,6 @@ function EditModal({ modalType, collections }) {
   };
   if (editItem.item) {
     targetElement = collections.find((item) => item.name === editItem.item);
-    console.log(Object.keys(targetElement));
   }
   const collectionsNames = collections.map((item) => item.name);
   const handleSubmit = () => {
@@ -30,6 +29,9 @@ function EditModal({ modalType, collections }) {
       <div className="modal-content h-100">
         <div className="modal-header">
           <h5 className="modal-title">{modalType}</h5>
+          <button type="button" className="close" onClick={onActive}>
+            <span>x</span>
+          </button>
         </div>
         <div className="modal-body">
           <SelectField
@@ -73,7 +75,7 @@ function EditModal({ modalType, collections }) {
           <button type="button" className="btn btn-primary " onClick={handleSubmit}>
             {modalType}
           </button>
-          <button type="button" className="btn btn-secondary mx-3">
+          <button type="button" className="btn btn-secondary mx-3" onClick={onActive}>
             Close
           </button>
         </div>

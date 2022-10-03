@@ -2,10 +2,11 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React from 'react';
 import UploadField from '../form/uploadField';
+// import TextField from '../form/textField';
 import TextField from '../form/textField';
 import SelectField from '../form/selectedField';
 import AddFieldForm from '../form/addFieldForm';
-import { validator } from '../utils/validator';
+import { validator } from '../../utils/validator';
 
 function Modal({ onActive }) {
   // потом надо будте хранить айди автора и его имя

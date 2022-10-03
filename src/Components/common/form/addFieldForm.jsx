@@ -1,7 +1,8 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React from 'react';
 import SelectField from './selectedField';
 import TextField from './textField';
-import { validator } from '../utils/validator';
+import { validator } from '../../utils/validator';
 
 function AddFieldForm({ handleChangeField, dataType, dataDescription, index, onDelete }) {
   const handleChange = (e) => {
