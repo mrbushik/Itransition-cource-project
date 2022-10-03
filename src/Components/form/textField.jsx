@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 
-function TextField({ label, type, name, value, onChange, error, group }) {
+function TextField({ label, type, name, value, onChange, error, group, placeholder }) {
   const handleChange = ({ target }) => {
     onChange({ name: target.name, value: target.value, type: group });
   };
@@ -17,6 +17,7 @@ function TextField({ label, type, name, value, onChange, error, group }) {
       <label htmlFor={name}>{label}</label>
       <div className="input-group has-validation">
         <input
+          placeholder={placeholder ? placeholder : ''}
           type={showPassword ? 'text' : type}
           id={name}
           name={name}

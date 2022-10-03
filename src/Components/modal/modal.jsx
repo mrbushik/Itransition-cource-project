@@ -7,7 +7,7 @@ import SelectField from '../form/selectedField';
 import AddFieldForm from '../form/addFieldForm';
 import { validator } from '../utils/validator';
 
-function Modal() {
+function Modal({ onActive }) {
   // потом надо будте хранить айди автора и его имя
   const [collection, setCollection] = React.useState({
     name: '',
@@ -20,8 +20,8 @@ function Modal() {
   const sendingData = {
     _authorId: '63356ff4ed30ed38a56c14f8',
     authorName: 'user',
-    name: 'Best songs',
-    icon: 'https://res.cloudinary.com/drfjcq9hg/image/upload/v1664713515/bushik123/fklgst0zqqhgnmi3b2bc.jpg',
+    name: collection.name,
+    icon: collection.photoUrl,
     postsTemplate: [
       { type: 'string', description: 'tags' },
       { type: 'string', description: 'name' },
@@ -32,13 +32,7 @@ function Modal() {
     likes: [],
     comments: [],
   };
-  const [loading, setLoading] = React.useState(false);
-  const handleChange = (target) => {
-    setCollection((prevState) => ({
-      ...prevState,
-      [target.name]: target.value,
-    }));
-  };
+
   const validatorConfig = {
     name: {
       isRequired: {
@@ -58,12 +52,12 @@ function Modal() {
   React.useEffect(() => {
     validate();
   }, [collection]);
+  const isValid = Object.keys(errors).length === 0;
   const uploadImage = async (e) => {
     const files = e.target.files;
     const data = new FormData();
     data.append('file', files[0]);
     data.append('upload_preset', 'bushik123');
-    setLoading(true);
     const res = await fetch('	https://api.cloudinary.com/v1_1/drfjcq9hg/image/upload', {
       method: 'POST',
       body: data,
@@ -73,22 +67,25 @@ function Modal() {
       ...prevState,
       ['photoUrl']: file.secure_url,
     }));
-    setLoading(false);
+  };
+  const validateAddingFields = () => {
+    let err = 0;
+    for (let i = 0; i < fieldValue.length; i++) {
+      if (fieldValue[i].type === '' || fieldValue[i].description === '') {
+        err += 1;
+      }
+    }
+    return err;
   };
   const onSubmit = () => {
     const errors = validator(collection, validatorConfig);
     setErrors(errors);
-    if (Object.keys(errors).length === 0) {
-      if (collection.photoUrl) {
-        uploadImage(collection.photoUrl);
-        if (!loading) {
-          console.log(collection);
-        }
-      } else {
-        console.log('err');
-      }
+    if (isValid && collection.photoUrl && validateAddingFields() === 0) {
+      sendingData.postsTemplate.push(...fieldValue);
+      console.log(sendingData);
     }
   };
+
   const handleAddField = () => {
     const newField = [...fieldValue, { type: '', description: '' }];
     setFieldValue(newField);
@@ -107,13 +104,19 @@ function Modal() {
     deleteData.splice(index, 1);
     setFieldValue(deleteData);
   };
+  const handleChange = (target) => {
+    setCollection((prevState) => ({
+      ...prevState,
+      [target.name]: target.value,
+    }));
+  };
   return (
     <>
-      <div className="modal-dialog modal-dialog-centered w-50 bg-light absolute-top mt-3 p-3">
+      <div className="modal-dialog modal-dialog-centered w-50 bg-light absolute-top mx-3 mt-3 p-3">
         <div className="modal-content">
           <div className="modal-header">
-            <h5 className="modal-title">Modal title</h5>
-            <button type="button" className="close">
+            <h5 className="modal-title">Create new collection</h5>
+            <button type="button" className="close" onClick={onActive}>
               <span>x</span>
             </button>
           </div>
@@ -166,10 +169,14 @@ function Modal() {
             </div>
           </div>
           <div className="modal-footer">
-            <button type="button" className="btn btn-primary " onClick={onSubmit}>
+            <button
+              type="button"
+              className="btn btn-primary "
+              onClick={onSubmit}
+              disabled={!isValid}>
               Save changes
             </button>
-            <button type="button" className="btn btn-secondary mx-3">
+            <button type="button" className="btn btn-secondary mx-3" onClick={onActive}>
               Close
             </button>
           </div>

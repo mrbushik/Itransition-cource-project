@@ -1,6 +1,6 @@
 import React from 'react';
 
-function UploadField({ name, onSave, error, isUrl }) {
+function UploadField({ name, onSave, isUrl }) {
   const [link, setLink] = React.useState('');
   const handleLink = (e) => {
     setLink(e);
@@ -27,8 +27,8 @@ function UploadField({ name, onSave, error, isUrl }) {
         <button className="btn btn-outline-secondary" type="button" onClick={saveLink}>
           upload
         </button>
+        {!isUrl && <div className="invalid-feedback">Attach the file and upload</div>}
       </div>
-      {isUrl && <div className="invalid-feedback">Attach the file</div>}
     </>
   );
 }

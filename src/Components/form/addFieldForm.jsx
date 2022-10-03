@@ -1,10 +1,31 @@
 import React from 'react';
 import SelectField from './selectedField';
 import TextField from './textField';
+import { validator } from '../utils/validator';
 
 function AddFieldForm({ handleChangeField, dataType, dataDescription, index, onDelete }) {
   const handleChange = (e) => {
     handleChangeField(e.value, index, e.name);
+  };
+  const [errors, setErrors] = React.useState({});
+  const validate = () => {
+    const errors = validator({ type: dataType, description: dataDescription }, validatorConfig);
+    setErrors(errors);
+  };
+  React.useEffect(() => {
+    validate();
+  }, [dataType, dataDescription]);
+  const validatorConfig = {
+    type: {
+      isRequired: {
+        message: 'this field is required',
+      },
+    },
+    description: {
+      isRequired: {
+        message: 'this field is required',
+      },
+    },
   };
   return (
     <div className="mt-2">
@@ -18,6 +39,7 @@ function AddFieldForm({ handleChangeField, dataType, dataDescription, index, onD
         defaultOption="Choose.."
         onChange={handleChange}
         value={dataType}
+        error={errors.type}
       />
       <TextField
         label="description"
@@ -25,6 +47,7 @@ function AddFieldForm({ handleChangeField, dataType, dataDescription, index, onD
         name="description"
         value={dataDescription}
         onChange={handleChange}
+        error={errors.description}
       />
     </div>
   );
