@@ -1,15 +1,12 @@
 /* eslint-disable no-useless-computed-key */
 /* eslint-disable react-hooks/exhaustive-deps */
 import React from 'react';
-import UploadField from '../../form/uploadField';
-// import TextField from '../form/textField';
 import TextField from '../../form/textField';
-import SelectField from '../../form/selectedField';
-import AddFieldForm from '../../form/addFieldForm';
 import { validator } from '../../../utils/validator';
 import TagsField from '../../form/tagsField';
 import CustomField from '../../form/customField';
-import EditItemsModal from './editItemsModal';
+
+// предусмотреть что дополнительных полей нет
 
 function CreateItemsModal({ onClose, fieldsCount, addingFields, collectionId }) {
   // потом надо будте хранить айди автора и его имя
@@ -77,8 +74,7 @@ function CreateItemsModal({ onClose, fieldsCount, addingFields, collectionId }) 
     }
     setFieldValue(fieldArr);
   }, []);
-  const handleChangeField = (event, index, fieldType) => {
-    console.log(event);
+  const handleChangeField = (event, index) => {
     const inputdata = [...fieldValue];
     inputdata[index].value = event;
     setFieldValue(inputdata);

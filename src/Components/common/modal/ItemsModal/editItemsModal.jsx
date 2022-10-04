@@ -1,16 +1,28 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React from 'react';
+import CustomField from '../../form/customField';
 import SelectField from '../../form/selectedField';
 import TextAreaField from '../../form/textAreaField';
 import TextField from '../../form/textField';
+import TagsField from '../../form/tagsField';
 
-function EditItemsModal({ modalType, collections, onActive }) {
+function EditItemsModal({ modalType, posts, postsTemplates, onActive, fieldsCount }) {
   let targetElement;
+  const [fieldValue, setFieldValue] = React.useState([]);
+
   const [editItem, setEditItem] = React.useState({
     item: '',
-    name: '',
-    description: '',
-    type: '',
+    tags: [],
   });
+  React.useEffect(() => {
+    let count = fieldsCount;
+    const fieldArr = [];
+    while (count > 0) {
+      count--;
+      fieldArr.push({ value: '' });
+    }
+    setFieldValue(fieldArr);
+  }, []);
   const handleChange = (target) => {
     setEditItem((prevState) => ({
       ...prevState,
@@ -18,9 +30,28 @@ function EditItemsModal({ modalType, collections, onActive }) {
     }));
   };
   if (editItem.item) {
-    targetElement = collections.find((item) => item.name === editItem.item);
+    targetElement = posts.find((item) => item.name === editItem.item);
   }
-  const collectionsNames = collections.map((item) => item.name);
+  const collectionsNames = posts.map((item) => item._id);
+
+  const handleChangeField = (event, index) => {
+    const inputdata = [...fieldValue];
+    inputdata[index] = event;
+    setFieldValue(inputdata);
+  };
+  const handleKeyDown = (e) => {
+    if (e.key !== 'Enter') return;
+    const value = e.target.value;
+    if (!value.trim()) return;
+    setEditItem((prevState) => ({ ...prevState, tags: [...editItem.tags, value] }));
+    e.target.value = '';
+  };
+  const handleDeletTag = (index) => {
+    setEditItem((prevState) => ({
+      ...prevState,
+      tags: editItem.tags.filter((el, i) => i !== index),
+    }));
+  };
   const handleSubmit = () => {
     console.log(targetElement._id);
   };
@@ -43,35 +74,33 @@ function EditItemsModal({ modalType, collections, onActive }) {
             value={editItem.item}
           />
         </div>
+
         {modalType === 'Edit' && editItem.item && (
-          <div>
-            <TextField
-              label="collection name"
-              type="text"
-              placeholder={targetElement.name}
-              name="name"
-              value={editItem.name}
-              onChange={handleChange}
+          <>
+            <TagsField
+              tags={editItem.tags}
+              onDeleteTag={handleDeletTag}
+              onKeyDown={handleKeyDown}
             />
-            <SelectField
-              label="Choose collection type"
-              name="theme"
-              options={['books', 'clothes', 'sings']}
-              defaultOption={targetElement.type}
-              onChange={handleChange}
-              value={editItem.type}
-            />
-            <TextAreaField
-              name="description"
-              value={editItem.description}
-              label={'collection description'}
-              placeholder={targetElement.description}
-              onChange={handleChange}
-            />
-          </div>
+            {postsTemplates.map((item, index) => (
+              <CustomField
+                key={index}
+                label={postsTemplates[index].description}
+                type={postsTemplates[index].type}
+                handleChangeField={handleChangeField}
+                index={index}
+                value={item.value}
+                data={fieldValue.value}
+              />
+            ))}
+          </>
         )}
         <div className="modal-footer">
-          <button type="button" className="btn btn-primary " onClick={handleSubmit}>
+          <button
+            type="button"
+            className="btn btn-primary "
+            // onClick={handleSubmit}
+          >
             {modalType}
           </button>
           <button type="button" className="btn btn-secondary mx-3" onClick={onActive}>

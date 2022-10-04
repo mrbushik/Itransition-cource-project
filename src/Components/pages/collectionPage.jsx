@@ -31,20 +31,26 @@ function CollectionPage() {
         Back
       </button>
       <EditButtons onToggle={toggleActiveModal} />
-      {/* {collectionData && (
-        <EditItemsModal
-          collections={collectionData.posts}
-          modalType={'Edit'}
-          onActive={toggleActiveModal}
-        />
-      )} */}
+
       {activeModal === 'create' && collectionData && (
-        // если будут лишние поля проблема тут
+        // предусмотреть что дополнительных полей нет
         <CreateItemsModal
           fieldsCount={collectionData.postsTemplate.length - 2}
+          // можно оптимизировать закинув имя мэпиться
           addingFields={collectionData.postsTemplate.slice(2, collectionData.length)}
           collectionId={params}
           onClose={toggleActiveModal}
+        />
+      )}
+      {activeModal === 'edit' && collectionData && (
+        <EditItemsModal
+          posts={collectionData.posts}
+          postsTemplates={collectionData.postsTemplate.slice(
+            1,
+            collectionData.postsTemplate.length,
+          )}
+          fieldsCount={collectionData.postsTemplate.length - 1}
+          modalType={'Edit'}
         />
       )}
       {collectionData && (
@@ -64,7 +70,7 @@ function CollectionPage() {
               {collectionData &&
                 collectionData.posts.map((itemPosts, index) => (
                   <tr key={itemPosts._id}>
-                    <td>{index}</td>
+                    <td>{itemPosts._id}</td>
                     <td>{itemPosts.tags}</td>
                     {Object.values(itemPosts.fields).map((item, index) => (
                       <td key={index}>{item}</td>

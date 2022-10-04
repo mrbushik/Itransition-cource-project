@@ -21,10 +21,10 @@ function UserPage() {
       <div className="d-flex">
         {/* передать ID коллекции в пропс */}
         {activeModal === 'create' && <Modal onActive={toggleActiveModal} />}
-        {activeModal === 'edit' && (
+        {activeModal === 'edit' && collections && (
           <EditModal collections={collections} modalType={'Edit'} onActive={toggleActiveModal} />
         )}
-        {activeModal === 'delete' && (
+        {activeModal === 'delete' && collections && (
           <EditModal collections={collections} onActive={toggleActiveModal} modalType={'Delete'} />
         )}
         {collections
