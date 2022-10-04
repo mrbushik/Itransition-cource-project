@@ -1,6 +1,7 @@
 /* eslint-disable no-useless-computed-key */
 /* eslint-disable react-hooks/exhaustive-deps */
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+
 import UploadField from '../../form/uploadField';
 // import TextField from '../form/textField';
 import TextField from '../../form/textField';
@@ -10,13 +11,13 @@ import { validator } from '../../../utils/validator';
 
 function Modal({ onActive }) {
   // потом надо будте хранить айди автора и его имя
-  const [collection, setCollection] = React.useState({
+  const [collection, setCollection] = useState({
     name: '',
     photoUrl: '',
     theme: '',
   });
-  const [fieldValue, setFieldValue] = React.useState([]);
-  const [errors, setErrors] = React.useState({});
+  const [fieldValue, setFieldValue] = useState([]);
+  const [errors, setErrors] = useState({});
 
   const sendingData = {
     _authorId: '63356ff4ed30ed38a56c14f8',
@@ -50,7 +51,7 @@ function Modal({ onActive }) {
     const errors = validator(collection, validatorConfig);
     setErrors(errors);
   };
-  React.useEffect(() => {
+  useEffect(() => {
     validate();
   }, [collection]);
   const isValid = Object.keys(errors).length === 0;

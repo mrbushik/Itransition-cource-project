@@ -1,15 +1,16 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+
 import axios from 'axios';
 import UserCollection from '../ui/userCollection';
 import Modal from '../common/modal/collectionModal/modal';
 import EditModal from '../../Components/common/modal/collectionModal/editModal';
 import EditButtons from '../common/editButtons';
 function UserPage() {
-  const [collections, setCollections] = React.useState();
-  const [activeModal, setActiveModal] = React.useState('');
-  React.useEffect(() => {
+  const [collections, setCollections] = useState();
+  const [activeModal, setActiveModal] = useState('');
+  useEffect(() => {
     axios
-      .get('http://localhost:5000/api/user/63356ff4ed30ed38a56c14f8')
+      .get('http://localhost:5000/api//all-collections')
       .then((response) => response)
       .then((data) => setCollections(data.data.collections));
   }, []);

@@ -1,5 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+
 import { useParams, useHistory } from 'react-router-dom';
 import axios from 'axios';
 import EditButtons from '../common/editButtons';
@@ -10,11 +11,12 @@ function CollectionPage() {
   const params = useParams();
   const history = useHistory();
   let postsTemplate;
-  const [collectionData, setCollectionData] = React.useState();
-  const [activeModal, setActiveModal] = React.useState('');
-  React.useEffect(() => {
+  const [collectionData, setCollectionData] = useState();
+  const [activeModal, setActiveModal] = useState('');
+  useEffect(() => {
     axios
       .get(`http://localhost:5000/api/collection/${params.Id}`)
+      // .get(`http://localhost:5000/api/collection/633828a8bc8cbff8d3a0f1bd`)
       .then((response) => response)
       .then((data) => setCollectionData(data.data))
       .catch((error) => console.log(error));
@@ -51,6 +53,17 @@ function CollectionPage() {
           )}
           fieldsCount={collectionData.postsTemplate.length - 1}
           modalType={'Edit'}
+        />
+      )}
+      {activeModal === 'delete' && collectionData && (
+        <EditItemsModal
+          posts={collectionData.posts}
+          postsTemplates={collectionData.postsTemplate.slice(
+            1,
+            collectionData.postsTemplate.length,
+          )}
+          fieldsCount={collectionData.postsTemplate.length - 1}
+          modalType={'Delete'}
         />
       )}
       {collectionData && (

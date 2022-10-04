@@ -1,5 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+
 import CustomField from '../../form/customField';
 import SelectField from '../../form/selectedField';
 import TextAreaField from '../../form/textAreaField';
@@ -8,21 +9,28 @@ import TagsField from '../../form/tagsField';
 
 function EditItemsModal({ modalType, posts, postsTemplates, onActive, fieldsCount }) {
   let targetElement;
-  const [fieldValue, setFieldValue] = React.useState([]);
+  const [fieldValue, setFieldValue] = useState([]);
 
-  const [editItem, setEditItem] = React.useState({
+  const [editItem, setEditItem] = useState({
     item: '',
     tags: [],
   });
-  React.useEffect(() => {
-    let count = fieldsCount;
-    const fieldArr = [];
-    while (count > 0) {
-      count--;
-      fieldArr.push({ value: '' });
+  useEffect(() => {
+    if (editItem.item && fieldsCount === 'Edit') {
+      let count = fieldsCount;
+      const fieldArr = [];
+      while (count > 0) {
+        count--;
+        //  додумать как получать значения в value
+        // fieldArr.push({ value: targetElement.fields[count] });
+        fieldArr.push({ value: '' });
+        // console.log(targetElement.fields[count]);
+      }
+      console.log(fieldArr);
+      setFieldValue(fieldArr);
+      setEditItem((prevState) => ({ ...prevState, tags: [...targetElement.tags] }));
     }
-    setFieldValue(fieldArr);
-  }, []);
+  }, [editItem.item]);
   const handleChange = (target) => {
     setEditItem((prevState) => ({
       ...prevState,
@@ -30,7 +38,10 @@ function EditItemsModal({ modalType, posts, postsTemplates, onActive, fieldsCoun
     }));
   };
   if (editItem.item) {
-    targetElement = posts.find((item) => item.name === editItem.item);
+    targetElement = posts.find((item) => item._id === editItem.item);
+    // const targetElementIndex = posts.findIndex((item) => item.name === editItem.item);
+
+    // console.log(targetElement);
   }
   const collectionsNames = posts.map((item) => item._id);
 
@@ -53,7 +64,7 @@ function EditItemsModal({ modalType, posts, postsTemplates, onActive, fieldsCoun
     }));
   };
   const handleSubmit = () => {
-    console.log(targetElement._id);
+    // console.log();
   };
   return (
     <div className="modal-dialog modal-dialog-centered w-50 bg-light absolute-top mx-3 mt-3 p-3">
@@ -91,6 +102,7 @@ function EditItemsModal({ modalType, posts, postsTemplates, onActive, fieldsCoun
                 index={index}
                 value={item.value}
                 data={fieldValue.value}
+                placeholder={targetElement.fields[index]}
               />
             ))}
           </>

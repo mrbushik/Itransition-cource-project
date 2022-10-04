@@ -1,6 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+
 import { useParams } from 'react-router-dom';
 import TextField from '../../Components/common/form/textField';
 import { validator } from '../utils/validator';
@@ -9,16 +10,16 @@ import { useHistory } from 'react-router-dom';
 
 function Login() {
   const { type } = useParams();
-  const [formType, setFormType] = React.useState(type === 'register' ? type : 'login');
+  const [formType, setFormType] = useState(type === 'register' ? type : 'login');
   const togleFormType = () => {
     setFormType((pervState) => (pervState === 'register' ? 'login' : 'register'));
   };
-  const [data, setData] = React.useState({
+  const [data, setData] = useState({
     username: '',
     password: '',
   });
-  const [errors, setErrors] = React.useState({});
-  // const [auth, setAuth] = React.useState();
+  const [errors, setErrors] = useState({});
+  // const [auth, setAuth] = useState();
   const history = useHistory();
 
   const handleChange = (target) => {
@@ -43,7 +44,7 @@ function Login() {
       },
     },
   };
-  React.useEffect(() => {
+  useEffect(() => {
     validate();
   }, [data]);
   const validate = () => {

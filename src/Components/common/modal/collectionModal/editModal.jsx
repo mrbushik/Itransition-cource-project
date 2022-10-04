@@ -1,11 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
+
 import SelectField from '../../form/selectedField';
 import TextAreaField from '../../form/textAreaField';
 import TextField from '../../form/textField';
 
 function EditModal({ modalType, collections, onActive }) {
   let targetElement;
-  const [editItem, setEditItem] = React.useState({
+  const [editItem, setEditItem] = useState({
     item: '',
     name: '',
     description: '',

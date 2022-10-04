@@ -1,6 +1,7 @@
 /* eslint-disable no-useless-computed-key */
 /* eslint-disable react-hooks/exhaustive-deps */
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+
 import TextField from '../../form/textField';
 import { validator } from '../../../utils/validator';
 import TagsField from '../../form/tagsField';
@@ -10,12 +11,12 @@ import CustomField from '../../form/customField';
 
 function CreateItemsModal({ onClose, fieldsCount, addingFields, collectionId }) {
   // потом надо будте хранить айди автора и его имя
-  const [postItem, setPostItem] = React.useState({
+  const [postItem, setPostItem] = useState({
     name: '',
     tags: [],
   });
-  const [fieldValue, setFieldValue] = React.useState([]);
-  const [errors, setErrors] = React.useState({});
+  const [fieldValue, setFieldValue] = useState([]);
+  const [errors, setErrors] = useState({});
 
   const sendingData = {
     tags: postItem.tags,
@@ -41,7 +42,7 @@ function CreateItemsModal({ onClose, fieldsCount, addingFields, collectionId }) 
     const errors = validator(postItem, validatorConfig);
     setErrors(errors);
   };
-  React.useEffect(() => {
+  useEffect(() => {
     validate();
   }, [postItem]);
   const isValid = Object.keys(errors).length === 0;
@@ -65,7 +66,7 @@ function CreateItemsModal({ onClose, fieldsCount, addingFields, collectionId }) 
     console.log(sendingData);
   };
 
-  React.useEffect(() => {
+  useEffect(() => {
     let count = fieldsCount;
     const fieldArr = [];
     while (count > 0) {

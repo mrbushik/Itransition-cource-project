@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 function UploadField({ name, onSave, isUrl }) {
-  const [link, setLink] = React.useState('');
+  const [link, setLink] = useState('');
   const handleLink = (e) => {
     setLink(e);
   };
