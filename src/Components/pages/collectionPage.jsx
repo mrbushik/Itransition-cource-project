@@ -30,7 +30,7 @@ function CollectionPage() {
       <button className="btn btn-secondary ms-3 mt-3" onClick={goBack}>
         Back
       </button>
-      {collectionData && <EditButtons onToggle={toggleActiveModal} />}
+      <EditButtons onToggle={toggleActiveModal} />
       {/* {collectionData && (
         <EditItemsModal
           collections={collectionData.posts}
@@ -38,9 +38,14 @@ function CollectionPage() {
           onActive={toggleActiveModal}
         />
       )} */}
-      {collectionData && (
+      {activeModal === 'create' && collectionData && (
         // если будут лишние поля проблема тут
-        <CreateItemsModal fieldsCount={collectionData.postsTemplate.length - 1} />
+        <CreateItemsModal
+          fieldsCount={collectionData.postsTemplate.length - 2}
+          addingFields={collectionData.postsTemplate.slice(2, collectionData.length)}
+          collectionId={params}
+          onClose={toggleActiveModal}
+        />
       )}
       {collectionData && (
         <>

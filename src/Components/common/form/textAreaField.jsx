@@ -9,7 +9,7 @@ function TextAreaField({ value, label, placeholder, onChange, name }) {
       <label htmlFor={name}>{label}</label>
       <div className="input-group has-validation">
         <textarea
-          type={'text'}
+          type="text"
           id={name}
           name={name}
           placeholder={placeholder ? placeholder : ''}

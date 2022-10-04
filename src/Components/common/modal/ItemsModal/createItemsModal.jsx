@@ -8,31 +8,24 @@ import SelectField from '../../form/selectedField';
 import AddFieldForm from '../../form/addFieldForm';
 import { validator } from '../../../utils/validator';
 import TagsField from '../../form/tagsField';
+import CustomField from '../../form/customField';
+import EditItemsModal from './editItemsModal';
 
-function CreateItemsModal({ onActive, fieldsCount }) {
+function CreateItemsModal({ onClose, fieldsCount, addingFields, collectionId }) {
   // потом надо будте хранить айди автора и его имя
-  const [collection, setCollection] = React.useState({
+  const [postItem, setPostItem] = React.useState({
     name: '',
-    photoUrl: '',
-    theme: '',
+    tags: [],
   });
   const [fieldValue, setFieldValue] = React.useState([]);
   const [errors, setErrors] = React.useState({});
 
   const sendingData = {
-    _authorId: '63356ff4ed30ed38a56c14f8',
-    authorName: 'user',
-    name: collection.name,
-    icon: collection.photoUrl,
-    postsTemplate: [
-      { type: 'string', description: 'tags' },
-      { type: 'string', description: 'name' },
-    ],
-    posts: [],
-    type: collection.theme,
-    description: 'it is good songs',
-    likes: [],
-    comments: [],
+    tags: postItem.tags,
+    collectionId: collectionId.Id,
+    date: Date.now(),
+    fields: [{ name: postItem.name }, ...fieldValue],
+    ownerId: 'AuthorId',
   };
 
   const validatorConfig = {
@@ -48,12 +41,12 @@ function CreateItemsModal({ onActive, fieldsCount }) {
     },
   };
   const validate = () => {
-    const errors = validator(collection, validatorConfig);
+    const errors = validator(postItem, validatorConfig);
     setErrors(errors);
   };
   React.useEffect(() => {
     validate();
-  }, [collection]);
+  }, [postItem]);
   const isValid = Object.keys(errors).length === 0;
 
   const validateAddingFields = () => {
@@ -66,12 +59,13 @@ function CreateItemsModal({ onActive, fieldsCount }) {
     return err;
   };
   const onSubmit = () => {
-    const errors = validator(collection, validatorConfig);
-    setErrors(errors);
-    if (isValid && collection.photoUrl && validateAddingFields() === 0) {
-      sendingData.postsTemplate.push(...fieldValue);
-      console.log(sendingData);
-    }
+    // const errors = validator(postItem, validatorConfig);
+    // setErrors(errors);
+    // if (isValid && ) {
+    //   sendingData.postsTemplate.push(...fieldValue);
+    //   console.log(sendingData);
+    // }
+    console.log(sendingData);
   };
 
   React.useEffect(() => {
@@ -79,66 +73,69 @@ function CreateItemsModal({ onActive, fieldsCount }) {
     const fieldArr = [];
     while (count > 0) {
       count--;
-      fieldArr.push({ type: '', description: '' });
+      fieldArr.push({ value: '' });
     }
     setFieldValue(fieldArr);
   }, []);
   const handleChangeField = (event, index, fieldType) => {
+    console.log(event);
     const inputdata = [...fieldValue];
-    if (fieldType === 'type') {
-      inputdata[index].type = event;
-    } else {
-      inputdata[index].description = event;
-    }
+    inputdata[index].value = event;
     setFieldValue(inputdata);
   };
 
   const handleChange = (target) => {
-    setCollection((prevState) => ({
+    setPostItem((prevState) => ({
       ...prevState,
       [target.name]: target.value,
     }));
   };
-  //test
-  const [tags, setTags] = React.useState([]);
 
   const handleKeyDown = (e) => {
     if (e.key !== 'Enter') return;
     const value = e.target.value;
     if (!value.trim()) return;
-    setTags([...tags, value]);
+    setPostItem((prevState) => ({ ...prevState, tags: [...postItem.tags, value] }));
     e.target.value = '';
   };
-
   const handleDeletTag = (index) => {
-    setTags(tags.filter((el, i) => i !== index));
+    setPostItem((prevState) => ({
+      ...prevState,
+      tags: postItem.tags.filter((el, i) => i !== index),
+    }));
   };
 
-  //test
   return (
     <>
       <div className="modal-dialog modal-dialog-centered w-50 bg-light absolute-top mx-3 mt-3 p-3">
         <div className="modal-content">
           <div className="modal-header">
-            <h5 className="modal-title">Create new collection</h5>
-            <button type="button" className="close" onClick={onActive}>
+            <h5 className="modal-title">Create new Item</h5>
+            <button type="button" className="close" onClick={onClose}>
               <span>x</span>
             </button>
           </div>
 
-          <TagsField tags={tags} onDeleteTag={handleDeletTag} onKeyDown={handleKeyDown} />
-
-          {fieldValue.map((data, index) => (
-            <AddFieldForm
-              type="multiField"
-              key={index}
-              handleChangeField={handleChangeField}
-              index={index}
-              dataType={data.type}
-              dataDescription={data.description}
-              delitingForm={true}
-            />
-          ))}
+          <TagsField tags={postItem.tags} onDeleteTag={handleDeletTag} onKeyDown={handleKeyDown} />
+          <TextField
+            label="name"
+            type="text"
+            name="name"
+            value={fieldValue.name}
+            onChange={handleChange}
+          />
+          {fieldValue &&
+            fieldValue.map((item, index) => (
+              <CustomField
+                key={index}
+                label={addingFields[index].description}
+                type={addingFields[index].type}
+                handleChangeField={handleChangeField}
+                index={index}
+                value={item.value}
+                data={fieldValue.value}
+              />
+            ))}
           <div className="modal-footer">
             <button
               type="button"
@@ -147,7 +144,7 @@ function CreateItemsModal({ onActive, fieldsCount }) {
               disabled={!isValid}>
               Save changes
             </button>
-            <button type="button" className="btn btn-secondary mx-3" onClick={onActive}>
+            <button type="button" className="btn btn-secondary mx-3" onClick={onClose}>
               Close
             </button>
           </div>
