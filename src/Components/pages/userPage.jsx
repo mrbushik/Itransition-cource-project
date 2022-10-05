@@ -17,15 +17,15 @@ function UserPage() {
   const toggleActiveModal = (value) => setActiveModal(value);
   return (
     <>
-      <EditButtons onToggle={toggleActiveModal} />
+      <EditButtons onToggle={toggleActiveModal} btnList={['Create', 'Edit', 'Delete']} />
 
       <div className="d-flex">
         {/* передать ID коллекции в пропс */}
-        {activeModal === 'create' && <Modal onActive={toggleActiveModal} />}
-        {activeModal === 'edit' && collections && (
+        {activeModal === 'Create' && <Modal onActive={toggleActiveModal} />}
+        {activeModal === 'Edit' && collections && (
           <EditModal collections={collections} modalType={'Edit'} onActive={toggleActiveModal} />
         )}
-        {activeModal === 'delete' && collections && (
+        {activeModal === 'Delete' && collections && (
           <EditModal collections={collections} onActive={toggleActiveModal} modalType={'Delete'} />
         )}
         {collections

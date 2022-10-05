@@ -61,8 +61,8 @@ function Login() {
     if (!isValid) return;
     console.log(data);
     formType === 'login'
-      ? loginRequest('http://localhost:5000/auth/login', data, setErrors)
-      : loginRequest('http://localhost:5000/auth/registration', data, setErrors);
+      ? loginRequest('http://localhost:5000/api/login', data, setErrors)
+      : loginRequest('http://localhost:5000/api/registration', data, setErrors);
   };
   if (errors.token) {
     history.push('/');
@@ -103,12 +103,16 @@ function Login() {
               )}
             </form>
             <p>Already have account?</p>{' '}
-            <a role="button" onClick={togleFormType}>
-              Sing In
-            </a>
-            <a role="button" onClick={togleFormType}>
-              Sing Un
-            </a>
+            {formType === 'register' && (
+              <a role="button" onClick={togleFormType}>
+                Sing In
+              </a>
+            )}
+            {formType === 'login' && (
+              <a role="button" onClick={togleFormType}>
+                Sing Un
+              </a>
+            )}
           </div>
         </div>
       </div>

@@ -32,9 +32,9 @@ function CollectionPage() {
       <button className="btn btn-secondary ms-3 mt-3" onClick={goBack}>
         Back
       </button>
-      <EditButtons onToggle={toggleActiveModal} />
+      <EditButtons onToggle={toggleActiveModal} btnList={['Create', 'Edit', 'Delete']} />
 
-      {activeModal === 'create' && collectionData && (
+      {activeModal === 'Create' && collectionData && (
         // предусмотреть что дополнительных полей нет
         <CreateItemsModal
           fieldsCount={collectionData.postsTemplate.length - 2}
@@ -44,24 +44,26 @@ function CollectionPage() {
           onClose={toggleActiveModal}
         />
       )}
-      {activeModal === 'edit' && collectionData && (
+      {activeModal === 'Edit' && collectionData && (
         <EditItemsModal
           posts={collectionData.posts}
           postsTemplates={collectionData.postsTemplate.slice(
             1,
             collectionData.postsTemplate.length,
           )}
+          onClose={toggleActiveModal}
           fieldsCount={collectionData.postsTemplate.length - 1}
           modalType={'Edit'}
         />
       )}
-      {activeModal === 'delete' && collectionData && (
+      {activeModal === 'Delete' && collectionData && (
         <EditItemsModal
           posts={collectionData.posts}
           postsTemplates={collectionData.postsTemplate.slice(
             1,
             collectionData.postsTemplate.length,
           )}
+          onClose={toggleActiveModal}
           fieldsCount={collectionData.postsTemplate.length - 1}
           modalType={'Delete'}
         />

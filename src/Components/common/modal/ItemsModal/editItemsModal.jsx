@@ -3,11 +3,9 @@ import React, { useEffect, useState } from 'react';
 
 import CustomField from '../../form/customField';
 import SelectField from '../../form/selectedField';
-import TextAreaField from '../../form/textAreaField';
-import TextField from '../../form/textField';
 import TagsField from '../../form/tagsField';
 
-function EditItemsModal({ modalType, posts, postsTemplates, onActive, fieldsCount }) {
+function EditItemsModal({ modalType, posts, postsTemplates, onClose, fieldsCount }) {
   let targetElement;
   const [fieldValue, setFieldValue] = useState([]);
 
@@ -71,7 +69,7 @@ function EditItemsModal({ modalType, posts, postsTemplates, onActive, fieldsCoun
       <div className="modal-content h-100">
         <div className="modal-header">
           <h5 className="modal-title">{modalType}</h5>
-          <button type="button" className="close" onClick={onActive}>
+          <button type="button" className="close" onClick={onClose}>
             <span>x</span>
           </button>
         </div>
@@ -115,7 +113,7 @@ function EditItemsModal({ modalType, posts, postsTemplates, onActive, fieldsCoun
           >
             {modalType}
           </button>
-          <button type="button" className="btn btn-secondary mx-3" onClick={onActive}>
+          <button type="button" className="btn btn-secondary mx-3" onClick={onClose}>
             Close
           </button>
         </div>
