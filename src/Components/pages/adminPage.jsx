@@ -1,8 +1,11 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import UserTableItem from '../ui/userTableItem';
 import EditButtons from '../common/editButtons';
 import { unblock, block, deleteUser, getAdmin, pickUpAdmin } from '../utils/adminRequests';
+import { useHistory } from 'react-router-dom';
+import NavBar from '../navigation/navBar';
 function AdminPage() {
   const [users, setUsers] = useState();
   const [selectedUser, setSelectedUser] = useState({
@@ -11,11 +14,21 @@ function AdminPage() {
   const [errors, setErrors] = useState();
   const buttons = ['Unblock', 'Block', 'Delete', 'Get admin', 'Pick up admin'];
   const requests = [unblock, block, deleteUser, getAdmin, pickUpAdmin];
+  const history = useHistory();
+  const role = localStorage.getItem('role');
   useEffect(() => {
-    axios
-      .get('http://localhost:5000/api/all-users')
-      .then((response) => response)
-      .then((data) => setUsers(data.data.users));
+    if (role !== 'ADMIN') {
+      history.push('/');
+    }
+  }, []);
+
+  useEffect(() => {
+    if (role === 'ADMIN') {
+      axios
+        .get('http://localhost:5000/api/all-users')
+        .then((response) => response)
+        .then((data) => setUsers(data.data.users));
+    }
   }, []);
   const handleChange = (target) => {
     setSelectedUser((prevState) => ({
@@ -43,6 +56,7 @@ function AdminPage() {
   };
   return (
     <>
+      <NavBar />
       <EditButtons onToggle={handlRequest} btnList={buttons} />
       {errors && <div className="text-danger fs-4 ms-3">{errors}</div>}
       <table className="table">

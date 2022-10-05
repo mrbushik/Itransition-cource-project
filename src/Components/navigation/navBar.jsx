@@ -2,13 +2,27 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 function NavBar() {
+  const userName = localStorage.getItem('user');
+  const userRole = localStorage.getItem('role');
+  const deleteUserData = () => {
+    localStorage.removeItem('user');
+    localStorage.removeItem('token');
+    localStorage.removeItem('role');
+    localStorage.removeItem('userId');
+  };
   return (
     <nav className="navbar navbar-expand-lg bg-light">
       <div className="container-fluid">
-        <Link to="/login" className="navbar-brand">
-          LOG IN
+        <Link to="/" className="text-decoration-none">
+          Main page
         </Link>
-
+        {userRole === 'ADMIN' ? (
+          <Link to="/admin-panel" className="text-decoration-none ms-2">
+            Admin panel
+          </Link>
+        ) : (
+          ''
+        )}
         <button className="navbar-toggler">
           <span className="navbar-toggler-icon"></span>
         </button>
@@ -25,17 +39,19 @@ function NavBar() {
               </a>
             </li>
           </ul>
-          <form className="d-flex" role="search">
-            <input
-              className="form-control me-2"
-              type="search"
-              placeholder="Search"
-              aria-label="Search"
-            />
-            <button className="btn btn-outline-success" type="submit">
-              Search
-            </button>
-          </form>
+          <div>
+            {userName && <span className="fs-4 mx-2">{userName}</span>}
+            <div className="vr bg-dark"></div>
+            {userName ? (
+              <Link to="/login" className="navbar-brand ms-2" onClick={deleteUserData}>
+                LOG OUT
+              </Link>
+            ) : (
+              <Link to="/login" className="navbar-brand ms-2">
+                LOG IN
+              </Link>
+            )}
+          </div>
         </div>
       </div>
     </nav>

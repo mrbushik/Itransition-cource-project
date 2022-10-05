@@ -6,6 +6,8 @@ import axios from 'axios';
 import EditButtons from '../common/editButtons';
 import EditItemsModal from '../common/modal/ItemsModal/editItemsModal';
 import CreateItemsModal from '../common/modal/ItemsModal/createItemsModal';
+import NavBar from '../navigation/navBar';
+import PostItem from '../ui/postItem';
 
 function CollectionPage() {
   const params = useParams();
@@ -29,6 +31,7 @@ function CollectionPage() {
 
   return (
     <>
+      <NavBar />
       <button className="btn btn-secondary ms-3 mt-3" onClick={goBack}>
         Back
       </button>
@@ -83,15 +86,13 @@ function CollectionPage() {
             </thead>
             <tbody>
               {collectionData &&
+                // можно сделать отдельным компонентом
                 collectionData.posts.map((itemPosts, index) => (
-                  <tr key={itemPosts._id}>
-                    <td>{itemPosts._id}</td>
-                    <td>{itemPosts.tags}</td>
-                    {Object.values(itemPosts.fields).map((item, index) => (
-                      <td key={index}>{item}</td>
-                    ))}
-                    <th></th>
-                  </tr>
+                  <PostItem
+                    id={itemPosts._id}
+                    tags={itemPosts.tags}
+                    otherFields={itemPosts.fields}
+                  />
                 ))}
             </tbody>
           </table>

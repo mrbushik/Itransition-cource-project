@@ -1,38 +1,41 @@
 /* eslint-disable no-useless-computed-key */
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 
 import UploadField from '../../form/uploadField';
-// import TextField from '../form/textField';
 import TextField from '../../form/textField';
 import SelectField from '../../form/selectedField';
 import AddFieldForm from '../../form/addFieldForm';
-import { validator } from '../../../utils/validator';
+import TextAreaField from '../../form/textAreaField';
 
-function Modal({ onActive }) {
-  // потом надо будте хранить айди автора и его имя
+import { validator } from '../../../utils/validator';
+import { createCollection } from '../../../services/createRequest';
+
+function Modal({ onActive, updateCollections }) {
+  const userId = localStorage.getItem('userId');
+  const userName = localStorage.getItem('userId');
+  const URL = 'http://localhost:5000/api/add-collection';
   const [collection, setCollection] = useState({
     name: '',
     photoUrl: '',
     theme: '',
+    description: '',
   });
   const [fieldValue, setFieldValue] = useState([]);
   const [errors, setErrors] = useState({});
 
   const sendingData = {
-    _authorId: '63356ff4ed30ed38a56c14f8',
-    authorName: 'user',
+    _ownerId: userId,
+    ownerName: userName,
     name: collection.name,
     icon: collection.photoUrl,
     postsTemplate: [
       { type: 'string', description: 'tags' },
       { type: 'string', description: 'name' },
     ],
-    posts: [],
     type: collection.theme,
-    description: 'it is good songs',
-    likes: [],
-    comments: [],
+    description: collection.description,
   };
 
   const validatorConfig = {
@@ -42,6 +45,11 @@ function Modal({ onActive }) {
       },
     },
     theme: {
+      isRequired: {
+        message: 'this field is required',
+      },
+    },
+    description: {
       isRequired: {
         message: 'this field is required',
       },
@@ -70,6 +78,7 @@ function Modal({ onActive }) {
       ['photoUrl']: file.secure_url,
     }));
   };
+
   const validateAddingFields = () => {
     let err = 0;
     for (let i = 0; i < fieldValue.length; i++) {
@@ -79,12 +88,12 @@ function Modal({ onActive }) {
     }
     return err;
   };
-  const onSubmit = () => {
+  const onSubmit = async () => {
     const errors = validator(collection, validatorConfig);
     setErrors(errors);
     if (isValid && collection.photoUrl && validateAddingFields() === 0) {
       sendingData.postsTemplate.push(...fieldValue);
-      console.log(sendingData);
+      await createCollection(URL, sendingData, updateCollections);
     }
   };
 
@@ -131,6 +140,14 @@ function Modal({ onActive }) {
                 value={collection.name}
                 onChange={handleChange}
                 error={errors.name}
+              />
+              <TextAreaField
+                name="description"
+                value={collection.description}
+                onChange={handleChange}
+                placeholder={'description for you collection'}
+                label={'description for you collection'}
+                error={errors.description}
               />
               <SelectField
                 label="Choose collection type"

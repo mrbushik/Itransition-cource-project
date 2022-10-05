@@ -4,20 +4,22 @@ import { Route, Switch, Redirect } from 'react-router-dom';
 import CollectionPage from './Components/pages/collectionPage';
 import Login from './Components/pages/login';
 import AdminPage from './Components/pages/adminPage';
+import MainPage from './Components/pages/mainPage';
 
 function App() {
   return (
     <>
-      <NavBar />
       <Switch>
         {/* заменить path ибо станица коллекции будет зависить от id  */}
         {/* поменять в дальнейшем на реальную главную страницу */}
 
         <Route path="/admin-panel" component={AdminPage} />
         <Route path="/login" component={Login} />
-        <Route path="/:Id" component={CollectionPage} />
-        <Route path="/" component={UserPage} />
-
+        <Route path="/collection/:Id" component={CollectionPage} />
+        <Route path="/collection" component={UserPage} />
+        {/* <Route path="/" component={MainPage} />
+         */}
+        <Route path="/" component={MainPage} />
         <Redirect to="/" />
       </Switch>
     </>

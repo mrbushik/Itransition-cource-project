@@ -1,8 +1,11 @@
 import React from 'react';
 
-function TextAreaField({ value, label, placeholder, onChange, name }) {
+function TextAreaField({ value, label, placeholder, onChange, name, error }) {
   const handleChange = ({ target }) => {
     onChange({ name: target.name, value: target.value });
+  };
+  const getInputClasses = () => {
+    return 'form-control' + (error ? ' is-invalid' : '');
   };
   return (
     <div className="mb-1">
@@ -15,7 +18,8 @@ function TextAreaField({ value, label, placeholder, onChange, name }) {
           placeholder={placeholder ? placeholder : ''}
           value={value}
           onChange={handleChange}
-          className={'form-control'}></textarea>
+          className={getInputClasses()}></textarea>
+        {error && <div className="invalid-feedback">{error}</div>}
       </div>
     </div>
   );

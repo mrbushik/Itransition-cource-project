@@ -3,8 +3,8 @@ import { Link } from 'react-router-dom';
 
 function UserCollection({ authorName, description, icon, name, type, id }) {
   return (
-    <Link to={`/${id}`} className="text-decoration-none">
-      <div className="border border-primary m-3">
+    <Link to={`collection/${id}`} className="text-decoration-none" style={{ width: '300px' }}>
+      <div className="border border-primary m-3" style={{ width: 'fit-content' }}>
         <span className="text-decoration-none text-reset ms-2">autor:</span>
         <span className="ms-3">{authorName}</span>
         <div>
@@ -14,10 +14,10 @@ function UserCollection({ authorName, description, icon, name, type, id }) {
         <div className="m-2">
           <div
             className="d-flex justify-content-center  mt-2 mb-2"
-            style={{ width: '150px', height: '150px' }}>
+            style={{ width: '300px', height: '250px' }}>
             <img
               className="rounded-0"
-              style={{ maxWidth: '150px', maxHeight: '150px' }}
+              style={{ maxWidth: '300px', maxHeight: '250px' }}
               src={icon}
               alt="img"
             />

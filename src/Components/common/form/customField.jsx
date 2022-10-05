@@ -39,7 +39,7 @@ function CustomField({ type, label, handleChangeField, index, value, placeholder
           <>
             <TextAreaField
               name="value"
-              checked={value}
+              value={value}
               onChange={handleChangeTextArea}
               placeholder={placeholder ? placeholder : ''}
             />

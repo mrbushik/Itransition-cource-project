@@ -19,7 +19,7 @@ function Login() {
     password: '',
   });
   const [errors, setErrors] = useState({});
-  // const [auth, setAuth] = useState();
+  const [auth, setAuth] = useState({});
   const history = useHistory();
 
   const handleChange = (target) => {
@@ -61,12 +61,27 @@ function Login() {
     if (!isValid) return;
     console.log(data);
     formType === 'login'
-      ? loginRequest('http://localhost:5000/api/login', data, setErrors)
+      ? loginRequest('http://localhost:5000/api/login', data, setErrors, setAuth)
       : loginRequest('http://localhost:5000/api/registration', data, setErrors);
   };
-  if (errors.token) {
-    history.push('/');
-  }
+  const writeUserData = () => {
+    localStorage.setItem('user', auth.username);
+    localStorage.setItem('token', auth.token);
+    localStorage.setItem('role', auth.userRole);
+    localStorage.setItem('userId', auth.userId);
+  };
+  useEffect(() => {
+    if (localStorage.getItem('token')) {
+      history.push('/collection');
+    }
+  }, []);
+  useEffect(() => {
+    if (auth.token) {
+      writeUserData();
+      history.push('/collection');
+    }
+  }, [auth]);
+
   return (
     <>
       <div className="container mt-5">
