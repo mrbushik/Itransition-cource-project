@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
 
 import UserCollection from '../ui/userCollection';
 import Modal from '../common/modal/collectionModal/modal';
@@ -22,7 +21,7 @@ function UserPage() {
     <>
       <NavBar />
       <EditButtons onToggle={toggleActiveModal} btnList={['Create', 'Edit', 'Delete']} />
-      <div className="d-flex">
+      <div>
         {/* передать ID коллекции в пропс */}
         {activeModal === 'Create' && (
           <Modal onActive={toggleActiveModal} updateCollections={updateCollections} />
@@ -33,23 +32,23 @@ function UserPage() {
         {activeModal === 'Delete' && collections && (
           <EditModal collections={collections} onActive={toggleActiveModal} modalType={'Delete'} />
         )}
-        <div>
-          {collections
-            ? collections.map((item, index) => (
-                <UserCollection
-                  description={item.description}
-                  key={index}
-                  id={item._id}
-                  type={item.type}
-                  authorName={item.authorName}
-                  icon={item.icon}
-                  name={item.name}
-                  collectionDescription={item.collectionDescription}
-                  {...item}
-                />
-              ))
-            : ''}
-        </div>
+      </div>
+      <div className="d-flex justify-content-center flex-wrap w-100 mt-4">
+        {collections
+          ? collections.map((item, index) => (
+              <UserCollection
+                description={item.description}
+                key={index}
+                id={item._id}
+                type={item.type}
+                authorName={item.authorName}
+                icon={item.icon}
+                name={item.name}
+                collectionDescription={item.collectionDescription}
+                {...item}
+              />
+            ))
+          : ''}
       </div>
     </>
   );

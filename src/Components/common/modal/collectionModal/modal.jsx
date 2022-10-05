@@ -123,7 +123,7 @@ function Modal({ onActive, updateCollections }) {
   };
   return (
     <>
-      <div className="modal-dialog modal-dialog-centered w-50 bg-light absolute-top mx-3 mt-3 p-3">
+      <div className="modal-dialog modal-dialog-centered w-75 bg-light absolute-top mx-3 mt-3 p-3">
         <div className="modal-content">
           <div className="modal-header">
             <h5 className="modal-title">Create new collection</h5>
@@ -171,9 +171,6 @@ function Modal({ onActive, updateCollections }) {
             <div>
               <div className="d-flex justify-content-between mt-3 mb-3">
                 <h5>Additional fields</h5>
-                <button className="btn btn-secondary  " onClick={() => handleAddField()}>
-                  add field
-                </button>
               </div>
               {fieldValue.map((data, index) => (
                 <AddFieldForm
@@ -186,6 +183,9 @@ function Modal({ onActive, updateCollections }) {
                 />
               ))}
             </div>
+            <button className="btn btn-secondary  " onClick={() => handleAddField()}>
+              add field
+            </button>
           </div>
           <div className="modal-footer">
             <button
