@@ -21,14 +21,12 @@ function TextField({ label, type, name, value, onChange, error, group, placehold
           type={showPassword ? 'text' : type}
           id={name}
           name={name}
-          value={value}
+          value={value ? value : placeholder}
           onChange={handleChange}
           className={getInputClasses()}
         />
         {type === 'password' && (
           <button className="btn btn-outline-secondary" type="button" onClick={toggleShowPassword}>
-            {/* <i className={'bi bi-eye' + (showPassword ? '-slash' : '')}></i>
-             */}
             {showPassword ? (
               <svg
                 xmlns="http://www.w3.org/2000/svg"

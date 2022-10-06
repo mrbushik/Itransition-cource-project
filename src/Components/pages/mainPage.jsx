@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+
 import NavBar from '../navigation/navBar';
 import UserCollection from '../ui/userCollection';
 import Modal from '../common/modal/collectionModal/modal';
@@ -20,10 +21,13 @@ function MainPage() {
     getUserCollection(URL, setCollections);
     getUserPages(URL, setTotalCollections);
   }, []);
+
   useEffect(() => {
     getUserCollection(URL, setCollections);
   }, [currentPage]);
+
   const toggleActiveModal = (value) => setActiveModal(value);
+
   const getCollectionsPages = (count) => setCurrentPage(count);
 
   return (

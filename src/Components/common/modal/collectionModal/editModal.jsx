@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { useEffect, useState } from 'react';
 
 import SelectField from '../../form/selectedField';
 import TextAreaField from '../../form/textAreaField';
@@ -18,9 +19,21 @@ function EditModal({ modalType, collections, onActive }) {
       [target.name]: target.value,
     }));
   };
+
   if (editItem.item) {
     targetElement = collections.find((item) => item.name === editItem.item);
   }
+  useEffect(() => {
+    if (targetElement) {
+      const defailtInputValue = {
+        item: editItem.item,
+        name: targetElement.name,
+        description: targetElement.description,
+        type: targetElement.type,
+      };
+      setEditItem(defailtInputValue);
+    }
+  }, [editItem.item]);
   const collectionsNames = collections.map((item) => item.name);
   const handleSubmit = () => {
     console.log(targetElement._id);
@@ -50,7 +63,6 @@ function EditModal({ modalType, collections, onActive }) {
             <TextField
               label="collection name"
               type="text"
-              placeholder={targetElement.name}
               name="name"
               value={editItem.name}
               onChange={handleChange}
@@ -59,7 +71,6 @@ function EditModal({ modalType, collections, onActive }) {
               label="Choose collection type"
               name="theme"
               options={['books', 'clothes', 'sings']}
-              defaultOption={targetElement.type}
               onChange={handleChange}
               value={editItem.type}
             />
@@ -67,7 +78,6 @@ function EditModal({ modalType, collections, onActive }) {
               name="description"
               value={editItem.description}
               label={'collection description'}
-              placeholder={targetElement.description}
               onChange={handleChange}
             />
           </div>

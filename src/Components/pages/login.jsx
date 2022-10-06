@@ -1,12 +1,12 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useEffect, useState } from 'react';
+import { useParams, useHistory } from 'react-router-dom';
 
-import { useParams } from 'react-router-dom';
 import TextField from '../../Components/common/form/textField';
+
 import { validator } from '../utils/validator';
-import { loginRequest } from '../utils/loginRequest';
-import { useHistory } from 'react-router-dom';
+import { loginRequest } from '../services/loginRequest';
 
 function Login() {
   const { type } = useParams();
@@ -28,6 +28,7 @@ function Login() {
       [target.name]: target.value,
     }));
   };
+
   const validatorConfig = {
     username: {
       isRequired: {
@@ -44,15 +45,17 @@ function Login() {
       },
     },
   };
+
   useEffect(() => {
     validate();
   }, [data]);
+
   const validate = () => {
     const errors = validator(data, validatorConfig);
-
     setErrors(errors);
     return Object.keys(errors).length === 0;
   };
+
   const isValid = Object.keys(errors).length === 0;
 
   const handleSubmit = (e) => {
@@ -63,17 +66,20 @@ function Login() {
       ? loginRequest('http://localhost:5000/api/login', data, setErrors, setAuth)
       : loginRequest('http://localhost:5000/api/registration', data, setErrors);
   };
+
   const writeUserData = () => {
     localStorage.setItem('user', auth.username);
     localStorage.setItem('token', auth.token);
     localStorage.setItem('role', auth.userRole);
     localStorage.setItem('userId', auth.userId);
   };
+
   useEffect(() => {
     if (localStorage.getItem('token')) {
       history.push('/collection');
     }
   }, []);
+
   useEffect(() => {
     if (auth.token) {
       writeUserData();

@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import UserTableItem from '../ui/userTableItem';
 import EditButtons from '../common/editButtons';
-import { unblock, block, deleteUser, getAdmin, pickUpAdmin } from '../utils/adminRequests';
+import { unblock, block, deleteUser, getAdmin, pickUpAdmin } from '../services/adminRequests';
 import { useHistory } from 'react-router-dom';
 import NavBar from '../navigation/navBar';
 function AdminPage() {

@@ -7,34 +7,26 @@ import EditModal from '../../Components/common/modal/collectionModal/editModal';
 import EditButtons from '../common/editButtons';
 import NavBar from '../navigation/navBar';
 
-import { getUserCollection, getUserPages } from '../services/getInfoRequests';
-import Paginate from '../common/paginate';
+import { getUserCollection } from '../services/getInfoRequests';
 function UserPage() {
   const [collections, setCollections] = useState();
   const [activeModal, setActiveModal] = useState('');
-  const [countCollections, setTotalCollections] = useState();
-  const [currentPage, setCurrentPage] = useState(1);
   const userId = localStorage.getItem('userId');
   const URL = `http://localhost:5000/api/user/${userId} `;
-  // const URL = `http://localhost:5000/api/user/63356ff4ed30ed38a56c14f8 `;
 
   const toggleActiveModal = (value) => setActiveModal(value);
+
   const updateCollections = () => getUserCollection(URL, setCollections);
-  const getCollectionsPages = (count) => setCurrentPage(count);
+
   useEffect(() => {
     getUserCollection(URL, setCollections);
-    // getUserPages(URL, setTotalCollections);
   }, []);
-  useEffect(() => {
-    getUserCollection(URL, setCollections);
-  }, [currentPage]);
 
   return (
     <>
       <NavBar />
       <EditButtons onToggle={toggleActiveModal} btnList={['Create', 'Edit', 'Delete']} />
       <div>
-        {/* передать ID коллекции в пропс */}
         {activeModal === 'Create' && (
           <Modal onActive={toggleActiveModal} updateCollections={updateCollections} />
         )}
@@ -45,7 +37,7 @@ function UserPage() {
           <EditModal collections={collections} onActive={toggleActiveModal} modalType={'Delete'} />
         )}
       </div>
-      <div className="d-flex justify-content-center flex-wrap w-100 mt-4">
+      <div className="mx-auto" style={{ width: '250px' }}>
         {collections ? (
           collections.map((item, index) => (
             <UserCollection

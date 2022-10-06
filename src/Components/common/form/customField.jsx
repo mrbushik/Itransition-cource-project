@@ -1,8 +1,17 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect } from 'react';
 
 import TextAreaField from './textAreaField';
 
-function CustomField({ type, label, handleChangeField, index, value, placeholder }) {
+function CustomField({
+  type,
+  label,
+  handleChangeField,
+  index,
+  value,
+  placeholder,
+  checkboxDefault,
+}) {
   const handleChange = (e) => {
     handleChangeField(e.target.value, index);
   };
@@ -10,7 +19,7 @@ function CustomField({ type, label, handleChangeField, index, value, placeholder
     handleChangeField(!value, index);
   };
   useEffect(() => {
-    if (type === 'checkbox') {
+    if (type === 'checkbox' && !checkboxDefault) {
       handleChangeField(false, index);
     }
   }, []);
@@ -33,7 +42,7 @@ function CustomField({ type, label, handleChangeField, index, value, placeholder
           />
         )}
         {type === 'checkbox' && (
-          <input type={type} name="value" value={!value} onChange={handleCheck} />
+          <input type={type} name="value" checked={value ? true : false} onChange={handleCheck} />
         )}
         {type === 'multiline text' && (
           <>

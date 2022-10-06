@@ -14,21 +14,35 @@ function EditItemsModal({ modalType, posts, postsTemplates, onClose, fieldsCount
     tags: [],
   });
   useEffect(() => {
-    if (editItem.item && fieldsCount === 'Edit') {
-      let count = fieldsCount;
-      const fieldArr = [];
-      while (count > 0) {
-        count--;
-        //  додумать как получать значения в value
-        // fieldArr.push({ value: targetElement.fields[count] });
-        fieldArr.push({ value: '' });
-        // console.log(targetElement.fields[count]);
-      }
-      console.log(fieldArr);
-      setFieldValue(fieldArr);
+    if (targetElement) {
+      console.log(test().reverse());
+      setFieldValue(test().reverse());
       setEditItem((prevState) => ({ ...prevState, tags: [...targetElement.tags] }));
     }
+    // }
   }, [editItem.item]);
+
+  const test = () => {
+    if (
+      targetElement
+      // && fieldsCount === 'Edit'
+    ) {
+      let count = fieldsCount;
+      const fieldArr = [];
+      // console.log(targetElement.fields[0]);
+
+      while (count > 0) {
+        //  додумать как получать значения в value
+        // fieldArr.push({ value: targetElement.fields[count] });
+        count--;
+
+        fieldArr.push({ value: targetElement.fields[count] });
+
+        // console.log(targetElement.fields[count]);
+      }
+      return fieldArr;
+    }
+  };
   const handleChange = (target) => {
     setEditItem((prevState) => ({
       ...prevState,
@@ -38,14 +52,13 @@ function EditItemsModal({ modalType, posts, postsTemplates, onClose, fieldsCount
   if (editItem.item) {
     targetElement = posts.find((item) => item._id === editItem.item);
     // const targetElementIndex = posts.findIndex((item) => item.name === editItem.item);
-
     // console.log(targetElement);
   }
   const collectionsNames = posts.map((item) => item._id);
 
   const handleChangeField = (event, index) => {
     const inputdata = [...fieldValue];
-    inputdata[index] = event;
+    inputdata[index].value = event;
     setFieldValue(inputdata);
   };
   const handleKeyDown = (e) => {
@@ -61,8 +74,14 @@ function EditItemsModal({ modalType, posts, postsTemplates, onClose, fieldsCount
       tags: editItem.tags.filter((el, i) => i !== index),
     }));
   };
+  // const handleChangeCustom = (target) => {
+  //   setPostItem((prevState) => ({
+  //     ...prevState,
+  //     [target.name]: target.value,
+  //   }));
+  // };
   const handleSubmit = () => {
-    // console.log();
+    console.log('submit');
   };
   return (
     <div className="modal-dialog modal-dialog-centered bg-light absolute-top mx-3 mt-3 p-3">
@@ -91,26 +110,22 @@ function EditItemsModal({ modalType, posts, postsTemplates, onClose, fieldsCount
               onDeleteTag={handleDeletTag}
               onKeyDown={handleKeyDown}
             />
-            {postsTemplates.map((item, index) => (
-              <CustomField
-                key={index}
-                label={postsTemplates[index].description}
-                type={postsTemplates[index].type}
-                handleChangeField={handleChangeField}
-                index={index}
-                value={item.value}
-                data={fieldValue.value}
-                placeholder={targetElement.fields[index]}
-              />
-            ))}
+            {fieldValue &&
+              fieldValue.map((item, index) => (
+                <CustomField
+                  key={index}
+                  label={postsTemplates[index].description}
+                  type={postsTemplates[index].type}
+                  handleChangeField={handleChangeField}
+                  index={index}
+                  value={item.value}
+                  checkboxDefault={true}
+                />
+              ))}
           </>
         )}
         <div className="modal-footer">
-          <button
-            type="button"
-            className="btn btn-primary "
-            // onClick={handleSubmit}
-          >
+          <button type="button" className="btn btn-primary " onClick={handleSubmit}>
             {modalType}
           </button>
           <button type="button" className="btn btn-secondary mx-3" onClick={onClose}>

@@ -2,9 +2,13 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 function UserCollection({ authorName, description, icon, name, type, id }) {
+  const descriptionParse = [];
+  Array.prototype.forEach.call(description.split('\n'), (item) => {
+    descriptionParse.push(item);
+  });
   return (
     <Link to={`collection/${id}`} className="text-decoration-none">
-      <div className="border border-primary m-3" style={{ width: '250px' }}>
+      <div className="border border-primary mb-3" style={{ width: '250px' }}>
         <span className="text-decoration-none text-reset ms-2">autor:</span>
         <span className="ms-3">{authorName}</span>
         <div>
@@ -21,7 +25,12 @@ function UserCollection({ authorName, description, icon, name, type, id }) {
             />
           </div>
           <h4>{name}</h4>
-          <p>{description}</p>
+          {descriptionParse.map((item, index) => (
+            <p key={index} className="m-0">
+              {item}
+            </p>
+          ))}
+          {/* <p>{description}</p> */}
         </div>
       </div>
     </Link>
