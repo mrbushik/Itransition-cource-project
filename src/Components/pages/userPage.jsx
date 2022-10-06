@@ -6,16 +6,25 @@ import EditModal from '../../Components/common/modal/collectionModal/editModal';
 import EditButtons from '../common/editButtons';
 import NavBar from '../navigation/navBar';
 
-import { getUserCollection } from '../services/getInfoRequests';
+import { getUserCollection, getUserPages } from '../services/getInfoRequests';
+import Paginate from '../common/paginate';
 function UserPage() {
-  const URL = 'http://localhost:5000/api//all-collections?page=1?limit=100';
   const [collections, setCollections] = useState();
   const [activeModal, setActiveModal] = useState('');
-  useEffect(() => {
-    getUserCollection(URL, setCollections);
-  }, []);
+  const [countCollections, setTotalCollections] = useState();
+  const [currentPage, setCurrentPage] = useState(1);
+  const URL = `http://localhost:5000/api//all-collections?page=${currentPage} `;
+
   const toggleActiveModal = (value) => setActiveModal(value);
   const updateCollections = () => getUserCollection(URL, setCollections);
+  const getCollectionsPages = (count) => setCurrentPage(count);
+  useEffect(() => {
+    getUserCollection(URL, setCollections);
+    getUserPages(URL, setTotalCollections);
+  }, []);
+  useEffect(() => {
+    getUserCollection(URL, setCollections);
+  }, [currentPage]);
 
   return (
     <>
@@ -50,6 +59,11 @@ function UserPage() {
             ))
           : ''}
       </div>
+      <Paginate
+        countCollections={countCollections}
+        currentPage={currentPage}
+        onPageChange={getCollectionsPages}
+      />
     </>
   );
 }
