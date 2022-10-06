@@ -17,26 +17,22 @@ function NavBar() {
           Main page
         </Link>
         {userRole === 'ADMIN' ? (
-          <Link to="/admin-panel" className="text-decoration-none ms-2">
+          <Link to="/admin-panel" className="text-decoration-none ms-3">
             Admin panel
           </Link>
         ) : (
           ''
         )}
+
         <button className="navbar-toggler">
           <span className="navbar-toggler-icon"></span>
         </button>
         <div className="collapse navbar-collapse" id="navbarTogglerDemo02">
           <ul className="navbar-nav me-auto mb-2 mb-lg-0">
             <li className="nav-item">
-              <a className="nav-link " aria-current="page" href="#№">
-                plug
-              </a>
-            </li>
-            <li className="nav-item">
-              <a className="nav-link" href="#№">
-                plug
-              </a>
+              <Link to="/collection" className="text-decoration-none ms-3">
+                My collection
+              </Link>
             </li>
           </ul>
           <div>

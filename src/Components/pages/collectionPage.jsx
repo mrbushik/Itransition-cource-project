@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from 'react';
 
-import { useParams, useHistory } from 'react-router-dom';
+import { useParams, useHistory, Link } from 'react-router-dom';
 import axios from 'axios';
 import EditButtons from '../common/editButtons';
 import EditItemsModal from '../common/modal/ItemsModal/editItemsModal';
@@ -23,7 +23,7 @@ function CollectionPage() {
       .then((data) => setCollectionData(data.data))
       .catch((error) => console.log(error));
   }, []);
-  const goBack = () => history.goBack();
+  // const goBack = () => history.goBack();
   if (collectionData) {
     postsTemplate = Object.values(collectionData.postsTemplate);
   }
@@ -32,9 +32,10 @@ function CollectionPage() {
   return (
     <>
       <NavBar />
-      <button className="btn btn-secondary ms-3 mt-3" onClick={goBack}>
-        Back
-      </button>
+      <Link to="/collection">
+        <button className="btn btn-secondary ms-3 mt-3">Back</button>
+      </Link>
+
       <EditButtons onToggle={toggleActiveModal} btnList={['Create', 'Edit', 'Delete']} />
 
       {activeModal === 'Create' && collectionData && (
@@ -77,9 +78,7 @@ function CollectionPage() {
           <table className="table mt-4">
             <thead>
               <tr>
-                <th scope="col" onClick={goBack}>
-                  id
-                </th>
+                <th scope="col">id</th>
                 {collectionData &&
                   postsTemplate.map((item, index) => <th key={index}>{item.description}</th>)}
               </tr>
@@ -89,6 +88,7 @@ function CollectionPage() {
                 // можно сделать отдельным компонентом
                 collectionData.posts.map((itemPosts, index) => (
                   <PostItem
+                    key={index}
                     id={itemPosts._id}
                     tags={itemPosts.tags}
                     otherFields={itemPosts.fields}

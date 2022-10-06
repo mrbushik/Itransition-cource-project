@@ -59,7 +59,6 @@ function Login() {
     e.preventDefault();
     const isValid = validate();
     if (!isValid) return;
-    console.log(data);
     formType === 'login'
       ? loginRequest('http://localhost:5000/api/login', data, setErrors, setAuth)
       : loginRequest('http://localhost:5000/api/registration', data, setErrors);

@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from 'react';
 
 import UserCollection from '../ui/userCollection';
@@ -13,14 +14,16 @@ function UserPage() {
   const [activeModal, setActiveModal] = useState('');
   const [countCollections, setTotalCollections] = useState();
   const [currentPage, setCurrentPage] = useState(1);
-  const URL = `http://localhost:5000/api//all-collections?page=${currentPage} `;
+  const userId = localStorage.getItem('userId');
+  const URL = `http://localhost:5000/api/user/${userId} `;
+  // const URL = `http://localhost:5000/api/user/63356ff4ed30ed38a56c14f8 `;
 
   const toggleActiveModal = (value) => setActiveModal(value);
   const updateCollections = () => getUserCollection(URL, setCollections);
   const getCollectionsPages = (count) => setCurrentPage(count);
   useEffect(() => {
     getUserCollection(URL, setCollections);
-    getUserPages(URL, setTotalCollections);
+    // getUserPages(URL, setTotalCollections);
   }, []);
   useEffect(() => {
     getUserCollection(URL, setCollections);
@@ -43,27 +46,24 @@ function UserPage() {
         )}
       </div>
       <div className="d-flex justify-content-center flex-wrap w-100 mt-4">
-        {collections
-          ? collections.map((item, index) => (
-              <UserCollection
-                description={item.description}
-                key={index}
-                id={item._id}
-                type={item.type}
-                authorName={item.authorName}
-                icon={item.icon}
-                name={item.name}
-                collectionDescription={item.collectionDescription}
-                {...item}
-              />
-            ))
-          : ''}
+        {collections ? (
+          collections.map((item, index) => (
+            <UserCollection
+              description={item.description}
+              key={index}
+              id={item._id}
+              type={item.type}
+              authorName={item.ownerName}
+              icon={item.icon}
+              name={item.name}
+              collectionDescription={item.collectionDescription}
+              {...item}
+            />
+          ))
+        ) : (
+          <div>you don't have collections</div>
+        )}
       </div>
-      <Paginate
-        countCollections={countCollections}
-        currentPage={currentPage}
-        onPageChange={getCollectionsPages}
-      />
     </>
   );
 }
