@@ -88,12 +88,21 @@ function Modal({ onActive, updateCollections }) {
     }
     return err;
   };
+  const clearData = () => {
+    setCollection({
+      name: '',
+      photoUrl: '',
+      theme: '',
+      description: '',
+    });
+  };
   const onSubmit = async () => {
     const errors = validator(collection, validatorConfig);
     setErrors(errors);
     if (isValid && collection.photoUrl && validateAddingFields() === 0) {
       sendingData.postsTemplate.push(...fieldValue);
-      await createCollection(URL, sendingData, updateCollections);
+      // await createCollection(URL, sendingData, updateCollections);
+      clearData();
     }
   };
 

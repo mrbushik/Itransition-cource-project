@@ -7,9 +7,10 @@ import TextField from '../../form/textField';
 
 function EditModal({ modalType, collections, onActive }) {
   let targetElement;
+
   const [editItem, setEditItem] = useState({
     item: '',
-    name: '',
+    name: 'name of your collection ',
     description: '',
     type: '',
   });
@@ -58,7 +59,7 @@ function EditModal({ modalType, collections, onActive }) {
             // error={errors.theme}
           />
         </div>
-        {modalType === 'Edit' && editItem.item && (
+        {modalType === 'Edit' && editItem.item && editItem && (
           <div>
             <TextField
               label="collection name"
@@ -69,7 +70,7 @@ function EditModal({ modalType, collections, onActive }) {
             />
             <SelectField
               label="Choose collection type"
-              name="theme"
+              name="type"
               options={['books', 'clothes', 'sings']}
               onChange={handleChange}
               value={editItem.type}

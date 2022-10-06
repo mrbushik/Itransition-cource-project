@@ -30,9 +30,11 @@ function NavBar() {
         <div className="collapse navbar-collapse" id="navbarTogglerDemo02">
           <ul className="navbar-nav me-auto mb-2 mb-lg-0">
             <li className="nav-item">
-              <Link to="/collection" className="text-decoration-none ms-3">
-                My collection
-              </Link>
+              {userName && (
+                <Link to="/collection" className="text-decoration-none ms-3">
+                  My collection
+                </Link>
+              )}
             </li>
           </ul>
           <div>
@@ -43,7 +45,7 @@ function NavBar() {
                 LOG OUT
               </Link>
             ) : (
-              <Link to="/login" className="navbar-brand ms-2">
+              <Link to="/login" className="navbar-brand ms-2" onClick={deleteUserData}>
                 LOG IN
               </Link>
             )}

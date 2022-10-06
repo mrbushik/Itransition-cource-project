@@ -56,19 +56,11 @@ function CreateItemsModal({ onClose, fieldsCount, addingFields, collectionId }) 
     }
     return err;
   };
-  const onSubmit = () => {
-    // const errors = validator(postItem, validatorConfig);
-    // setErrors(errors);
-    // if (isValid && ) {
-    //   sendingData.postsTemplate.push(...fieldValue);
-    //   console.log(sendingData);
-    // }
-    console.log(sendingData);
-  };
 
   useEffect(() => {
     let count = fieldsCount;
     const fieldArr = [];
+
     while (count > 0) {
       count--;
       fieldArr.push({ value: '' });
@@ -100,6 +92,24 @@ function CreateItemsModal({ onClose, fieldsCount, addingFields, collectionId }) 
       ...prevState,
       tags: postItem.tags.filter((el, i) => i !== index),
     }));
+  };
+
+  const clearData = () => {
+    setPostItem({
+      name: '',
+      tags: [],
+    });
+  };
+
+  const onSubmit = () => {
+    // const errors = validator(postItem, validatorConfig);
+    // setErrors(errors);
+    // if (isValid && ) {
+    //   sendingData.postsTemplate.push(...fieldValue);
+    //   console.log(sendingData);
+    // }
+    console.log(sendingData);
+    clearData();
   };
 
   return (

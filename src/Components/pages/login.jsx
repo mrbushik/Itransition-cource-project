@@ -14,6 +14,7 @@ function Login() {
   const togleFormType = () => {
     setFormType((pervState) => (pervState === 'register' ? 'login' : 'register'));
   };
+
   const [data, setData] = useState({
     username: '',
     password: '',
@@ -98,21 +99,25 @@ function Login() {
               <h3 className="mb-4">Login</h3>
             )}
             <form onSubmit={handleSubmit}>
-              <TextField
-                label="user username"
-                name="username"
-                value={data.username}
-                onChange={handleChange}
-                error={errors.username}
-              />
-              <TextField
-                label="Пароль"
-                type="password"
-                name="password"
-                value={data.password}
-                onChange={handleChange}
-                error={errors.password}
-              />
+              {data && (
+                <>
+                  <TextField
+                    label="user username"
+                    name="username"
+                    value={data.username}
+                    onChange={handleChange}
+                    error={errors.username}
+                  />
+                  <TextField
+                    label="Пароль"
+                    type="password"
+                    name="password"
+                    value={data.password}
+                    onChange={handleChange}
+                    error={errors.password}
+                  />
+                </>
+              )}
               <button className="btn btn-primary w-100 mx-auto" type="submit" disabled={!isValid}>
                 Submit
               </button>

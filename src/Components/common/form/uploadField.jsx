@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 
 function UploadField({ name, onSave, isUrl }) {
   const [link, setLink] = useState('');
+  const fileName = useRef();
   const handleLink = (e) => {
     setLink(e);
   };
@@ -20,6 +21,8 @@ function UploadField({ name, onSave, isUrl }) {
         <input
           name={name}
           type="file"
+          ref={fileName.current}
+          // value="dd"
           className={getInputClasses()}
           placeholder="Upload an image"
           onChange={handleLink}

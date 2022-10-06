@@ -50,7 +50,7 @@ function MainPage() {
           )}
         </div>
       )}
-      <div className="d-flex justify-content-center flex-wrap w-100 mt-4">
+      <div className="mx-auto mt-4" style={{ width: '250px' }}>
         {collections
           ? collections.map((item, index) => (
               <UserCollection

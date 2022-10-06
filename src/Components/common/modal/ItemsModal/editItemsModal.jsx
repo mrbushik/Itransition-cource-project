@@ -13,46 +13,35 @@ function EditItemsModal({ modalType, posts, postsTemplates, onClose, fieldsCount
     item: '',
     tags: [],
   });
-  useEffect(() => {
-    if (targetElement) {
-      console.log(test().reverse());
-      setFieldValue(test().reverse());
-      setEditItem((prevState) => ({ ...prevState, tags: [...targetElement.tags] }));
-    }
-    // }
-  }, [editItem.item]);
 
-  const test = () => {
-    if (
-      targetElement
-      // && fieldsCount === 'Edit'
-    ) {
+  const getFieldData = () => {
+    if (targetElement) {
       let count = fieldsCount;
       const fieldArr = [];
-      // console.log(targetElement.fields[0]);
-
       while (count > 0) {
-        //  додумать как получать значения в value
-        // fieldArr.push({ value: targetElement.fields[count] });
         count--;
-
         fieldArr.push({ value: targetElement.fields[count] });
-
-        // console.log(targetElement.fields[count]);
       }
       return fieldArr;
     }
   };
+
+  useEffect(() => {
+    if (targetElement) {
+      setFieldValue(getFieldData().reverse());
+      setEditItem((prevState) => ({ ...prevState, tags: [...targetElement.tags] }));
+    }
+  }, [editItem.item]);
+
   const handleChange = (target) => {
     setEditItem((prevState) => ({
       ...prevState,
       [target.name]: target.value,
     }));
   };
+
   if (editItem.item) {
     targetElement = posts.find((item) => item._id === editItem.item);
-    // const targetElementIndex = posts.findIndex((item) => item.name === editItem.item);
-    // console.log(targetElement);
   }
   const collectionsNames = posts.map((item) => item._id);
 
@@ -74,12 +63,7 @@ function EditItemsModal({ modalType, posts, postsTemplates, onClose, fieldsCount
       tags: editItem.tags.filter((el, i) => i !== index),
     }));
   };
-  // const handleChangeCustom = (target) => {
-  //   setPostItem((prevState) => ({
-  //     ...prevState,
-  //     [target.name]: target.value,
-  //   }));
-  // };
+
   const handleSubmit = () => {
     console.log('submit');
   };
@@ -102,7 +86,6 @@ function EditItemsModal({ modalType, posts, postsTemplates, onClose, fieldsCount
             value={editItem.item}
           />
         </div>
-
         {modalType === 'Edit' && editItem.item && (
           <>
             <TagsField

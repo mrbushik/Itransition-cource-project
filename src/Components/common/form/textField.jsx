@@ -21,7 +21,7 @@ function TextField({ label, type, name, value, onChange, error, group, placehold
           type={showPassword ? 'text' : type}
           id={name}
           name={name}
-          value={value ? value : placeholder}
+          value={value}
           onChange={handleChange}
           className={getInputClasses()}
         />
