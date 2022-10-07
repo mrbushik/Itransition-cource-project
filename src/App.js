@@ -1,4 +1,3 @@
-import NavBar from './Components/navigation/navBar';
 import UserPage from './Components/pages/userPage';
 import { Route, Switch, Redirect } from 'react-router-dom';
 import CollectionPosts from './Components/pages/collectionPosts';

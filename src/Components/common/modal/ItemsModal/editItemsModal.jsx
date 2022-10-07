@@ -1,5 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 import CustomField from '../../form/customField';
 import SelectField from '../../form/selectedField';
@@ -7,6 +8,8 @@ import TagsField from '../../form/tagsField';
 
 function EditItemsModal({ modalType, posts, postsTemplates, onClose, fieldsCount }) {
   let targetElement;
+  const { t } = useTranslation();
+
   const [fieldValue, setFieldValue] = useState([]);
 
   const [editItem, setEditItem] = useState({
@@ -78,15 +81,15 @@ function EditItemsModal({ modalType, posts, postsTemplates, onClose, fieldsCount
         </div>
         <div className="modal-body">
           <SelectField
-            label="Choose collection type"
+            label={t('choose post')}
             name="item"
             options={collectionsNames}
-            defaultOption="Choose.."
+            defaultOption={t('choose')}
             onChange={handleChange}
             value={editItem.item}
           />
         </div>
-        {modalType === 'Edit' && editItem.item && (
+        {(modalType === 'Edit' || modalType === 'Редактировать') && editItem.item && (
           <>
             <TagsField
               tags={editItem.tags}
@@ -112,7 +115,7 @@ function EditItemsModal({ modalType, posts, postsTemplates, onClose, fieldsCount
             {modalType}
           </button>
           <button type="button" className="btn btn-secondary mx-3" onClick={onClose}>
-            Close
+            {t('close')}
           </button>
         </div>
       </div>

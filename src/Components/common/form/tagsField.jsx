@@ -1,6 +1,9 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 
 function TagsField({ tags, onDeleteTag, onKeyDown }) {
+  const { t } = useTranslation();
+
   return (
     <div className="">
       <div className="d-flex flex-wrap">
@@ -22,7 +25,7 @@ function TagsField({ tags, onDeleteTag, onKeyDown }) {
         onKeyDown={onKeyDown}
         type="text"
         className="form-control my-2"
-        placeholder="write a tag and click enter"
+        placeholder={t('write tag')}
       />
     </div>
   );

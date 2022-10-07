@@ -101,7 +101,7 @@ function Modal({ onActive, updateCollections }) {
     setErrors(errors);
     if (isValid && collection.photoUrl && validateAddingFields() === 0) {
       sendingData.postsTemplate.push(...fieldValue);
-      // await createCollection(URL, sendingData, updateCollections);
+      await createCollection(URL, sendingData, updateCollections);
       clearData();
     }
   };

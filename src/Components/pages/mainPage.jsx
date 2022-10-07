@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 
 import NavBar from '../navigation/navBar';
 import UserCollection from '../ui/userCollection';
-import Modal from '../common/modal/collectionModal/modal';
 import EditModal from '../../Components/common/modal/collectionModal/editModal';
 import EditButtons from '../common/editButtons';
 

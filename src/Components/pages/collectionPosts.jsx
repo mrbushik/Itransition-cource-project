@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import axios from 'axios';
+import { useTranslation } from 'react-i18next';
 
 import EditButtons from '../common/editButtons';
 import EditItemsModal from '../common/modal/ItemsModal/editItemsModal';
@@ -11,6 +12,8 @@ import PostItem from '../ui/postItem';
 
 function CollectionPosts() {
   const params = useParams();
+  const { t } = useTranslation();
+
   let postsTemplate;
   const [collectionData, setCollectionData] = useState();
   const [activeModal, setActiveModal] = useState('');
@@ -32,10 +35,10 @@ function CollectionPosts() {
     <>
       <NavBar />
       <Link to="/collection">
-        <button className="btn btn-secondary ms-3 mt-3">Back</button>
+        <button className="btn btn-secondary ms-3 mt-3"> {t('back')}</button>
       </Link>
-      <EditButtons onToggle={toggleActiveModal} btnList={['Create', 'Edit', 'Delete']} />
-      {activeModal === 'Create' && collectionData && (
+      <EditButtons onToggle={toggleActiveModal} btnList={[t('create'), t('edit'), t('delete')]} />
+      {(activeModal === 'Create' || activeModal === 'Создать') && collectionData && (
         // предусмотреть что дополнительных полей нет
         <CreateItemsModal
           fieldsCount={collectionData.postsTemplate.length - 2}
@@ -44,7 +47,7 @@ function CollectionPosts() {
           onClose={toggleActiveModal}
         />
       )}
-      {activeModal === 'Edit' && collectionData && (
+      {(activeModal === 'Edit' || activeModal === 'Редактировать') && collectionData && (
         <EditItemsModal
           posts={collectionData.posts}
           postsTemplates={collectionData.postsTemplate.slice(
@@ -53,10 +56,10 @@ function CollectionPosts() {
           )}
           onClose={toggleActiveModal}
           fieldsCount={collectionData.postsTemplate.length - 1}
-          modalType={'Edit'}
+          modalType={t('edit')}
         />
       )}
-      {activeModal === 'Delete' && collectionData && (
+      {(activeModal === 'Delete' || activeModal === 'Удалить') && collectionData && (
         <EditItemsModal
           posts={collectionData.posts}
           postsTemplates={collectionData.postsTemplate.slice(
@@ -65,7 +68,7 @@ function CollectionPosts() {
           )}
           onClose={toggleActiveModal}
           fieldsCount={collectionData.postsTemplate.length - 1}
-          modalType={'Delete'}
+          modalType={t('delete')}
         />
       )}
       {collectionData && (

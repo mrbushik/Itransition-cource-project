@@ -6,10 +6,13 @@ import TextField from '../../form/textField';
 import { validator } from '../../../utils/validator';
 import TagsField from '../../form/tagsField';
 import CustomField from '../../form/customField';
+import { useTranslation } from 'react-i18next';
 
 // предусмотреть что дополнительных полей нет
 
 function CreateItemsModal({ onClose, fieldsCount, addingFields, collectionId }) {
+  const { t } = useTranslation();
+
   // потом надо будте хранить айди автора и его имя
   const [postItem, setPostItem] = useState({
     name: '',
@@ -117,7 +120,7 @@ function CreateItemsModal({ onClose, fieldsCount, addingFields, collectionId }) 
       <div className="modal-dialog modal-dialog-centered  bg-light absolute-top mx-3 mt-3 p-3">
         <div className="modal-content">
           <div className="modal-header">
-            <h5 className="modal-title">Create new Item</h5>
+            <h5 className="modal-title">{t('new item')}</h5>
             <button type="button" className="close" onClick={onClose}>
               <span>x</span>
             </button>
@@ -125,11 +128,12 @@ function CreateItemsModal({ onClose, fieldsCount, addingFields, collectionId }) 
 
           <TagsField tags={postItem.tags} onDeleteTag={handleDeletTag} onKeyDown={handleKeyDown} />
           <TextField
-            label="name"
-            type="text"
             name="name"
-            value={fieldValue.name}
+            value={postItem.name}
             onChange={handleChange}
+            placeholder={t('collection decoration')}
+            label={t('collection decoration')}
+            error={errors.description}
           />
           {fieldValue &&
             fieldValue.map((item, index) => (
@@ -149,10 +153,10 @@ function CreateItemsModal({ onClose, fieldsCount, addingFields, collectionId }) 
               className="btn btn-primary "
               onClick={onSubmit}
               disabled={!isValid}>
-              Save changes
+              {t('save')}
             </button>
             <button type="button" className="btn btn-secondary mx-3" onClick={onClose}>
-              Close
+              {t('close')}
             </button>
           </div>
         </div>
