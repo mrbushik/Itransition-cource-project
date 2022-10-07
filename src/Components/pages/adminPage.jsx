@@ -1,18 +1,21 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import { useTranslation } from 'react-i18next';
+
 import UserTableItem from '../ui/userTableItem';
 import EditButtons from '../common/editButtons';
 import { unblock, block, deleteUser, getAdmin, pickUpAdmin } from '../services/adminRequests';
 import { useHistory } from 'react-router-dom';
 import NavBar from '../navigation/navBar';
 function AdminPage() {
+  const { t } = useTranslation();
   const [users, setUsers] = useState();
   const [selectedUser, setSelectedUser] = useState({
     user: '',
   });
   const [errors, setErrors] = useState();
-  const buttons = ['Unblock', 'Block', 'Delete', 'Get admin', 'Pick up admin'];
+  const buttons = [t('unblock'), t('block'), t('delete'), t('get admin'), t('pickUpAdmin')];
   const requests = [unblock, block, deleteUser, getAdmin, pickUpAdmin];
   const history = useHistory();
   const role = localStorage.getItem('role');
@@ -62,10 +65,10 @@ function AdminPage() {
       <table className="table">
         <thead>
           <tr>
-            <th scope="col">CheckBox</th>
+            <th scope="col">{t('checkbox')}</th>
             <th scope="col">Id</th>
-            <th scope="col">User name</th>
-            <th scope="col">Role</th>
+            <th scope="col">{t('username')}</th>
+            <th scope="col">{t('role')}</th>
           </tr>
         </thead>
         {users && (

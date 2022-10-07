@@ -2,13 +2,14 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useEffect, useState } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
-
-import TextField from '../../Components/common/form/textField';
-
+import { useTranslation } from 'react-i18next';
 import { validator } from '../utils/validator';
 import { loginRequest } from '../services/loginRequest';
 
+import TextField from '../../Components/common/form/textField';
+// добавить кнопки языка и темной темы
 function Login() {
+  const { t } = useTranslation();
   const { type } = useParams();
   const [formType, setFormType] = useState(type === 'register' ? type : 'login');
   const togleFormType = () => {
@@ -33,15 +34,15 @@ function Login() {
   const validatorConfig = {
     username: {
       isRequired: {
-        message: 'this field is required',
+        message: t('field required'),
       },
     },
     password: {
       isRequired: {
-        message: 'this field is required',
+        message: t('field required'),
       },
       min: {
-        message: 'Пароль должен состоять минимум из 5 символов',
+        message: t('password error'),
         value: 5,
       },
     },
@@ -94,22 +95,22 @@ function Login() {
         <div className="row">
           <div className="col-md-6 offset-md-3 shadow p-4">
             {formType === 'register' ? (
-              <h3 className="mb-4">Register</h3>
+              <h3 className="mb-4">{t('sing up')}</h3>
             ) : (
-              <h3 className="mb-4">Login</h3>
+              <h3 className="mb-4">{t('sing in')}</h3>
             )}
             <form onSubmit={handleSubmit}>
               {data && (
                 <>
                   <TextField
-                    label="user username"
+                    label={t('username')}
                     name="username"
                     value={data.username}
                     onChange={handleChange}
                     error={errors.username}
                   />
                   <TextField
-                    label="Пароль"
+                    label={t('password')}
                     type="password"
                     name="password"
                     value={data.password}
@@ -119,7 +120,7 @@ function Login() {
                 </>
               )}
               <button className="btn btn-primary w-100 mx-auto" type="submit" disabled={!isValid}>
-                Submit
+                {t('submit')}
               </button>
               {errors.message ? (
                 <span className="text-danger mt-2 mb-2">{errors.message}</span>
@@ -127,15 +128,15 @@ function Login() {
                 <div className=""></div>
               )}
             </form>
-            <p>Already have account?</p>{' '}
+            <p>{t('have account')}</p>{' '}
             {formType === 'register' && (
               <a role="button" onClick={togleFormType}>
-                Sing In
+                {t('sign in')}
               </a>
             )}
             {formType === 'login' && (
               <a role="button" onClick={togleFormType}>
-                Sing Un
+                {t('sing up')}
               </a>
             )}
           </div>

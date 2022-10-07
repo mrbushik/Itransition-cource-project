@@ -15,12 +15,41 @@
     "back": "Back",
     "haven't collections": "you don't have collections",
     "new item" : "Create new Item",
-    "collection decoration": "description for you collection",
+    "post description": "post name",
     "save": "Save Changes",
     "close": "Close",
     "write tag": "write a tag and click enter",
     "choose post": "Choose post",
-    "choose": "Choose..."
+    "choose": "Choose...",
+    "post name": "post name",
+    "create collection": "Create new collection",
+    "collection name": "collection name",
+    "description": "description",
+    "choose collection": "Choose collection type",
+    "collection description": "Collection description",
+    "additional fields": "Additional fields",
+    "upload": "upload",
+    "add field": "Add field",
+    "upload field": "Upload image",
+    "upload error": "Attach the file and upload",
+    "field required": "this field is required",
+    "username": "Nick name",
+    "password": "Password",
+    "have account": "Already have account?",
+    "sing  in": "Sing In",
+    "sing up": "Sing Up",
+    "register": "Register",
+    "submit": "Submit",
+    "password error": "The password must be consist of at least 5 characters",
+    "unblock": "Unblock",
+    "block": "Block",
+    "get admin": "Get Admin",
+    "pickUpAdmin": "Pick Up Admin",
+    "checkbox": "Checkbox",
+    "role": "Role"
+
+
+
 
 
 }

@@ -1,8 +1,9 @@
 import React, { useRef, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 function UploadField({ name, onSave, isUrl }) {
   const [link, setLink] = useState('');
-  const fileName = useRef();
+  const { t } = useTranslation();
   const handleLink = (e) => {
     setLink(e);
   };
@@ -21,16 +22,14 @@ function UploadField({ name, onSave, isUrl }) {
         <input
           name={name}
           type="file"
-          ref={fileName.current}
-          // value="dd"
           className={getInputClasses()}
-          placeholder="Upload an image"
+          placeholder={t('upload field')}
           onChange={handleLink}
         />
         <button className="btn btn-outline-secondary" type="button" onClick={saveLink}>
-          upload
+          {t('upload')}
         </button>
-        {!isUrl && <div className="invalid-feedback">Attach the file and upload</div>}
+        {!isUrl && <div className="invalid-feedback">{t('upload error')}</div>}
       </div>
     </>
   );

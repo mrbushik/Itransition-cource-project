@@ -1,5 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 import UserCollection from '../ui/userCollection';
 import Modal from '../common/modal/collectionModal/modal';
@@ -7,7 +8,6 @@ import EditModal from '../../Components/common/modal/collectionModal/editModal';
 import EditButtons from '../common/editButtons';
 import NavBar from '../navigation/navBar';
 import Paginate from '../common/paginate';
-import { useTranslation } from 'react-i18next';
 
 import { getUserCollection } from '../services/getInfoRequests';
 import { paginate } from '../utils/paginate';
@@ -40,16 +40,23 @@ function UserPage() {
     <>
       <NavBar />
       <div></div>
-      <EditButtons onToggle={toggleActiveModal} btnList={[t('create'), t('edit'), t('delete')]} />
+      <EditButtons
+        onToggle={toggleActiveModal}
+        btnList={collections ? [t('create'), t('edit'), t('delete')] : [t('create')]}
+      />
       <div>
-        {activeModal === 'Create' && (
+        {(activeModal === 'Create' || activeModal === 'Создать') && (
           <Modal onActive={toggleActiveModal} updateCollections={updateCollections} />
         )}
-        {activeModal === 'Edit' && collections && (
-          <EditModal collections={collections} modalType={'Edit'} onActive={toggleActiveModal} />
+        {(activeModal === 'Edit' || activeModal === 'Редактировать') && collections && (
+          <EditModal collections={collections} modalType={t('edit')} onActive={toggleActiveModal} />
         )}
-        {activeModal === 'Delete' && collections && (
-          <EditModal collections={collections} onActive={toggleActiveModal} modalType={'Delete'} />
+        {(activeModal === 'Delete' || activeModal === 'Удалить') && collections && (
+          <EditModal
+            collections={collections}
+            onActive={toggleActiveModal}
+            modalType={t('delete')}
+          />
         )}
       </div>
       <div className="mx-auto" style={{ width: '250px' }}>

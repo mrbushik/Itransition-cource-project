@@ -32,12 +32,12 @@ function CreateItemsModal({ onClose, fieldsCount, addingFields, collectionId }) 
   const validatorConfig = {
     name: {
       isRequired: {
-        message: 'this field is required',
+        message: t('field required'),
       },
     },
     theme: {
       isRequired: {
-        message: 'this field is required',
+        message: t('field required'),
       },
     },
   };
@@ -131,8 +131,8 @@ function CreateItemsModal({ onClose, fieldsCount, addingFields, collectionId }) 
             name="name"
             value={postItem.name}
             onChange={handleChange}
-            placeholder={t('collection decoration')}
-            label={t('collection decoration')}
+            placeholder={t('post description')}
+            label={t('post description')}
             error={errors.description}
           />
           {fieldValue &&

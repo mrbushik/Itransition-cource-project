@@ -1,7 +1,10 @@
 /* eslint-disable no-useless-computed-key */
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import axios from 'axios';
+import { validator } from '../../../utils/validator';
+import { createCollection } from '../../../services/createRequest';
 
 import UploadField from '../../form/uploadField';
 import TextField from '../../form/textField';
@@ -9,10 +12,10 @@ import SelectField from '../../form/selectedField';
 import AddFieldForm from '../../form/addFieldForm';
 import TextAreaField from '../../form/textAreaField';
 
-import { validator } from '../../../utils/validator';
-import { createCollection } from '../../../services/createRequest';
+
 
 function Modal({ onActive, updateCollections }) {
+  const { t } = useTranslation();
   const userId = localStorage.getItem('userId');
   const userName = localStorage.getItem('userId');
   const URL = 'http://localhost:5000/api/add-collection';
@@ -41,17 +44,17 @@ function Modal({ onActive, updateCollections }) {
   const validatorConfig = {
     name: {
       isRequired: {
-        message: 'this field is required',
+        message: t('field required'),
       },
     },
     theme: {
       isRequired: {
-        message: 'this field is required',
+        message: t('field required'),
       },
     },
     description: {
       isRequired: {
-        message: 'this field is required',
+        message: t('field required'),
       },
     },
   };
@@ -135,7 +138,7 @@ function Modal({ onActive, updateCollections }) {
       <div className="modal-dialog modal-dialog-centered w-75 bg-light absolute-top mx-3 mt-3 p-3">
         <div className="modal-content">
           <div className="modal-header">
-            <h5 className="modal-title">Create new collection</h5>
+            <h5 className="modal-title">{t('create collection')}</h5>
             <button type="button" className="close" onClick={onActive}>
               <span>x</span>
             </button>
@@ -143,7 +146,7 @@ function Modal({ onActive, updateCollections }) {
           <div className="modal-body">
             <div>
               <TextField
-                label="collection name"
+                label={t('collection name')}
                 type="text"
                 name="name"
                 value={collection.name}
@@ -151,25 +154,25 @@ function Modal({ onActive, updateCollections }) {
                 error={errors.name}
               />
               <TextAreaField
-                name="description"
+                name={t('description')}
                 value={collection.description}
                 onChange={handleChange}
-                placeholder={'description for you collection'}
-                label={'description for you collection'}
+                placeholder={t('collection description')}
+                label={t('collection description')}
                 error={errors.description}
               />
               <SelectField
-                label="Choose collection type"
+                label={t('choose collection')}
                 name="theme"
-                options={['books', 'clothes', 'sings']}
-                defaultOption="Choose.."
+                options={[t('create'), t('edit'), t('delete')]}
+                defaultOption={t('choose')}
                 onChange={handleChange}
                 value={collection.theme}
                 error={errors.theme}
               />
             </div>
             <div>
-              <h5>Upload Image</h5>
+              <h5>{t('upload field')}</h5>
               <UploadField
                 type="file"
                 isUrl={collection.photoUrl}
@@ -179,7 +182,7 @@ function Modal({ onActive, updateCollections }) {
             </div>
             <div>
               <div className="d-flex justify-content-between mt-3 mb-3">
-                <h5>Additional fields</h5>
+                <h5>{t('additional fields')}</h5>
               </div>
               {fieldValue.map((data, index) => (
                 <AddFieldForm
@@ -193,7 +196,7 @@ function Modal({ onActive, updateCollections }) {
               ))}
             </div>
             <button className="btn btn-secondary  " onClick={() => handleAddField()}>
-              add field
+              {t('add field')}
             </button>
           </div>
           <div className="modal-footer">
@@ -202,10 +205,10 @@ function Modal({ onActive, updateCollections }) {
               className="btn btn-primary "
               onClick={onSubmit}
               disabled={!isValid}>
-              Save changes
+              {t('save')}
             </button>
             <button type="button" className="btn btn-secondary mx-3" onClick={onActive}>
-              Close
+              {t('close')}
             </button>
           </div>
         </div>
