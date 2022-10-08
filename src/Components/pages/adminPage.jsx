@@ -4,7 +4,7 @@ import axios from 'axios';
 import { useTranslation } from 'react-i18next';
 
 import UserTableItem from '../ui/userTableItem';
-import EditButtons from '../common/editButtons';
+import EditButtons from '../common/buttons/editButtons';
 import { unblock, block, deleteUser, getAdmin, pickUpAdmin } from '../services/adminRequests';
 import { useHistory } from 'react-router-dom';
 import NavBar from '../navigation/navBar';
@@ -66,7 +66,7 @@ function AdminPage() {
         <thead>
           <tr>
             <th scope="col">{t('checkbox')}</th>
-            <th scope="col">Id</th>
+            <th scope="col">{t('id')}</th>
             <th scope="col">{t('username')}</th>
             <th scope="col">{t('role')}</th>
           </tr>

@@ -1,15 +1,16 @@
 import React, { useState, useEffect } from 'react';
+import Paginate from '../common/paginate';
+import { useTranslation } from 'react-i18next';
+import { getUserCollection, getUserPages } from '../services/getInfoRequests';
 
 import NavBar from '../navigation/navBar';
 import UserCollection from '../ui/userCollection';
 import EditModal from '../../Components/common/modal/collectionModal/editModal';
-import EditButtons from '../common/editButtons';
-
-import { getUserCollection, getUserPages } from '../services/getInfoRequests';
-import Paginate from '../common/paginate';
+import EditButtons from '../common/buttons/editButtons';
 
 function MainPage() {
   const userRole = localStorage.getItem('role');
+  const { t } = useTranslation();
   const [collections, setCollections] = useState();
   const [countCollections, setTotalCollections] = useState();
   const [currentPage, setCurrentPage] = useState(1);
@@ -34,17 +35,21 @@ function MainPage() {
       <NavBar />
       {userRole === 'ADMIN' && (
         <div>
-          <EditButtons onToggle={toggleActiveModal} btnList={['Edit', 'Delete']} />
+          <EditButtons onToggle={toggleActiveModal} btnList={[t('edit'), t('delete')]} />
 
           {/* передать ID коллекции в пропс */}
-          {activeModal === 'Edit' && collections && (
-            <EditModal collections={collections} modalType={'Edit'} onActive={toggleActiveModal} />
+          {(activeModal === 'Edit' || activeModal === 'Редактировать') && collections && (
+            <EditModal
+              collections={collections}
+              modalType={t('edit')}
+              onActive={toggleActiveModal}
+            />
           )}
-          {activeModal === 'Delete' && collections && (
+          {(activeModal === 'Delete' || activeModal === 'Удалить') && collections && (
             <EditModal
               collections={collections}
               onActive={toggleActiveModal}
-              modalType={'Delete'}
+              modalType={t('delete')}
             />
           )}
         </div>
@@ -53,6 +58,7 @@ function MainPage() {
         {collections
           ? collections.map((item, index) => (
               <UserCollection
+                link={'/'}
                 description={item.description}
                 key={index}
                 id={item._id}

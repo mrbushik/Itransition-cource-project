@@ -46,7 +46,9 @@
     "get admin": "Get Admin",
     "pickUpAdmin": "Pick Up Admin",
     "checkbox": "Checkbox",
-    "role": "Role"
+    "role": "Role",
+    "id": "Id"
+
 
 
 

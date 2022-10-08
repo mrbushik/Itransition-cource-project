@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next';
 import UserCollection from '../ui/userCollection';
 import Modal from '../common/modal/collectionModal/modal';
 import EditModal from '../../Components/common/modal/collectionModal/editModal';
-import EditButtons from '../common/editButtons';
+import EditButtons from '../common/buttons/editButtons';
 import NavBar from '../navigation/navBar';
 import Paginate from '../common/paginate';
 
@@ -63,6 +63,7 @@ function UserPage() {
         {collections ? (
           userCrop.map((item, index) => (
             <UserCollection
+              link={'collection/'}
               description={item.description}
               key={index}
               id={item._id}

@@ -4,6 +4,7 @@ import CollectionPosts from './Components/pages/collectionPosts';
 import Login from './Components/pages/login';
 import AdminPage from './Components/pages/adminPage';
 import MainPage from './Components/pages/mainPage';
+import UsersCollections from './Components/pages/usersCollections';
 
 function App() {
   return (
@@ -14,10 +15,12 @@ function App() {
 
         <Route path="/admin-panel" component={AdminPage} />
         <Route path="/login" component={Login} />
+
         <Route path="/collection/:Id" component={CollectionPosts} />
         <Route path="/collection" component={UserPage} />
         {/* <Route path="/" component={MainPage} />
          */}
+        <Route path="/:Id" component={UsersCollections} />
         <Route path="/" component={MainPage} />
         <Redirect to="/" />
       </Switch>

@@ -15,3 +15,10 @@ export function getUserPages(url, setCountPages) {
       console.log(error);
     });
 }
+export function getPosts(setCollectionData, params) {
+  axios
+    .get(`http://localhost:5000/api/collection/${params.Id}`)
+    .then((response) => response)
+    .then((data) => setCollectionData(data.data))
+    .catch((error) => console.log(error));
+}
