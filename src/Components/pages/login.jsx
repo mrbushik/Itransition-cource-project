@@ -93,7 +93,7 @@ function Login() {
     <>
       <div className="container mt-5">
         <div className="row">
-          <div className="col-md-6 offset-md-3 shadow p-4">
+          <div className=" shadow p-4">
             {formType === 'register' ? (
               <h3 className="mb-4">{t('sing up')}</h3>
             ) : (

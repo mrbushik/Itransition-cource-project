@@ -5,6 +5,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { changeLanguage } from '../redux/actions/language';
 import useLocalStorage from '../translate/recordLanguage';
 import i18n from '../translate/languageParams';
+import SwitchLanguage from '../common/buttons/switchLanguage';
+import ThemeSwither from '../common/buttons/themeSwither';
 function NavBar() {
   const dispatch = useDispatch();
   const { t } = useTranslation();
@@ -17,18 +19,18 @@ function NavBar() {
     localStorage.removeItem('role');
     localStorage.removeItem('userId');
   };
-  const [language, setLanguage] = useLocalStorage('language', 'en');
-  const handleLenguageChange = () => {
-    if (language === 'en') {
-      i18n.changeLanguage('ru');
-      setLanguage('ru');
-      dispatch(changeLanguage('ru'));
-    } else if (language === 'ru') {
-      i18n.changeLanguage('en');
-      setLanguage('en');
-      dispatch(changeLanguage('en'));
-    }
-  };
+  // const [language, setLanguage] = useLocalStorage('language', 'en');
+  // const handleLenguageChange = () => {
+  //   if (language === 'en') {
+  //     i18n.changeLanguage('ru');
+  //     setLanguage('ru');
+  //     dispatch(changeLanguage('ru'));
+  //   } else if (language === 'ru') {
+  //     i18n.changeLanguage('en');
+  //     setLanguage('en');
+  //     dispatch(changeLanguage('en'));
+  //   }
+  // };
   return (
     <nav className="navbar navbar-expand-lg bg-light">
       <div className="container-fluid">
@@ -60,9 +62,13 @@ function NavBar() {
               )}
             </li>
             <li>
-              <button onClick={handleLenguageChange}>
+              {/* <button onClick={handleLenguageChange}>
                 {t('change to')} {language === 'ru' ? t('english') : t('russian')}
-              </button>
+              </button> */}
+              <SwitchLanguage />
+            </li>
+            <li>
+              <ThemeSwither />
             </li>
           </ul>
           <div>

@@ -11,3 +11,171 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+.en {
+  background-image: url("https://upload.wikimedia.org/wikipedia/commons/3/37/Flag_of_Russia_%28bordered%29.svg");
+}
+
+
+ .switch input
+{
+  display: none;
+}
+
+.switch 
+{
+  display: inline-block;
+  width: 60px; 
+  height: 30px; 
+  margin: 4px;
+  transform: translateY(50%);
+  position: relative;
+}
+
+.slider
+{
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  border-radius: 30px;
+  box-shadow: 0 0 0 2px #777, 0 0 4px #777;
+  cursor: pointer;
+  border: 4px solid transparent;
+  overflow: hidden;
+  transition: 0.2s;
+}
+
+.slider:before
+{
+  position: absolute;
+  content: "";
+  width: 100%;
+  height: 100%;
+  background-color: #777;
+  border-radius: 30px;
+  transform: translateX(-30px); 
+  transition: 0.2s;
+}
+
+input:checked + .slider:before
+{
+  transform: translateX(30px); 
+  background-color: limeGreen;
+}
+
+input:checked + .slider
+{
+  box-shadow: 0 0 0 2px limeGreen, 0 0 8px limeGreen;
+}
+
+.switch200 .slider:before
+{
+  width: 200%;
+  transform: translateX(-82px); 
+}
+
+
+/* 
+.theme-light {
+  --color-primary: #0060df;
+  --color-secondary: #fbfbfe;
+  --color-accent: #fd6f53;
+  --font-color: #000000;
+}
+.theme-dark {
+  --color-primary: #17ed90;
+  --color-secondary: #2a2c2d;
+  --color-accent: #12cdea;
+  --font-color: #ffffff;
+}
+.container {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  background: var(--color-secondary);
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.container h1 {
+  color: var(--font-color);
+  font-family: sans-serif;
+}
+.container button {
+  color: var(--font-color);
+  background: var(--color-primary);
+  padding: 10px 20px;
+  border: 0;
+  border-radius: 5px;
+}
+
+.swither {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+}
+
+Hide default HTML checkbox
+.swither input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.toggler {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+}
+
+.toggler:before {
+  position: absolute;
+  content: "";
+  height: 40px;
+  width: 40px;
+  left: 0px;
+  bottom: 4px;
+  top: 0;
+  bottom: 0;
+  margin: auto 0;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+  box-shadow: 0 0px 15px #2020203d;
+  background: white url('https://i.ibb.co/FxzBYR9/night.png');
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+input:checked + .toggler {
+  background-color: #2196f3;
+}
+
+input:focus + .toggler {
+  box-shadow: 0 0 1px #2196f3;
+}
+
+input:checked + .toggler:before {
+  -webkit-transform: translateX(24px);
+  -ms-transform: translateX(24px);
+  transform: translateX(24px);
+  background: white url('https://i.ibb.co/7JfqXxB/sunny.png');
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+
+.toggler.roundItem {
+  border-radius: 34px;
+}
+
+.toggler.roundItem:before {
+  border-radius: 50%;
+}  */
