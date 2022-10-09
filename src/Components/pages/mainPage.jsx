@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Paginate from '../common/paginate';
 import { useTranslation } from 'react-i18next';
 import { getUserCollection, getUserPages } from '../services/getInfoRequests';
+import { useSelector } from 'react-redux';
 
 import NavBar from '../navigation/navBar';
 import UserCollection from '../ui/userCollection';
@@ -11,6 +12,8 @@ import EditButtons from '../common/buttons/editButtons';
 function MainPage() {
   const userRole = localStorage.getItem('role');
   const { t } = useTranslation();
+  // const theme = useSelector(({ theme }) => theme.theme);
+
   const [collections, setCollections] = useState();
   const [countCollections, setTotalCollections] = useState();
   const [currentPage, setCurrentPage] = useState(1);
@@ -54,7 +57,7 @@ function MainPage() {
           )}
         </div>
       )}
-      <div className="mx-auto mt-4" style={{ width: '250px' }}>
+      <div className={`mx-auto mt-4`} style={{ width: '250px' }}>
         {collections
           ? collections.map((item, index) => (
               <UserCollection

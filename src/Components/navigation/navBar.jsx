@@ -10,6 +10,7 @@ import ThemeSwither from '../common/buttons/themeSwither';
 function NavBar() {
   const dispatch = useDispatch();
   const { t } = useTranslation();
+  const theme = useSelector(({ theme }) => theme.theme);
 
   const userName = localStorage.getItem('user');
   const userRole = localStorage.getItem('role');
@@ -32,7 +33,7 @@ function NavBar() {
   //   }
   // };
   return (
-    <nav className="navbar navbar-expand-lg bg-light">
+    <nav className={`navbar navbar-expand-lg  ${theme === 'light' ? ' bg-light' : ' bg-dark'}`}>
       <div className="container-fluid">
         <Link to="/" className="text-decoration-none">
           {t('main page')}
@@ -75,14 +76,20 @@ function NavBar() {
             {userName && <span className="fs-4 mx-2">{userName}</span>}
             <div className="vr bg-dark"></div>
             {userName ? (
-              <Link to="/login" className="navbar-brand ms-2" onClick={deleteUserData}>
+              <Link
+                to="/login"
+                className={`navbar-brand ms-2 ${theme === 'light' ? ' text-light' : ' text-dark'}}`}
+                onClick={deleteUserData}>
                 {/* LOG OUT */}
                 {t('log out')}
               </Link>
             ) : (
-              <Link to="/login" className="navbar-brand ms-2" onClick={deleteUserData}>
+              <Link
+                to="/login"
+                className={`navbar-brand ms-2 ${theme === 'light' ? ' text-dark' : ' text-light'}}`}
+                onClick={deleteUserData}>
                 {/* LOG IN */}
-                {t('log in')}
+                <p className="text-primary">{t('log in')}</p>
               </Link>
             )}
           </div>

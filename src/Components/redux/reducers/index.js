@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
-import language from './language';
+import theme from './theme';
 const rootReducer = combineReducers({
-  language,
+  theme,
 });
 export default rootReducer;

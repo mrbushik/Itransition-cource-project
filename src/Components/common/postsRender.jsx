@@ -10,8 +10,8 @@ function PostsRender({ data }) {
     <>
       {data && (
         <>
-          <h2 className="text-center mt-3">{data.name}</h2>
-          <table className="table mt-4">
+          <h2 className={`text-center mt-3 `}>{data.name}</h2>
+          <table className={`table mt-4 `}>
             <thead>
               <tr>
                 <th scope="col">{t('id')}</th>

@@ -91,15 +91,15 @@ function Login() {
 
   return (
     <>
-      <div className="container mt-5">
-        <div className="row">
-          <div className=" shadow p-4">
+      <div className="container mt-5 ">
+        <div className="row dark-mode">
+          <div className=" shadow p-4 dark-mode">
             {formType === 'register' ? (
               <h3 className="mb-4">{t('sing up')}</h3>
             ) : (
               <h3 className="mb-4">{t('sing in')}</h3>
             )}
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit} className="dark-mode">
               {data && (
                 <>
                   <TextField
