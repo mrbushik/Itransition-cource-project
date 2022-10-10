@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useEffect, useState } from 'react';
-import { useParams, useHistory } from 'react-router-dom';
+import { useParams, useHistory, Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { loginRequest } from '../services/loginRequest';
 
@@ -56,12 +56,21 @@ function Login() {
 
   return (
     <>
-      <div className="m-3 ">
-        <div className="my-3">
-          {' '}
-          <SwitchLanguage />
+      <div className="m-3 d-flex justify-content-between">
+        <div>
+          <div className="  d-flex align-items-center ">
+            {' '}
+            <SwitchLanguage />
+          </div>
+          <div className="">
+            <ThemeSwither />
+          </div>
         </div>
-        <ThemeSwither />
+        <div className="my-3">
+          <Link to="/">
+            <div className="btn btn-secondary">{t('to main page')}</div>
+          </Link>
+        </div>
       </div>
       <div className=" m-5  ">
         <div className="row ">

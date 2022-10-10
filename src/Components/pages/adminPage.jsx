@@ -47,7 +47,10 @@ function AdminPage() {
 
   const submitChanges = (buttonName) => {
     const requestNumber = buttons.findIndex((item) => item === buttonName);
-    requests[requestNumber]('https://jsonplaceholder.typicode.com/posts/1', { name: 'petya' });
+    requests[requestNumber](
+      `http://localhost:5000/api/change-status/${selectedUser.user}`,
+      setUsers,
+    );
   };
 
   const handlRequest = (buttonName) => {

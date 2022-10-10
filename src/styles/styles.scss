@@ -11,12 +11,14 @@ body {
   // background-color: #111;
 
   div,
-  html,body,nav {
+  html,
+  body,
+  nav {
     background-color: #111 !important;
-    color: #fff ;
+    color: #fff;
 
   }
- 
+
   h1,
   h2,
   h3,
@@ -39,21 +41,22 @@ body {
     color: #fff;
 
   }
+
   .dark-mode {
-    // background-color: #2b3942cf !important;
     color: #fff !important;
-    background-color:  #2a2d2fcf!important;
-div{
-  background-color:  #2a2d2fcf!important;
+    background-color: #2a2d2fcf !important;
+
+    div {
+      background-color: #2a2d2fcf !important;
+    }
+
+    .white-element {
+      background-color: #fff !important;
+    }
+
+  }
 
 }
-  }
- 
-}
-// .dark-mode{
-//   color: #fff !important;
-//   background-color: aliceblue !important;
-// }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
@@ -72,8 +75,11 @@ code {
 .switch {
   display: inline-block;
   width: 60px;
-  height: 30px;
-  margin: 4px;
+  height: 28px;
+  // margin: 4px;
+  margin-left: 8px;
+  margin-right: 8px;
+  margin-bottom: 30px;
   transform: translateY(50%);
   position: relative;
 }
@@ -160,7 +166,7 @@ input:checked+.slider {
   position: relative;
   display: inline-block;
   width: 60px;
-  height: 34px;
+  height: 30px;
 }
 
 Hide default HTML checkbox .swither input {
@@ -184,8 +190,8 @@ Hide default HTML checkbox .swither input {
 .toggler:before {
   position: absolute;
   content: "";
-  height: 40px;
-  width: 40px;
+  height: 30px;
+  width: 30px;
   left: 0px;
   bottom: 4px;
   top: 0;
@@ -218,7 +224,7 @@ input:checked+.toggler:before {
 
 
 .toggler.roundItem {
-  border-radius: 34px;
+  border-radius: 30px;
 }
 
 .toggler.roundItem:before {

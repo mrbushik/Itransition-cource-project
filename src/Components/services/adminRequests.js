@@ -1,45 +1,45 @@
 import axios from 'axios';
-export function unblock(url, data, setRequestStatus) {
+export function unblock(url, setUsers) {
   axios
-    .put(url, { roles: ['USER'] })
+    .patch(url, { roles: ['USER'] })
     .then((response) => response)
-    .then((data) => setRequestStatus(data.data))
+    .then((data) => getUsers(setUsers))
     .catch((error) => {
       //   setRequestStatus(error.response.data);
     });
 }
-export function deleteUser(url, data) {
+export function deleteUser(url, setUsers) {
   axios
     .delete(url)
     .then((response) => response)
-    // .then((data) => setRequestStatus(data.data))
+    .then((data) => getUsers(setUsers))
     .catch((error) => {
       //   setRequestStatus(error.response.data);
     });
 }
-export function block(url, data, setRequestStatus) {
+export function block(url, setUsers) {
   axios
-    .put(url, { roles: ['BLOCK'] })
+    .patch(url, { roles: ['BLOCK'] })
     .then((response) => response)
-    .then((data) => setRequestStatus(data.data))
+    .then((data) => getUsers(setUsers))
     .catch((error) => {
       //   setRequestStatus(error.response.data);
     });
 }
-export function getAdmin(url, data, setRequestStatus) {
+export function getAdmin(url, setUsers) {
   axios
-    .put(url, { roles: ['ADMIN'] })
+    .patch(url, { roles: ['ADMIN'] })
     .then((response) => response)
-    .then((data) => setRequestStatus(data.data))
+    .then((data) => getUsers(setUsers))
     .catch((error) => {
       //   setRequestStatus(error.response.data);
     });
 }
-export function pickUpAdmin(url, data, setRequestStatus) {
+export function pickUpAdmin(url, setUsers) {
   axios
-    .put(url, { roles: ['USER'] })
+    .patch(url, { roles: ['USER'] })
     .then((response) => response)
-    .then((data) => setRequestStatus(data.data))
+    .then((data) => getUsers(setUsers))
     .catch((error) => {
       //   setRequestStatus(error.response.data);
     });
