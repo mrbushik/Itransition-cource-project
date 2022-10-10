@@ -21,7 +21,7 @@ function CollectionPosts({ editButtons }) {
   return (
     <>
       <NavBar />
-      <BackBtn backLink={'/'} />
+      <BackBtn backLink={'/collection'} />
       {collectionData && (
         <ShowModal
           btnList={

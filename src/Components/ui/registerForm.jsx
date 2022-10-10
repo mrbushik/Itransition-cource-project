@@ -1,10 +1,10 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from 'react';
-import { useParams, useHistory } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { validator } from '../utils/validator';
 
 import TextField from '../common/form/textField';
-import { repeat } from 'lodash';
 
 function RegisterForm({ togleFormType, onSubmit }) {
   const { t } = useTranslation();
@@ -14,12 +14,14 @@ function RegisterForm({ togleFormType, onSubmit }) {
     password: '',
     repeat: '',
   });
+
   const handleChange = (target) => {
     setData((prevState) => ({
       ...prevState,
       [target.name]: target.value,
     }));
   };
+
   const validatorConfig = {
     username: {
       isRequired: {
@@ -36,6 +38,7 @@ function RegisterForm({ togleFormType, onSubmit }) {
       },
     },
   };
+
   const validate = () => {
     const errors = validator(data, validatorConfig);
     setErrors(errors);
@@ -55,16 +58,16 @@ function RegisterForm({ togleFormType, onSubmit }) {
     validate();
     comparisonPasswords();
   }, [data]);
-  const isValid = Object.keys(errors).length === 0;
 
   const handleSubmit = (e) => {
     const submitData = {
-      username: data.username,
+      username: data.username.trim(),
       password: data.password,
     };
     onSubmit(e, submitData);
   };
 
+  const isValid = Object.keys(errors).length === 0;
   return (
     <>
       <TextField

@@ -1,6 +1,6 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useEffect, useState } from 'react';
-import { useParams, useHistory } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { validator } from '../utils/validator';
 
@@ -14,12 +14,14 @@ function LoginForm({ togleFormType, onSubmit }) {
     password: '',
     repeat: '',
   });
+
   const handleChange = (target) => {
     setData((prevState) => ({
       ...prevState,
       [target.name]: target.value,
     }));
   };
+
   const validatorConfig = {
     username: {
       isRequired: {
@@ -31,18 +33,27 @@ function LoginForm({ togleFormType, onSubmit }) {
         message: t('field required'),
       },
     },
-    // ошибка пароли не совпадают
   };
+
   const validate = () => {
     const errors = validator(data, validatorConfig);
     setErrors(errors);
     return Object.keys(errors).length === 0;
   };
+
+  const handleSubmit = (e) => {
+    const submitData = {
+      username: data.username.trim(),
+      password: data.password,
+    };
+    onSubmit(e, submitData);
+  };
+
   useEffect(() => {
     validate();
   }, [data]);
-  const isValid = Object.keys(errors).length === 0;
 
+  const isValid = Object.keys(errors).length === 0;
   return (
     <>
       <TextField
@@ -64,7 +75,7 @@ function LoginForm({ togleFormType, onSubmit }) {
         className="btn btn-primary w-100 mx-auto mb-2"
         type="submit"
         disabled={!isValid}
-        onClick={(e) => onSubmit(e, data)}>
+        onClick={(e) => handleSubmit(e)}>
         {t('submit')}
       </button>
       <a role="button" onClick={togleFormType}>

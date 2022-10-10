@@ -12,8 +12,6 @@ import SelectField from '../../form/selectedField';
 import AddFieldForm from '../../form/addFieldForm';
 import TextAreaField from '../../form/textAreaField';
 
-
-
 function Modal({ onActive, updateCollections }) {
   const { t } = useTranslation();
   const userId = localStorage.getItem('userId');
@@ -135,7 +133,7 @@ function Modal({ onActive, updateCollections }) {
   };
   return (
     <>
-      <div className="modal-dialog modal-dialog-centered w-75 bg-light absolute-top mx-3 mt-3 p-3">
+      <div className="modal-dialog modal-dialog-centered w-75 bg-light absolute-top mx-3 mt-3 p-3 dark-mode">
         <div className="modal-content">
           <div className="modal-header">
             <h5 className="modal-title">{t('create collection')}</h5>
@@ -147,6 +145,7 @@ function Modal({ onActive, updateCollections }) {
             <div>
               <TextField
                 label={t('collection name')}
+                placeholder={t('collection name')}
                 type="text"
                 name="name"
                 value={collection.name}

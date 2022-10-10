@@ -42,7 +42,7 @@ function EditModal({ modalType, collections, onActive }) {
     console.log(targetElement._id);
   };
   return (
-    <div className="modal-dialog modal-dialog-centered  bg-light absolute-top mx-3 mt-3 p-3">
+    <div className="modal-dialog modal-dialog-centered  bg-light absolute-top mx-3 mt-3 p-3 dark-mode">
       <div className="modal-content h-100">
         <div className="modal-header">
           <h5 className="modal-title">{modalType}</h5>

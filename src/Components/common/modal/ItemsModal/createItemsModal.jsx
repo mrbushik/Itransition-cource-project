@@ -117,7 +117,7 @@ function CreateItemsModal({ onClose, fieldsCount, addingFields, collectionId }) 
 
   return (
     <>
-      <div className="modal-dialog modal-dialog-centered  bg-light absolute-top mx-3 mt-3 p-3">
+      <div className="modal-dialog modal-dialog-centered  bg-light absolute-top mx-3 mt-3 p-3 dark-mode">
         <div className="modal-content">
           <div className="modal-header">
             <h5 className="modal-title">{t('new item')}</h5>

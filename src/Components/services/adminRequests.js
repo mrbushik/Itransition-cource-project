@@ -3,43 +3,43 @@ export function unblock(url, setUsers) {
   axios
     .patch(url, { roles: ['USER'] })
     .then((response) => response)
-    .then((data) => getUsers(setUsers))
+    .then((response) => getUsers(setUsers))
     .catch((error) => {
-      //   setRequestStatus(error.response.data);
+      //   setRequestStatus(error.response.response);
     });
 }
 export function deleteUser(url, setUsers) {
   axios
     .delete(url)
     .then((response) => response)
-    .then((data) => getUsers(setUsers))
+    .then((response) => getUsers(setUsers))
     .catch((error) => {
-      //   setRequestStatus(error.response.data);
+      //   setRequestStatus(error.response.response);
     });
 }
 export function block(url, setUsers) {
   axios
     .patch(url, { roles: ['BLOCK'] })
     .then((response) => response)
-    .then((data) => getUsers(setUsers))
+    .then((response) => getUsers(setUsers))
     .catch((error) => {
-      //   setRequestStatus(error.response.data);
+      //   setRequestStatus(error.response.response);
     });
 }
 export function getAdmin(url, setUsers) {
   axios
     .patch(url, { roles: ['ADMIN'] })
     .then((response) => response)
-    .then((data) => getUsers(setUsers))
+    .then((response) => getUsers(setUsers))
     .catch((error) => {
-      //   setRequestStatus(error.response.data);
+      //   setRequestStatus(error.response.response);
     });
 }
 export function pickUpAdmin(url, setUsers) {
   axios
     .patch(url, { roles: ['USER'] })
     .then((response) => response)
-    .then((data) => getUsers(setUsers))
+    .then((response) => getUsers(setUsers))
     .catch((error) => {
       //   setRequestStatus(error.response.data);
     });
