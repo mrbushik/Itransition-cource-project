@@ -8,7 +8,7 @@ function TextAreaField({ value, label, placeholder, onChange, name, error }) {
     return 'form-control' + (error ? ' is-invalid' : '');
   };
   return (
-    <div className="mb-1">
+    <div className="mb-3">
       <label htmlFor={name}>{label}</label>
       <div className="input-group has-validation">
         <textarea
@@ -19,7 +19,7 @@ function TextAreaField({ value, label, placeholder, onChange, name, error }) {
           value={value}
           onChange={handleChange}
           className={getInputClasses()}></textarea>
-        {error && <div className="invalid-feedback">{error}</div>}
+        {error && <p className="invalid-feedback text-danger">{error}</p>}
       </div>
     </div>
   );

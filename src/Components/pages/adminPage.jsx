@@ -2,11 +2,18 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useTranslation } from 'react-i18next';
+import { useHistory } from 'react-router-dom';
+import {
+  unblock,
+  block,
+  deleteUser,
+  getAdmin,
+  pickUpAdmin,
+  getUsers,
+} from '../services/adminRequests';
 
 import UserTableItem from '../ui/userTableItem';
 import EditButtons from '../common/buttons/editButtons';
-import { unblock, block, deleteUser, getAdmin, pickUpAdmin } from '../services/adminRequests';
-import { useHistory } from 'react-router-dom';
 import NavBar from '../navigation/navBar';
 function AdminPage() {
   const { t } = useTranslation();
@@ -27,10 +34,7 @@ function AdminPage() {
 
   useEffect(() => {
     if (role === 'ADMIN') {
-      axios
-        .get('http://localhost:5000/api/all-users')
-        .then((response) => response)
-        .then((data) => setUsers(data.data.users));
+      getUsers(setUsers);
     }
   }, []);
   const handleChange = (target) => {
@@ -40,21 +44,19 @@ function AdminPage() {
     }));
     setErrors('');
   };
-  //   useEffect(() => {
-  //     if (selectedUser.user) {
-  //       const requestNumber = buttons.findIndex((item) => item === selectButton);
-  //       requests[requestNumber]('https://jsonplaceholder.typicode.com/posts/1', { name: 'petya' });
-  //     } else {
-  //       setErrors('Select user');
-  //     }
-  //   }, [selectButton]);
+
+  const submitChanges = (buttonName) => {
+    const requestNumber = buttons.findIndex((item) => item === buttonName);
+    requests[requestNumber]('https://jsonplaceholder.typicode.com/posts/1', { name: 'petya' });
+  };
+
   const handlRequest = (buttonName) => {
     if (selectedUser.user) {
-      const requestNumber = buttons.findIndex((item) => item === buttonName);
-      requests[requestNumber]('https://jsonplaceholder.typicode.com/posts/1', { name: 'petya' });
+      // const requestNumber = buttons.findIndex((item) => item === buttonName);
+      // requests[requestNumber]('https://jsonplaceholder.typicode.com/posts/1', { name: 'petya' });
+      submitChanges(buttonName);
     } else {
-      console.log('err');
-      setErrors('choose user');
+      setErrors(t('choose user'));
     }
   };
   return (

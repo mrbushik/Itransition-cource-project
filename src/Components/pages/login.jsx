@@ -3,67 +3,32 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { validator } from '../utils/validator';
 import { loginRequest } from '../services/loginRequest';
 
-import TextField from '../../Components/common/form/textField';
-// добавить кнопки языка и темной темы
+import ThemeSwither from '../common/buttons/themeSwither';
+import SwitchLanguage from '../common/buttons/switchLanguage';
+import LoginForm from '../ui/loginForm';
+import RegisterForm from '../ui/registerForm';
 function Login() {
   const { t } = useTranslation();
   const { type } = useParams();
+  const history = useHistory();
+
   const [formType, setFormType] = useState(type === 'register' ? type : 'login');
+
+  const [errors, setErrors] = useState({});
+  const [auth, setAuth] = useState({});
+
   const togleFormType = () => {
     setFormType((pervState) => (pervState === 'register' ? 'login' : 'register'));
   };
 
-  const [data, setData] = useState({
-    username: '',
-    password: '',
-  });
-  const [errors, setErrors] = useState({});
-  const [auth, setAuth] = useState({});
-  const history = useHistory();
-
-  const handleChange = (target) => {
-    setData((prevState) => ({
-      ...prevState,
-      [target.name]: target.value,
-    }));
-  };
-
-  const validatorConfig = {
-    username: {
-      isRequired: {
-        message: t('field required'),
-      },
-    },
-    password: {
-      isRequired: {
-        message: t('field required'),
-      },
-      min: {
-        message: t('password error'),
-        value: 5,
-      },
-    },
-  };
-
-  useEffect(() => {
-    validate();
-  }, [data]);
-
-  const validate = () => {
-    const errors = validator(data, validatorConfig);
-    setErrors(errors);
-    return Object.keys(errors).length === 0;
-  };
-
-  const isValid = Object.keys(errors).length === 0;
-
-  const handleSubmit = (e) => {
+  const handleSubmit = (e, data) => {
     e.preventDefault();
-    const isValid = validate();
-    if (!isValid) return;
+    sendingTargetForm(data);
+  };
+
+  const sendingTargetForm = (data) => {
     formType === 'login'
       ? loginRequest('http://localhost:5000/api/login', data, setErrors, setAuth)
       : loginRequest('http://localhost:5000/api/registration', data, setErrors);
@@ -85,60 +50,41 @@ function Login() {
   useEffect(() => {
     if (auth.token) {
       writeUserData();
-      history.push('/collection');
+      history.push('/');
     }
   }, [auth]);
 
   return (
     <>
-      <div className="container mt-5 ">
-        <div className="row dark-mode">
-          <div className=" shadow p-4 dark-mode">
+      <div className="m-3 ">
+        <div className="my-3">
+          {' '}
+          <SwitchLanguage />
+        </div>
+        <ThemeSwither />
+      </div>
+      <div className=" m-5  ">
+        <div className="row ">
+          <div className="col-md-6 offset-md-3 shadow p-4  dark-mode">
             {formType === 'register' ? (
               <h3 className="mb-4">{t('sing up')}</h3>
             ) : (
               <h3 className="mb-4">{t('sing in')}</h3>
             )}
-            <form onSubmit={handleSubmit} className="dark-mode">
-              {data && (
-                <>
-                  <TextField
-                    label={t('username')}
-                    name="username"
-                    value={data.username}
-                    onChange={handleChange}
-                    error={errors.username}
-                  />
-                  <TextField
-                    label={t('password')}
-                    type="password"
-                    name="password"
-                    value={data.password}
-                    onChange={handleChange}
-                    error={errors.password}
-                  />
-                </>
-              )}
-              <button className="btn btn-primary w-100 mx-auto" type="submit" disabled={!isValid}>
-                {t('submit')}
-              </button>
+            <form className="dark-mode">
+              <div className="mb-3">
+                {formType === 'login' ? (
+                  <LoginForm togleFormType={togleFormType} onSubmit={handleSubmit} />
+                ) : (
+                  <RegisterForm togleFormType={togleFormType} onSubmit={handleSubmit} />
+                )}
+              </div>
               {errors.message ? (
                 <span className="text-danger mt-2 mb-2">{errors.message}</span>
               ) : (
                 <div className=""></div>
               )}
             </form>
-            <p>{t('have account')}</p>{' '}
-            {formType === 'register' && (
-              <a role="button" onClick={togleFormType}>
-                {t('sign in')}
-              </a>
-            )}
-            {formType === 'login' && (
-              <a role="button" onClick={togleFormType}>
-                {t('sing up')}
-              </a>
-            )}
           </div>
         </div>
       </div>

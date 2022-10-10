@@ -35,11 +35,11 @@ function CreateItemsModal({ onClose, fieldsCount, addingFields, collectionId }) 
         message: t('field required'),
       },
     },
-    theme: {
-      isRequired: {
-        message: t('field required'),
-      },
-    },
+    // theme: {
+    //   isRequired: {
+    //     message: t('field required'),
+    //   },
+    // },
   };
   const validate = () => {
     const errors = validator(postItem, validatorConfig);
@@ -133,7 +133,7 @@ function CreateItemsModal({ onClose, fieldsCount, addingFields, collectionId }) 
             onChange={handleChange}
             placeholder={t('post description')}
             label={t('post description')}
-            error={errors.description}
+            error={errors.name}
           />
           {fieldValue &&
             fieldValue.map((item, index) => (

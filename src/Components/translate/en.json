@@ -48,7 +48,10 @@
     "checkbox": "Checkbox",
     "role": "Role",
     "id": "Id",
-    "tags": "Tags"
+    "tags": "Tags",
+    "choose user": "choose user",
+    "repeat password": "repeat password",
+    "passwords don't match": "Passwords don't match"
 
 
 

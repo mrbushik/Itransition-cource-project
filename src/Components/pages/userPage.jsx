@@ -1,6 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useHistory } from 'react-router-dom';
 
 import UserCollection from '../ui/userCollection';
 import Modal from '../common/modal/collectionModal/modal';
@@ -23,10 +24,15 @@ function UserPage() {
   const URL = `http://localhost:5000/api/user/${userId} `;
   let userCrop;
   const { t } = useTranslation();
+  const history = useHistory();
 
   const toggleActiveModal = (value) => setActiveModal(value);
   const updateCollections = () => getUserCollection(URL, setCollections);
-
+  useEffect(() => {
+    if (!userId) {
+      history.push('/');
+    }
+  }, []);
   useEffect(() => {
     getUserCollection(URL, setCollections);
   }, []);
@@ -36,6 +42,7 @@ function UserPage() {
   if (collections) {
     userCrop = paginate(collections, currentPage, 3);
   }
+
   return (
     <>
       <NavBar />

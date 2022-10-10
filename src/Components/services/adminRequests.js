@@ -44,3 +44,9 @@ export function pickUpAdmin(url, data, setRequestStatus) {
       //   setRequestStatus(error.response.data);
     });
 }
+export function getUsers(setUsers) {
+  axios
+    .get('http://localhost:5000/api/all-users')
+    .then((response) => response)
+    .then((data) => setUsers(data.data.users));
+}

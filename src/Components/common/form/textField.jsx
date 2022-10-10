@@ -1,7 +1,10 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import { useTranslation } from 'react-i18next';
 
 function TextField({ label, type, name, value, onChange, error, group, placeholder }) {
+  const { t } = useTranslation();
+
   const handleChange = ({ target }) => {
     onChange({ name: target.name, value: target.value, type: group });
   };
@@ -13,7 +16,7 @@ function TextField({ label, type, name, value, onChange, error, group, placehold
     setShowPassword((prevState) => !prevState);
   };
   return (
-    <div className="mb-4">
+    <div className="mb-3">
       <label htmlFor={name}>{label}</label>
       <div className="input-group has-validation">
         <input
@@ -53,7 +56,7 @@ function TextField({ label, type, name, value, onChange, error, group, placehold
             )}
           </button>
         )}
-        {error && <div className="invalid-feedback">{error}</div>}
+        {error && <p className="invalid-feedback text-danger">{error}</p>}
       </div>
     </div>
   );

@@ -15,6 +15,11 @@ export function validator(data, config) {
         statusValidate = data.length < config.value;
         break;
       }
+      // case 'comparison': {
+      //   console.log(data);
+      //   statusValidate = data.password !== data.repeat && data.repeat !== '';
+      //   break;
+      // }
       default:
         break;
     }

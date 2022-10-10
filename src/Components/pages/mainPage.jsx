@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import Paginate from '../common/paginate';
 import { useTranslation } from 'react-i18next';
 import { getUserCollection, getUserPages } from '../services/getInfoRequests';
-import { useSelector } from 'react-redux';
 
 import NavBar from '../navigation/navBar';
 import UserCollection from '../ui/userCollection';
@@ -12,7 +11,6 @@ import EditButtons from '../common/buttons/editButtons';
 function MainPage() {
   const userRole = localStorage.getItem('role');
   const { t } = useTranslation();
-  // const theme = useSelector(({ theme }) => theme.theme);
 
   const [collections, setCollections] = useState();
   const [countCollections, setTotalCollections] = useState();
@@ -38,7 +36,9 @@ function MainPage() {
       <NavBar />
       {userRole === 'ADMIN' && (
         <div>
-          <EditButtons onToggle={toggleActiveModal} btnList={[t('edit'), t('delete')]} />
+          {userRole && (
+            <EditButtons onToggle={toggleActiveModal} btnList={[t('edit'), t('delete')]} />
+          )}
 
           {/* передать ID коллекции в пропс */}
           {(activeModal === 'Edit' || activeModal === 'Редактировать') && collections && (

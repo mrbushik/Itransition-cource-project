@@ -29,7 +29,7 @@ function UploadField({ name, onSave, isUrl }) {
         <button className="btn btn-outline-secondary" type="button" onClick={saveLink}>
           {t('upload')}
         </button>
-        {!isUrl && <div className="invalid-feedback">{t('upload error')}</div>}
+        {!isUrl && <p className="invalid-feedback text-danger">{t('upload error')}</p>}
       </div>
     </>
   );

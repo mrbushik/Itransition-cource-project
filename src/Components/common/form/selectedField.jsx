@@ -10,7 +10,7 @@ function SelectField({ label, value, onChange, defaultOption, options, error, na
   };
 
   return (
-    <div className="mb-4">
+    <div className="mb-3">
       <label htmlFor={name} className="form-label">
         {label}
       </label>
@@ -30,7 +30,7 @@ function SelectField({ label, value, onChange, defaultOption, options, error, na
           </option>
         ))}
       </select>
-      {error && <div className="invalid-feedback">{error}</div>}
+      {error && <p className="invalid-feedback text-danger">{error}</p>}
     </div>
   );
 }
