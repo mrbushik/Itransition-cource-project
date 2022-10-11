@@ -1,7 +1,10 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useHistory } from 'react-router-dom';
+import { getUserCollection } from '../services/getInfoRequests';
+import { paginate } from '../utils/paginate';
 
 import UserCollection from '../ui/userCollection';
 import Modal from '../common/modal/collectionModal/modal';
@@ -10,39 +13,44 @@ import EditButtons from '../common/buttons/editButtons';
 import NavBar from '../navigation/navBar';
 import Paginate from '../common/paginate';
 
-import { getUserCollection } from '../services/getInfoRequests';
-import { paginate } from '../utils/paginate';
-// import { useSelector } from 'react-redux';
-function UserPage() {
-  const [collections, setCollections] = useState();
-  const [activeModal, setActiveModal] = useState('');
-  const [currentPage, setCurrentPage] = useState(1);
-  // const language = useSelector(({ language }) => language);
-  // console.log(language);
+import { useDispatch, useSelector } from 'react-redux';
+import { changeCurrentPageAtUser } from '../redux/actions/currentPaginatePage';
 
+function UserPage() {
   const userId = localStorage.getItem('userId');
   const URL = `http://localhost:5000/api/user/${userId} `;
   let userCrop;
   const { t } = useTranslation();
   const history = useHistory();
+  const dispatch = useDispatch();
+
+  const [collections, setCollections] = useState();
+  const [activeModal, setActiveModal] = useState('');
+  const currentPage = useSelector(({ changeCurrentPage }) => changeCurrentPage.userPage);
+  const [countPage, setCountPage] = useState(1);
 
   const toggleActiveModal = (value) => setActiveModal(value);
+
   const updateCollections = () => getUserCollection(URL, setCollections);
+
   useEffect(() => {
     if (!userId) {
       history.push('/');
     }
   }, []);
+
   useEffect(() => {
     getUserCollection(URL, setCollections);
   }, []);
 
-  const getCollectionsPages = (count) => setCurrentPage(count);
+  const changePage = (count) => dispatch(changeCurrentPageAtUser(count));
 
+  useEffect(() => {
+    setCountPage(currentPage);
+  }, [currentPage]);
   if (collections) {
     userCrop = paginate(collections, currentPage, 3);
   }
-
   return (
     <>
       <NavBar />
@@ -90,7 +98,7 @@ function UserPage() {
         <Paginate
           countCollections={collections.length}
           currentPage={currentPage}
-          onPageChange={getCollectionsPages}
+          onPageChange={changePage}
         />
       )}
     </>

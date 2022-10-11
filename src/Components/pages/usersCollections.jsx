@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { getPosts } from '../services/getInfoRequests';
@@ -13,7 +14,6 @@ function UsersCollections() {
 
   const [collectionData, setCollectionData] = useState();
   const isAdmin = localStorage.getItem('role');
-  const showEditButtons = isAdmin === 'ADMIN' ? true : false;
   useEffect(() => {
     getPosts(setCollectionData, params);
   }, []);

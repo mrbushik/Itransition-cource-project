@@ -50,7 +50,7 @@ function NavBar() {
               <div>
                 {' '}
                 {userName && <span className="fs-4 mx-2">{userName}</span>}
-                <div className="vr bg-dark white-element"></div>
+                {userName && <div className="vr bg-dark white-element"></div>}
                 {userName ? (
                   <Link to="/login" className={'navbar-brand ms-2 '} onClick={deleteUserData}>
                     {t('log out')}

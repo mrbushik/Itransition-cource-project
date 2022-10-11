@@ -163,7 +163,7 @@ function Modal({ onActive, updateCollections }) {
               <SelectField
                 label={t('choose collection')}
                 name="theme"
-                options={[t('create'), t('edit'), t('delete')]}
+                options={[t('books'), t('music'), t('clothes')]}
                 defaultOption={t('choose')}
                 onChange={handleChange}
                 value={collection.theme}

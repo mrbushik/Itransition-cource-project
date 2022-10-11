@@ -25,6 +25,7 @@
     "create collection": "Создание новой коллекции",
     "collection name": "Название коллекции",
     "description": "Описание",
+    "select collection": "Выберите коллекцию",
     "choose collection": "Выберите тип для этой коллекции",
     "collection description": "Описание коллекции",
     "additional fields": "Дополниельные поля",
@@ -51,7 +52,10 @@
     "choose user": "Выберите пользователя",
     "repeat password": "Повтор пароля",
     "passwords don't match": "Пароли не совпадают",
-    "to main page": "На главную"
+    "to main page": "На главную",
+    "books": "books",
+    "clothes": "clothes",
+    "music": "music"
 
 
 

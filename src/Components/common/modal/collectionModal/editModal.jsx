@@ -52,7 +52,7 @@ function EditModal({ modalType, collections, onActive }) {
         </div>
         <div className="modal-body">
           <SelectField
-            label={t('choose collection')}
+            label={t('select collection')}
             name="item"
             options={collectionsNames}
             defaultOption={t('choose')}
@@ -72,7 +72,7 @@ function EditModal({ modalType, collections, onActive }) {
             <SelectField
               label={t('choose collection')}
               name="type"
-              options={[t('create'), t('edit'), t('delete')]}
+              options={[t('books'), t('music'), t('clothes')]}
               onChange={handleChange}
               value={editItem.type}
             />
