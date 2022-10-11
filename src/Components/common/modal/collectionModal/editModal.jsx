@@ -42,10 +42,10 @@ function EditModal({ modalType, collections, onActive, updateCollectionsData }) 
         description: targetElement.description,
         type: targetElement.type,
       };
-      // посмотреть можно ли этот обьект вынети из эффекта
       setEditItem(defailtInputValue);
     }
   }, [editItem.item]);
+
   const collectionsNames = collections.map((item) => item.name);
 
   const modifiedCollection = {
@@ -53,18 +53,26 @@ function EditModal({ modalType, collections, onActive, updateCollectionsData }) 
     description: editItem.description,
     type: editItem.type,
   };
-  const targetRequest = (URL, collectionId) => {
-    if (modalType === 'Edit' || modalType === 'Редактировать') {
-      editCollectionRequest(URL, modifiedCollection, updateCollectionsData);
-    } else {
-      console.log(collectionId);
-      const data = { id: collectionId };
-      console.log(data);
-      deleteCollectionInUser(`http://localhost:5000/api/delete-collection-user/${UserId}`, data);
-      deleteCollectionRequest(URL, updateCollectionsData);
-      setEditItem({ item: '' });
-    }
+
+  const deleteCollection = (URL, collectionId) => {
+    deleteCollectionInUser(
+      `http://localhost:5000/api/delete-collection-user/${UserId}`,
+      collectionId,
+    );
+    deleteCollectionRequest(URL, updateCollectionsData);
+    setEditItem({ item: '' });
   };
+
+  const collectionEdit = (URL) => {
+    editCollectionRequest(URL, modifiedCollection, updateCollectionsData);
+  };
+
+  const targetRequest = (URL, collectionId) => {
+    modalType === 'Edit' || modalType === 'Редактировать'
+      ? collectionEdit(URL)
+      : deleteCollection(URL, collectionId);
+  };
+
   const handleSubmit = () => {
     const URL = `http://localhost:5000/api/change-collection/${targetElement._id}`;
     targetRequest(URL, targetElement._id);

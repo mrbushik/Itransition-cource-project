@@ -14,6 +14,7 @@ import TextAreaField from '../../form/textAreaField';
 
 function Modal({ onActive, updateCollectionsData }) {
   const { t } = useTranslation();
+  let err = 0;
   const userId = localStorage.getItem('userId');
   const userName = localStorage.getItem('userId');
   const URL = 'http://localhost:5000/api/add-collection';
@@ -81,7 +82,6 @@ function Modal({ onActive, updateCollectionsData }) {
   };
 
   const validateAddingFields = () => {
-    let err = 0;
     for (let i = 0; i < fieldValue.length; i++) {
       if (fieldValue[i].type === '' || fieldValue[i].description === '') {
         err += 1;
@@ -89,6 +89,7 @@ function Modal({ onActive, updateCollectionsData }) {
     }
     return err;
   };
+
   const clearData = () => {
     setCollection({
       name: '',
@@ -98,9 +99,8 @@ function Modal({ onActive, updateCollectionsData }) {
     });
     setFieldValue([]);
   };
+
   const onSubmit = () => {
-    const errors = validator(collection, validatorConfig);
-    setErrors(errors);
     if (isValid && collection.photoUrl && validateAddingFields() === 0) {
       sendingData.postsTemplate.push(...fieldValue);
       createCollection(URL, sendingData, updateCollectionsData);

@@ -1,9 +1,10 @@
 import axios from 'axios';
+// import { result } from 'lodash';
 export function getUserCollection(url, setCollections) {
   fetch(url, { method: 'GET' })
     .then((response) => response.json())
     .then((result) => result.collections)
-    .then((result) => (result.length === 0 ? '' : setCollections(result.reverse())))
+    .then((result) => (result.length === 0 ? setCollections('') : setCollections(result.reverse())))
     .catch((error) => console.log(error));
 }
 export function getUserPages(url, setCountPages) {
