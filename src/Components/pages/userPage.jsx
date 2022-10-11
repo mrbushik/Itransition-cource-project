@@ -31,8 +31,12 @@ function UserPage() {
 
   const toggleActiveModal = (value) => setActiveModal(value);
 
-  const updateCollectionsData = () => getUserCollection(URL, setCollections);
-
+  // const updateCollectionsData = () => getUserCollection(URL, setCollections);
+  const updateCollectionsData = () => {
+    console.log('work');
+    getUserCollection(URL, setCollections);
+    console.log(collections);
+  };
   useEffect(() => {
     if (!userId) {
       history.push('/');

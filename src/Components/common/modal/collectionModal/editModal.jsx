@@ -1,7 +1,11 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { editCollectionRequest, deleteCollectionRequest } from '../../../services/modalRequests';
+import {
+  editCollectionRequest,
+  deleteCollectionRequest,
+  deleteCollectionInUser,
+} from '../../../services/modalRequests';
 
 import SelectField from '../../form/selectedField';
 import TextAreaField from '../../form/textAreaField';
@@ -9,7 +13,7 @@ import TextField from '../../form/textField';
 
 function EditModal({ modalType, collections, onActive, updateCollectionsData }) {
   let targetElement;
-
+  const UserId = localStorage.getItem('userId');
   const { t } = useTranslation();
 
   const [editItem, setEditItem] = useState({
@@ -49,16 +53,21 @@ function EditModal({ modalType, collections, onActive, updateCollectionsData }) 
     description: editItem.description,
     type: editItem.type,
   };
-  const targetRequest = (URL) => {
+  const targetRequest = (URL, collectionId) => {
     if (modalType === 'Edit' || modalType === 'Редактировать') {
       editCollectionRequest(URL, modifiedCollection, updateCollectionsData);
     } else {
+      console.log(collectionId);
+      const data = { id: collectionId };
+      console.log(data);
+      deleteCollectionInUser(`http://localhost:5000/api/delete-collection-user/${UserId}`, data);
       deleteCollectionRequest(URL, updateCollectionsData);
+      setEditItem({ item: '' });
     }
   };
   const handleSubmit = () => {
     const URL = `http://localhost:5000/api/change-collection/${targetElement._id}`;
-    targetRequest(URL);
+    targetRequest(URL, targetElement._id);
   };
 
   return (

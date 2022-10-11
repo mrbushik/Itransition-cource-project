@@ -3,8 +3,8 @@ export async function createCollection(url, data, updateCollections) {
   await axios
     .post(url, data)
     .then((response) => response)
-    .then((data) => updateCollections())
+    .then((response) => updateCollections())
     .catch((error) => {
-      //   setRequestStatus(error.response.data);
+      console.log(error);
     });
 }

@@ -12,7 +12,7 @@ import SelectField from '../../form/selectedField';
 import AddFieldForm from '../../form/addFieldForm';
 import TextAreaField from '../../form/textAreaField';
 
-function Modal({ onActive, updateCollections }) {
+function Modal({ onActive, updateCollectionsData }) {
   const { t } = useTranslation();
   const userId = localStorage.getItem('userId');
   const userName = localStorage.getItem('userId');
@@ -98,12 +98,12 @@ function Modal({ onActive, updateCollections }) {
     });
     setFieldValue([]);
   };
-  const onSubmit = async () => {
+  const onSubmit = () => {
     const errors = validator(collection, validatorConfig);
     setErrors(errors);
     if (isValid && collection.photoUrl && validateAddingFields() === 0) {
       sendingData.postsTemplate.push(...fieldValue);
-      await createCollection(URL, sendingData, updateCollections);
+      createCollection(URL, sendingData, updateCollectionsData);
       clearData();
     }
   };

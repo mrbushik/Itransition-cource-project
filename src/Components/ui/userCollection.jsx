@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next';
 function UserCollection({ authorName, description, icon, name, type, id, link }) {
   const { t } = useTranslation();
   const descriptionParse = [];
+
   Array.prototype.forEach.call(description.split('\n'), (item) => {
     descriptionParse.push(item);
   });

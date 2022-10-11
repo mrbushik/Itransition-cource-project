@@ -4,7 +4,7 @@ export function getUserCollection(url, setCollections) {
     .then((response) => response.json())
     .then((result) => result.collections)
     .then((result) => (result.length === 0 ? '' : setCollections(result.reverse())))
-    .catch((error) => console.log('error', error));
+    .catch((error) => console.log(error));
 }
 export function getUserPages(url, setCountPages) {
   axios
