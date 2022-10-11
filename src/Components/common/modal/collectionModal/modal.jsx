@@ -65,9 +65,9 @@ function Modal({ onActive, updateCollections }) {
   }, [collection]);
   const isValid = Object.keys(errors).length === 0;
   const uploadImage = async (e) => {
-    const files = e.target.files;
+    // const files = e.target.files;
     const data = new FormData();
-    data.append('file', files[0]);
+    data.append('file', e.target.files[0]);
     data.append('upload_preset', 'bushik123');
     const res = await fetch('	https://api.cloudinary.com/v1_1/drfjcq9hg/image/upload', {
       method: 'POST',
@@ -96,6 +96,7 @@ function Modal({ onActive, updateCollections }) {
       theme: '',
       description: '',
     });
+    setFieldValue([]);
   };
   const onSubmit = async () => {
     const errors = validator(collection, validatorConfig);
@@ -153,7 +154,7 @@ function Modal({ onActive, updateCollections }) {
                 error={errors.name}
               />
               <TextAreaField
-                name={t('description')}
+                name="description"
                 value={collection.description}
                 onChange={handleChange}
                 placeholder={t('collection description')}

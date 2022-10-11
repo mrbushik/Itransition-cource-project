@@ -1,10 +1,14 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React from 'react';
+import { validator } from '../../utils/validator';
+import { useTranslation } from 'react-i18next';
+
 import SelectField from './selectedField';
 import TextField from './textField';
-import { validator } from '../../utils/validator';
 
 function AddFieldForm({ handleChangeField, dataType, dataDescription, index, onDelete }) {
+  const { t } = useTranslation();
+
   const handleChange = (e) => {
     handleChangeField(e.value, index, e.name);
   };
@@ -19,12 +23,12 @@ function AddFieldForm({ handleChangeField, dataType, dataDescription, index, onD
   const validatorConfig = {
     type: {
       isRequired: {
-        message: 'this field is required',
+        message: t('field required'),
       },
     },
     description: {
       isRequired: {
-        message: 'this field is required',
+        message: t('field required'),
       },
     },
   };
@@ -35,16 +39,16 @@ function AddFieldForm({ handleChangeField, dataType, dataDescription, index, onD
         delete
       </button>
       <SelectField
-        label="Select the field to add"
+        label={t('Select field to add')}
         name="type"
         options={['number', 'text', 'multiline text', 'checkbox', 'date']}
-        defaultOption="Choose.."
+        defaultOption={t('choose')}
         onChange={handleChange}
         value={dataType}
         error={errors.type}
       />
       <TextField
-        label="description"
+        label={t('description')}
         type="text"
         name="description"
         value={dataDescription}

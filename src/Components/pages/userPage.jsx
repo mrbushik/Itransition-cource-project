@@ -31,7 +31,7 @@ function UserPage() {
 
   const toggleActiveModal = (value) => setActiveModal(value);
 
-  const updateCollections = () => getUserCollection(URL, setCollections);
+  const updateCollectionsData = () => getUserCollection(URL, setCollections);
 
   useEffect(() => {
     if (!userId) {
@@ -61,13 +61,19 @@ function UserPage() {
       />
       <div>
         {(activeModal === 'Create' || activeModal === 'Создать') && (
-          <Modal onActive={toggleActiveModal} updateCollections={updateCollections} />
+          <Modal onActive={toggleActiveModal} updateCollectionsData={updateCollectionsData} />
         )}
         {(activeModal === 'Edit' || activeModal === 'Редактировать') && collections && (
-          <EditModal collections={collections} modalType={t('edit')} onActive={toggleActiveModal} />
+          <EditModal
+            collections={collections}
+            updateCollectionsData={updateCollectionsData}
+            modalType={t('edit')}
+            onActive={toggleActiveModal}
+          />
         )}
         {(activeModal === 'Delete' || activeModal === 'Удалить') && collections && (
           <EditModal
+            updateCollectionsData={updateCollectionsData}
             collections={collections}
             onActive={toggleActiveModal}
             modalType={t('delete')}

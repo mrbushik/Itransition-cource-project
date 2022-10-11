@@ -1,13 +1,15 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { editCollectionRequest, deleteCollectionRequest } from '../../../services/modalRequests';
 
 import SelectField from '../../form/selectedField';
 import TextAreaField from '../../form/textAreaField';
 import TextField from '../../form/textField';
 
-function EditModal({ modalType, collections, onActive }) {
+function EditModal({ modalType, collections, onActive, updateCollectionsData }) {
   let targetElement;
+
   const { t } = useTranslation();
 
   const [editItem, setEditItem] = useState({
@@ -16,6 +18,7 @@ function EditModal({ modalType, collections, onActive }) {
     description: '',
     type: '',
   });
+
   const handleChange = (target) => {
     setEditItem((prevState) => ({
       ...prevState,
@@ -26,6 +29,7 @@ function EditModal({ modalType, collections, onActive }) {
   if (editItem.item) {
     targetElement = collections.find((item) => item.name === editItem.item);
   }
+
   useEffect(() => {
     if (targetElement) {
       const defailtInputValue = {
@@ -34,13 +38,29 @@ function EditModal({ modalType, collections, onActive }) {
         description: targetElement.description,
         type: targetElement.type,
       };
+      // посмотреть можно ли этот обьект вынети из эффекта
       setEditItem(defailtInputValue);
     }
   }, [editItem.item]);
   const collectionsNames = collections.map((item) => item.name);
-  const handleSubmit = () => {
-    console.log(targetElement._id);
+
+  const modifiedCollection = {
+    name: editItem.name,
+    description: editItem.description,
+    type: editItem.type,
   };
+  const targetRequest = (URL) => {
+    if (modalType === 'Edit' || modalType === 'Редактировать') {
+      editCollectionRequest(URL, modifiedCollection, updateCollectionsData);
+    } else {
+      deleteCollectionRequest(URL, updateCollectionsData);
+    }
+  };
+  const handleSubmit = () => {
+    const URL = `http://localhost:5000/api/change-collection/${targetElement._id}`;
+    targetRequest(URL);
+  };
+
   return (
     <div className="modal-dialog modal-dialog-centered  bg-light absolute-top mx-3 mt-3 p-3 dark-mode">
       <div className="modal-content h-100">
