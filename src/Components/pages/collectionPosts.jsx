@@ -14,6 +14,9 @@ function CollectionPosts({ editButtons }) {
   const { t } = useTranslation();
 
   const [collectionData, setCollectionData] = useState();
+
+  const handleUpdateData = () => getPosts(setCollectionData, params);
+
   useEffect(() => {
     getPosts(setCollectionData, params);
   }, []);
@@ -29,6 +32,7 @@ function CollectionPosts({ editButtons }) {
           }
           collectionId={params.Id}
           data={collectionData}
+          onUpdateData={handleUpdateData}
         />
       )}
       {collectionData && <PostsRender data={collectionData} />}

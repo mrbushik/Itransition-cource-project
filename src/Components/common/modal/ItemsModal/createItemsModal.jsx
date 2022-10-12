@@ -7,10 +7,11 @@ import { validator } from '../../../utils/validator';
 import TagsField from '../../form/tagsField';
 import CustomField from '../../form/customField';
 import { useTranslation } from 'react-i18next';
+import { addPost } from '../../../services/modalRequests';
 
 // предусмотреть что дополнительных полей нет
 
-function CreateItemsModal({ onClose, fieldsCount, addingFields, collectionId }) {
+function CreateItemsModal({ onClose, fieldsCount, addingFields, collectionId, onUpdateData }) {
   const { t } = useTranslation();
 
   // потом надо будте хранить айди автора и его имя
@@ -21,12 +22,12 @@ function CreateItemsModal({ onClose, fieldsCount, addingFields, collectionId }) 
   const [fieldValue, setFieldValue] = useState([]);
   const [errors, setErrors] = useState({});
 
+  const fieldValueToArr = fieldValue.map((value) => value.value);
+
   const sendingData = {
     tags: postItem.tags,
-    collectionId: collectionId.Id,
-    date: Date.now(),
-    fields: [{ name: postItem.name }, ...fieldValue],
-    ownerId: 'AuthorId',
+    collectionId: collectionId,
+    fields: [postItem.name, ...fieldValueToArr],
   };
 
   const validatorConfig = {
@@ -102,6 +103,7 @@ function CreateItemsModal({ onClose, fieldsCount, addingFields, collectionId }) 
       name: '',
       tags: [],
     });
+    setFieldValue([]);
   };
 
   const onSubmit = () => {
@@ -111,7 +113,7 @@ function CreateItemsModal({ onClose, fieldsCount, addingFields, collectionId }) 
     //   sendingData.postsTemplate.push(...fieldValue);
     //   console.log(sendingData);
     // }
-    console.log(sendingData);
+    addPost(sendingData, onUpdateData);
     clearData();
   };
 

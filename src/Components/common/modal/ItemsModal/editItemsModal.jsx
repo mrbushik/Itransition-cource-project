@@ -1,21 +1,30 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { editPost } from '../../../services/modalRequests';
 
 import CustomField from '../../form/customField';
 import SelectField from '../../form/selectedField';
 import TagsField from '../../form/tagsField';
 
-function EditItemsModal({ modalType, posts, postsTemplates, onClose, fieldsCount }) {
+function EditItemsModal({ modalType, posts, postsTemplates, onClose, fieldsCount, onUpdateData }) {
   let targetElement;
   const { t } = useTranslation();
-
   const [fieldValue, setFieldValue] = useState([]);
 
   const [editItem, setEditItem] = useState({
     item: '',
     tags: [],
   });
+
+  const URL = `http://localhost:5000/api/change-post/${editItem.item}`;
+
+  const fieldValueInArray = fieldValue.map((item) => item.value);
+
+  const sendingData = {
+    fields: fieldValueInArray,
+    tags: editItem.tags,
+  };
 
   const getFieldData = () => {
     if (targetElement) {
@@ -68,7 +77,8 @@ function EditItemsModal({ modalType, posts, postsTemplates, onClose, fieldsCount
   };
 
   const handleSubmit = () => {
-    console.log('submit');
+    // console.log(test);
+    editPost(URL, sendingData, onUpdateData);
   };
   return (
     <div className="modal-dialog modal-dialog-centered bg-light absolute-top mx-3 mt-3 p-3 dark-mode">

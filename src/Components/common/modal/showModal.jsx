@@ -5,7 +5,7 @@ import EditButtons from '../buttons/editButtons';
 import CreateItemsModal from './ItemsModal/createItemsModal';
 import EditItemsModal from './ItemsModal/editItemsModal';
 
-function ShowModal({ btnList, collectionId, data }) {
+function ShowModal({ btnList, collectionId, data, onUpdateData }) {
   const { t } = useTranslation();
   const [activeModal, setActiveModal] = useState('');
 
@@ -20,6 +20,7 @@ function ShowModal({ btnList, collectionId, data }) {
           addingFields={data.postsTemplate.slice(2, data.length)}
           collectionId={collectionId}
           onClose={toggleActiveModal}
+          onUpdateData={onUpdateData}
         />
       )}
       {(activeModal === 'Edit' || activeModal === 'Редактировать') && (
@@ -29,6 +30,7 @@ function ShowModal({ btnList, collectionId, data }) {
           onClose={toggleActiveModal}
           fieldsCount={data.postsTemplate.length - 1}
           modalType={t('edit')}
+          onUpdateData={onUpdateData}
         />
       )}
       {(activeModal === 'Delete' || activeModal === 'Удалить') && (
@@ -38,6 +40,7 @@ function ShowModal({ btnList, collectionId, data }) {
           onClose={toggleActiveModal}
           fieldsCount={data.postsTemplate.length - 1}
           modalType={t('delete')}
+          onUpdateData={onUpdateData}
         />
       )}
     </>

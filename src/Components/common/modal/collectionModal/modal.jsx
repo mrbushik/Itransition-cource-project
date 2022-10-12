@@ -2,7 +2,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import axios from 'axios';
 import { validator } from '../../../utils/validator';
 import { createCollection } from '../../../services/createRequest';
 
@@ -66,7 +65,6 @@ function Modal({ onActive, updateCollectionsData }) {
   }, [collection]);
   const isValid = Object.keys(errors).length === 0;
   const uploadImage = async (e) => {
-    // const files = e.target.files;
     const data = new FormData();
     data.append('file', e.target.files[0]);
     data.append('upload_preset', 'bushik123');
