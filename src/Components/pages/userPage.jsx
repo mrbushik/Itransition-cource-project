@@ -60,10 +60,10 @@ function UserPage() {
         btnList={collections ? [t('create'), t('edit'), t('delete')] : [t('create')]}
       />
       <div>
-        {(activeModal === 'Create' || activeModal === 'Создать') && (
+        {activeModal === t('create') && (
           <Modal onActive={toggleActiveModal} updateCollectionsData={updateCollectionsData} />
         )}
-        {(activeModal === 'Edit' || activeModal === 'Редактировать') && collections && (
+        {activeModal === t('edit') && collections && (
           <EditModal
             collections={collections}
             updateCollectionsData={updateCollectionsData}
@@ -71,7 +71,7 @@ function UserPage() {
             onActive={toggleActiveModal}
           />
         )}
-        {(activeModal === 'Delete' || activeModal === 'Удалить') && collections && (
+        {activeModal === t('delete') && collections && (
           <EditModal
             updateCollectionsData={updateCollectionsData}
             collections={collections}

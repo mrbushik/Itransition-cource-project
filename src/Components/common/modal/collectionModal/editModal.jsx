@@ -3,8 +3,8 @@ import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
   editCollectionRequest,
-  deleteCollectionRequest,
-  deleteCollectionInUser,
+  modalDeleteInOwner,
+  modalDelete,
 } from '../../../services/modalRequests';
 
 import SelectField from '../../form/selectedField';
@@ -54,12 +54,9 @@ function EditModal({ modalType, collections, onActive, updateCollectionsData }) 
     type: editItem.type,
   };
 
-  const deleteCollection = (URL, collectionId) => {
-    deleteCollectionInUser(
-      `http://localhost:5000/api/delete-collection-user/${UserId}`,
-      collectionId,
-    );
-    deleteCollectionRequest(URL, updateCollectionsData);
+  const deleteCollection = (URL, collectionId, ownerId) => {
+    modalDeleteInOwner(`http://localhost:5000/api/delete-collection-user/${ownerId}`, collectionId);
+    modalDelete(URL, updateCollectionsData);
     setEditItem({ item: '' });
   };
 
@@ -67,15 +64,15 @@ function EditModal({ modalType, collections, onActive, updateCollectionsData }) 
     editCollectionRequest(URL, modifiedCollection, updateCollectionsData);
   };
 
-  const targetRequest = (URL, collectionId) => {
-    modalType === 'Edit' || modalType === 'Редактировать'
-      ? collectionEdit(URL)
-      : deleteCollection(URL, collectionId);
+  const targetRequest = (URL, collectionId, ownerId) => {
+    modalType === t('edit') ? collectionEdit(URL) : deleteCollection(URL, collectionId, ownerId);
   };
 
   const handleSubmit = () => {
-    const URL = `http://localhost:5000/api/change-collection/${targetElement._id}`;
-    targetRequest(URL, targetElement._id);
+    if (targetElement) {
+      const URL = `http://localhost:5000/api/change-collection/${targetElement._id}`;
+      targetRequest(URL, targetElement._id, targetElement._ownerId);
+    }
   };
 
   return (

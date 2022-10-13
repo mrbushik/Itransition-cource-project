@@ -41,6 +41,8 @@ function MainPage() {
     getUserCollection(URL, setCollections);
   }, [currentPage]);
 
+  const handleUpdateData = () => getUserCollection(URL, setCollections);
+
   return (
     <>
       <NavBar />
@@ -49,18 +51,20 @@ function MainPage() {
           {userRole && (
             <EditButtons onToggle={toggleActiveModal} btnList={[t('edit'), t('delete')]} />
           )}
-          {(activeModal === 'Edit' || activeModal === 'Редактировать') && collections && (
+          {activeModal === t('edit') && collections && (
             <EditModal
               collections={collections}
               modalType={t('edit')}
               onActive={toggleActiveModal}
+              updateCollectionsData={handleUpdateData}
             />
           )}
-          {(activeModal === 'Delete' || activeModal === 'Удалить') && collections && (
+          {activeModal === t('delete') && collections && (
             <EditModal
               collections={collections}
               onActive={toggleActiveModal}
               modalType={t('delete')}
+              updateCollectionsData={handleUpdateData}
             />
           )}
         </div>

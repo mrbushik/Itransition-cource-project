@@ -8,6 +8,7 @@ import BackBtn from '../common/buttons/backBtn';
 import ShowModal from '../common/modal/showModal';
 import PostsRender from '../common/postsRender';
 import NavBar from '../navigation/navBar';
+import LikeBtn from '../common/buttons/likeBtn';
 function UsersCollections() {
   const params = useParams();
   const { t } = useTranslation();
@@ -17,19 +18,27 @@ function UsersCollections() {
   useEffect(() => {
     getPosts(setCollectionData, params);
   }, []);
+
+  const handleUpdateData = () => getPosts(setCollectionData, params);
   return (
     <>
       <NavBar />
       <BackBtn backLink={'/'} />
-      {collectionData && isAdmin === 'ADMIN' && (
-        <ShowModal
-          btnList={
-            !collectionData.posts.length ? [t('create')] : [t('create'), t('edit'), t('delete')]
-          }
-          collectionId={params.Id}
-          data={collectionData}
-        />
-      )}
+
+      <div className="d-flex justify-content-between">
+        {collectionData && isAdmin === 'ADMIN' && (
+          <ShowModal
+            btnList={
+              !collectionData.posts.length ? [t('create')] : [t('create'), t('edit'), t('delete')]
+            }
+            collectionId={params.Id}
+            data={collectionData}
+            onUpdateData={handleUpdateData}
+          />
+        )}
+        {collectionData && <LikeBtn collectionId={collectionData._id} />}
+      </div>
+
       {collectionData && <PostsRender data={collectionData} />}
     </>
   );

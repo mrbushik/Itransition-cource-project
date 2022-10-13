@@ -9,12 +9,9 @@ import CustomField from '../../form/customField';
 import { useTranslation } from 'react-i18next';
 import { addPost } from '../../../services/modalRequests';
 
-// предусмотреть что дополнительных полей нет
-
 function CreateItemsModal({ onClose, fieldsCount, addingFields, collectionId, onUpdateData }) {
   const { t } = useTranslation();
 
-  // потом надо будте хранить айди автора и его имя
   const [postItem, setPostItem] = useState({
     name: '',
     tags: [],
@@ -36,11 +33,6 @@ function CreateItemsModal({ onClose, fieldsCount, addingFields, collectionId, on
         message: t('field required'),
       },
     },
-    // theme: {
-    //   isRequired: {
-    //     message: t('field required'),
-    //   },
-    // },
   };
   const validate = () => {
     const errors = validator(postItem, validatorConfig);

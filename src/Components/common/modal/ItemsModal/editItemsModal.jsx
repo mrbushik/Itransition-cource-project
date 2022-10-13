@@ -1,17 +1,24 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { editPost } from '../../../services/modalRequests';
+import { editPostRequest, modalDelete, modalDeleteInOwner } from '../../../services/modalRequests';
 
 import CustomField from '../../form/customField';
 import SelectField from '../../form/selectedField';
 import TagsField from '../../form/tagsField';
 
-function EditItemsModal({ modalType, posts, postsTemplates, onClose, fieldsCount, onUpdateData }) {
+function EditItemsModal({
+  modalType,
+  posts,
+  postsTemplates,
+  onClose,
+  fieldsCount,
+  onUpdateData,
+  collectionId,
+}) {
   let targetElement;
   const { t } = useTranslation();
   const [fieldValue, setFieldValue] = useState([]);
-
   const [editItem, setEditItem] = useState({
     item: '',
     tags: [],
@@ -76,9 +83,19 @@ function EditItemsModal({ modalType, posts, postsTemplates, onClose, fieldsCount
     }));
   };
 
+  const editPost = () => editPostRequest(URL, sendingData, onUpdateData);
+
+  const deletePost = () => {
+    modalDeleteInOwner(
+      `http://localhost:5000/api/delete-collection-post/${collectionId}`,
+      editItem.item,
+    );
+    modalDelete(URL, onUpdateData);
+    setEditItem({ item: '' });
+  };
+
   const handleSubmit = () => {
-    // console.log(test);
-    editPost(URL, sendingData, onUpdateData);
+    modalType === t('edit') ? editPost() : deletePost();
   };
   return (
     <div className="modal-dialog modal-dialog-centered bg-light absolute-top mx-3 mt-3 p-3 dark-mode">

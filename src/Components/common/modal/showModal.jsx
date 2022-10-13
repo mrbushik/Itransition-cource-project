@@ -14,7 +14,7 @@ function ShowModal({ btnList, collectionId, data, onUpdateData }) {
   return (
     <>
       <EditButtons onToggle={toggleActiveModal} btnList={btnList} />
-      {(activeModal === 'Create' || activeModal === 'Создать') && (
+      {activeModal === t('create') && (
         <CreateItemsModal
           fieldsCount={data.postsTemplate.length - 2}
           addingFields={data.postsTemplate.slice(2, data.length)}
@@ -23,7 +23,7 @@ function ShowModal({ btnList, collectionId, data, onUpdateData }) {
           onUpdateData={onUpdateData}
         />
       )}
-      {(activeModal === 'Edit' || activeModal === 'Редактировать') && (
+      {activeModal === t('edit') && btnList[1] && (
         <EditItemsModal
           posts={data.posts}
           postsTemplates={data.postsTemplate.slice(1, data.postsTemplate.length)}
@@ -33,7 +33,7 @@ function ShowModal({ btnList, collectionId, data, onUpdateData }) {
           onUpdateData={onUpdateData}
         />
       )}
-      {(activeModal === 'Delete' || activeModal === 'Удалить') && (
+      {activeModal === t('delete') && btnList[2] && (
         <EditItemsModal
           posts={data.posts}
           postsTemplates={data.postsTemplate.slice(1, data.postsTemplate.length)}
@@ -41,6 +41,7 @@ function ShowModal({ btnList, collectionId, data, onUpdateData }) {
           fieldsCount={data.postsTemplate.length - 1}
           modalType={t('delete')}
           onUpdateData={onUpdateData}
+          collectionId={collectionId}
         />
       )}
     </>

@@ -7,7 +7,7 @@ function EditButtons({ onToggle, btnList }) {
         <button
           key={index}
           type="button"
-          className="btn btn-light ms-3"
+          className="btn btn-light me-3"
           onClick={() => onToggle(item)}>
           {item}
         </button>
