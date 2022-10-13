@@ -30,3 +30,12 @@ export function getNewPosts(url, setNewPosts) {
     .then((data) => setNewPosts(data.data))
     .catch((error) => console.log(error));
 }
+export function getLagestCollections(url, setCollection) {
+  axios
+    .get(url)
+    .then((response) => response)
+    .then((data) => setCollection(data.data))
+    .catch((error) => {
+      console.log(error);
+    });
+}

@@ -3,7 +3,12 @@
 import React, { useState, useEffect } from 'react';
 import Paginate from '../common/paginate';
 import { useTranslation } from 'react-i18next';
-import { getNewPosts, getUserCollection, getUserPages } from '../services/getInfoRequests';
+import {
+  getLagestCollections,
+  getNewPosts,
+  getUserCollection,
+  getUserPages,
+} from '../services/getInfoRequests';
 
 import NavBar from '../navigation/navBar';
 import UserCollection from '../ui/userCollection';
@@ -17,34 +22,35 @@ function MainPage() {
   const userRole = localStorage.getItem('role');
   const { t } = useTranslation();
   const dispatch = useDispatch();
-  const currentPage = useSelector(({ changeCurrentPage }) => changeCurrentPage.page);
-  const getCollectionsURL = `http://localhost:5000/api//all-collections?page=${currentPage}`;
+  // const currentPage = useSelector(({ changeCurrentPage }) => changeCurrentPage.page);
+  // const getCollectionsURL = `http://localhost:5000/api//all-collections?page=${currentPage}`;
   const getNewPostsURL = 'http://localhost:5000/api/new-posts';
-
+  const lagestCollectionURL = 'http://localhost:5000/api/get-lagest-collectins';
   const [countPage, setCountPage] = useState(1);
   const [collections, setCollections] = useState();
-  const [countCollections, setTotalCollections] = useState();
+  // const [countCollections, setTotalCollections] = useState();
   const [activeModal, setActiveModal] = useState('');
   const [newPosts, setNewPosts] = useState('');
 
   useEffect(() => {
-    getUserCollection(getCollectionsURL, setCollections);
-    getUserPages(getCollectionsURL, setTotalCollections);
-    // getNewPosts(getNewPostsURL, setNewPosts);
+    // getUserCollection(getCollectionsURL, setCollections);
+    // getUserPages(getCollectionsURL, setTotalCollections);
+    getLagestCollections(lagestCollectionURL, setCollections);
+    getNewPosts(getNewPostsURL, setNewPosts);
   }, []);
 
   const toggleActiveModal = (value) => setActiveModal(value);
 
-  const getCollectionsPages = (count) => {
-    dispatch(changeCurrentPage(count));
-  };
+  // const getCollectionsPages = (count) => {
+  //   dispatch(changeCurrentPage(count));
+  // };
 
-  useEffect(() => {
-    setCountPage(currentPage);
-    getUserCollection(getCollectionsURL, setCollections);
-  }, [currentPage]);
+  // useEffect(() => {
+  //   setCountPage(currentPage);
+  //   getUserCollection(getCollectionsURL, setCollections);
+  // }, [currentPage]);
 
-  const handleUpdateData = () => getUserCollection(getCollectionsURL, setCollections);
+  // const handleUpdateData = () => getUserCollection(getCollectionsURL, setCollections);
 
   return (
     <>
@@ -59,7 +65,7 @@ function MainPage() {
               collections={collections}
               modalType={t('edit')}
               onActive={toggleActiveModal}
-              updateCollectionsData={handleUpdateData}
+              // updateCollectionsData={handleUpdateData}
             />
           )}
           {activeModal === t('delete') && collections && (
@@ -67,14 +73,17 @@ function MainPage() {
               collections={collections}
               onActive={toggleActiveModal}
               modalType={t('delete')}
-              updateCollectionsData={handleUpdateData}
+              // updateCollectionsData={handleUpdateData}
             />
           )}
         </div>
       )}
-      <div className={`mx-auto mt-4`} style={{ width: '250px' }}>
+      <h4>{t('last posts')}</h4>
+      <div
+        className={` mt-4 d-flex justify-content-center flex-wrap`}
+        //  style={{ width: '250px' }}
+      >
         {/* translate */}
-        <h4>New Posts</h4>
         {newPosts
           ? newPosts.collections.map((item, index) => (
               <UserCollection
@@ -93,7 +102,9 @@ function MainPage() {
             ))
           : ''}
       </div>
-      <div className={`mx-auto mt-4`} style={{ width: '250px' }}>
+      <h4>{t('lagest collections')}</h4>
+
+      <div className={`mt-4 d-flex justify-content-center flex-wrap`}>
         {collections
           ? collections.map((item, index) => (
               <UserCollection
@@ -111,11 +122,11 @@ function MainPage() {
             ))
           : ''}
       </div>
-      <Paginate
+      {/* <Paginate
         countCollections={countCollections}
         currentPage={currentPage}
         onPageChange={getCollectionsPages}
-      />
+      /> */}
     </>
   );
 }
