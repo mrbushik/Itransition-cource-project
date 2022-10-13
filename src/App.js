@@ -7,6 +7,7 @@ import Login from './Components/pages/login';
 import AdminPage from './Components/pages/adminPage';
 import MainPage from './Components/pages/mainPage';
 import UsersCollections from './Components/pages/usersCollections';
+import AdminCollections from './Components/pages/adminCollections';
 
 function App() {
   const theme = useSelector(({ theme }) => theme.theme);
@@ -19,10 +20,8 @@ function App() {
   return (
     <>
       <Switch>
-        {/* заменить path ибо станица коллекции будет зависить от id  */}
-        {/* поменять в дальнейшем на реальную главную страницу */}
-
         <Route path="/admin-panel" component={AdminPage} />
+        <Route path="/admin-collections" component={AdminCollections} />
         <Route path="/login" component={Login} />
 
         <Route path="/collection/:Id" component={CollectionPosts} />

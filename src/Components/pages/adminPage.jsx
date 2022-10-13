@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useTranslation } from 'react-i18next';
-import { useHistory } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import {
   unblock,
   block,
@@ -55,8 +55,6 @@ function AdminPage() {
 
   const handlRequest = (buttonName) => {
     if (selectedUser.user) {
-      // const requestNumber = buttons.findIndex((item) => item === buttonName);
-      // requests[requestNumber]('https://jsonplaceholder.typicode.com/posts/1', { name: 'petya' });
       submitChanges(buttonName);
     } else {
       setErrors(t('choose user'));
@@ -65,7 +63,14 @@ function AdminPage() {
   return (
     <>
       <NavBar />
-      <EditButtons onToggle={handlRequest} btnList={buttons} />
+      <div className="d-flex justify-content-between flex-wrap">
+        <EditButtons onToggle={handlRequest} btnList={buttons} />
+        <div className="m-4">
+          <Link to="admin-collections">
+            <div className="btn btn-secondary  ">{t('Check users collections')}</div>
+          </Link>
+        </div>
+      </div>
       {errors && <div className="text-danger fs-4 ms-3">{errors}</div>}
       <table className="table">
         <thead>
