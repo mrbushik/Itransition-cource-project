@@ -9,7 +9,6 @@ function LikeBtn(collectionId) {
   });
   const [errors, setErrors] = useState();
   const userId = localStorage.getItem('userId');
-  console.log(userId);
   const putLikeURL = `http://localhost:5000/api/add-like/${collectionId.collectionId}`;
   const checkLikeURL = `http://localhost:5000/api/check-like/${collectionId.collectionId}`;
 

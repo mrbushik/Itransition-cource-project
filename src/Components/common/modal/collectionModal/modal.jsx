@@ -110,6 +110,7 @@ function Modal({ onActive, updateCollectionsData }) {
     const newField = [...fieldValue, { type: '', description: '' }];
     setFieldValue(newField);
   };
+
   const handleChangeField = (event, index, fieldType) => {
     const inputdata = [...fieldValue];
     if (fieldType === 'type') {
@@ -119,11 +120,13 @@ function Modal({ onActive, updateCollectionsData }) {
     }
     setFieldValue(inputdata);
   };
+
   const handleDelete = (index) => {
     const deleteData = [...fieldValue];
     deleteData.splice(index, 1);
     setFieldValue(deleteData);
   };
+
   const handleChange = (target) => {
     setCollection((prevState) => ({
       ...prevState,

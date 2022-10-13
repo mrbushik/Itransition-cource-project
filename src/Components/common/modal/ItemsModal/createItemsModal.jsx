@@ -11,13 +11,14 @@ import { addPost } from '../../../services/modalRequests';
 
 function CreateItemsModal({ onClose, fieldsCount, addingFields, collectionId, onUpdateData }) {
   const { t } = useTranslation();
-
+  // const defaultFieldValue = [];
   const [postItem, setPostItem] = useState({
     name: '',
     tags: [],
   });
   const [fieldValue, setFieldValue] = useState([]);
   const [errors, setErrors] = useState({});
+  const [defaultFieldValue, setDefaultFieldValue] = useState([]);
 
   const fieldValueToArr = fieldValue.map((value) => value.value);
 
@@ -38,6 +39,7 @@ function CreateItemsModal({ onClose, fieldsCount, addingFields, collectionId, on
     const errors = validator(postItem, validatorConfig);
     setErrors(errors);
   };
+
   useEffect(() => {
     validate();
   }, [postItem]);
@@ -53,16 +55,22 @@ function CreateItemsModal({ onClose, fieldsCount, addingFields, collectionId, on
     return err;
   };
 
-  useEffect(() => {
+  const createFields = () => {
     let count = fieldsCount;
     const fieldArr = [];
-
     while (count > 0) {
       count--;
       fieldArr.push({ value: '' });
     }
+    return fieldArr;
+  };
+
+  useEffect(() => {
+    const fieldArr = createFields();
+    setDefaultFieldValue([...fieldArr]);
     setFieldValue(fieldArr);
   }, []);
+
   const handleChangeField = (event, index) => {
     const inputdata = [...fieldValue];
     inputdata[index].value = event;
@@ -91,11 +99,12 @@ function CreateItemsModal({ onClose, fieldsCount, addingFields, collectionId, on
   };
 
   const clearData = () => {
+    // const defaultFieldValue = []
     setPostItem({
       name: '',
       tags: [],
     });
-    setFieldValue([]);
+    setFieldValue([...createFields()]);
   };
 
   const onSubmit = () => {
