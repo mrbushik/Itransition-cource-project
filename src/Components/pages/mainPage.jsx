@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import Paginate from '../common/paginate';
 import { useTranslation } from 'react-i18next';
-import { getUserCollection, getUserPages } from '../services/getInfoRequests';
+import { getNewPosts, getUserCollection, getUserPages } from '../services/getInfoRequests';
 
 import NavBar from '../navigation/navBar';
 import UserCollection from '../ui/userCollection';
@@ -18,16 +18,19 @@ function MainPage() {
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const currentPage = useSelector(({ changeCurrentPage }) => changeCurrentPage.page);
-  const URL = `http://localhost:5000/api//all-collections?page=${currentPage}`;
+  const getCollectionsURL = `http://localhost:5000/api//all-collections?page=${currentPage}`;
+  const getNewPostsURL = 'http://localhost:5000/api/new-posts';
 
   const [countPage, setCountPage] = useState(1);
   const [collections, setCollections] = useState();
   const [countCollections, setTotalCollections] = useState();
   const [activeModal, setActiveModal] = useState('');
+  const [newPosts, setNewPosts] = useState('');
 
   useEffect(() => {
-    getUserCollection(URL, setCollections);
-    getUserPages(URL, setTotalCollections);
+    getUserCollection(getCollectionsURL, setCollections);
+    getUserPages(getCollectionsURL, setTotalCollections);
+    // getNewPosts(getNewPostsURL, setNewPosts);
   }, []);
 
   const toggleActiveModal = (value) => setActiveModal(value);
@@ -38,10 +41,10 @@ function MainPage() {
 
   useEffect(() => {
     setCountPage(currentPage);
-    getUserCollection(URL, setCollections);
+    getUserCollection(getCollectionsURL, setCollections);
   }, [currentPage]);
 
-  const handleUpdateData = () => getUserCollection(URL, setCollections);
+  const handleUpdateData = () => getUserCollection(getCollectionsURL, setCollections);
 
   return (
     <>
@@ -69,6 +72,27 @@ function MainPage() {
           )}
         </div>
       )}
+      <div className={`mx-auto mt-4`} style={{ width: '250px' }}>
+        {/* translate */}
+        <h4>New Posts</h4>
+        {newPosts
+          ? newPosts.collections.map((item, index) => (
+              <UserCollection
+                link={'/'}
+                description={item.description}
+                key={index}
+                id={item._id}
+                type={item.type}
+                authorName={item.ownerName}
+                icon={item.icon}
+                name={item.name}
+                collectionDescription={item.collectionDescription}
+                newPost={newPosts.postsNames[index]}
+                {...item}
+              />
+            ))
+          : ''}
+      </div>
       <div className={`mx-auto mt-4`} style={{ width: '250px' }}>
         {collections
           ? collections.map((item, index) => (

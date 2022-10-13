@@ -35,9 +35,19 @@ export function modalDelete(url, onUpdateData) {
       console.log(error);
     });
 }
+
 export function modalDeleteInOwner(url, targetId) {
   axios
     .patch(url, { id: targetId })
+    .then((response) => response)
+    .catch((error) => {
+      console.log(error);
+    });
+}
+
+export function deleteAllPosts(url) {
+  axios
+    .delete(url)
     .then((response) => response)
     .catch((error) => {
       console.log(error);

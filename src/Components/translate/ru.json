@@ -56,7 +56,9 @@
     "books": "books",
     "clothes": "clothes",
     "music": "music",
-    "Select field to add" : "Выберите поле которое вы хотите добавить"
+    "Select field to add" : "Выберите поле которое вы хотите добавить",
+    "added post": "Добавленный пост"
+
 
 
 

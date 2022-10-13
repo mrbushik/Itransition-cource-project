@@ -23,3 +23,10 @@ export function getPosts(setCollectionData, params) {
     .then((data) => setCollectionData(data.data))
     .catch((error) => console.log(error));
 }
+export function getNewPosts(url, setNewPosts) {
+  axios
+    .get(url)
+    .then((response) => response)
+    .then((data) => setNewPosts(data.data))
+    .catch((error) => console.log(error));
+}

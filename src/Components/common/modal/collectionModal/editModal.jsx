@@ -5,6 +5,7 @@ import {
   editCollectionRequest,
   modalDeleteInOwner,
   modalDelete,
+  deleteAllPosts,
 } from '../../../services/modalRequests';
 
 import SelectField from '../../form/selectedField';
@@ -54,9 +55,13 @@ function EditModal({ modalType, collections, onActive, updateCollectionsData }) 
     type: editItem.type,
   };
 
-  const deleteCollection = (URL, collectionId, ownerId) => {
-    modalDeleteInOwner(`http://localhost:5000/api/delete-collection-user/${ownerId}`, collectionId);
-    modalDelete(URL, updateCollectionsData);
+  const deleteCollection = async (URL, collectionId, ownerId) => {
+    await deleteAllPosts(`http://localhost:5000/api/delete-posts-from-collection/${collectionId}`);
+    await modalDeleteInOwner(
+      `http://localhost:5000/api/delete-collection-user/${ownerId}`,
+      collectionId,
+    );
+    await modalDelete(URL, updateCollectionsData);
     setEditItem({ item: '' });
   };
 
@@ -71,7 +76,7 @@ function EditModal({ modalType, collections, onActive, updateCollectionsData }) 
   const handleSubmit = () => {
     if (targetElement) {
       const URL = `http://localhost:5000/api/change-collection/${targetElement._id}`;
-      targetRequest(URL, targetElement._id, targetElement._ownerId);
+      targetRequest(URL, targetElement._id, targetElement.ownerId);
     }
   };
 
