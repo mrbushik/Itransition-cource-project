@@ -8,6 +8,7 @@ import TagsField from '../../form/tagsField';
 import CustomField from '../../form/customField';
 import { useTranslation } from 'react-i18next';
 import { addPost } from '../../../services/modalRequests';
+import { tagsCloud } from '../../../services/tagsCloud';
 
 function CreateItemsModal({ onClose, fieldsCount, addingFields, collectionId, onUpdateData }) {
   const { t } = useTranslation();
@@ -16,6 +17,8 @@ function CreateItemsModal({ onClose, fieldsCount, addingFields, collectionId, on
     name: '',
     tags: [],
   });
+  const [tags, setTags] = useState([]);
+
   const [fieldValue, setFieldValue] = useState([]);
   const [errors, setErrors] = useState({});
   const [defaultFieldValue, setDefaultFieldValue] = useState([]);
@@ -23,7 +26,7 @@ function CreateItemsModal({ onClose, fieldsCount, addingFields, collectionId, on
   const fieldValueToArr = fieldValue.map((value) => value.value);
 
   const sendingData = {
-    tags: postItem.tags,
+    tags: tags.map((item) => item.text),
     collectionId: collectionId,
     fields: [postItem.name, ...fieldValueToArr],
   };
@@ -53,6 +56,18 @@ function CreateItemsModal({ onClose, fieldsCount, addingFields, collectionId, on
       }
     }
     return err;
+  };
+  const handleDeleteTag = (i) => {
+    setTags(tags.filter((tag, index) => index !== i));
+  };
+  const handleAddition = (tag) => {
+    const check = tagsCloud()
+      .map((item) => item.text.toLowerCase())
+      .indexOf(tag.text.toLowerCase());
+    if (check === -1) {
+      return;
+    }
+    setTags([...tags, tag]);
   };
 
   const createFields = () => {
@@ -102,8 +117,8 @@ function CreateItemsModal({ onClose, fieldsCount, addingFields, collectionId, on
     // const defaultFieldValue = []
     setPostItem({
       name: '',
-      tags: [],
     });
+    setTags([]);
     setFieldValue([...createFields()]);
   };
 
@@ -129,7 +144,7 @@ function CreateItemsModal({ onClose, fieldsCount, addingFields, collectionId, on
             </button>
           </div>
 
-          <TagsField tags={postItem.tags} onDeleteTag={handleDeletTag} onKeyDown={handleKeyDown} />
+          <TagsField handleDelete={handleDeleteTag} tags={tags} handleAddition={handleAddition} />
           <TextField
             name="name"
             value={postItem.name}
