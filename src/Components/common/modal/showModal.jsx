@@ -10,20 +10,23 @@ function ShowModal({ btnList, collectionId, data, onUpdateData }) {
   const [activeModal, setActiveModal] = useState('');
 
   const toggleActiveModal = (value) => setActiveModal(value);
-
+  console.log(t('create'));
   return (
     <>
       <EditButtons onToggle={toggleActiveModal} btnList={btnList} />
-      {activeModal === t('create') && (
-        <CreateItemsModal
-          fieldsCount={data.postsTemplate.length - 2}
-          addingFields={data.postsTemplate.slice(2, data.length)}
-          collectionId={collectionId}
-          onClose={toggleActiveModal}
-          onUpdateData={onUpdateData}
-        />
-      )}
-      {activeModal === t('edit') && btnList[1] && (
+      {
+        // activeModal === t('create')
+        activeModal === '0' && (
+          <CreateItemsModal
+            fieldsCount={data.postsTemplate.length - 2}
+            addingFields={data.postsTemplate.slice(2, data.length)}
+            collectionId={collectionId}
+            onClose={toggleActiveModal}
+            onUpdateData={onUpdateData}
+          />
+        )
+      }
+      {activeModal === '1' && btnList[1] && (
         <EditItemsModal
           posts={data.posts}
           postsTemplates={data.postsTemplate.slice(1, data.postsTemplate.length)}
@@ -33,7 +36,7 @@ function ShowModal({ btnList, collectionId, data, onUpdateData }) {
           onUpdateData={onUpdateData}
         />
       )}
-      {activeModal === t('delete') && btnList[2] && (
+      {activeModal === '2' && btnList[2] && (
         <EditItemsModal
           posts={data.posts}
           postsTemplates={data.postsTemplate.slice(1, data.postsTemplate.length)}

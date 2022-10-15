@@ -61,12 +61,6 @@ function CreateItemsModal({ onClose, fieldsCount, addingFields, collectionId, on
     setTags(tags.filter((tag, index) => index !== i));
   };
   const handleAddition = (tag) => {
-    const check = tagsCloud()
-      .map((item) => item.text.toLowerCase())
-      .indexOf(tag.text.toLowerCase());
-    if (check === -1) {
-      return;
-    }
     setTags([...tags, tag]);
   };
 

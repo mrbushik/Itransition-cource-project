@@ -39,3 +39,13 @@ export function getLagestCollections(url, setCollection) {
       console.log(error);
     });
 }
+export function getAllTags(url, setSuggestions, getTargetData) {
+  axios
+    .get(url)
+    .then((response) => response)
+    .then((data) => getTargetData(data.data))
+    .then((data) => setSuggestions(data))
+    .catch((error) => {
+      console.log(error);
+    });
+}

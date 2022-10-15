@@ -1,28 +1,42 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { WithContext as ReactTags } from 'react-tag-input';
+import { getAllTags } from '../../services/getInfoRequests';
 function TagsField({ handleDelete, tags, handleAddition }) {
   // { tags, onDeleteTag, onKeyDown }
+  const tagsURL = 'http://localhost:5000/api/all-tags';
   const { t } = useTranslation();
-  const suggestions = [
-    { id: '#Life', text: '#Life' },
-    { id: '#Cool', text: '#Cool' },
-    { id: '#Great', text: '#Great' },
-    { id: '#Cute', text: '#Cute' },
-    { id: '#Pretty', text: '#Pretty' },
-    { id: '#Exciting', text: '#Exciting' },
-    { id: '#Fascinating', text: '#Fascinating' },
-    { id: '#Impossible', text: '#Impossible' },
-    { id: '#Amazing', text: '#Amazing' },
-    { id: '#Wonderful', text: '#Wonderful' },
-    { id: '#Difficult', text: '#Difficult' },
-    { id: '#Programming', text: '#Programming' },
-    { id: '#Optimism', text: '#Optimism' },
-    { id: '#Stubbornness', text: '#Stubbornness' },
-    { id: '#Successful', text: '#Successful' },
-    { id: '#Lucky', text: '#Lucky' },
-  ];
+  const [suggestions, setSuggestions] = useState();
+  // const suggestions = [
+  //   { id: '#Life', text: '#Life' },
+  //   { id: '#Cool', text: '#Cool' },
+  //   { id: '#Great', text: '#Great' },
+  //   { id: '#Cute', text: '#Cute' },
+  //   { id: '#Pretty', text: '#Pretty' },
+  //   { id: '#Exciting', text: '#Exciting' },
+  //   { id: '#Fascinating', text: '#Fascinating' },
+  //   { id: '#Impossible', text: '#Impossible' },
+  //   { id: '#Amazing', text: '#Amazing' },
+  //   { id: '#Wonderful', text: '#Wonderful' },
+  //   { id: '#Difficult', text: '#Difficult' },
+  //   { id: '#Programming', text: '#Programming' },
+  //   { id: '#Optimism', text: '#Optimism' },
+  //   { id: '#Stubbornness', text: '#Stubbornness' },
+  //   { id: '#Successful', text: '#Successful' },
+  //   { id: '#Lucky', text: '#Lucky' },
+  // ];
+  useEffect(() => {
+    getAllTags(tagsURL, setSuggestions, getTargetData);
+  }, []);
 
+  const getTargetData = (data) => {
+    const suggestionsData = [];
+    for (let i = 0; i < data.length; i++) {
+      const suggestionItem = { id: data[i], text: data[i] };
+      suggestionsData.push(suggestionItem);
+    }
+    return suggestionsData;
+  };
   const KeyCodes = {
     comma: 188,
     enter: 13,
@@ -96,13 +110,13 @@ function TagsField({ handleDelete, tags, handleAddition }) {
               )}
             </button>
           </div>
-          {showAllTags && (
+          {/* {showAllTags && (
             <div className="mb-3" style={{ maxWidth: '450px' }}>
               {suggestions.map((item, index) => (
                 <span key={index}> {item.text}</span>
               ))}
             </div>
-          )}
+          )} */}
         </div>
       </div>
     </>

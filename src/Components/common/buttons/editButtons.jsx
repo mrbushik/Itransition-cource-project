@@ -6,9 +6,10 @@ function EditButtons({ onToggle, btnList }) {
       {btnList.map((item, index) => (
         <button
           key={index}
+          name={index}
           type="button"
           className="btn btn-light me-3 mt-2"
-          onClick={() => onToggle(item)}>
+          onClick={(e) => onToggle(e.target.name)}>
           {item}
         </button>
       ))}
