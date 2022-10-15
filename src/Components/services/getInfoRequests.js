@@ -39,12 +39,21 @@ export function getLagestCollections(url, setCollection) {
       console.log(error);
     });
 }
-export function getAllTags(url, setSuggestions, getTargetData) {
+export function getAllTags(url, getTargetData, setSuggestions) {
   axios
     .get(url)
     .then((response) => response)
     .then((data) => getTargetData(data.data))
     .then((data) => setSuggestions(data))
+    .catch((error) => {
+      console.log(error);
+    });
+}
+export function getTags(url, setTags) {
+  axios
+    .get(url)
+    .then((response) => response)
+    .then((data) => setTags(data.data))
     .catch((error) => {
       console.log(error);
     });
