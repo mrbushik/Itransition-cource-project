@@ -1,6 +1,7 @@
 const initialState = {
   page: 1,
   userPage: 1,
+  tagPage: 1,
 };
 const changeCurrentPage = (state = initialState, action) => {
   if (action.type === 'CHANGE_CURRENT_PAGE') {
@@ -12,6 +13,11 @@ const changeCurrentPage = (state = initialState, action) => {
     return {
       ...state,
       userPage: action.payload,
+    };
+  } else if (action.type === 'CHANGE_CURRENT_TAG_PAGE') {
+    return {
+      ...state,
+      tagPage: action.payload,
     };
   }
   return state;
