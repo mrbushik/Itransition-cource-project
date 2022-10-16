@@ -13,10 +13,10 @@ function UserCollection({ authorName, description, icon, name, type, id, link, n
     <div className="border border-primary mb-3 me-4" style={{ width: '250px' }}>
       <Link to={`${link}${id}`} className="text-decoration-none">
         {newPost && (
-          <div className="   ">
+          <div>
             <h5 className="mx-3 ms-2 mb-1">{t('added post')}:</h5>{' '}
             <div className="mx-2">
-              <span className=" text-primary " style={{ overflowWrap: 'anywhere' }}>
+              <span className="text-success fs-6 fw-semibold" style={{ overflowWrap: 'anywhere' }}>
                 {newPost}
               </span>
             </div>

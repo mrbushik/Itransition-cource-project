@@ -29,7 +29,7 @@ function UserPage() {
   const currentPage = useSelector(({ changeCurrentPage }) => changeCurrentPage.userPage);
   const [countPage, setCountPage] = useState(1);
 
-  const toggleActiveModal = (value) => setActiveModal(value);
+  const toggleActiveModal = (value) => setActiveModal(+value);
 
   const updateCollectionsData = () => getUserCollection(URL, setCollections);
 
@@ -60,10 +60,10 @@ function UserPage() {
         btnList={collections ? [t('create'), t('edit'), t('delete')] : [t('create')]}
       />
       <div>
-        {activeModal === t('create') && (
+        {activeModal === 0 && (
           <Modal onActive={toggleActiveModal} updateCollectionsData={updateCollectionsData} />
         )}
-        {activeModal === t('edit') && collections && (
+        {activeModal === 1 && collections && (
           <EditModal
             collections={collections}
             updateCollectionsData={updateCollectionsData}
@@ -71,7 +71,7 @@ function UserPage() {
             onActive={toggleActiveModal}
           />
         )}
-        {activeModal === t('delete') && collections && (
+        {activeModal === 2 && collections && (
           <EditModal
             updateCollectionsData={updateCollectionsData}
             collections={collections}

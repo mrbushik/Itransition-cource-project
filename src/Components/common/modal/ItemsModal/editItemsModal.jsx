@@ -19,6 +19,8 @@ function EditItemsModal({
   let targetElement;
   const { t } = useTranslation();
   const [fieldValue, setFieldValue] = useState([]);
+  const [tags, setTags] = useState([]);
+
   const [editItem, setEditItem] = useState({
     item: '',
     tags: [],
@@ -30,7 +32,7 @@ function EditItemsModal({
 
   const sendingData = {
     fields: fieldValueInArray,
-    tags: editItem.tags,
+    tags: tags.map((item) => item.text),
   };
 
   const getFieldData = () => {
@@ -48,9 +50,17 @@ function EditItemsModal({
   useEffect(() => {
     if (targetElement) {
       setFieldValue(getFieldData().reverse());
-      setEditItem((prevState) => ({ ...prevState, tags: [...targetElement.tags] }));
+      handleGetTags(targetElement.tags);
     }
   }, [editItem.item]);
+
+  const handleGetTags = (tags) => {
+    const tagsList = [];
+    for (let i = 0; i < tags.length; i++) {
+      tagsList.push({ id: tags[i], text: tags[i] });
+    }
+    setTags(tagsList);
+  };
 
   const handleChange = (target) => {
     setEditItem((prevState) => ({
@@ -69,18 +79,14 @@ function EditItemsModal({
     inputdata[index].value = event;
     setFieldValue(inputdata);
   };
-  const handleKeyDown = (e) => {
-    if (e.key !== 'Enter') return;
-    const value = e.target.value;
-    if (!value.trim()) return;
-    setEditItem((prevState) => ({ ...prevState, tags: [...editItem.tags, value] }));
-    e.target.value = '';
+
+  const handleDeleteTag = (i) => {
+    console.log(i);
+    setTags(tags.filter((tag, index) => index !== i));
   };
-  const handleDeletTag = (index) => {
-    setEditItem((prevState) => ({
-      ...prevState,
-      tags: editItem.tags.filter((el, i) => i !== index),
-    }));
+  const handleAddition = (tag) => {
+    console.log(tag);
+    setTags([...tags, tag]);
   };
 
   const editPost = () => editPostRequest(URL, sendingData, onUpdateData);
@@ -118,11 +124,7 @@ function EditItemsModal({
         </div>
         {(modalType === 'Edit' || modalType === 'Редактировать') && editItem.item && (
           <>
-            <TagsField
-              tags={editItem.tags}
-              onDeleteTag={handleDeletTag}
-              onKeyDown={handleKeyDown}
-            />
+            <TagsField handleDelete={handleDeleteTag} tags={tags} handleAddition={handleAddition} />
             {fieldValue &&
               fieldValue.map((item, index) => (
                 <CustomField

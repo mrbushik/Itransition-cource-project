@@ -1,7 +1,6 @@
 import React from 'react';
 
 function UserTableItem({ name, role, id, selectedUser, onChange }) {
-  const [check, setCheck] = React.useState(false);
   const handleChange = ({ target }) => {
     onChange({ name: target.name, value: target.value });
   };

@@ -24,7 +24,7 @@ function MainPage() {
       <NavBar />
       <TagsSearch />
       <h4 className="ms-3 mt-3">{t('last posts')}</h4>
-      <div className={` mt-4 d-flex justify-content-center flex-wrap`}>
+      <div className="mt-4 d-flex justify-content-center flex-wrap">
         {newPosts
           ? newPosts.collections.map((item, index) => (
               <UserCollection
@@ -45,7 +45,7 @@ function MainPage() {
       </div>
       <h4 className="ms-3 mt-3">{t('lagest collections')}</h4>
 
-      <div className={`mt-4 d-flex justify-content-center flex-wrap`}>
+      <div className="mt-4 d-flex justify-content-center flex-wrap">
         {collections
           ? collections.map((item, index) => (
               <UserCollection

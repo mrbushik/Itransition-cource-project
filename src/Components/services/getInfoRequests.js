@@ -3,7 +3,9 @@ import axios from 'axios';
 export function getUserCollection(url, setCollections) {
   fetch(url, { method: 'GET' })
     .then((response) => response.json())
-    .then((result) => (result.length === 0 ? setCollections('') : setCollections(result.reverse())))
+    .then((result) =>
+      result.length === 0 ? setCollections('') : setCollections(result.collections),
+    )
     .catch((error) => console.log(error));
 }
 

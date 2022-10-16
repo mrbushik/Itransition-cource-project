@@ -82,22 +82,24 @@ function AdminCollections() {
             </Link>
           </div>
         </div>
-        {collections
-          ? collections.map((item, index) => (
-              <UserCollection
-                link={'/'}
-                description={item.description}
-                key={index}
-                id={item._id}
-                type={item.type}
-                authorName={item.ownerName}
-                icon={item.icon}
-                name={item.name}
-                collectionDescription={item.collectionDescription}
-                {...item}
-              />
-            ))
-          : ''}
+        <div className="mt-4 d-flex justify-content-center flex-wrap">
+          {collections
+            ? collections.map((item, index) => (
+                <UserCollection
+                  link={'/admin-collections/'}
+                  description={item.description}
+                  key={index}
+                  id={item._id}
+                  type={item.type}
+                  authorName={item.ownerName}
+                  icon={item.icon}
+                  name={item.name}
+                  collectionDescription={item.collectionDescription}
+                  {...item}
+                />
+              ))
+            : ''}
+        </div>
       </div>
       <Paginate
         countCollections={countCollections}

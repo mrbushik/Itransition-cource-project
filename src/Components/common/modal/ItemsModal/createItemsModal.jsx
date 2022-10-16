@@ -8,20 +8,16 @@ import TagsField from '../../form/tagsField';
 import CustomField from '../../form/customField';
 import { useTranslation } from 'react-i18next';
 import { addPost } from '../../../services/modalRequests';
-import { tagsCloud } from '../../../services/tagsCloud';
 
 function CreateItemsModal({ onClose, fieldsCount, addingFields, collectionId, onUpdateData }) {
   const { t } = useTranslation();
-  // const defaultFieldValue = [];
   const [postItem, setPostItem] = useState({
     name: '',
-    tags: [],
   });
   const [tags, setTags] = useState([]);
 
   const [fieldValue, setFieldValue] = useState([]);
   const [errors, setErrors] = useState({});
-  const [defaultFieldValue, setDefaultFieldValue] = useState([]);
 
   const fieldValueToArr = fieldValue.map((value) => value.value);
 
@@ -48,15 +44,6 @@ function CreateItemsModal({ onClose, fieldsCount, addingFields, collectionId, on
   }, [postItem]);
   const isValid = Object.keys(errors).length === 0;
 
-  const validateAddingFields = () => {
-    let err = 0;
-    for (let i = 0; i < fieldValue.length; i++) {
-      if (fieldValue[i].type === '' || fieldValue[i].description === '') {
-        err += 1;
-      }
-    }
-    return err;
-  };
   const handleDeleteTag = (i) => {
     setTags(tags.filter((tag, index) => index !== i));
   };
@@ -76,7 +63,6 @@ function CreateItemsModal({ onClose, fieldsCount, addingFields, collectionId, on
 
   useEffect(() => {
     const fieldArr = createFields();
-    setDefaultFieldValue([...fieldArr]);
     setFieldValue(fieldArr);
   }, []);
 
@@ -93,22 +79,7 @@ function CreateItemsModal({ onClose, fieldsCount, addingFields, collectionId, on
     }));
   };
 
-  const handleKeyDown = (e) => {
-    if (e.key !== 'Enter') return;
-    const value = e.target.value;
-    if (!value.trim()) return;
-    setPostItem((prevState) => ({ ...prevState, tags: [...postItem.tags, value] }));
-    e.target.value = '';
-  };
-  const handleDeletTag = (index) => {
-    setPostItem((prevState) => ({
-      ...prevState,
-      tags: postItem.tags.filter((el, i) => i !== index),
-    }));
-  };
-
   const clearData = () => {
-    // const defaultFieldValue = []
     setPostItem({
       name: '',
     });
@@ -117,12 +88,6 @@ function CreateItemsModal({ onClose, fieldsCount, addingFields, collectionId, on
   };
 
   const onSubmit = () => {
-    // const errors = validator(postItem, validatorConfig);
-    // setErrors(errors);
-    // if (isValid && ) {
-    //   sendingData.postsTemplate.push(...fieldValue);
-    //   console.log(sendingData);
-    // }
     addPost(sendingData, onUpdateData);
     clearData();
   };
@@ -137,7 +102,6 @@ function CreateItemsModal({ onClose, fieldsCount, addingFields, collectionId, on
               <span>x</span>
             </button>
           </div>
-
           <TagsField handleDelete={handleDeleteTag} tags={tags} handleAddition={handleAddition} />
           <TextField
             name="name"

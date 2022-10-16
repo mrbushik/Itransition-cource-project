@@ -1,12 +1,15 @@
 import React from 'react';
+import OtherFieldsRender from './otherFieldsRender';
+import TagsRender from './tagsRender';
 
-function PostItem({ id, tags, otherFields }) {
+function PostItem({ id, tags, otherFields, fieldsType }) {
   return (
     <tr>
       <td>{id}</td>
-      <td>{tags}</td>
+      <TagsRender tags={tags} />
+
       {Object.values(otherFields).map((item, index) => (
-        <td key={index}>{item}</td>
+        <OtherFieldsRender key={index} fieldValue={item} type={fieldsType[index].type} />
       ))}
     </tr>
   );

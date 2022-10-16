@@ -12,7 +12,6 @@ import NavBar from '../navigation/navBar';
 function CollectionPosts({ editButtons }) {
   const params = useParams();
   const { t } = useTranslation();
-
   const [collectionData, setCollectionData] = useState();
 
   const handleUpdateData = () => getPosts(setCollectionData, params);

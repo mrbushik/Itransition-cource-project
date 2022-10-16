@@ -1,13 +1,16 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getCollectonsByTag, getTagCollectonsTotal, getTags } from '../services/getInfoRequests';
 
+import { selectedTagSearch } from '../redux/actions/selectedTag';
+import { changeCurrentTagsPage } from '../redux/actions/currentPaginatePage';
 import Paginate from '../common/paginate';
 import UserCollection from './userCollection';
-import { changeCurrentTagsPage } from '../redux/actions/currentPaginatePage';
 
 function TagsSearch() {
   const currentPage = useSelector(({ changeCurrentPage }) => changeCurrentPage.tagPage);
+  const searchTag = useSelector(({ selectedTagSearch }) => selectedTagSearch.selectedTagSearch);
   const dispatch = useDispatch();
 
   const tagsURL = 'http://localhost:5000/api/all-tags';
@@ -15,7 +18,6 @@ function TagsSearch() {
 
   const [collections, setCollections] = useState();
   const [collectionsLength, setCollectionsLength] = useState();
-  const [currentTag, setCurrentTag] = useState();
   const [tags, setTags] = useState();
 
   useEffect(() => {
@@ -23,19 +25,18 @@ function TagsSearch() {
   }, []);
 
   const handleGetCollections = (e) => {
-    const data = { tag: currentTag, page: currentPage };
-    console.log(data);
+    const data = { tag: searchTag, page: currentPage };
     getTagCollectonsTotal(tagColectionsURL, data, setCollectionsLength);
     getCollectonsByTag(tagColectionsURL, data, setCollections);
   };
 
   useEffect(() => {
     handleGetCollections();
-  }, [currentTag, currentPage]);
+  }, [searchTag, currentPage]);
 
   const handleTagClick = (e) => {
     dispatch(changeCurrentTagsPage(1));
-    setCurrentTag(e.target.outerText);
+    dispatch(selectedTagSearch(e.target.outerText));
   };
 
   const changePage = (count) => dispatch(changeCurrentTagsPage(count));
@@ -55,7 +56,7 @@ function TagsSearch() {
             </span>
           ))}
       </div>
-      <div>
+      <div className="mt-4 d-flex justify-content-center flex-wrap">
         {collections &&
           collections.map((item) => (
             <UserCollection

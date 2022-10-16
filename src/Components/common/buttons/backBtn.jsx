@@ -1,14 +1,15 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 function BackBtn({ backLink }) {
   const { t } = useTranslation();
+  const history = useHistory();
 
   return (
     <>
-      <Link to={backLink}>
-        <button className="btn btn-secondary ms-3 mt-3"> {t('back')}</button>
-      </Link>
+      <button className="btn btn-secondary ms-3 mt-3" onClick={() => history.goBack()}>
+        {t('back')}
+      </button>
     </>
   );
 }
