@@ -2,7 +2,7 @@
     "change to": "изменить на",
     "english":"английский",
     "russian":"русский",
-    "main page":"главная страница",
+    "main page":"Главная страница",
     "my collection": "Моя коллекция",
     "log out": "Выйти",
     "log in": "Войти",
@@ -35,6 +35,7 @@
     "upload error": "Выберите файл и загрузите его",
     "field required": "Это обязательное поле",
     "username": "Ник",
+    "email": "Почта",
     "password": "Пароль",
     "have account": "Уже есть аккаунт?",
     "sing in": "Авторизация",
@@ -62,7 +63,10 @@
     "lagest collections": "Самые большие коллекции",
     "to admin panel": "Админ панель",
     "Check users collections": "Просмотр коллекций",
-    "show all tags": "Показать все тэги"
+    "show all tags": "Показать все тэги",
+    "tags cloud": "Облако Тэгов"
+
+
 
 
 

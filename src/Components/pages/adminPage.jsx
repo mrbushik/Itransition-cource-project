@@ -45,17 +45,15 @@ function AdminPage() {
     setErrors('');
   };
 
-  const submitChanges = (buttonName) => {
-    const requestNumber = buttons.findIndex((item) => item === buttonName);
-    requests[requestNumber](
-      `http://localhost:5000/api/change-status/${selectedUser.user}`,
-      setUsers,
-    );
+  const submitChanges = (buttonIndex) => {
+    // const requestNumber = buttons.findIndex((item) => item === buttonName);
+    // console.log(buttonName);
+    requests[buttonIndex](`http://localhost:5000/api/change-status/${selectedUser.user}`, setUsers);
   };
 
-  const handlRequest = (buttonName) => {
+  const handlRequest = (buttonIndex) => {
     if (selectedUser.user) {
-      submitChanges(buttonName);
+      submitChanges(buttonIndex);
     } else {
       setErrors(t('choose user'));
     }
@@ -72,30 +70,32 @@ function AdminPage() {
         </div>
       </div>
       {errors && <div className="text-danger fs-4 ms-3">{errors}</div>}
-      <table className="table">
-        <thead>
-          <tr>
-            <th scope="col">{t('checkbox')}</th>
-            <th scope="col">{t('id')}</th>
-            <th scope="col">{t('username')}</th>
-            <th scope="col">{t('role')}</th>
-          </tr>
-        </thead>
-        {users && (
-          <tbody>
-            {users.map((user, index) => (
-              <UserTableItem
-                selectedUser={selectedUser}
-                key={user._id}
-                name={user.username}
-                role={user.roles}
-                id={user._id}
-                onChange={handleChange}
-              />
-            ))}
-          </tbody>
-        )}
-      </table>
+      <div className="overflow-auto">
+        <table className="table">
+          <thead>
+            <tr>
+              <th scope="col">{t('checkbox')}</th>
+              <th scope="col">{t('id')}</th>
+              <th scope="col">{t('username')}</th>
+              <th scope="col">{t('role')}</th>
+            </tr>
+          </thead>
+          {users && (
+            <tbody>
+              {users.map((user, index) => (
+                <UserTableItem
+                  selectedUser={selectedUser}
+                  key={user._id}
+                  name={user.username}
+                  role={user.roles}
+                  id={user._id}
+                  onChange={handleChange}
+                />
+              ))}
+            </tbody>
+          )}
+        </table>
+      </div>
     </>
   );
 }

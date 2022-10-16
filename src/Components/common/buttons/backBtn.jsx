@@ -7,7 +7,7 @@ function BackBtn({ backLink }) {
 
   return (
     <>
-      <button className="btn btn-secondary ms-3 mt-3" onClick={() => history.goBack()}>
+      <button className="btn btn-secondary ms-3 mt-3 back-btn" onClick={() => history.goBack()}>
         {t('back')}
       </button>
     </>

@@ -7,6 +7,7 @@ import {
   modalDelete,
   deleteAllPosts,
 } from '../../../services/modalRequests';
+import { validator } from '../../../utils/validator';
 
 import SelectField from '../../form/selectedField';
 import TextAreaField from '../../form/textAreaField';
@@ -14,8 +15,9 @@ import TextField from '../../form/textField';
 
 function EditModal({ modalType, collections, onActive, updateCollectionsData }) {
   let targetElement;
-  const UserId = localStorage.getItem('userId');
+  // const UserId = localStorage.getItem('userId');
   const { t } = useTranslation();
+  const [errors, setErrors] = useState({});
 
   const [editItem, setEditItem] = useState({
     item: '',
@@ -32,7 +34,7 @@ function EditModal({ modalType, collections, onActive, updateCollectionsData }) 
   };
 
   if (editItem.item) {
-    targetElement = collections.find((item) => item.name === editItem.item);
+    targetElement = collections.find((item) => item._id === editItem.item);
   }
 
   useEffect(() => {
@@ -47,7 +49,10 @@ function EditModal({ modalType, collections, onActive, updateCollectionsData }) 
     }
   }, [editItem.item]);
 
-  const collectionsNames = collections.map((item) => item.name);
+  const selectedValue = [];
+  for (let i = 0; i < collections.length; i++) {
+    selectedValue.push({ option: collections[i].name, value: collections[i]._id });
+  }
 
   const modifiedCollection = {
     name: editItem.name,
@@ -62,7 +67,36 @@ function EditModal({ modalType, collections, onActive, updateCollectionsData }) 
     setEditItem({ item: '' });
   };
 
+  const validatorConfig = {
+    name: {
+      isRequired: {
+        message: t('field required'),
+      },
+    },
+    type: {
+      isRequired: {
+        message: t('field required'),
+      },
+    },
+    description: {
+      isRequired: {
+        message: t('field required'),
+      },
+    },
+  };
+
+  const validate = () => {
+    const errors = validator(editItem, validatorConfig);
+    setErrors(errors);
+  };
+  useEffect(() => {
+    validate();
+  }, [editItem]);
+
+  const isValid = Object.keys(errors).length === 0;
+
   const collectionEdit = (URL) => {
+    console.log(modifiedCollection);
     editCollectionRequest(URL, modifiedCollection, updateCollectionsData);
   };
 
@@ -90,10 +124,11 @@ function EditModal({ modalType, collections, onActive, updateCollectionsData }) 
           <SelectField
             label={t('select collection')}
             name="item"
-            options={collectionsNames}
+            options={selectedValue}
             defaultOption={t('choose')}
             onChange={handleChange}
             value={editItem.item}
+            selectElement={true}
           />
         </div>
         {(modalType === 'Edit' || modalType === 'Редактировать') && editItem.item && editItem && (
@@ -104,6 +139,7 @@ function EditModal({ modalType, collections, onActive, updateCollectionsData }) 
               name="name"
               value={editItem.name}
               onChange={handleChange}
+              error={errors.name}
             />
             <SelectField
               label={t('choose collection')}
@@ -111,17 +147,23 @@ function EditModal({ modalType, collections, onActive, updateCollectionsData }) 
               options={[t('books'), t('music'), t('clothes')]}
               onChange={handleChange}
               value={editItem.type}
+              error={errors.type}
             />
             <TextAreaField
               name="description"
               value={editItem.description}
               label={t('collection description')}
               onChange={handleChange}
+              error={errors.description}
             />
           </div>
         )}
         <div className="modal-footer">
-          <button type="button" className="btn btn-primary " onClick={handleSubmit}>
+          <button
+            type="button"
+            className="btn btn-primary "
+            onClick={handleSubmit}
+            disabled={!isValid}>
             {modalType}
           </button>
           <button type="button" className="btn btn-secondary mx-3" onClick={onActive}>

@@ -7,6 +7,7 @@ import { selectedTagSearch } from '../redux/actions/selectedTag';
 import { changeCurrentTagsPage } from '../redux/actions/currentPaginatePage';
 import Paginate from '../common/paginate';
 import UserCollection from './userCollection';
+import { t } from 'i18next';
 
 function TagsSearch() {
   const currentPage = useSelector(({ changeCurrentPage }) => changeCurrentPage.tagPage);
@@ -43,7 +44,7 @@ function TagsSearch() {
 
   return (
     <div>
-      <h4 className="text-center mt-4 mb-2">Tags Cloud</h4>
+      <h4 className="text-center mt-4 mb-2">{t('tags cloud')}</h4>
       <div className="d-flex justify-content-center flex-wrap">
         {tags &&
           tags.map((tag, index) => (

@@ -9,7 +9,7 @@ function EditButtons({ onToggle, btnList }) {
           name={index}
           type="button"
           className="btn btn-light me-3 mt-2"
-          onClick={(e) => onToggle(e.target.name)}>
+          onClick={(e) => onToggle(index)}>
           {item}
         </button>
       ))}

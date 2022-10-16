@@ -11,6 +11,7 @@ function LoginForm({ togleFormType, onSubmit }) {
   const [errors, setErrors] = useState({});
   const [data, setData] = useState({
     username: '',
+    email: '',
     password: '',
     repeat: '',
   });
@@ -29,6 +30,11 @@ function LoginForm({ togleFormType, onSubmit }) {
       },
     },
     password: {
+      isRequired: {
+        message: t('field required'),
+      },
+    },
+    email: {
       isRequired: {
         message: t('field required'),
       },
@@ -62,6 +68,13 @@ function LoginForm({ togleFormType, onSubmit }) {
         value={data.username}
         onChange={handleChange}
         error={errors.username}
+      />
+      <TextField
+        label={t('email')}
+        name="email"
+        value={data.email}
+        onChange={handleChange}
+        error={errors.email}
       />
       <TextField
         label={t('password')}

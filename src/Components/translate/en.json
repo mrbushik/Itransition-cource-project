@@ -34,6 +34,7 @@
     "upload error": "Attach the file and upload",
     "field required": "this field is required",
     "username": "Nick name",
+    "email": "Email",
     "password": "Password",
     "have account": "Already have account?",
     "sing  in": "Sing In",
@@ -63,7 +64,8 @@
     "lagest collections": "The lagest collections",
     "to admin panel": "Admin panel",
     "Check users collections": "Check collections",
-    "show all tags": "Show all tags"
+    "show all tags": "Show all tags",
+    "tags cloud": "Tags Cloud"
 
 
 

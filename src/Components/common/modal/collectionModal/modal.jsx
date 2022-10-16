@@ -25,6 +25,7 @@ function Modal({ onActive, updateCollectionsData }) {
   });
   const [fieldValue, setFieldValue] = useState([]);
   const [errors, setErrors] = useState({});
+  const [loading, setLoading] = useState(false);
 
   const sendingData = {
     _ownerId: userId,
@@ -63,8 +64,11 @@ function Modal({ onActive, updateCollectionsData }) {
   useEffect(() => {
     validate();
   }, [collection]);
+
   const isValid = Object.keys(errors).length === 0;
+
   const uploadImage = async (e) => {
+    setLoading(true);
     const data = new FormData();
     data.append('file', e.target.files[0]);
     data.append('upload_preset', 'bushik123');
@@ -72,11 +76,13 @@ function Modal({ onActive, updateCollectionsData }) {
       method: 'POST',
       body: data,
     });
+
     const file = await res.json();
     setCollection((prevState) => ({
       ...prevState,
       ['photoUrl']: file.secure_url,
     }));
+    setLoading(false);
   };
 
   const validateAddingFields = () => {
@@ -180,6 +186,7 @@ function Modal({ onActive, updateCollectionsData }) {
                 name="photoUrl"
                 onSave={uploadImage}
               />
+              {loading && <div className="lds-dual-ring"></div>}
             </div>
             <div>
               <div className="d-flex justify-content-between mt-3 mb-3">

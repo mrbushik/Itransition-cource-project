@@ -45,7 +45,7 @@ function AdminCollections() {
     getUserCollection(getCollectionsURL, setCollections);
   }, [currentPage]);
 
-  const toggleActiveModal = (value) => setActiveModal(value);
+  const toggleActiveModal = (value) => setActiveModal(+value);
 
   const handleUpdateData = () => getUserCollection(getCollectionsURL, setCollections);
   return (
@@ -55,25 +55,11 @@ function AdminCollections() {
         <div className="d-flex justify-content-between flex-wrap">
           {role === 'ADMIN' && (
             <div>
-              {role && (
-                <EditButtons onToggle={toggleActiveModal} btnList={[t('edit'), t('delete')]} />
-              )}
-              {activeModal === t('edit') && collections && (
-                <EditModal
-                  collections={collections}
-                  modalType={t('edit')}
-                  onActive={toggleActiveModal}
-                  updateCollectionsData={handleUpdateData}
-                />
-              )}
-              {activeModal === t('delete') && collections && (
-                <EditModal
-                  collections={collections}
-                  onActive={toggleActiveModal}
-                  modalType={t('delete')}
-                  updateCollectionsData={handleUpdateData}
-                />
-              )}
+              <div>
+                {role && (
+                  <EditButtons onToggle={toggleActiveModal} btnList={[t('edit'), t('delete')]} />
+                )}
+              </div>
             </div>
           )}
           <div className="m-4">
@@ -82,6 +68,23 @@ function AdminCollections() {
             </Link>
           </div>
         </div>
+
+        {activeModal === 0 && collections && (
+          <EditModal
+            collections={collections}
+            modalType={t('edit')}
+            onActive={toggleActiveModal}
+            updateCollectionsData={handleUpdateData}
+          />
+        )}
+        {activeModal === 1 && collections && (
+          <EditModal
+            collections={collections}
+            onActive={toggleActiveModal}
+            modalType={t('delete')}
+            updateCollectionsData={handleUpdateData}
+          />
+        )}
         <div className="mt-4 d-flex justify-content-center flex-wrap">
           {collections
             ? collections.map((item, index) => (

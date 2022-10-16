@@ -1,7 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-function SelectField({ label, value, onChange, defaultOption, options, error, name, group }) {
+function SelectField({
+  label,
+  value,
+  onChange,
+  defaultOption,
+  options,
+  error,
+  name,
+  group,
+  selectElement,
+}) {
   const handleChange = ({ target }) => {
     onChange({ name: target.name, value: target.value, type: group });
   };
@@ -24,11 +34,17 @@ function SelectField({ label, value, onChange, defaultOption, options, error, na
         <option disabled value="">
           {defaultOption}
         </option>
-        {options.map((option, index) => (
-          <option value={option} key={index}>
-            {option}
-          </option>
-        ))}
+        {selectElement
+          ? options.map((option, index) => (
+              <option value={option.value} key={index}>
+                {option.option}
+              </option>
+            ))
+          : options.map((option, index) => (
+              <option value={option} key={index}>
+                {option}
+              </option>
+            ))}
       </select>
       {error && <p className="invalid-feedback text-danger">{error}</p>}
     </div>
