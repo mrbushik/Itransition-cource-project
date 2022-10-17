@@ -11,6 +11,7 @@ function RegisterForm({ togleFormType, onSubmit }) {
   const [errors, setErrors] = useState({});
   const [data, setData] = useState({
     username: '',
+    email: '',
     password: '',
     repeat: '',
   });
@@ -26,6 +27,14 @@ function RegisterForm({ togleFormType, onSubmit }) {
     username: {
       isRequired: {
         message: t('field required'),
+      },
+    },
+    email: {
+      isRequired: {
+        message: t('field required'),
+      },
+      isEmail: {
+        message: t('email error'),
       },
     },
     password: {
@@ -47,9 +56,9 @@ function RegisterForm({ togleFormType, onSubmit }) {
 
   const comparisonPasswords = () => {
     const passwordsData = Object.values(data);
-    if (passwordsData[1] !== passwordsData[2]) {
+    if (passwordsData[2] !== passwordsData[3]) {
       setErrors((prevState) => ({ ...prevState, repeat: t("passwords don't match") }));
-    } else if (passwordsData[1] === passwordsData[2]) {
+    } else if (passwordsData[2] === passwordsData[3]) {
       delete errors.repeat;
     }
   };
@@ -76,6 +85,13 @@ function RegisterForm({ togleFormType, onSubmit }) {
         value={data.username}
         onChange={handleChange}
         error={errors.username}
+      />
+      <TextField
+        label={t('email')}
+        name="email"
+        value={data.email}
+        onChange={handleChange}
+        error={errors.email}
       />
       <TextField
         label={t('password')}

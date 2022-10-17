@@ -71,9 +71,8 @@ function NavBar() {
         </div>
       </nav>
       {menu ? (
-        <div className="nav-phone__menu pb-3 white-element bg-secondary bg-opacity-10">
-          <div className="text-center white-element">
-            {' '}
+        <div className="nav-phone__menu pb-3 white-element bg-secondary bg-opacity-10 pt-3">
+          <div className="text-center white-element ">
             {userName && <span className="fs-4 mx-2">{userName}</span>}
             {userName && <div className="vr bg-dark dark-mode"></div>}
             {userName ? (

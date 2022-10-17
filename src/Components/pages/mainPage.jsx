@@ -22,47 +22,61 @@ function MainPage() {
   return (
     <>
       <NavBar />
-      <TagsSearch />
-      <h4 className="ms-3 mt-3">{t('last posts')}</h4>
-      <div className="mt-4 d-flex justify-content-center flex-wrap">
-        {newPosts
-          ? newPosts.collections.map((item, index) => (
-              <UserCollection
-                link={'/'}
-                description={item.description}
-                key={index}
-                id={item._id}
-                type={item.type}
-                authorName={item.ownerName}
-                icon={item.icon}
-                name={item.name}
-                collectionDescription={item.collectionDescription}
-                newPost={newPosts.postsNames[index]}
-                {...item}
-              />
-            ))
-          : ''}
-      </div>
-      <h4 className="ms-3 mt-3">{t('lagest collections')}</h4>
+      {collections && collections.length > 0 ? (
+        <div>
+          <TagsSearch />
 
-      <div className="mt-4 d-flex justify-content-center flex-wrap">
-        {collections
-          ? collections.map((item, index) => (
-              <UserCollection
-                link={'/'}
-                description={item.description}
-                key={index}
-                id={item._id}
-                type={item.type}
-                authorName={item.ownerName}
-                icon={item.icon}
-                name={item.name}
-                collectionDescription={item.collectionDescription}
-                {...item}
-              />
-            ))
-          : ''}
-      </div>
+          {newPosts && newPosts.collections.length > 0 ? (
+            <div>
+              <h4 className="ms-3 mt-3">{t('last posts')}</h4>
+              <div className="mt-4 d-flex justify-content-center flex-wrap">
+                {newPosts.collections.map((item, index) => (
+                  <UserCollection
+                    link={'/'}
+                    description={item.description}
+                    key={index}
+                    id={item._id}
+                    type={item.type}
+                    authorName={item.ownerName}
+                    icon={item.icon}
+                    name={item.name}
+                    collectionDescription={item.collectionDescription}
+                    newPost={newPosts.postsNames[index]}
+                    {...item}
+                  />
+                ))}
+              </div>
+            </div>
+          ) : (
+            ''
+          )}
+          {collections && collections.length > 0 ? (
+            <div>
+              <h4 className="ms-3 mt-3">{t('lagest collections')}</h4>
+              <div className="mt-4 d-flex justify-content-center flex-wrap">
+                {collections.map((item, index) => (
+                  <UserCollection
+                    link={'/'}
+                    description={item.description}
+                    key={index}
+                    id={item._id}
+                    type={item.type}
+                    authorName={item.ownerName}
+                    icon={item.icon}
+                    name={item.name}
+                    collectionDescription={item.collectionDescription}
+                    {...item}
+                  />
+                ))}
+              </div>
+            </div>
+          ) : (
+            ''
+          )}
+        </div>
+      ) : (
+        <div className="text-danger  mt-4 text-center px-3">{t('without collections')}</div>
+      )}
     </>
   );
 }

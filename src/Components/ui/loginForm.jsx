@@ -10,10 +10,8 @@ function LoginForm({ togleFormType, onSubmit }) {
   const { t } = useTranslation();
   const [errors, setErrors] = useState({});
   const [data, setData] = useState({
-    username: '',
     email: '',
     password: '',
-    repeat: '',
   });
 
   const handleChange = (target) => {
@@ -49,7 +47,7 @@ function LoginForm({ togleFormType, onSubmit }) {
 
   const handleSubmit = (e) => {
     const submitData = {
-      username: data.username.trim(),
+      email: data.email.trim(),
       password: data.password,
     };
     onSubmit(e, submitData);
@@ -62,13 +60,6 @@ function LoginForm({ togleFormType, onSubmit }) {
   const isValid = Object.keys(errors).length === 0;
   return (
     <>
-      <TextField
-        label={t('username')}
-        name="username"
-        value={data.username}
-        onChange={handleChange}
-        error={errors.username}
-      />
       <TextField
         label={t('email')}
         name="email"

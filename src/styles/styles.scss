@@ -60,8 +60,19 @@ body {
   .white-element {
     background-color: #fff !important;
     color: #111 !important;
+  
   }
-
+  .lds-dual-ring:after {
+    content: " ";
+    display: block;
+    width: 64px;
+    height: 64px;
+    margin: 8px;
+    border-radius: 50%;
+    border: 6px solid #fff;
+    border-color: #fff transparent #fff transparent;
+    animation: lds-dual-ring 1.2s linear infinite;
+  }
 }
 
 .ReactTags__selected {
@@ -267,8 +278,8 @@ input:checked+.toggler:before {
   height: 64px;
   margin: 8px;
   border-radius: 50%;
-  border: 6px solid #fff;
-  border-color: #fff transparent #fff transparent;
+  border: 6px solid #111;
+  border-color: #111 transparent #111 transparent;
   animation: lds-dual-ring 1.2s linear infinite;
 }
 

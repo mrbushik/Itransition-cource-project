@@ -10,6 +10,7 @@ import TextField from '../../form/textField';
 import SelectField from '../../form/selectedField';
 import AddFieldForm from '../../form/addFieldForm';
 import TextAreaField from '../../form/textAreaField';
+import { uploadFile } from '../../../services/modalRequests';
 
 function Modal({ onActive, updateCollectionsData }) {
   const { t } = useTranslation();
@@ -26,6 +27,7 @@ function Modal({ onActive, updateCollectionsData }) {
   const [fieldValue, setFieldValue] = useState([]);
   const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(false);
+  const [photoUrl, setPhotoUrl] = useState('');
 
   const sendingData = {
     _ownerId: userId,
@@ -67,23 +69,34 @@ function Modal({ onActive, updateCollectionsData }) {
 
   const isValid = Object.keys(errors).length === 0;
 
-  const uploadImage = async (e) => {
-    setLoading(true);
-    const data = new FormData();
-    data.append('file', e.target.files[0]);
-    data.append('upload_preset', 'bushik123');
-    const res = await fetch('	https://api.cloudinary.com/v1_1/drfjcq9hg/image/upload', {
-      method: 'POST',
-      body: data,
-    });
+  // const checkFileSize = (fileSize) => {
+  //   console.log(fileSize);
+  //   if (fileSize > 2100000) {
+  //     setErrors((prevState) => ({
+  //       ...prevState,
+  //       ['file']: t('file error'),
+  //     }));
+  //     // return true;
+  //   } else {
+  //     setErrors((prevState) => ({
+  //       ...prevState,
+  //       ['file']: t(''),
+  //     }));
 
-    const file = await res.json();
-    setCollection((prevState) => ({
-      ...prevState,
-      ['photoUrl']: file.secure_url,
-    }));
-    setLoading(false);
-  };
+  //   }
+
+  //   // return false;
+  // };
+
+  // const uploadImage = async (e) => {
+  //   setLoading(true);
+  //   checkFileSize(e.target.files[0].size);
+  //   if (!errors.file) {
+  //     console.log('upload');
+  //     // uploadFile(e, setPhotoUrl);
+  //   }
+  //   setLoading(false);
+  // };
 
   const validateAddingFields = () => {
     for (let i = 0; i < fieldValue.length; i++) {
@@ -184,9 +197,10 @@ function Modal({ onActive, updateCollectionsData }) {
                 type="file"
                 isUrl={collection.photoUrl}
                 name="photoUrl"
-                onSave={uploadImage}
+                onSave={handleChange}
+                // error={errors.file}
               />
-              {loading && <div className="lds-dual-ring"></div>}
+              {/* {loading && <div className="lds-dual-ring "></div>} */}
             </div>
             <div>
               <div className="d-flex justify-content-between mt-3 mb-3">

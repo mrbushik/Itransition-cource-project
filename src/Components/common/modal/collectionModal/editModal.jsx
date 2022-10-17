@@ -65,6 +65,7 @@ function EditModal({ modalType, collections, onActive, updateCollectionsData }) 
     modalDeleteInOwner(`http://localhost:5000/api/delete-collection-user/${ownerId}`, collectionId);
     modalDelete(URL, updateCollectionsData);
     setEditItem({ item: '' });
+    onActive();
   };
 
   const validatorConfig = {
@@ -96,7 +97,6 @@ function EditModal({ modalType, collections, onActive, updateCollectionsData }) 
   const isValid = Object.keys(errors).length === 0;
 
   const collectionEdit = (URL) => {
-    console.log(modifiedCollection);
     editCollectionRequest(URL, modifiedCollection, updateCollectionsData);
   };
 

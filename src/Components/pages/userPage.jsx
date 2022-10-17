@@ -54,58 +54,64 @@ function UserPage() {
   return (
     <>
       <NavBar />
-      <div></div>
-      <EditButtons
-        onToggle={toggleActiveModal}
-        btnList={collections ? [t('create'), t('edit'), t('delete')] : [t('create')]}
-      />
-      <div>
-        {activeModal === 0 && (
-          <Modal onActive={toggleActiveModal} updateCollectionsData={updateCollectionsData} />
-        )}
-        {activeModal === 1 && collections && (
-          <EditModal
-            collections={collections}
-            updateCollectionsData={updateCollectionsData}
-            modalType={t('edit')}
-            onActive={toggleActiveModal}
-          />
-        )}
-        {activeModal === 2 && collections && (
-          <EditModal
-            updateCollectionsData={updateCollectionsData}
-            collections={collections}
-            onActive={toggleActiveModal}
-            modalType={t('delete')}
-          />
-        )}
-      </div>
-      <div className="mx-auto" style={{ width: '250px' }}>
-        {collections ? (
-          userCrop.map((item, index) => (
-            <UserCollection
-              link={'collection/'}
-              description={item.description}
-              key={index}
-              id={item._id}
-              type={item.type}
-              authorName={item.ownerName}
-              icon={item.icon}
-              name={item.name}
-              collectionDescription={item.collectionDescription}
-              {...item}
-            />
-          ))
-        ) : (
-          <div> {t("haven't collections")}</div>
-        )}
-      </div>
       {collections && (
-        <Paginate
-          countCollections={collections.length}
-          currentPage={currentPage}
-          onPageChange={changePage}
-        />
+        <div>
+          {' '}
+          <EditButtons
+            onToggle={toggleActiveModal}
+            btnList={
+              collections.length !== 0 ? [t('create'), t('edit'), t('delete')] : [t('create')]
+            }
+          />
+          <div>
+            {activeModal === 0 && (
+              <Modal onActive={toggleActiveModal} updateCollectionsData={updateCollectionsData} />
+            )}
+            {activeModal === 1 && collections && (
+              <EditModal
+                collections={collections}
+                updateCollectionsData={updateCollectionsData}
+                modalType={t('edit')}
+                onActive={toggleActiveModal}
+              />
+            )}
+            {activeModal === 2 && collections && (
+              <EditModal
+                updateCollectionsData={updateCollectionsData}
+                collections={collections}
+                onActive={toggleActiveModal}
+                modalType={t('delete')}
+              />
+            )}
+          </div>
+          <div className="mx-auto" style={{ width: '250px' }}>
+            {collections ? (
+              userCrop.map((item, index) => (
+                <UserCollection
+                  link={'collection/'}
+                  description={item.description}
+                  key={index}
+                  id={item._id}
+                  type={item.type}
+                  authorName={item.ownerName}
+                  icon={item.icon}
+                  name={item.name}
+                  collectionDescription={item.collectionDescription}
+                  {...item}
+                />
+              ))
+            ) : (
+              <div> {t("haven't collections")}</div>
+            )}
+          </div>
+          {collections && (
+            <Paginate
+              countCollections={collections.length}
+              currentPage={currentPage}
+              onPageChange={changePage}
+            />
+          )}
+        </div>
       )}
     </>
   );

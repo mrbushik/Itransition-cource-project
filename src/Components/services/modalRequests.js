@@ -53,3 +53,16 @@ export function deleteAllPosts(url) {
       console.log(error);
     });
 }
+
+export async function uploadFile(e, setPhotoUrl) {
+  const data = new FormData();
+  data.append('file', e.target.files[0]);
+  data.append('upload_preset', 'bushik123');
+  const res = await fetch('	https://api.cloudinary.com/v1_1/drfjcq9hg/image/upload', {
+    method: 'POST',
+    body: data,
+  });
+
+  const file = await res.json();
+  setPhotoUrl({ name: 'photoUrl', value: file.secure_url });
+}

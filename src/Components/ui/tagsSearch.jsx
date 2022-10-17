@@ -43,45 +43,49 @@ function TagsSearch() {
   const changePage = (count) => dispatch(changeCurrentTagsPage(count));
 
   return (
-    <div>
-      <h4 className="text-center mt-4 mb-2">{t('tags cloud')}</h4>
-      <div className="d-flex justify-content-center flex-wrap">
-        {tags &&
-          tags.map((tag, index) => (
-            <span
-              className="ms-1 "
-              style={{ cursor: 'pointer' }}
-              key={index}
-              onClick={(e) => handleTagClick(e)}>
-              {tag}
-            </span>
-          ))}
-      </div>
-      <div className="mt-4 d-flex justify-content-center flex-wrap">
-        {collections &&
-          collections.map((item) => (
-            <UserCollection
-              link={'/'}
-              description={item.description}
-              key={item._id}
-              id={item._id}
-              type={item.type}
-              authorName={item.ownerName}
-              icon={item.icon}
-              name={item.name}
-              collectionDescription={item.collectionDescription}
-              {...item}
+    <>
+      {tags && tags.length > 0 && (
+        <div>
+          <h4 className="text-center mt-4 mb-2">{t('tags cloud')}</h4>
+          <div className="d-flex justify-content-center flex-wrap">
+            {tags &&
+              tags.map((tag, index) => (
+                <span
+                  className="ms-1 "
+                  style={{ cursor: 'pointer' }}
+                  key={index}
+                  onClick={(e) => handleTagClick(e)}>
+                  {tag}
+                </span>
+              ))}
+          </div>
+          <div className="mt-4 d-flex justify-content-center flex-wrap">
+            {collections &&
+              collections.map((item) => (
+                <UserCollection
+                  link={'/'}
+                  description={item.description}
+                  key={item._id}
+                  id={item._id}
+                  type={item.type}
+                  authorName={item.ownerName}
+                  icon={item.icon}
+                  name={item.name}
+                  collectionDescription={item.collectionDescription}
+                  {...item}
+                />
+              ))}
+          </div>
+          {collections && (
+            <Paginate
+              countCollections={collectionsLength}
+              currentPage={currentPage}
+              onPageChange={changePage}
             />
-          ))}
-      </div>
-      {collections && (
-        <Paginate
-          countCollections={collectionsLength}
-          currentPage={currentPage}
-          onPageChange={changePage}
-        />
+          )}
+        </div>
       )}
-    </div>
+    </>
   );
 }
 

@@ -13,6 +13,7 @@
     "autor": "Autor",
     "type": "Type",
     "back": "Back",
+    "without collections": "There are no collections, but you can create a collection first",
     "haven't collections": "you don't have collections",
     "new item" : "Create new Item",
     "post description": "post name",
@@ -36,6 +37,7 @@
     "username": "Nick name",
     "email": "Email",
     "password": "Password",
+    "email error": "Enter the correct email",
     "have account": "Already have account?",
     "sing  in": "Sing In",
     "sing up": "Sing Up",
@@ -65,7 +67,8 @@
     "to admin panel": "Admin panel",
     "Check users collections": "Check collections",
     "show all tags": "Show all tags",
-    "tags cloud": "Tags Cloud"
+    "tags cloud": "Tags Cloud",
+    "file error": "The file cannot be larger than 2 megabytes"
 
 
 

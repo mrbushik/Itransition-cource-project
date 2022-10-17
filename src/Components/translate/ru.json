@@ -13,6 +13,7 @@
     "autor": "Автор",
     "type": "Тип",
     "back": "Назад",
+    "without collections": "Коллекций нет, но вы можете первым создать коллекцию",
     "haven't collections": "У вас нет коллекций",
     "new item" : "Создать новый пост",
     "post description": "Название поста",
@@ -37,6 +38,7 @@
     "username": "Ник",
     "email": "Почта",
     "password": "Пароль",
+    "email error": "Введите почту правильно",
     "have account": "Уже есть аккаунт?",
     "sing in": "Авторизация",
     "sing up": "Регистрация",
@@ -64,7 +66,9 @@
     "to admin panel": "Админ панель",
     "Check users collections": "Просмотр коллекций",
     "show all tags": "Показать все тэги",
-    "tags cloud": "Облако Тэгов"
+    "tags cloud": "Облако Тэгов",
+    "file error": "Файл не может быть больше 2 магабайт"
+
 
 
 
