@@ -8,8 +8,10 @@ import BackBtn from '../common/buttons/backBtn';
 import ShowModal from '../common/modal/showModal';
 import PostsRender from '../common/postsRender';
 import NavBar from '../navigation/navBar';
+import LikeBtn from '../common/buttons/likeBtn';
+import CommentsForm from '../common/form/commentsForm';
 
-function CollectionPosts({ editButtons }) {
+function CollectionPosts() {
   const params = useParams();
   const { t } = useTranslation();
   const [collectionData, setCollectionData] = useState();
@@ -23,7 +25,10 @@ function CollectionPosts({ editButtons }) {
   return (
     <>
       <NavBar />
-      <BackBtn backLink={'/collection'} />
+      <div className="d-flex justify-content-between align-items-center flex-wrap">
+        <BackBtn backLink={'/collection'} />
+        <LikeBtn collectionId={params.Id} />
+      </div>
       {collectionData && (
         <ShowModal
           btnList={
@@ -35,6 +40,7 @@ function CollectionPosts({ editButtons }) {
         />
       )}
       {collectionData && <PostsRender data={collectionData} />}
+      {collectionData && <CommentsForm collectionId={params.Id} />}
     </>
   );
 }

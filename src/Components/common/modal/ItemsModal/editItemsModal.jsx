@@ -1,5 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from 'react';
+import PropTypes from 'prop-types';
+
 import { useTranslation } from 'react-i18next';
 import { editPostRequest, modalDelete, modalDeleteInOwner } from '../../../services/modalRequests';
 
@@ -151,5 +153,14 @@ function EditItemsModal({
     </div>
   );
 }
+
+EditItemsModal.propTypes = {
+  fieldsCount: PropTypes.number,
+  modalType: PropTypes.string.isRequired,
+  onClose: PropTypes.func.isRequired,
+  onUpdateData: PropTypes.func.isRequired,
+  posts: PropTypes.arrayOf(PropTypes.object),
+  postsTemplates: PropTypes.arrayOf(PropTypes.object),
+};
 
 export default EditItemsModal;

@@ -164,12 +164,7 @@ function Modal({ onActive, updateCollectionsData }) {
             </div>
             <div>
               <h5>{t('upload field')}</h5>
-              <UploadField
-                type="file"
-                isUrl={collection.photoUrl}
-                name="photoUrl"
-                onSave={handleChange}
-              />
+              <UploadField isUrl={collection.photoUrl} name="photoUrl" onSave={handleChange} />
             </div>
             <div>
               <div className="d-flex justify-content-between mt-3 mb-3">

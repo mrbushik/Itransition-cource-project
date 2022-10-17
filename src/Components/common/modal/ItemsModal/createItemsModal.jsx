@@ -1,13 +1,14 @@
 /* eslint-disable no-useless-computed-key */
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from 'react';
-
-import TextField from '../../form/textField';
+import PropTypes from 'prop-types';
 import { validator } from '../../../utils/validator';
-import TagsField from '../../form/tagsField';
-import CustomField from '../../form/customField';
 import { useTranslation } from 'react-i18next';
 import { addPost } from '../../../services/modalRequests';
+
+import TextField from '../../form/textField';
+import TagsField from '../../form/tagsField';
+import CustomField from '../../form/customField';
 
 function CreateItemsModal({ onClose, fieldsCount, addingFields, collectionId, onUpdateData }) {
   const { t } = useTranslation();
@@ -47,6 +48,7 @@ function CreateItemsModal({ onClose, fieldsCount, addingFields, collectionId, on
   const handleDeleteTag = (i) => {
     setTags(tags.filter((tag, index) => index !== i));
   };
+
   const handleAddition = (tag) => {
     setTags([...tags, tag]);
   };
@@ -140,5 +142,13 @@ function CreateItemsModal({ onClose, fieldsCount, addingFields, collectionId, on
     </>
   );
 }
+
+CreateItemsModal.propTypes = {
+  addingFields: PropTypes.array,
+  collectionId: PropTypes.string,
+  fieldsCount: PropTypes.number,
+  onClose: PropTypes.func.isRequired,
+  onUpdateData: PropTypes.func.isRequired,
+};
 
 export default CreateItemsModal;

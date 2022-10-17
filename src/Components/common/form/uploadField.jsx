@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
+
 import { useTranslation } from 'react-i18next';
 import { uploadFile } from '../../services/modalRequests';
 
@@ -41,6 +43,7 @@ function UploadField({ name, onSave, isUrl }) {
   const getInputClasses = () => {
     return 'form-control' + (isUrl ? '' : ' is-invalid');
   };
+
   return (
     <>
       <div className="input-group">
@@ -62,5 +65,11 @@ function UploadField({ name, onSave, isUrl }) {
     </>
   );
 }
+
+UploadField.propTypes = {
+  name: PropTypes.string,
+  isUrl: PropTypes.string,
+  onSave: PropTypes.func,
+};
 
 export default UploadField;

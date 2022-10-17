@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from 'react';
+import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
+
 import { WithContext as ReactTags } from 'react-tag-input';
 import { getAllTags } from '../../services/getInfoRequests';
+
 function TagsField({ handleDelete, tags, handleAddition }) {
   const tagsURL = 'http://localhost:5000/api/all-tags';
   const { t } = useTranslation();
@@ -25,6 +28,7 @@ function TagsField({ handleDelete, tags, handleAddition }) {
     comma: 188,
     enter: 13,
   };
+
   const delimiters = [KeyCodes.comma, KeyCodes.enter];
   return (
     <>
@@ -46,5 +50,11 @@ function TagsField({ handleDelete, tags, handleAddition }) {
     </>
   );
 }
+
+TagsField.propTypes = {
+  handleDelete: PropTypes.func.isRequired,
+  handleAddition: PropTypes.func.isRequired,
+  tags: PropTypes.array,
+};
 
 export default TagsField;

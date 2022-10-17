@@ -1,5 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from 'react';
+import PropTypes from 'prop-types';
 import { checkLikeRequest, putLikeRequest } from '../../services/likeRequsts';
 
 function LikeBtn(collectionId) {
@@ -53,5 +54,8 @@ function LikeBtn(collectionId) {
     </div>
   );
 }
+LikeBtn.propTypes = {
+  collectionId: PropTypes.string,
+};
 
 export default LikeBtn;

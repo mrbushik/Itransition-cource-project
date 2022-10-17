@@ -1,5 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React from 'react';
+import PropTypes from 'prop-types';
 import { validator } from '../../utils/validator';
 import { useTranslation } from 'react-i18next';
 
@@ -58,5 +59,13 @@ function AddFieldForm({ handleChangeField, dataType, dataDescription, index, onD
     </div>
   );
 }
+
+AddFieldForm.propTypes = {
+  index: PropTypes.number.isRequired,
+  dataDescription: PropTypes.string,
+  dataType: PropTypes.string,
+  handleChangeField: PropTypes.func.isRequired,
+  onDelete: PropTypes.func.isRequired,
+};
 
 export default AddFieldForm;

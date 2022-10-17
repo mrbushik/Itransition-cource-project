@@ -25,7 +25,7 @@ function TagsSearch() {
     getTags(tagsURL, setTags);
   }, []);
 
-  const handleGetCollections = (e) => {
+  const handleGetCollections = () => {
     const data = { tag: searchTag, page: currentPage };
     getTagCollectonsTotal(tagColectionsURL, data, setCollectionsLength);
     getCollectonsByTag(tagColectionsURL, data, setCollections);
@@ -51,7 +51,7 @@ function TagsSearch() {
             {tags &&
               tags.map((tag, index) => (
                 <span
-                  className="ms-1 "
+                  className={`ms-1 ${searchTag === tag ? 'text-success' : ''}`}
                   style={{ cursor: 'pointer' }}
                   key={index}
                   onClick={(e) => handleTagClick(e)}>

@@ -1,20 +1,21 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { useTranslation } from 'react-i18next';
 
 function TextField({ label, type, name, value, onChange, error, group, placeholder }) {
-  const { t } = useTranslation();
-
   const handleChange = ({ target }) => {
     onChange({ name: target.name, value: target.value, type: group });
   };
+
   const [showPassword, setShowPassword] = useState(false);
+
   const getInputClasses = () => {
     return 'form-control' + (error ? ' is-invalid' : '');
   };
+
   const toggleShowPassword = () => {
     setShowPassword((prevState) => !prevState);
   };
+
   return (
     <div className="mb-3">
       <label htmlFor={name}>{label}</label>

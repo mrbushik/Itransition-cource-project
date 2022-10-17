@@ -69,12 +69,7 @@
     "Check users collections": "Check collections",
     "show all tags": "Show all tags",
     "tags cloud": "Tags Cloud",
-    "file error": "The file cannot be larger than 2 megabytes"
-
-
-
-
-
-
-
+    "file error": "The file cannot be larger than 2 megabytes",
+    "write a comment": "Write a comment",
+    "send": "Send"
 }
