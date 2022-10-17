@@ -46,8 +46,6 @@ function AdminPage() {
   };
 
   const submitChanges = (buttonIndex) => {
-    // const requestNumber = buttons.findIndex((item) => item === buttonName);
-    // console.log(buttonName);
     requests[buttonIndex](`http://localhost:5000/api/change-status/${selectedUser.user}`, setUsers);
   };
 

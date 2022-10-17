@@ -113,6 +113,9 @@ function UserPage() {
           )}
         </div>
       )}
+      {collections && collections.length === 0 && (
+        <div className="text-danger  mt-4 fs-5  text-center px-3">{t('none collections')}</div>
+      )}
     </>
   );
 }

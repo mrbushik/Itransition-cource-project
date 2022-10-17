@@ -1,6 +1,7 @@
 /* eslint-disable no-useless-computed-key */
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from 'react';
+import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 import { validator } from '../../../utils/validator';
 import { createCollection } from '../../../services/createRequest';
@@ -10,7 +11,6 @@ import TextField from '../../form/textField';
 import SelectField from '../../form/selectedField';
 import AddFieldForm from '../../form/addFieldForm';
 import TextAreaField from '../../form/textAreaField';
-import { uploadFile } from '../../../services/modalRequests';
 
 function Modal({ onActive, updateCollectionsData }) {
   const { t } = useTranslation();
@@ -26,8 +26,6 @@ function Modal({ onActive, updateCollectionsData }) {
   });
   const [fieldValue, setFieldValue] = useState([]);
   const [errors, setErrors] = useState({});
-  const [loading, setLoading] = useState(false);
-  const [photoUrl, setPhotoUrl] = useState('');
 
   const sendingData = {
     _ownerId: userId,
@@ -59,44 +57,17 @@ function Modal({ onActive, updateCollectionsData }) {
       },
     },
   };
+
   const validate = () => {
     const errors = validator(collection, validatorConfig);
     setErrors(errors);
   };
+
   useEffect(() => {
     validate();
   }, [collection]);
 
   const isValid = Object.keys(errors).length === 0;
-
-  // const checkFileSize = (fileSize) => {
-  //   console.log(fileSize);
-  //   if (fileSize > 2100000) {
-  //     setErrors((prevState) => ({
-  //       ...prevState,
-  //       ['file']: t('file error'),
-  //     }));
-  //     // return true;
-  //   } else {
-  //     setErrors((prevState) => ({
-  //       ...prevState,
-  //       ['file']: t(''),
-  //     }));
-
-  //   }
-
-  //   // return false;
-  // };
-
-  // const uploadImage = async (e) => {
-  //   setLoading(true);
-  //   checkFileSize(e.target.files[0].size);
-  //   if (!errors.file) {
-  //     console.log('upload');
-  //     // uploadFile(e, setPhotoUrl);
-  //   }
-  //   setLoading(false);
-  // };
 
   const validateAddingFields = () => {
     for (let i = 0; i < fieldValue.length; i++) {
@@ -154,7 +125,7 @@ function Modal({ onActive, updateCollectionsData }) {
   };
   return (
     <>
-      <div className="modal-dialog modal-dialog-centered w-75 bg-light absolute-top mx-3 mt-3 p-3 dark-mode">
+      <div className="modal-dialog modal-dialog-centered  bg-light absolute-top mx-3 mt-3 p-3 dark-mode">
         <div className="modal-content">
           <div className="modal-header">
             <h5 className="modal-title">{t('create collection')}</h5>
@@ -198,9 +169,7 @@ function Modal({ onActive, updateCollectionsData }) {
                 isUrl={collection.photoUrl}
                 name="photoUrl"
                 onSave={handleChange}
-                // error={errors.file}
               />
-              {/* {loading && <div className="lds-dual-ring "></div>} */}
             </div>
             <div>
               <div className="d-flex justify-content-between mt-3 mb-3">
@@ -217,7 +186,7 @@ function Modal({ onActive, updateCollectionsData }) {
                 />
               ))}
             </div>
-            <button className="btn btn-secondary  " onClick={() => handleAddField()}>
+            <button className="btn btn-secondary" onClick={() => handleAddField()}>
               {t('add field')}
             </button>
           </div>
@@ -238,5 +207,10 @@ function Modal({ onActive, updateCollectionsData }) {
     </>
   );
 }
+
+Modal.propTypes = {
+  onActive: PropTypes.func.isRequired,
+  updateCollectionsData: PropTypes.func.isRequired,
+};
 
 export default Modal;

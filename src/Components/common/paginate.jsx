@@ -1,5 +1,7 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import _ from 'lodash';
+
 function Paginate({ countCollections, currentPage, onPageChange }) {
   const pageCount = Math.ceil(countCollections / 3);
   if (pageCount === 1) return null;
@@ -20,5 +22,10 @@ function Paginate({ countCollections, currentPage, onPageChange }) {
     </nav>
   );
 }
+Paginate.propTypes = {
+  countCollections: PropTypes.number,
+  currentPage: PropTypes.number,
+  onPageChange: PropTypes.func.isRequired,
+};
 
 export default Paginate;

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 
 import EditButtons from '../buttons/editButtons';
@@ -46,5 +47,12 @@ function ShowModal({ btnList, collectionId, data, onUpdateData }) {
     </>
   );
 }
+
+ShowModal.propTypes = {
+  btnList: PropTypes.array,
+  collectionId: PropTypes.string,
+  data: PropTypes.object,
+  onUpdateData: PropTypes.func,
+};
 
 export default ShowModal;

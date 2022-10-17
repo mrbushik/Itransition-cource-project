@@ -1,4 +1,6 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+
 import { useHistory } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 function BackBtn({ backLink }) {
@@ -13,5 +15,9 @@ function BackBtn({ backLink }) {
     </>
   );
 }
+
+BackBtn.propTypes = {
+  backLink: PropTypes.string,
+};
 
 export default BackBtn;

@@ -1,5 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from 'react';
+import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 import {
   editCollectionRequest,
@@ -61,6 +62,7 @@ function EditModal({ modalType, collections, onActive, updateCollectionsData }) 
   };
 
   const deleteCollection = (URL, collectionId, ownerId) => {
+    console.log(collectionId);
     deleteAllPosts(`http://localhost:5000/api/delete-posts-from-collection/${collectionId}`);
     modalDeleteInOwner(`http://localhost:5000/api/delete-collection-user/${ownerId}`, collectionId);
     modalDelete(URL, updateCollectionsData);
@@ -174,5 +176,11 @@ function EditModal({ modalType, collections, onActive, updateCollectionsData }) 
     </div>
   );
 }
+EditModal.propTypes = {
+  modalType: PropTypes.string,
+  collections: PropTypes.arrayOf(PropTypes.object).isRequired,
+  onActive: PropTypes.func,
+  updateCollectionsData: PropTypes.func,
+};
 
 export default EditModal;

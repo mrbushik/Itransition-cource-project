@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
@@ -48,5 +49,15 @@ function UserCollection({ authorName, description, icon, name, type, id, link, n
     </div>
   );
 }
+UserCollection.propTypes = {
+  authorName: PropTypes.string,
+  link: PropTypes.string,
+  id: PropTypes.string,
+  type: PropTypes.string,
+  icon: PropTypes.string,
+  newPost: PropTypes.string,
+  description: PropTypes.string,
+  name: PropTypes.string,
+};
 
 export default UserCollection;

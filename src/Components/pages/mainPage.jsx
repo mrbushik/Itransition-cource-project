@@ -25,7 +25,6 @@ function MainPage() {
       {collections && collections.length > 0 ? (
         <div>
           <TagsSearch />
-
           {newPosts && newPosts.collections.length > 0 ? (
             <div>
               <h4 className="ms-3 mt-3">{t('last posts')}</h4>
@@ -75,7 +74,7 @@ function MainPage() {
           )}
         </div>
       ) : (
-        <div className="text-danger  mt-4 text-center px-3">{t('without collections')}</div>
+        <div className="text-danger  mt-5 fs-5 text-center px-3">{t('without collections')}</div>
       )}
     </>
   );

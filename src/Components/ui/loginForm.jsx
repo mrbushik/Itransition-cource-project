@@ -3,10 +3,11 @@
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { validator } from '../utils/validator';
+import PropTypes from 'prop-types';
 
 import TextField from '../common/form/textField';
 
-function LoginForm({ togleFormType, onSubmit }) {
+function LoginForm({ toggleFormType, onSubmit }) {
   const { t } = useTranslation();
   const [errors, setErrors] = useState({});
   const [data, setData] = useState({
@@ -82,11 +83,14 @@ function LoginForm({ togleFormType, onSubmit }) {
         onClick={(e) => handleSubmit(e)}>
         {t('submit')}
       </button>
-      <a role="button" onClick={togleFormType}>
+      <a role="button" onClick={toggleFormType}>
         {t('sing up')}
       </a>
     </>
   );
 }
+LoginForm.propTypes = {
+  toggleFormType: PropTypes.func.isRequired,
+};
 
 export default LoginForm;

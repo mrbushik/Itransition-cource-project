@@ -34,7 +34,7 @@ function SwitchLanguage() {
       <label className="switch">
         <input type="checkbox" checked={currentValue ? true : false} onChange={handleCheck} />
         <span className="slider"></span>
-      </label>{' '}
+      </label>
       <img
         src="https://upload.wikimedia.org/wikipedia/commons/3/37/Flag_of_Russia_%28bordered%29.svg"
         alt="ru"

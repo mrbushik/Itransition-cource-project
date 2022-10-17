@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import PostItem from '../ui/postItem';
 import { useTranslation } from 'react-i18next';
@@ -43,5 +44,9 @@ function PostsRender({ data }) {
     </>
   );
 }
+
+PostItem.propTypes = {
+  data: PropTypes.object,
+};
 
 export default PostsRender;

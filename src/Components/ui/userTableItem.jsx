@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 function UserTableItem({ name, role, id, selectedUser, onChange }) {
   const handleChange = ({ target }) => {
@@ -21,5 +22,13 @@ function UserTableItem({ name, role, id, selectedUser, onChange }) {
     </tr>
   );
 }
+
+UserTableItem.propTypes = {
+  name: PropTypes.string.isRequired,
+  role: PropTypes.array.isRequired,
+  id: PropTypes.string.isRequired,
+  selectedUser: PropTypes.object,
+  onChange: PropTypes.func,
+};
 
 export default UserTableItem;

@@ -51,10 +51,8 @@ function AdminCollections() {
   return (
     <>
       <NavBar />
-
-      {collections && collections.length > 0 && (
+      {collections && collections.length > 0 ? (
         <div>
-          {' '}
           <div>
             <div className="d-flex justify-content-between flex-wrap">
               {role === 'ADMIN' && (
@@ -71,7 +69,7 @@ function AdminCollections() {
               )}
               <div className="m-4">
                 <Link to="admin-panel">
-                  <div className="btn btn-secondary  ">{t('to admin panel')}</div>
+                  <div className="btn btn-secondary">{t('to admin panel')}</div>
                 </Link>
               </div>
             </div>
@@ -116,6 +114,15 @@ function AdminCollections() {
             currentPage={currentPage}
             onPageChange={getCollectionsPages}
           />
+        </div>
+      ) : (
+        <div>
+          <div className="m-4">
+            <Link to="admin-panel">
+              <div className="btn btn-secondary">{t('to admin panel')}</div>
+            </Link>
+          </div>
+          <p className="text-danger text-center fs-4">{t('none collections')}</p>
         </div>
       )}
     </>

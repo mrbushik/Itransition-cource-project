@@ -83,9 +83,9 @@ function Login() {
             <form className="dark-mode">
               <div className="mb-3">
                 {formType === 'login' ? (
-                  <LoginForm togleFormType={togleFormType} onSubmit={handleSubmit} />
+                  <LoginForm toggleFormType={togleFormType} onSubmit={handleSubmit} />
                 ) : (
-                  <RegisterForm togleFormType={togleFormType} onSubmit={handleSubmit} />
+                  <RegisterForm toggleFormType={togleFormType} onSubmit={handleSubmit} />
                 )}
               </div>
               {errors.message ? (

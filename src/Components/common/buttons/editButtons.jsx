@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 function EditButtons({ onToggle, btnList }) {
   return (
@@ -16,5 +17,9 @@ function EditButtons({ onToggle, btnList }) {
     </div>
   );
 }
+EditButtons.propTypes = {
+  onToggle: PropTypes.func.isRequired,
+  btnList: PropTypes.arrayOf(PropTypes.string).isRequired,
+};
 
 export default EditButtons;
