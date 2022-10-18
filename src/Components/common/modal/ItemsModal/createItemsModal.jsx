@@ -33,8 +33,13 @@ function CreateItemsModal({ onClose, fieldsCount, addingFields, collectionId, on
       isRequired: {
         message: t('field required'),
       },
+      max: {
+        message: t('field max length'),
+        value: 60,
+      },
     },
   };
+
   const validate = () => {
     const errors = validator(postItem, validatorConfig);
     setErrors(errors);

@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-
+import { validator } from '../../../utils/validator';
 import { useTranslation } from 'react-i18next';
 import { editPostRequest, modalDelete, modalDeleteInOwner } from '../../../services/modalRequests';
 
@@ -22,6 +22,7 @@ function EditItemsModal({
   const { t } = useTranslation();
   const [fieldValue, setFieldValue] = useState([]);
   const [tags, setTags] = useState([]);
+  // const [errors, setErrors] = useState({});
 
   const [editItem, setEditItem] = useState({
     item: '',
@@ -36,6 +37,27 @@ function EditItemsModal({
     fields: fieldValueInArray,
     tags: tags.map((item) => item.text),
   };
+
+  // const validatorConfig = {
+  //   name: {
+  //     isRequired: {
+  //       message: t('field required'),
+  //     },
+  //     max: {
+  //       message: t('field max length'),
+  //       value: 60,
+  //     },
+  //   },
+  // };
+
+  // const validate = () => {
+  //   const errors = validator(postItem, validatorConfig);
+  //   setErrors(errors);
+  // };
+
+  // useEffect(() => {
+  //   validate();
+  // }, [postItem]);
 
   const getFieldData = () => {
     if (targetElement) {

@@ -8,3 +8,11 @@ export async function createCollection(url, data, updateCollections) {
       console.log(error);
     });
 }
+export async function writeCommentRequest(url, data, getCollectionComments) {
+  await axios
+    .post(url, data)
+    .then((response) => getCollectionComments())
+    .catch((error) => {
+      console.log(error);
+    });
+}

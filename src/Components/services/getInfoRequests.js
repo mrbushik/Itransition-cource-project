@@ -80,3 +80,13 @@ export async function getCollectonsByTag(url, data, setCollections, setCollectio
       console.log(error);
     });
 }
+export async function getCollectionComments(url, setCollections) {
+  await axios
+    .get(url)
+    .then((data) => {
+      setCollections(data.data);
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+}

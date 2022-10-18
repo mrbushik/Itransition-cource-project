@@ -296,6 +296,15 @@ input:checked+.toggler:before {
 .back-btn {
   height: fit-content;
 }
+.comments-form{
+  margin-top: 50px;
+  margin-bottom: 50px;
+}
+
+.comment-date{
+  font-size: 14px;
+  
+}
 
 @media(min-width: 991.5px) {
   .nav-phone__menu {

@@ -39,6 +39,8 @@ function Login() {
     localStorage.setItem('token', auth.token);
     localStorage.setItem('role', auth.userRole);
     localStorage.setItem('userId', auth.userId);
+    document.cookie = 'nikita';
+    console.log(document.cookie);
   };
 
   useEffect(() => {

@@ -71,5 +71,6 @@
     "tags cloud": "Tags Cloud",
     "file error": "The file cannot be larger than 2 megabytes",
     "write a comment": "Write a comment",
-    "send": "Send"
+    "send": "Send",
+    "field max length": "The field must not exceed 50 characters"
 }

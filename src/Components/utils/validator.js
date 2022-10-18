@@ -30,6 +30,10 @@ export function validator(data, config) {
         statusValidate = data.length < config.value;
         break;
       }
+      case 'max': {
+        statusValidate = data.length > config.value;
+        break;
+      }
       default:
         break;
     }

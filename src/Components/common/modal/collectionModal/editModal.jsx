@@ -75,6 +75,10 @@ function EditModal({ modalType, collections, onActive, updateCollectionsData }) 
       isRequired: {
         message: t('field required'),
       },
+      max: {
+        message: t('field max length'),
+        value: 60,
+      },
     },
     type: {
       isRequired: {
