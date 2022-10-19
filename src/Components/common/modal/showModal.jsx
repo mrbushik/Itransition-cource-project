@@ -26,9 +26,9 @@ function ShowModal({ btnList, collectionId, data, onUpdateData }) {
       {activeModal === 1 && btnList[1] && (
         <EditItemsModal
           posts={data.posts}
-          postsTemplates={data.postsTemplate.slice(1, data.postsTemplate.length)}
+          postsTemplates={data.postsTemplate.slice(2, data.postsTemplate.length)}
           onClose={toggleActiveModal}
-          fieldsCount={data.postsTemplate.length - 1}
+          fieldsCount={data.postsTemplate.length - 2}
           modalType={t('edit')}
           onUpdateData={onUpdateData}
         />
@@ -36,9 +36,9 @@ function ShowModal({ btnList, collectionId, data, onUpdateData }) {
       {activeModal === 2 && btnList[2] && (
         <EditItemsModal
           posts={data.posts}
-          postsTemplates={data.postsTemplate.slice(1, data.postsTemplate.length)}
+          postsTemplates={data.postsTemplate.slice(2, data.postsTemplate.length)}
           onClose={toggleActiveModal}
-          fieldsCount={data.postsTemplate.length - 1}
+          fieldsCount={data.postsTemplate.length - 2}
           modalType={t('delete')}
           onUpdateData={onUpdateData}
           collectionId={collectionId}

@@ -8,6 +8,7 @@ import { editPostRequest, modalDelete, modalDeleteInOwner } from '../../../servi
 import CustomField from '../../form/customField';
 import SelectField from '../../form/selectedField';
 import TagsField from '../../form/tagsField';
+import TextField from '../../form/textField';
 
 function EditItemsModal({
   modalType,
@@ -22,11 +23,12 @@ function EditItemsModal({
   const { t } = useTranslation();
   const [fieldValue, setFieldValue] = useState([]);
   const [tags, setTags] = useState([]);
-  // const [errors, setErrors] = useState({});
+  const [errors, setErrors] = useState({});
 
   const [editItem, setEditItem] = useState({
     item: '',
-    tags: [],
+    name: '',
+    // tags: [],
   });
 
   const URL = `http://localhost:5000/api/change-post/${editItem.item}`;
@@ -34,30 +36,30 @@ function EditItemsModal({
   const fieldValueInArray = fieldValue.map((item) => item.value);
 
   const sendingData = {
-    fields: fieldValueInArray,
+    fields: [editItem.name, ...fieldValueInArray],
     tags: tags.map((item) => item.text),
   };
 
-  // const validatorConfig = {
-  //   name: {
-  //     isRequired: {
-  //       message: t('field required'),
-  //     },
-  //     max: {
-  //       message: t('field max length'),
-  //       value: 60,
-  //     },
-  //   },
-  // };
+  const validatorConfig = {
+    name: {
+      isRequired: {
+        message: t('field required'),
+      },
+      max: {
+        message: t('field max length'),
+        value: 50,
+      },
+    },
+  };
 
-  // const validate = () => {
-  //   const errors = validator(postItem, validatorConfig);
-  //   setErrors(errors);
-  // };
+  const validate = () => {
+    const errors = validator(editItem, validatorConfig);
+    setErrors(errors);
+  };
 
-  // useEffect(() => {
-  //   validate();
-  // }, [postItem]);
+  useEffect(() => {
+    validate();
+  }, [editItem]);
 
   const getFieldData = () => {
     if (targetElement) {
@@ -86,6 +88,18 @@ function EditItemsModal({
     setTags(tagsList);
   };
 
+  const deleteTagsError = () => {
+    const otherErrors = errors;
+    delete otherErrors.tags;
+    console.log(otherErrors);
+    setErrors(otherErrors);
+  };
+  const addTagsError = () => {
+    const otherErrors = errors;
+    otherErrors.tags = 'is requared';
+    setErrors({ tags: 'is requared' });
+  };
+
   const handleChange = (target) => {
     setEditItem((prevState) => ({
       ...prevState,
@@ -105,15 +119,22 @@ function EditItemsModal({
   };
 
   const handleDeleteTag = (i) => {
-    console.log(i);
     setTags(tags.filter((tag, index) => index !== i));
   };
   const handleAddition = (tag) => {
-    console.log(tag);
+    deleteTagsError();
+
     setTags([...tags, tag]);
   };
 
-  const editPost = () => editPostRequest(URL, sendingData, onUpdateData);
+  const editPost = () => {
+    console.log(tags.length);
+    if (tags.length === 0) {
+      addTagsError();
+      return;
+    }
+    editPostRequest(URL, sendingData, onUpdateData);
+  };
 
   const deletePost = () => {
     modalDeleteInOwner(
@@ -127,6 +148,9 @@ function EditItemsModal({
   const handleSubmit = () => {
     modalType === t('edit') ? editPost() : deletePost();
   };
+
+  const isValid = Object.keys(errors).length === 0;
+
   return (
     <div className="modal-dialog modal-dialog-centered bg-light absolute-top mx-3 mt-3 p-3 dark-mode">
       <div className="modal-content h-100">
@@ -148,7 +172,20 @@ function EditItemsModal({
         </div>
         {(modalType === 'Edit' || modalType === 'Редактировать') && editItem.item && (
           <>
-            <TagsField handleDelete={handleDeleteTag} tags={tags} handleAddition={handleAddition} />
+            <TagsField
+              handleDelete={handleDeleteTag}
+              tags={tags}
+              handleAddition={handleAddition}
+              error={errors.tags}
+            />
+            <TextField
+              name="name"
+              value={editItem.name}
+              onChange={handleChange}
+              placeholder={t('post description')}
+              label={t('post description')}
+              error={errors.name}
+            />
             {fieldValue &&
               fieldValue.map((item, index) => (
                 <CustomField
@@ -164,7 +201,11 @@ function EditItemsModal({
           </>
         )}
         <div className="modal-footer">
-          <button type="button" className="btn btn-primary " onClick={handleSubmit}>
+          <button
+            type="button"
+            className="btn btn-primary "
+            disabled={!isValid}
+            onClick={handleSubmit}>
             {modalType}
           </button>
           <button type="button" className="btn btn-secondary mx-3" onClick={onClose}>

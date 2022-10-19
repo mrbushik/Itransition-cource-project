@@ -1,7 +1,11 @@
 import axios from 'axios';
+const token = localStorage.getItem('token');
+const config = {
+  headers: { Authorization: 'Bearer ' + token },
+};
 export async function putLikeRequest(url, data, checkLike, setErrors) {
   await axios
-    .patch(url, { id: data })
+    .patch(url, { id: data }, config)
     .then((response) => checkLike())
     .catch((error) => {
       console.log(setErrors(error.response.data));

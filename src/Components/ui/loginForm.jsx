@@ -8,6 +8,7 @@ import PropTypes from 'prop-types';
 import TextField from '../common/form/textField';
 import { activateRequest } from '../services/loginRequest';
 import ActivateMail from './activateMail';
+import HideBtn from '../common/buttons/hideBtn';
 
 function LoginForm({ toggleFormType, onSubmit, successfulSigup, authData, loginError }) {
   const { t } = useTranslation();
@@ -18,11 +19,14 @@ function LoginForm({ toggleFormType, onSubmit, successfulSigup, authData, loginE
     password: '',
   });
 
+  const activationToggle = (params) => setActivateEmail(params);
+
   useEffect(() => {
     if (loginError === 'User is not activated') {
-      setActivateEmail(true);
+      activationToggle(true);
       console.log('yes');
     }
+    console.log('yes2');
   }, [loginError]);
 
   const handleChange = (target) => {
@@ -72,7 +76,7 @@ function LoginForm({ toggleFormType, onSubmit, successfulSigup, authData, loginE
   }, [data]);
 
   const resendMail = (email) => {
-    activateRequest(authData.email, setErrors);
+    activateRequest(email, setErrors);
   };
 
   const isValid = Object.keys(errors).length === 0;
@@ -85,7 +89,6 @@ function LoginForm({ toggleFormType, onSubmit, successfulSigup, authData, loginE
         onChange={handleChange}
         error={errors.email}
       />
-      <i className="bi bi-apple"></i>
       <TextField
         label={t('password')}
         type="password"
@@ -94,7 +97,7 @@ function LoginForm({ toggleFormType, onSubmit, successfulSigup, authData, loginE
         onChange={handleChange}
         error={errors.password}
       />
-      {successfulSigup && !activateEmail && (
+      {successfulSigup && loginError !== 'User is not activated' && (
         <div className="m-3">
           <p>{t('success register')}</p>
           <div className="btn btn-secondary" onClick={() => resendMail(authData.email)}>
@@ -102,7 +105,12 @@ function LoginForm({ toggleFormType, onSubmit, successfulSigup, authData, loginE
           </div>
         </div>
       )}
-      <ActivateMail resendMail={resendMail} />
+      {loginError === 'User is not activated' && (
+        <div className="p-2 border border-danger mb-3">
+          <HideBtn onDelete={activationToggle} />
+          {activateEmail && <ActivateMail resendMail={resendMail} />}
+        </div>
+      )}
       <button
         className="btn btn-primary w-100 mx-auto mb-2"
         type="submit"

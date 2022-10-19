@@ -76,6 +76,9 @@
     "success register": "You are successfully registered. To activate your account, you need to confirm your email. Check your mailbox.After confirming the email, log in to your account.",
     "resend": "Resend the email",
     "send email": "Send  email",
-    "resend email": "You are registered, but have not confirmed your email. Write your email and send a confirmation email and follow the link from the email. From try logging in again"
+    "clear": "Clear",
+    "hide": "Hide",
+    "show": "Show",
+    "resend email": "You are registered, but have not confirmed your email. Write your email and send a confirmation email and follow the link from the email. And try logging in again"
 
 }

@@ -4,7 +4,6 @@ import { useTranslation } from 'react-i18next';
 import { validator } from '../utils/validator';
 
 import TextField from '../common/form/textField';
-import { activateRequest } from '../services/loginRequest';
 
 function ActivateMail({ resendMail }) {
   const { t } = useTranslation();

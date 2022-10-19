@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { WithContext as ReactTags } from 'react-tag-input';
 import { getAllTags } from '../../services/getInfoRequests';
 
-function TagsField({ handleDelete, tags, handleAddition }) {
+function TagsField({ handleDelete, tags, handleAddition, error }) {
   const tagsURL = 'http://localhost:5000/api/all-tags';
   const { t } = useTranslation();
 
@@ -47,6 +47,7 @@ function TagsField({ handleDelete, tags, handleAddition }) {
           />
         </div>
       </div>
+      {error && <div className="text-danger">{error}</div>}
     </>
   );
 }
