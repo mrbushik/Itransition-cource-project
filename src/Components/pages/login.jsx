@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useHistory, Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { loginRequest } from '../services/loginRequest';
+import { loginRequest, registrationRequest } from '../services/loginRequest';
 
 import ThemeSwither from '../common/buttons/themeSwither';
 import SwitchLanguage from '../common/buttons/switchLanguage';
@@ -15,8 +15,8 @@ function Login() {
   const history = useHistory();
 
   const [formType, setFormType] = useState(type === 'register' ? type : 'login');
-
-  const [errors, setErrors] = useState({});
+  const [successfulSigup, setSuccessfulSigup] = useState(false);
+  const [errors, setErrors] = useState();
   const [auth, setAuth] = useState({});
 
   const togleFormType = () => {
@@ -31,16 +31,20 @@ function Login() {
   const sendingTargetForm = (data) => {
     formType === 'login'
       ? loginRequest('http://localhost:5000/api/login', data, setErrors, setAuth)
-      : loginRequest('http://localhost:5000/api/sing-up', data, setErrors, setAuth);
+      : registration(data);
+  };
+
+  const registration = (data) => {
+    console.log('requesr register');
+    registrationRequest(data, setErrors, setAuth);
   };
 
   const writeUserData = () => {
-    localStorage.setItem('user', auth.username);
-    localStorage.setItem('token', auth.token);
-    localStorage.setItem('role', auth.userRole);
-    localStorage.setItem('userId', auth.userId);
-    document.cookie = 'nikita';
-    console.log(document.cookie);
+    localStorage.setItem('user', auth.user.username);
+    localStorage.setItem('token', auth.accessToken);
+    localStorage.setItem('role', auth.user.roles[0]);
+    localStorage.setItem('userId', auth.user._id);
+    document.cookie = auth.refreshToken;
   };
 
   useEffect(() => {
@@ -50,7 +54,15 @@ function Login() {
   }, []);
 
   useEffect(() => {
-    if (auth.token) {
+    if (auth.isActivated === false) {
+      // writeUserData();
+      setSuccessfulSigup(true);
+      togleFormType();
+    }
+  }, [auth]);
+
+  useEffect(() => {
+    if (auth.accessToken) {
       writeUserData();
       history.push('/');
     }
@@ -85,16 +97,18 @@ function Login() {
             <form className="dark-mode">
               <div className="mb-3">
                 {formType === 'login' ? (
-                  <LoginForm toggleFormType={togleFormType} onSubmit={handleSubmit} />
+                  <LoginForm
+                    toggleFormType={togleFormType}
+                    onSubmit={handleSubmit}
+                    successfulSigup={successfulSigup}
+                    authData={auth}
+                    loginError={errors}
+                  />
                 ) : (
                   <RegisterForm toggleFormType={togleFormType} onSubmit={handleSubmit} />
                 )}
               </div>
-              {errors.message ? (
-                <span className="text-danger mt-2 mb-2">{errors.message}</span>
-              ) : (
-                <div className=""></div>
-              )}
+              {errors && <span className="text-danger mt-2 mb-2">{errors}</span>}
             </form>
           </div>
         </div>

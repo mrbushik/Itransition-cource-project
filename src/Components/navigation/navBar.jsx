@@ -3,8 +3,11 @@ import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import SwitchLanguage from '../common/buttons/switchLanguage';
 import ThemeSwither from '../common/buttons/themeSwither';
+import { logoutRequest } from '../services/loginRequest';
 function NavBar() {
   const { t } = useTranslation();
+
+  const logoutURL = 'http://localhost:5000/api/logout';
 
   const userName = localStorage.getItem('user');
   const userRole = localStorage.getItem('role');
@@ -16,6 +19,7 @@ function NavBar() {
     localStorage.removeItem('token');
     localStorage.removeItem('role');
     localStorage.removeItem('userId');
+    logoutRequest(logoutURL);
   };
 
   const toggleMenu = () => setMenu(!menu);

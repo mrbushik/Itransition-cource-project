@@ -1,7 +1,11 @@
 import axios from 'axios';
+const token = localStorage.getItem('token');
+const config = {
+  headers: { Authorization: 'Bearer ' + token },
+};
 export function editCollectionRequest(url, data, updateCollectionsData) {
   axios
-    .patch(url, data)
+    .patch(url, data, config)
     .then((response) => response)
     .then((response) => updateCollectionsData())
     .catch((error) => {
@@ -10,7 +14,7 @@ export function editCollectionRequest(url, data, updateCollectionsData) {
 }
 export function addPost(data, onUpdateData) {
   axios
-    .post('http://localhost:5000/api/add-posts', data)
+    .post('http://localhost:5000/api/add-posts', data, config)
     .then((response) => response)
     .then((response) => onUpdateData())
     .catch((error) => {
@@ -19,7 +23,7 @@ export function addPost(data, onUpdateData) {
 }
 export function editPostRequest(url, data, onUpdateData) {
   axios
-    .patch(url, data)
+    .patch(url, data, config)
     .then((response) => response)
     .then((response) => onUpdateData())
     .catch((error) => {
@@ -28,7 +32,7 @@ export function editPostRequest(url, data, onUpdateData) {
 }
 export function modalDelete(url, onUpdateData) {
   axios
-    .delete(url)
+    .delete(url, config)
     .then((response) => response)
     .then((response) => onUpdateData())
     .catch((error) => {
@@ -38,7 +42,7 @@ export function modalDelete(url, onUpdateData) {
 
 export function modalDeleteInOwner(url, targetId) {
   axios
-    .patch(url, { id: targetId })
+    .patch(url, { id: targetId }, config)
     .then((response) => response)
     .catch((error) => {
       console.log(error);
@@ -47,7 +51,7 @@ export function modalDeleteInOwner(url, targetId) {
 
 export function deleteAllPosts(url) {
   axios
-    .delete(url)
+    .delete(url, config)
     .then((response) => response)
     .catch((error) => {
       console.log(error);

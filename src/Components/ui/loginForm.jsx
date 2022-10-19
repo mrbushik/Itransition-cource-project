@@ -6,14 +6,24 @@ import { validator } from '../utils/validator';
 import PropTypes from 'prop-types';
 
 import TextField from '../common/form/textField';
+import { activateRequest } from '../services/loginRequest';
+import ActivateMail from './activateMail';
 
-function LoginForm({ toggleFormType, onSubmit }) {
+function LoginForm({ toggleFormType, onSubmit, successfulSigup, authData, loginError }) {
   const { t } = useTranslation();
   const [errors, setErrors] = useState({});
+  const [activateEmail, setActivateEmail] = useState(false);
   const [data, setData] = useState({
     email: '',
     password: '',
   });
+
+  useEffect(() => {
+    if (loginError === 'User is not activated') {
+      setActivateEmail(true);
+      console.log('yes');
+    }
+  }, [loginError]);
 
   const handleChange = (target) => {
     setData((prevState) => ({
@@ -37,6 +47,9 @@ function LoginForm({ toggleFormType, onSubmit }) {
       isRequired: {
         message: t('field required'),
       },
+      isEmail: {
+        message: t('email error'),
+      },
     },
   };
 
@@ -58,6 +71,10 @@ function LoginForm({ toggleFormType, onSubmit }) {
     validate();
   }, [data]);
 
+  const resendMail = (email) => {
+    activateRequest(authData.email, setErrors);
+  };
+
   const isValid = Object.keys(errors).length === 0;
   return (
     <>
@@ -68,6 +85,7 @@ function LoginForm({ toggleFormType, onSubmit }) {
         onChange={handleChange}
         error={errors.email}
       />
+      <i className="bi bi-apple"></i>
       <TextField
         label={t('password')}
         type="password"
@@ -76,6 +94,15 @@ function LoginForm({ toggleFormType, onSubmit }) {
         onChange={handleChange}
         error={errors.password}
       />
+      {successfulSigup && !activateEmail && (
+        <div className="m-3">
+          <p>{t('success register')}</p>
+          <div className="btn btn-secondary" onClick={() => resendMail(authData.email)}>
+            {t('resend')}
+          </div>
+        </div>
+      )}
+      <ActivateMail resendMail={resendMail} />
       <button
         className="btn btn-primary w-100 mx-auto mb-2"
         type="submit"

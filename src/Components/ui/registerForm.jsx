@@ -72,6 +72,7 @@ function RegisterForm({ toggleFormType, onSubmit }) {
   const handleSubmit = (e) => {
     const submitData = {
       username: data.username.trim(),
+      email: data.email.trim(),
       password: data.password,
     };
     onSubmit(e, submitData);
