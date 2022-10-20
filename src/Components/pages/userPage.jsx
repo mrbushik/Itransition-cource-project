@@ -15,11 +15,14 @@ import Paginate from '../common/paginate';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { changeCurrentPageAtUser } from '../redux/actions/currentPaginatePage';
+import Filter from '../ui/filter';
 
 function UserPage() {
   const userId = localStorage.getItem('userId');
-  const URL = `http://localhost:5000/api/user/${userId} `;
-  let userCrop;
+
+  // const [filterParams, setFilterParams] = useState('new');
+  const URL = `http://localhost:5000/api/user/${userId}/?filter=new `;
+  let croppedCollection;
   const { t } = useTranslation();
   const history = useHistory();
   const dispatch = useDispatch();
@@ -31,7 +34,7 @@ function UserPage() {
 
   const toggleActiveModal = (value) => setActiveModal(+value);
 
-  const updateCollectionsData = () => getUserCollection(URL, setCollections);
+  const updateCollectionsData = (link) => getUserCollection(link ? link : URL, setCollections);
 
   useEffect(() => {
     if (!userId) {
@@ -49,14 +52,13 @@ function UserPage() {
     setCountPage(currentPage);
   }, [currentPage]);
   if (collections) {
-    userCrop = paginate(collections, currentPage, 3);
+    croppedCollection = paginate(collections, currentPage, 3);
   }
   return (
     <>
       <NavBar />
       {collections && (
         <div>
-          {' '}
           <EditButtons
             onToggle={toggleActiveModal}
             btnList={
@@ -67,26 +69,33 @@ function UserPage() {
             {activeModal === 0 && (
               <Modal onActive={toggleActiveModal} updateCollectionsData={updateCollectionsData} />
             )}
-            {activeModal === 1 && collections && (
+            {activeModal === 1 && croppedCollection && (
               <EditModal
-                collections={collections}
+                collections={croppedCollection}
                 updateCollectionsData={updateCollectionsData}
                 modalType={t('edit')}
                 onActive={toggleActiveModal}
               />
             )}
-            {activeModal === 2 && collections && (
+            {activeModal === 2 && croppedCollection && (
               <EditModal
                 updateCollectionsData={updateCollectionsData}
-                collections={collections}
+                collections={croppedCollection}
                 onActive={toggleActiveModal}
                 modalType={t('delete')}
               />
             )}
+            <Filter
+              options={[t('new'), t('old')]}
+              filterValues={['new', 'old']}
+              userId={userId}
+              setCollections={setCollections}
+              onUpdate={updateCollectionsData}
+            />
           </div>
-          <div className="mx-auto" style={{ width: '250px' }}>
+          <div className="mx-auto mt-4" style={{ width: '250px' }}>
             {collections ? (
-              userCrop.map((item, index) => (
+              croppedCollection.map((item, index) => (
                 <UserCollection
                   link={'collection/'}
                   description={item.description}

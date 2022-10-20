@@ -29,6 +29,10 @@ function RegisterForm({ toggleFormType, onSubmit }) {
       isRequired: {
         message: t('field required'),
       },
+      max: {
+        message: t('field max length'),
+        value: 30,
+      },
     },
     email: {
       isRequired: {
@@ -45,6 +49,10 @@ function RegisterForm({ toggleFormType, onSubmit }) {
       min: {
         message: t('password error'),
         value: 5,
+      },
+      max: {
+        message: t('field max length'),
+        value: 30,
       },
     },
   };

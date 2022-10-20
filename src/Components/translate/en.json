@@ -25,7 +25,7 @@
     "choose": "Choose...",
     "post name": "post name",
     "create collection": "Create new collection",
-    "collection name": "collection name",
+    "collection name": "Сollection name",
     "description": "description",
     "choose collection": "Choose collection type",
     "collection description": "Collection description",
@@ -72,13 +72,17 @@
     "file error": "The file cannot be larger than 2 megabytes",
     "write a comment": "Write a comment",
     "send": "Send",
-    "field max length": "The field must not exceed 50 characters",
+    "field max length": "The field must not exceed 30 characters",
     "success register": "You are successfully registered. To activate your account, you need to confirm your email. Check your mailbox.After confirming the email, log in to your account.",
     "resend": "Resend the email",
     "send email": "Send  email",
     "clear": "Clear",
     "hide": "Hide",
     "show": "Show",
-    "resend email": "You are registered, but have not confirmed your email. Write your email and send a confirmation email and follow the link from the email. And try logging in again"
+    "search through collections": "Search through collections",
+    "resend email": "You are registered, but have not confirmed your email. Write your email and send a confirmation email and follow the link from the email. And try logging in again",
+    "new": "At first new collection",
+    "old": "At first old collection",
+    "display": "Display"
 
 }

@@ -35,7 +35,6 @@ function Login() {
   };
 
   const registration = (data) => {
-    console.log('requesr register');
     registrationRequest(data, setErrors, setAuth);
   };
 

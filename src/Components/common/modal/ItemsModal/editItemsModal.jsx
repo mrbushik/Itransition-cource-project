@@ -28,7 +28,6 @@ function EditItemsModal({
   const [editItem, setEditItem] = useState({
     item: '',
     name: '',
-    // tags: [],
   });
 
   const URL = `http://localhost:5000/api/change-post/${editItem.item}`;
@@ -47,7 +46,7 @@ function EditItemsModal({
       },
       max: {
         message: t('field max length'),
-        value: 50,
+        value: 30,
       },
     },
   };
@@ -91,13 +90,12 @@ function EditItemsModal({
   const deleteTagsError = () => {
     const otherErrors = errors;
     delete otherErrors.tags;
-    console.log(otherErrors);
     setErrors(otherErrors);
   };
   const addTagsError = () => {
     const otherErrors = errors;
-    otherErrors.tags = 'is requared';
-    setErrors({ tags: 'is requared' });
+    otherErrors.tags = t('field required');
+    setErrors({ tags: t('field required') });
   };
 
   const handleChange = (target) => {
@@ -128,7 +126,6 @@ function EditItemsModal({
   };
 
   const editPost = () => {
-    console.log(tags.length);
     if (tags.length === 0) {
       addTagsError();
       return;

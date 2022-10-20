@@ -6,6 +6,7 @@ import { getLagestCollections, getNewPosts } from '../services/getInfoRequests';
 import NavBar from '../navigation/navBar';
 import UserCollection from '../ui/userCollection';
 import TagsSearch from '../ui/tagsSearch';
+import Searcher from '../ui/searcher';
 function MainPage() {
   const { t } = useTranslation();
 
@@ -24,6 +25,7 @@ function MainPage() {
       <NavBar />
       {collections && collections.length > 0 ? (
         <div>
+          <Searcher />
           <TagsSearch />
           {newPosts && newPosts.collections.length > 0 ? (
             <div>

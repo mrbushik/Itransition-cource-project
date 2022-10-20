@@ -26,9 +26,9 @@ export function activateRequest(data, setRequestStatus) {
     });
 }
 
-export function logoutRequest(url) {
+export function logoutRequest(url, token) {
   axios
-    .post(url)
+    .post(url, { refreshToken: token })
     .then((response) => response)
     .catch((error) => {
       console.log(error);

@@ -14,6 +14,8 @@ import {
 import UserTableItem from '../ui/userTableItem';
 import EditButtons from '../common/buttons/editButtons';
 import NavBar from '../navigation/navBar';
+import { logoutRequest } from '../services/loginRequest';
+import { logout } from '../utils/logout';
 function AdminPage() {
   const { t } = useTranslation();
   const [users, setUsers] = useState();
@@ -24,7 +26,11 @@ function AdminPage() {
   const buttons = [t('unblock'), t('block'), t('delete'), t('get admin'), t('pickUpAdmin')];
   const requests = [unblock, block, deleteUser, getAdmin, pickUpAdmin];
   const history = useHistory();
+
+  const userId = localStorage.getItem('userId');
   const role = localStorage.getItem('role');
+  const logoutURL = 'http://localhost:5000/api/logout';
+
   useEffect(() => {
     if (role !== 'ADMIN') {
       history.push('/');
@@ -36,6 +42,7 @@ function AdminPage() {
       getUsers(setUsers);
     }
   }, []);
+
   const handleChange = (target) => {
     setSelectedUser((prevState) => ({
       ...prevState,
@@ -44,8 +51,28 @@ function AdminPage() {
     setErrors('');
   };
 
+  const removeAdmin = (admin) => {
+    if (!admin || admin.roles[0] === 'BLOCK') {
+      logout();
+      history.push('/login');
+    } else {
+      localStorage.setItem('role', 'USER');
+      history.push('/');
+    }
+  };
+
+  useEffect(() => {
+    if (users) {
+      const admin = users.find((item) => item._id === userId);
+      if (!admin || admin.roles[0] !== 'ADMIN') {
+        removeAdmin(admin);
+      }
+    }
+  }, [users]);
+
   const submitChanges = (buttonIndex) => {
     requests[buttonIndex](`http://localhost:5000/api/change-status/${selectedUser.user}`, setUsers);
+    getUsers(setUsers);
   };
 
   const handlRequest = (buttonIndex) => {
@@ -55,6 +82,7 @@ function AdminPage() {
       setErrors(t('choose user'));
     }
   };
+
   return (
     <>
       <NavBar />

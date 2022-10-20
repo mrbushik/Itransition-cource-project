@@ -4,23 +4,25 @@ import { useTranslation } from 'react-i18next';
 import SwitchLanguage from '../common/buttons/switchLanguage';
 import ThemeSwither from '../common/buttons/themeSwither';
 import { logoutRequest } from '../services/loginRequest';
+import { logout } from '../utils/logout';
 function NavBar() {
   const { t } = useTranslation();
 
-  const logoutURL = 'http://localhost:5000/api/logout';
+  // const logoutURL = 'http://localhost:5000/api/logout';
 
   const userName = localStorage.getItem('user');
   const userRole = localStorage.getItem('role');
 
   const [menu, setMenu] = useState(false);
 
-  const deleteUserData = () => {
-    localStorage.removeItem('user');
-    localStorage.removeItem('token');
-    localStorage.removeItem('role');
-    localStorage.removeItem('userId');
-    logoutRequest(logoutURL);
-  };
+  // const deleteUserData = () => {
+  //   localStorage.removeItem('user');
+  //   localStorage.removeItem('token');
+  //   localStorage.removeItem('role');
+  //   localStorage.removeItem('userId');
+  //   logoutRequest(logoutURL);
+  //   document.cookie = '';
+  // };
 
   const toggleMenu = () => setMenu(!menu);
 
@@ -61,11 +63,11 @@ function NavBar() {
                 {userName && <span className="fs-4 mx-2">{userName}</span>}
                 {userName && <div className="vr bg-dark white-element"></div>}
                 {userName ? (
-                  <Link to="/login" className={'navbar-brand ms-2 '} onClick={deleteUserData}>
+                  <Link to="/login" className={'navbar-brand ms-2 '} onClick={logout}>
                     {t('log out')}
                   </Link>
                 ) : (
-                  <Link to="/login" className={'navbar-brand ms-2 '} onClick={deleteUserData}>
+                  <Link to="/login" className={'navbar-brand ms-2 '} onClick={logout}>
                     {t('log in')}
                   </Link>
                 )}
@@ -80,17 +82,11 @@ function NavBar() {
             {userName && <span className="fs-4 mx-2">{userName}</span>}
             {userName && <div className="vr bg-dark dark-mode"></div>}
             {userName ? (
-              <Link
-                to="/login"
-                className={'navbar-brand ms-2 white-element'}
-                onClick={deleteUserData}>
+              <Link to="/login" className={'navbar-brand ms-2 white-element'} onClick={logout}>
                 {t('log out')}
               </Link>
             ) : (
-              <Link
-                to="/login"
-                className={'navbar-brand ms-2 white-element'}
-                onClick={deleteUserData}>
+              <Link to="/login" className={'navbar-brand ms-2 white-element'} onClick={logout}>
                 {t('log in')}
               </Link>
             )}

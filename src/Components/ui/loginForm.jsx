@@ -37,11 +37,6 @@ function LoginForm({ toggleFormType, onSubmit, successfulSigup, authData, loginE
   };
 
   const validatorConfig = {
-    username: {
-      isRequired: {
-        message: t('field required'),
-      },
-    },
     password: {
       isRequired: {
         message: t('field required'),

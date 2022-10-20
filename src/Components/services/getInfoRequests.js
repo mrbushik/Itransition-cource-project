@@ -90,3 +90,13 @@ export async function getCollectionComments(url, setCollections) {
       console.log(error);
     });
 }
+export async function fullTextSearch(url, data) {
+  await axios
+    .post(url, data)
+    // .then((data) => {
+    //   setCollections(data.data);
+    // })
+    .catch((error) => {
+      console.log(error);
+    });
+}

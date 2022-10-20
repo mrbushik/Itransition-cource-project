@@ -62,7 +62,6 @@ function EditModal({ modalType, collections, onActive, updateCollectionsData }) 
   };
 
   const deleteCollection = (URL, collectionId, ownerId) => {
-    console.log(collectionId);
     deleteAllPosts(`http://localhost:5000/api/delete-posts-from-collection/${collectionId}`);
     modalDeleteInOwner(`http://localhost:5000/api/delete-collection-user/${ownerId}`, collectionId);
     modalDelete(URL, updateCollectionsData);

@@ -12,11 +12,8 @@ import CustomField from '../../form/customField';
 
 function CreateItemsModal({ onClose, fieldsCount, addingFields, collectionId, onUpdateData }) {
   const { t } = useTranslation();
-  const [postItem, setPostItem] = useState({
-    name: '',
-  });
+  const [postItem, setPostItem] = useState({ name: '' });
   const [tags, setTags] = useState([]);
-
   const [fieldValue, setFieldValue] = useState([]);
   const [errors, setErrors] = useState({});
 
@@ -35,7 +32,7 @@ function CreateItemsModal({ onClose, fieldsCount, addingFields, collectionId, on
       },
       max: {
         message: t('field max length'),
-        value: 60,
+        value: 30,
       },
     },
   };
@@ -54,7 +51,20 @@ function CreateItemsModal({ onClose, fieldsCount, addingFields, collectionId, on
     setTags(tags.filter((tag, index) => index !== i));
   };
 
+  const deleteTagsError = () => {
+    const otherErrors = errors;
+    delete otherErrors.tags;
+    setErrors(otherErrors);
+  };
+
+  const addTagsError = () => {
+    const otherErrors = errors;
+    otherErrors.tags = t('field required');
+    setErrors({ tags: t('field required') });
+  };
+
   const handleAddition = (tag) => {
+    deleteTagsError();
     setTags([...tags, tag]);
   };
 
@@ -87,14 +97,16 @@ function CreateItemsModal({ onClose, fieldsCount, addingFields, collectionId, on
   };
 
   const clearData = () => {
-    setPostItem({
-      name: '',
-    });
+    setPostItem({ name: '' });
     setTags([]);
     setFieldValue([...createFields()]);
   };
 
   const onSubmit = () => {
+    if (tags.length === 0) {
+      addTagsError();
+      return;
+    }
     addPost(sendingData, onUpdateData);
     clearData();
   };
@@ -109,7 +121,12 @@ function CreateItemsModal({ onClose, fieldsCount, addingFields, collectionId, on
               <span>x</span>
             </button>
           </div>
-          <TagsField handleDelete={handleDeleteTag} tags={tags} handleAddition={handleAddition} />
+          <TagsField
+            handleDelete={handleDeleteTag}
+            tags={tags}
+            handleAddition={handleAddition}
+            error={errors.tags}
+          />
           <TextField
             name="name"
             value={postItem.name}
