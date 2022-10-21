@@ -26,7 +26,7 @@ function UserPage() {
   const history = useHistory();
   const dispatch = useDispatch();
 
-  const [collections, setCollections] = useState();
+  const [collections, setCollections] = useState([]);
   const [activeModal, setActiveModal] = useState('');
   const currentPage = useSelector(({ changeCurrentPage }) => changeCurrentPage.userPage);
   const [countPage, setCountPage] = useState(1);
@@ -80,16 +80,17 @@ function UserPage() {
             modalType={t('delete')}
           />
         )}
-        {collections && collections.length !== 0 && (
-          <Filter
-            options={[t('new'), t('old')]}
-            filterValues={['new', 'old']}
-            userId={userId}
-            setCollections={setCollections}
-            onUpdate={updateCollectionsData}
-          />
-        )}
       </div>
+
+      {collections && collections.length !== 0 && (
+        <Filter
+          options={[t('new'), t('old')]}
+          filterValues={['new', 'old']}
+          userId={userId}
+          setCollections={setCollections}
+          onUpdate={updateCollectionsData}
+        />
+      )}
       {collections && (
         <div>
           <div className="mx-auto mt-4" style={{ width: '250px' }}>

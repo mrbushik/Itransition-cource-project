@@ -24,9 +24,7 @@ function LoginForm({ toggleFormType, onSubmit, successfulSigup, authData, loginE
   useEffect(() => {
     if (loginError === 'User is not activated') {
       activationToggle(true);
-      console.log('yes');
     }
-    console.log('yes2');
   }, [loginError]);
 
   const handleChange = (target) => {
@@ -119,7 +117,11 @@ function LoginForm({ toggleFormType, onSubmit, successfulSigup, authData, loginE
     </>
   );
 }
+
 LoginForm.propTypes = {
+  loginError: PropTypes.string,
+  onSubmit: PropTypes.func,
+  successfulSigup: PropTypes.bool,
   toggleFormType: PropTypes.func.isRequired,
 };
 

@@ -31,8 +31,9 @@ function EditItemsModal({
   });
 
   const URL = `http://localhost:5000/api/change-post/${editItem.item}`;
-
   const fieldValueInArray = fieldValue.map((item) => item.value);
+  const isValid = Object.keys(errors).length === 0;
+  const collectionsNames = posts.map((item) => item._id);
 
   const sendingData = {
     fields: [editItem.name, ...fieldValueInArray],
@@ -49,11 +50,6 @@ function EditItemsModal({
         value: 30,
       },
     },
-    // item: {
-    //   isRequired: {
-    //     message: t('field required'),
-    //   },
-    // },
   };
 
   const validate = () => {
@@ -62,31 +58,28 @@ function EditItemsModal({
   };
 
   useEffect(() => {
-    // if (modalType === t('edit')) {
     validate();
-    // }
   }, [editItem]);
 
   const getFieldData = () => {
-    if (targetElement) {
-      let count = fieldsCount;
-      const targetFields = targetElement.fields.slice(1, fieldsCount + 2);
-      // const test = targetFields.slice(1, fieldsCount + 2);
-      // console.log(test);
+    let count = fieldsCount;
+    const targetFields = targetElement.fields.slice(1, fieldsCount + 2);
 
-      const fieldArr = [];
-      while (count > 0) {
-        count--;
-        fieldArr.push({ value: targetFields[count] });
-      }
-      return fieldArr.reverse();
+    return createFields(count, targetFields);
+  };
+
+  const createFields = (count, targetFields) => {
+    const fieldArr = [];
+    while (count > 0) {
+      count--;
+      fieldArr.push({ value: targetFields[count] });
     }
+    return fieldArr.reverse();
   };
 
   useEffect(() => {
     if (targetElement) {
       handleChange({ name: 'name', value: targetElement.fields[0] });
-      getFieldData();
       setFieldValue(getFieldData());
       handleGetTags(targetElement.tags);
     }
@@ -105,6 +98,7 @@ function EditItemsModal({
     delete otherErrors.tags;
     setErrors(otherErrors);
   };
+
   const addTagsError = () => {
     const otherErrors = errors;
     otherErrors.tags = t('field required');
@@ -121,7 +115,6 @@ function EditItemsModal({
   if (editItem.item) {
     targetElement = posts.find((item) => item._id === editItem.item);
   }
-  const collectionsNames = posts.map((item) => item._id);
 
   const handleChangeField = (event, index) => {
     const inputdata = [...fieldValue];
@@ -132,9 +125,9 @@ function EditItemsModal({
   const handleDeleteTag = (i) => {
     setTags(tags.filter((tag, index) => index !== i));
   };
+
   const handleAddition = (tag) => {
     deleteTagsError();
-
     setTags([...tags, tag]);
   };
 
@@ -147,7 +140,6 @@ function EditItemsModal({
   };
 
   const deletePost = () => {
-    if (editItem.item === '') setErrors({ item: t('field required') });
     modalDeleteInOwner(
       `http://localhost:5000/api/delete-collection-post/${collectionId}`,
       editItem.item,
@@ -159,8 +151,6 @@ function EditItemsModal({
   const handleSubmit = () => {
     modalType === t('edit') ? editPost() : deletePost();
   };
-
-  const isValid = Object.keys(errors).length === 0;
 
   return (
     <div className="modal-dialog modal-dialog-centered bg-light absolute-top mx-3 mt-3 p-3 dark-mode">

@@ -15,10 +15,9 @@ import TextField from '../../form/textField';
 
 function EditModal({ modalType, collections, onActive, updateCollectionsData }) {
   let targetElement;
-  // const UserId = localStorage.getItem('userId');
   const { t } = useTranslation();
-  const [errors, setErrors] = useState({});
 
+  const [errors, setErrors] = useState({});
   const [editItem, setEditItem] = useState({
     item: '',
     name: '',
@@ -67,7 +66,7 @@ function EditModal({ modalType, collections, onActive, updateCollectionsData }) 
       },
       max: {
         message: t('field max length'),
-        value: 60,
+        value: 30,
       },
     },
     type: {

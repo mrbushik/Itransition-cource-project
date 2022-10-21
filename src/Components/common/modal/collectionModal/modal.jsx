@@ -47,7 +47,7 @@ function Modal({ onActive, updateCollectionsData }) {
       },
       max: {
         message: t('field max length'),
-        value: 60,
+        value: 30,
       },
     },
     theme: {

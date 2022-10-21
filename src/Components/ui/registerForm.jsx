@@ -67,8 +67,6 @@ function RegisterForm({ toggleFormType, onSubmit }) {
     const passwordsData = Object.values(data);
     if (passwordsData[2] !== passwordsData[3]) {
       setErrors((prevState) => ({ ...prevState, repeat: t("passwords don't match") }));
-    } else if (passwordsData[2] === passwordsData[3]) {
-      delete errors.repeat;
     }
   };
 
@@ -87,6 +85,7 @@ function RegisterForm({ toggleFormType, onSubmit }) {
   };
 
   const isValid = Object.keys(errors).length === 0;
+
   return (
     <>
       <TextField
@@ -135,6 +134,7 @@ function RegisterForm({ toggleFormType, onSubmit }) {
 
 RegisterForm.propTypes = {
   toggleFormType: PropTypes.func,
+  onSubmit: PropTypes.func,
 };
 
 export default RegisterForm;

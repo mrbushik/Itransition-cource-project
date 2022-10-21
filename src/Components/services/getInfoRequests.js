@@ -12,7 +12,7 @@ export function getUserCollection(url, setCollections) {
     .then((response) => response)
     .then((response) =>
       response.data.collections.length === 0
-        ? setCollections('')
+        ? setCollections([])
         : setCollections(response.data.collections),
     )
     .catch((error) => console.log(error));

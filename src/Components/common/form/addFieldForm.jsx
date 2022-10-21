@@ -18,9 +18,11 @@ function AddFieldForm({ handleChangeField, dataType, dataDescription, index, onD
     const errors = validator({ type: dataType, description: dataDescription }, validatorConfig);
     setErrors(errors);
   };
+
   React.useEffect(() => {
     validate();
   }, [dataType, dataDescription]);
+
   const validatorConfig = {
     type: {
       isRequired: {
