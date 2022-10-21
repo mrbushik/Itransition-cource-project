@@ -1,21 +1,21 @@
 import axios from 'axios';
 
+const token = localStorage.getItem('token');
+const config = {
+  headers: { Authorization: 'Bearer ' + token },
+};
+
 export function getUserCollection(url, setCollections) {
-  fetch(url, { method: 'GET' })
-    .then((response) => response.json())
-    .then((result) =>
-      result.length === 0 ? setCollections('') : setCollections(result.collections),
+  axios
+    .get(url, config)
+
+    .then((response) => response)
+    .then((response) =>
+      response.data.collections.length === 0
+        ? setCollections('')
+        : setCollections(response.data.collections),
     )
     .catch((error) => console.log(error));
-}
-
-export function getUserPages(url, setCountPages) {
-  axios
-    .get(url)
-    .then((data) => setCountPages(data.data.total))
-    .catch((error) => {
-      console.log(error);
-    });
 }
 
 export function getPosts(setCollectionData, params) {

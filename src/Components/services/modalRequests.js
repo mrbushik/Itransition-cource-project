@@ -4,22 +4,21 @@ const config = {
   headers: { Authorization: 'Bearer ' + token },
 };
 
-function refreshToken() {
-  const cookieData = document.cookie;
-  console.log(cookieData);
-  axios
-    .post('http://localhost:5000/api/refresh', {
-      refreshToken:
-        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MzRlZGNjZDIzN2Q2NDMyODA1YjA5NDkiLCJ1c2VybmFtZSI6Ik5pa2l0YSBCdXNodWV2IiwiZW1haWwiOiJtcmJ1c2hpazFAZ21haWwuY29tIiwiY29sbGVjdGlvbnMiOlsiNjM0ZjA1Y2ZlMmU5MjMzNWU0MWRhMmU3Il0sInJvbGVzIjpbIkFETUlOIl0sImlzQWN0aXZhdGVkIjp0cnVlLCJpYXQiOjE2NjYyMDk5NDAsImV4cCI6MTY2ODgwMTk0MH0.bklrjRAq2nceKSCG8aWIW5Z078SqX5ggkxqeJduCbbg',
-    })
-    .then((response) => response)
-    .catch((error) => {
-      console.log(error);
-    });
-}
+// function refreshToken() {
+//   const cookieData = document.cookie;
+//   console.log(cookieData);
+//   axios
+//     .post('http://localhost:5000/api/refresh', {
+//       refreshToken:
+//         'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MzRlZGNjZDIzN2Q2NDMyODA1YjA5NDkiLCJ1c2VybmFtZSI6Ik5pa2l0YSBCdXNodWV2IiwiZW1haWwiOiJtcmJ1c2hpazFAZ21haWwuY29tIiwiY29sbGVjdGlvbnMiOlsiNjM0ZjA1Y2ZlMmU5MjMzNWU0MWRhMmU3Il0sInJvbGVzIjpbIkFETUlOIl0sImlzQWN0aXZhdGVkIjp0cnVlLCJpYXQiOjE2NjYyMDk5NDAsImV4cCI6MTY2ODgwMTk0MH0.bklrjRAq2nceKSCG8aWIW5Z078SqX5ggkxqeJduCbbg',
+//     })
+//     .then((response) => response)
+//     .catch((error) => {
+//       console.log(error);
+//     });
+// }
 
 export function editCollectionRequest(url, data, updateCollectionsData) {
-  refreshToken();
   axios
     .patch(url, data, config)
     .then((response) => response)
@@ -49,7 +48,6 @@ export function editPostRequest(url, data, onUpdateData) {
 export function modalDelete(url, onUpdateData) {
   axios
     .delete(url, config)
-    .then((response) => response)
     .then((response) => onUpdateData())
     .catch((error) => {
       console.log(error);
@@ -59,15 +57,6 @@ export function modalDelete(url, onUpdateData) {
 export function modalDeleteInOwner(url, targetId) {
   axios
     .patch(url, { id: targetId }, config)
-    .then((response) => response)
-    .catch((error) => {
-      console.log(error);
-    });
-}
-
-export function deleteAllPosts(url) {
-  axios
-    .delete(url, config)
     .then((response) => response)
     .catch((error) => {
       console.log(error);

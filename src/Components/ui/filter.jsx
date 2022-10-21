@@ -1,13 +1,17 @@
-import React, { useState } from 'react';
-import SelectField from '../common/form/selectedField';
+import React from 'react';
 import { useTranslation } from 'react-i18next';
+import { useDispatch, useSelector } from 'react-redux';
+import { filter } from '../redux/actions/filter';
 
-function Filter({ options, filterValues, onFilter, onUpdate, userId, setCollections }) {
+import SelectField from '../common/form/selectedField';
+
+function Filter({ options, filterValues, onUpdate, userId, setCollections }) {
+  const dispatch = useDispatch();
   const { t } = useTranslation();
-  const [filter, setFilter] = useState('new');
+  const newFilter = useSelector(({ filter }) => filter.filter);
 
   const handleChange = (target) => {
-    setFilter(target.value);
+    dispatch(filter(target.value));
     findTargetValue(target.value);
   };
 
@@ -22,7 +26,7 @@ function Filter({ options, filterValues, onFilter, onUpdate, userId, setCollecti
   return (
     <div>
       <h5 className="ms-3  dysplay">{t('display')}</h5>
-      <SelectField name="type" options={options} onChange={handleChange} value={filter} />
+      <SelectField name="type" options={options} onChange={handleChange} value={newFilter} />
     </div>
   );
 }

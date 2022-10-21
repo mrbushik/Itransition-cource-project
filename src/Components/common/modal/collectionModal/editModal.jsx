@@ -6,7 +6,6 @@ import {
   editCollectionRequest,
   modalDeleteInOwner,
   modalDelete,
-  deleteAllPosts,
 } from '../../../services/modalRequests';
 import { validator } from '../../../utils/validator';
 
@@ -61,14 +60,6 @@ function EditModal({ modalType, collections, onActive, updateCollectionsData }) 
     type: editItem.type,
   };
 
-  const deleteCollection = (URL, collectionId, ownerId) => {
-    deleteAllPosts(`http://localhost:5000/api/delete-posts-from-collection/${collectionId}`);
-    modalDeleteInOwner(`http://localhost:5000/api/delete-collection-user/${ownerId}`, collectionId);
-    modalDelete(URL, updateCollectionsData);
-    setEditItem({ item: '' });
-    onActive();
-  };
-
   const validatorConfig = {
     name: {
       isRequired: {
@@ -95,6 +86,7 @@ function EditModal({ modalType, collections, onActive, updateCollectionsData }) 
     const errors = validator(editItem, validatorConfig);
     setErrors(errors);
   };
+
   useEffect(() => {
     validate();
   }, [editItem]);
@@ -103,6 +95,13 @@ function EditModal({ modalType, collections, onActive, updateCollectionsData }) 
 
   const collectionEdit = (URL) => {
     editCollectionRequest(URL, modifiedCollection, updateCollectionsData);
+  };
+
+  const deleteCollection = (URL, collectionId, ownerId) => {
+    modalDeleteInOwner(`http://localhost:5000/api/delete-collection-user/${ownerId}`, collectionId);
+    modalDelete(URL, updateCollectionsData);
+    setEditItem({ item: '' });
+    onActive();
   };
 
   const targetRequest = (URL, collectionId, ownerId) => {
@@ -136,7 +135,7 @@ function EditModal({ modalType, collections, onActive, updateCollectionsData }) 
             selectElement={true}
           />
         </div>
-        {(modalType === 'Edit' || modalType === 'Редактировать') && editItem.item && editItem && (
+        {modalType === t('edit') && editItem.item && editItem && (
           <div>
             <TextField
               label={t('collection name')}

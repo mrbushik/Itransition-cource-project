@@ -49,6 +49,11 @@ function EditItemsModal({
         value: 30,
       },
     },
+    // item: {
+    //   isRequired: {
+    //     message: t('field required'),
+    //   },
+    // },
   };
 
   const validate = () => {
@@ -57,24 +62,32 @@ function EditItemsModal({
   };
 
   useEffect(() => {
+    // if (modalType === t('edit')) {
     validate();
+    // }
   }, [editItem]);
 
   const getFieldData = () => {
     if (targetElement) {
       let count = fieldsCount;
+      const targetFields = targetElement.fields.slice(1, fieldsCount + 2);
+      // const test = targetFields.slice(1, fieldsCount + 2);
+      // console.log(test);
+
       const fieldArr = [];
       while (count > 0) {
         count--;
-        fieldArr.push({ value: targetElement.fields[count] });
+        fieldArr.push({ value: targetFields[count] });
       }
-      return fieldArr;
+      return fieldArr.reverse();
     }
   };
 
   useEffect(() => {
     if (targetElement) {
-      setFieldValue(getFieldData().reverse());
+      handleChange({ name: 'name', value: targetElement.fields[0] });
+      getFieldData();
+      setFieldValue(getFieldData());
       handleGetTags(targetElement.tags);
     }
   }, [editItem.item]);
@@ -134,6 +147,7 @@ function EditItemsModal({
   };
 
   const deletePost = () => {
+    if (editItem.item === '') setErrors({ item: t('field required') });
     modalDeleteInOwner(
       `http://localhost:5000/api/delete-collection-post/${collectionId}`,
       editItem.item,
@@ -165,9 +179,10 @@ function EditItemsModal({
             defaultOption={t('choose')}
             onChange={handleChange}
             value={editItem.item}
+            error={errors.item}
           />
         </div>
-        {(modalType === 'Edit' || modalType === 'Редактировать') && editItem.item && (
+        {modalType === t('edit') && editItem.item && (
           <>
             <TagsField
               handleDelete={handleDeleteTag}

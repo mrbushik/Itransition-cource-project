@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { getUserCollection, getUserPages } from '../services/getInfoRequests';
+import { getUserCollection, getUserPages } from '../services/adminRequests';
 import { changeCurrentPage } from '../redux/actions/currentPaginatePage';
 import { useTranslation } from 'react-i18next';
 
@@ -31,6 +31,7 @@ function AdminCollections() {
       history.push('/');
     }
   }, []);
+
   useEffect(() => {
     getUserCollection(getCollectionsURL, setCollections);
     getUserPages(getCollectionsURL, setTotalCollections);

@@ -13,7 +13,7 @@ function TagsField({ handleDelete, tags, handleAddition, error }) {
 
   useEffect(() => {
     getAllTags(tagsURL, getTargetData, setSuggestions);
-  }, []);
+  }, [tags]);
 
   const getTargetData = (data) => {
     const suggestionsData = [];
