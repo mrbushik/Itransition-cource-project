@@ -1,6 +1,8 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useDispatch, useSelector } from 'react-redux';
+import { getAllUsers } from '../redux/actions/adminData';
 import { Link, useHistory } from 'react-router-dom';
 import {
   unblock,
@@ -14,22 +16,27 @@ import {
 import UserTableItem from '../ui/userTableItem';
 import EditButtons from '../common/buttons/editButtons';
 import NavBar from '../navigation/navBar';
-import { logoutRequest } from '../services/loginRequest';
 import { logout } from '../utils/logout';
+
 function AdminPage() {
   const { t } = useTranslation();
-  const [users, setUsers] = useState();
+  const history = useHistory();
+
   const [selectedUser, setSelectedUser] = useState({
     user: '',
   });
   const [errors, setErrors] = useState();
+
   const buttons = [t('unblock'), t('block'), t('delete'), t('get admin'), t('pickUpAdmin')];
   const requests = [unblock, block, deleteUser, getAdmin, pickUpAdmin];
-  const history = useHistory();
-
   const userId = localStorage.getItem('userId');
   const role = localStorage.getItem('role');
-  const logoutURL = 'http://localhost:5000/api/logout';
+  const allUsersURL = 'http://localhost:5000/api/all-users';
+
+  const dispatch = useDispatch();
+  const allUsers = useSelector(({ adminData }) => adminData.users);
+
+  const updateUsers = () => dispatch(getAllUsers(allUsersURL));
 
   useEffect(() => {
     if (role !== 'ADMIN') {
@@ -39,7 +46,7 @@ function AdminPage() {
 
   useEffect(() => {
     if (role === 'ADMIN') {
-      getUsers(setUsers);
+      updateUsers();
     }
   }, []);
 
@@ -62,17 +69,19 @@ function AdminPage() {
   };
 
   useEffect(() => {
-    if (users) {
-      const admin = users.find((item) => item._id === userId);
+    if (allUsers) {
+      const admin = allUsers.find((item) => item._id === userId);
       if (!admin || admin.roles[0] !== 'ADMIN') {
         removeAdmin(admin);
       }
     }
-  }, [users]);
+  }, [allUsers]);
 
   const submitChanges = (buttonIndex) => {
-    requests[buttonIndex](`http://localhost:5000/api/change-status/${selectedUser.user}`, setUsers);
-    getUsers(setUsers);
+    requests[buttonIndex](
+      `http://localhost:5000/api/change-status/${selectedUser.user}`,
+      updateUsers,
+    );
   };
 
   const handlRequest = (buttonIndex) => {
@@ -105,9 +114,9 @@ function AdminPage() {
               <th scope="col">{t('role')}</th>
             </tr>
           </thead>
-          {users && (
+          {allUsers && (
             <tbody>
-              {users.map((user, index) => (
+              {allUsers.map((user, index) => (
                 <UserTableItem
                   selectedUser={selectedUser}
                   key={user._id}

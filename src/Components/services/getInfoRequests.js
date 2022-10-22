@@ -50,14 +50,6 @@ export function getAllTags(url, getTargetData, setSuggestions) {
       console.log(error);
     });
 }
-export function getTags(url, setTags) {
-  axios
-    .get(url)
-    .then((data) => setTags(data.data))
-    .catch((error) => {
-      console.log(error);
-    });
-}
 
 export async function getTagCollectonsTotal(url, data, setCollectionsLength) {
   await axios
@@ -70,16 +62,6 @@ export async function getTagCollectonsTotal(url, data, setCollectionsLength) {
     });
 }
 
-export async function getCollectonsByTag(url, data, setCollections, setCollectionsLength) {
-  await axios
-    .post(url, data)
-    .then((data) => {
-      setCollections(data.data.collections);
-    })
-    .catch((error) => {
-      console.log(error);
-    });
-}
 export async function getCollectionComments(url, setCollections) {
   await axios
     .get(url)

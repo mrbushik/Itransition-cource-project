@@ -1,5 +1,3 @@
-import { collectionsTags } from "../actions/userCollection";
-
 const initialState = {
   collection: [],
   lagestCollection: '',
@@ -7,14 +5,6 @@ const initialState = {
   collectionsTags: '',
   collectionsByTag: '',
 };
-// const userCollection = (state = initialState, action) => {
-//   if (action.type === 'CHANGE_COLLECTION') {
-//     return {
-//       collection: action.payload,
-//     };
-//   }
-//   return state;
-// };
 
 const userCollection = (state = initialState, action) => {
   switch (action.type) {
@@ -33,16 +23,16 @@ const userCollection = (state = initialState, action) => {
         ...state,
         lastPostCollection: action.payload,
       };
-      case 'COLLECTIONS_TAGS':
-      return{
+    case 'COLLECTIONS_TAGS':
+      return {
         ...state,
-        collectionsTags: action.payload
-      }
-      case 'COLECTIONS_BY_TAGS':
-        return{
-            ...state,
-            collectionsByTag: action.payload
-        }
+        collectionsTags: action.payload,
+      };
+    case 'COLECTIONS_BY_TAGS':
+      return {
+        ...state,
+        collectionsByTag: action.payload,
+      };
     default:
       return state;
   }
