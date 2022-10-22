@@ -49,7 +49,7 @@ function UserPage() {
   }, []);
 
   useEffect(() => {
-    if (userCollection && Math.ceil(userCollection.length / 3) < currentPage) {
+    if (Math.ceil(userCollection.length / 3) < currentPage) {
       dispatch(changeCurrentPageAtUser(1));
       dispatch(getCollections(URL));
     }
@@ -130,8 +130,6 @@ function UserPage() {
               countCollections={userCollection.length}
               currentPage={currentPage}
               onPageChange={changePage}
-              testOne={dispatch}
-              testTwo={changeCurrentPageAtUser}
             />
           )}
         </div>

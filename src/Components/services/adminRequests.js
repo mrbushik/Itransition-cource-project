@@ -7,7 +7,7 @@ const config = {
 export function unblock(url, setUsers) {
   axios
     .patch(url, { roles: ['USER'] }, config)
-    .then((response) => getUsers(setUsers))
+    .then((response) => setUsers())
     .catch((error) => {
       console.log(error);
     });
@@ -16,7 +16,7 @@ export function unblock(url, setUsers) {
 export function deleteUser(url, setUsers) {
   axios
     .delete(url, config)
-    .then((response) => getUsers(setUsers))
+    .then((response) => setUsers())
     .catch((error) => {
       console.log(error);
     });
@@ -25,7 +25,7 @@ export function deleteUser(url, setUsers) {
 export function block(url, setUsers) {
   axios
     .patch(url, { roles: ['BLOCK'] }, config)
-    .then((response) => getUsers(setUsers))
+    .then((response) => setUsers())
     .catch((error) => {
       console.log(error);
     });
@@ -34,7 +34,7 @@ export function block(url, setUsers) {
 export function getAdmin(url, setUsers) {
   axios
     .patch(url, { roles: ['ADMIN'] }, config)
-    .then((response) => getUsers(setUsers))
+    .then((response) => setUsers())
     .catch((error) => {
       console.log(error);
     });
@@ -43,27 +43,27 @@ export function getAdmin(url, setUsers) {
 export function pickUpAdmin(url, setUsers) {
   axios
     .patch(url, { roles: ['USER'] }, config)
-    .then((response) => getUsers(setUsers))
+    .then((response) => setUsers())
     .catch((error) => {
       console.log(error);
     });
 }
 
-export function getUsers(setUsers) {
-  axios
-    .get('http://localhost:5000/api/all-users', config)
-    .then((response) => response)
-    .then((data) => setUsers(data.data.users));
-}
+// export function getUsers(setUsers) {
+//   axios
+//     .get('http://localhost:5000/api/all-users', config)
+//     .then((response) => response)
+//     .then((data) => setUsers(data.data.users));
+// }
 
-export function getUserCollection(url, setCollections) {
-  fetch(url, { method: 'GET' })
-    .then((response) => response.json())
-    .then((result) =>
-      result.length === 0 ? setCollections('') : setCollections(result.collections),
-    )
-    .catch((error) => console.log(error));
-}
+// export function getUserCollection(url, setCollections) {
+//   fetch(url, { method: 'GET' })
+//     .then((response) => response.json())
+//     .then((result) =>
+//       result.length === 0 ? setCollections('') : setCollections(result.collections),
+//     )
+//     .catch((error) => console.log(error));
+// }
 
 export function getUserPages(url, setCountPages) {
   axios

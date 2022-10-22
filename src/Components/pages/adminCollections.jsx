@@ -2,7 +2,8 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { getUserCollection, getUserPages } from '../services/adminRequests';
+import { getUserPages } from '../services/adminRequests';
+import { getAdminCollections } from '../redux/actions/adminData';
 import { changeCurrentPage } from '../redux/actions/currentPaginatePage';
 import { useTranslation } from 'react-i18next';
 
@@ -11,6 +12,7 @@ import Paginate from '../common/paginate';
 import NavBar from '../navigation/navBar';
 import EditButtons from '../common/buttons/editButtons';
 import EditModal from '../common/modal/collectionModal/editModal';
+import { userCollection } from '../redux/actions/userCollection';
 
 function AdminCollections() {
   const role = localStorage.getItem('role');
@@ -19,12 +21,20 @@ function AdminCollections() {
   const { t } = useTranslation();
 
   const currentPage = useSelector(({ changeCurrentPage }) => changeCurrentPage.page);
+  const adminCollections = useSelector(({ adminData }) => adminData.collections);
   const getCollectionsURL = `http://localhost:5000/api//all-collections?page=${currentPage}`;
 
-  const [collections, setCollections] = useState();
+  // const [collections, setCollections] = useState();
   const [countCollections, setTotalCollections] = useState();
-  const [, setCountPage] = useState(1);
+  // const [, setCountPage] = useState(1);
   const [activeModal, setActiveModal] = useState('');
+
+  const handleUpdateData = () => {
+    dispatch(getAdminCollections(getCollectionsURL));
+    getUserPages(getCollectionsURL, setTotalCollections);
+  };
+
+  // const handleChangePage = () => dispatch(changeCurrentPage(count));
 
   useEffect(() => {
     if (role !== 'ADMIN') {
@@ -33,8 +43,8 @@ function AdminCollections() {
   }, []);
 
   useEffect(() => {
-    getUserCollection(getCollectionsURL, setCollections);
-    getUserPages(getCollectionsURL, setTotalCollections);
+    handleUpdateData();
+    // getUserPages(getCollectionsURL, setTotalCollections);
   }, []);
 
   const getCollectionsPages = (count) => {
@@ -42,24 +52,33 @@ function AdminCollections() {
   };
 
   useEffect(() => {
-    setCountPage(currentPage);
-    getUserCollection(getCollectionsURL, setCollections);
+    console.log(countCollections + 'count collections');
+    console.log(currentPage + 'current page');
+    if (Math.ceil(countCollections / 3) < currentPage) {
+      console.log('work');
+      dispatch(changeCurrentPage(1));
+      handleUpdateData();
+    }
+  }, [countCollections, adminCollections]);
+
+  useEffect(() => {
+    // setCountPage(currentPage);
+    handleUpdateData();
   }, [currentPage]);
 
   const toggleActiveModal = (value) => setActiveModal(+value);
 
-  const handleUpdateData = () => getUserCollection(getCollectionsURL, setCollections);
   return (
     <>
       <NavBar />
-      {collections && collections.length > 0 ? (
+      {adminCollections && adminCollections.length > 0 ? (
         <div>
           <div>
             <div className="d-flex justify-content-between flex-wrap">
               {role === 'ADMIN' && (
                 <div>
                   <div>
-                    {role && collections.length !== 0 && (
+                    {role && adminCollections.length !== 0 && (
                       <EditButtons
                         onToggle={toggleActiveModal}
                         btnList={[t('edit'), t('delete')]}
@@ -75,25 +94,25 @@ function AdminCollections() {
               </div>
             </div>
 
-            {activeModal === 0 && collections && (
+            {activeModal === 0 && adminCollections && (
               <EditModal
-                collections={collections}
+                collections={adminCollections}
                 modalType={t('edit')}
                 onActive={toggleActiveModal}
                 updateCollectionsData={handleUpdateData}
               />
             )}
-            {activeModal === 1 && collections && (
+            {activeModal === 1 && adminCollections && (
               <EditModal
-                collections={collections}
+                collections={adminCollections}
                 onActive={toggleActiveModal}
                 modalType={t('delete')}
                 updateCollectionsData={handleUpdateData}
               />
             )}
             <div className="mt-4 d-flex justify-content-center flex-wrap">
-              {collections
-                ? collections.map((item, index) => (
+              {adminCollections
+                ? adminCollections.map((item, index) => (
                     <UserCollection
                       link={'/admin-collections/'}
                       description={item.description}
@@ -110,11 +129,13 @@ function AdminCollections() {
                 : ''}
             </div>
           </div>
-          <Paginate
-            countCollections={countCollections}
-            currentPage={currentPage}
-            onPageChange={getCollectionsPages}
-          />
+          {countCollections > 3 && (
+            <Paginate
+              countCollections={countCollections}
+              currentPage={currentPage}
+              onPageChange={getCollectionsPages}
+            />
+          )}
         </div>
       ) : (
         <div>

@@ -49,7 +49,7 @@
     "block": "Block",
     "get admin": "Get Admin",
     "pickUpAdmin": "Pick Up Admin",
-    "checkbox": "Checkbox",
+    "checkbox": "Selected user",
     "role": "Role",
     "id": "Id",
     "tags": "Tags",
