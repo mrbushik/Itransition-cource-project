@@ -1,7 +1,7 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
-import { filter } from '../redux/actions/filter';
+import { filter, filterValue } from '../redux/actions/filter';
 
 import SelectField from '../common/form/selectedField';
 
@@ -17,6 +17,7 @@ function Filter({ options, filterValues, onUpdate, userId, setCollections }) {
 
   const findTargetValue = (value) => {
     const findIndex = options.indexOf(value);
+    dispatch(filterValue(filterValues[findIndex]));
     onUpdate(
       `http://localhost:5000/api/user/${userId}/?filter=${filterValues[findIndex]} `,
       setCollections,

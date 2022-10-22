@@ -1,12 +1,12 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useEffect, useState } from 'react';
+import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 import { validator } from '../utils/validator';
-import PropTypes from 'prop-types';
+import { activateRequest } from '../services/loginRequest';
 
 import TextField from '../common/form/textField';
-import { activateRequest } from '../services/loginRequest';
 import ActivateMail from './activateMail';
 import HideBtn from '../common/buttons/hideBtn';
 

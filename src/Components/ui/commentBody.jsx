@@ -12,6 +12,7 @@ function CommentBody({ commentData }) {
   Array.prototype.forEach.call(commentData.commentText.split('\n'), (item) => {
     textCommentParse.push(item);
   });
+
   return (
     <div className="border border-primary mb-3 pb-3">
       <div className="d-flex ms-2 mt-2">

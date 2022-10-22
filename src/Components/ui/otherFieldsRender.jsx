@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 function OtherFieldsRender({ fieldValue, type }) {
   const fieldParse = [];
@@ -41,5 +42,9 @@ function OtherFieldsRender({ fieldValue, type }) {
     </td>
   );
 }
+
+OtherFieldsRender.propTypes = {
+  type: PropTypes.string,
+};
 
 export default OtherFieldsRender;

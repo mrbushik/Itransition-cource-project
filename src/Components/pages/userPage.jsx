@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useHistory } from 'react-router-dom';
-import { getUserCollection } from '../services/getInfoRequests';
+// import { getUserCollection } from '../services/getInfoRequests';
 import { paginate } from '../utils/paginate';
 
 import UserCollection from '../ui/userCollection';
@@ -15,12 +15,12 @@ import Paginate from '../common/paginate';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { changeCurrentPageAtUser } from '../redux/actions/currentPaginatePage';
+import { getCollections } from '../redux/actions/userCollection';
 import Filter from '../ui/filter';
 
 function UserPage() {
   const userId = localStorage.getItem('userId');
 
-  const URL = `http://localhost:5000/api/user/${userId}/?filter=new `;
   let croppedCollection;
   const { t } = useTranslation();
   const history = useHistory();
@@ -29,11 +29,14 @@ function UserPage() {
   const [collections, setCollections] = useState([]);
   const [activeModal, setActiveModal] = useState('');
   const currentPage = useSelector(({ changeCurrentPage }) => changeCurrentPage.userPage);
+  const userCollection = useSelector(({ userCollection }) => userCollection.collection);
+  const filterParams = useSelector(({ filter }) => filter.filterValue);
   const [countPage, setCountPage] = useState(1);
+  const URL = `http://localhost:5000/api/user/${userId}/?filter=${filterParams} `;
 
   const toggleActiveModal = (value) => setActiveModal(+value);
 
-  const updateCollectionsData = (link) => getUserCollection(link ? link : URL, setCollections);
+  const updateCollectionsData = (link) => dispatch(getCollections(link ? link : URL));
 
   useEffect(() => {
     if (!userId) {
@@ -42,23 +45,32 @@ function UserPage() {
   }, []);
 
   useEffect(() => {
-    getUserCollection(URL, setCollections);
+    dispatch(getCollections(URL));
   }, []);
+
+  useEffect(() => {
+    if (userCollection && Math.ceil(userCollection.length / 3) < currentPage) {
+      dispatch(changeCurrentPageAtUser(1));
+      dispatch(getCollections(URL));
+    }
+  }, [userCollection]);
 
   const changePage = (count) => dispatch(changeCurrentPageAtUser(count));
 
   useEffect(() => {
     setCountPage(currentPage);
   }, [currentPage]);
-  if (collections) {
-    croppedCollection = paginate(collections, currentPage, 3);
+  if (userCollection) {
+    croppedCollection = paginate(userCollection, currentPage, 3);
   }
   return (
     <>
       <NavBar />
       <EditButtons
         onToggle={toggleActiveModal}
-        btnList={collections.length !== 0 ? [t('create'), t('edit'), t('delete')] : [t('create')]}
+        btnList={
+          userCollection.length !== 0 ? [t('create'), t('edit'), t('delete')] : [t('create')]
+        }
       />
       <div>
         {activeModal === 0 && (
@@ -82,19 +94,19 @@ function UserPage() {
         )}
       </div>
 
-      {collections && collections.length !== 0 && (
+      {userCollection && userCollection.length !== 0 && (
         <Filter
           options={[t('new'), t('old')]}
           filterValues={['new', 'old']}
           userId={userId}
-          setCollections={setCollections}
+          // setCollections={setCollections}
           onUpdate={updateCollectionsData}
         />
       )}
-      {collections && (
+      {userCollection && (
         <div>
           <div className="mx-auto mt-4" style={{ width: '250px' }}>
-            {collections ? (
+            {userCollection ? (
               croppedCollection.map((item, index) => (
                 <UserCollection
                   link={'collection/'}
@@ -113,16 +125,18 @@ function UserPage() {
               <div> {t("haven't collections")}</div>
             )}
           </div>
-          {collections && (
+          {userCollection && (
             <Paginate
-              countCollections={collections.length}
+              countCollections={userCollection.length}
               currentPage={currentPage}
               onPageChange={changePage}
+              testOne={dispatch}
+              testTwo={changeCurrentPageAtUser}
             />
           )}
         </div>
       )}
-      {collections && collections.length === 0 && (
+      {userCollection && userCollection.length === 0 && (
         <div className="text-danger  mt-4 fs-5  text-center px-3">{t('none collections')}</div>
       )}
     </>

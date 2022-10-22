@@ -5,30 +5,31 @@ import { getCollectonsByTag, getTagCollectonsTotal, getTags } from '../services/
 
 import { selectedTagSearch } from '../redux/actions/selectedTag';
 import { changeCurrentTagsPage } from '../redux/actions/currentPaginatePage';
+import { getCollectionsTags, getCollectionsByTag } from '../redux/actions/userCollection';
 import Paginate from '../common/paginate';
 import UserCollection from './userCollection';
 import { t } from 'i18next';
 
 function TagsSearch() {
+  const dispatch = useDispatch();
+  const collectionsTags = useSelector(({ userCollection }) => userCollection.collectionsTags);
+  const collectionsByTag = useSelector(({ userCollection }) => userCollection.collectionsByTag);
   const currentPage = useSelector(({ changeCurrentPage }) => changeCurrentPage.tagPage);
   const searchTag = useSelector(({ selectedTagSearch }) => selectedTagSearch.selectedTagSearch);
-  const dispatch = useDispatch();
 
   const tagsURL = 'http://localhost:5000/api/all-tags';
   const tagColectionsURL = `http://localhost:5000/api/get-collection-by-tag`;
 
-  const [collections, setCollections] = useState();
   const [collectionsLength, setCollectionsLength] = useState();
-  const [tags, setTags] = useState();
 
   useEffect(() => {
-    getTags(tagsURL, setTags);
+    dispatch(getCollectionsTags(tagsURL));
   }, []);
 
   const handleGetCollections = () => {
     const data = { tag: searchTag, page: currentPage };
     getTagCollectonsTotal(tagColectionsURL, data, setCollectionsLength);
-    getCollectonsByTag(tagColectionsURL, data, setCollections);
+    dispatch(getCollectionsByTag(tagColectionsURL, data));
   };
 
   useEffect(() => {
@@ -44,12 +45,12 @@ function TagsSearch() {
 
   return (
     <>
-      {tags && tags.length > 0 && (
+      {collectionsTags && collectionsTags.length > 0 && (
         <div>
           <h4 className="text-center mt-4 mb-2">{t('tags cloud')}</h4>
           <div className="d-flex justify-content-center flex-wrap">
-            {tags &&
-              tags.map((tag, index) => (
+            {collectionsTags &&
+              collectionsTags.map((tag, index) => (
                 <span
                   className={`ms-1 ${searchTag === tag ? 'text-success' : ''}`}
                   style={{ cursor: 'pointer' }}
@@ -60,8 +61,8 @@ function TagsSearch() {
               ))}
           </div>
           <div className="mt-4 d-flex justify-content-center flex-wrap">
-            {collections &&
-              collections.map((item) => (
+            {collectionsByTag &&
+              collectionsByTag.map((item) => (
                 <UserCollection
                   link={'/'}
                   description={item.description}
@@ -76,7 +77,7 @@ function TagsSearch() {
                 />
               ))}
           </div>
-          {collections && (
+          {collectionsByTag && (
             <Paginate
               countCollections={collectionsLength}
               currentPage={currentPage}

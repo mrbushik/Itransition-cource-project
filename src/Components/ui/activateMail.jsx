@@ -21,6 +21,7 @@ function ActivateMail({ resendMail }) {
       },
     },
   };
+
   const validate = () => {
     const errors = validator(email, validatorConfig);
     setErrors(errors);

@@ -5,18 +5,18 @@ const config = {
   headers: { Authorization: 'Bearer ' + token },
 };
 
-export function getUserCollection(url, setCollections) {
-  axios
-    .get(url, config)
+// export function getUserCollection(url, setCollections) {
+//   axios
+//     .get(url, config)
 
-    .then((response) => response)
-    .then((response) =>
-      response.data.collections.length === 0
-        ? setCollections([])
-        : setCollections(response.data.collections),
-    )
-    .catch((error) => console.log(error));
-}
+//     .then((response) => response)
+//     .then((response) =>
+//       response.data.collections.length === 0
+//         ? setCollections([])
+//         : setCollections(response.data.collections),
+//     )
+//     .catch((error) => console.log(error));
+// }
 
 export function getPosts(setCollectionData, params) {
   axios
@@ -25,21 +25,21 @@ export function getPosts(setCollectionData, params) {
     .catch((error) => console.log(error));
 }
 
-export function getNewPosts(url, setNewPosts) {
-  axios
-    .get(url)
-    .then((data) => setNewPosts(data.data))
-    .catch((error) => console.log(error));
-}
+// export function getNewPosts(url, setNewPosts) {
+//   axios
+//     .get(url)
+//     .then((data) => setNewPosts(data.data))
+//     .catch((error) => console.log(error));
+// }
 
-export function getLagestCollections(url, setCollection) {
-  axios
-    .get(url)
-    .then((data) => setCollection(data.data))
-    .catch((error) => {
-      console.log(error);
-    });
-}
+// export function getLagestCollections(url, setCollection) {
+//   axios
+//     .get(url)
+//     .then((data) => setCollection(data.data))
+//     .catch((error) => {
+//       console.log(error);
+//     });
+// }
 
 export function getAllTags(url, getTargetData, setSuggestions) {
   axios
