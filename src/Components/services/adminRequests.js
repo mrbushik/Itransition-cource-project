@@ -49,22 +49,6 @@ export function pickUpAdmin(url, setUsers) {
     });
 }
 
-// export function getUsers(setUsers) {
-//   axios
-//     .get('http://localhost:5000/api/all-users', config)
-//     .then((response) => response)
-//     .then((data) => setUsers(data.data.users));
-// }
-
-// export function getUserCollection(url, setCollections) {
-//   fetch(url, { method: 'GET' })
-//     .then((response) => response.json())
-//     .then((result) =>
-//       result.length === 0 ? setCollections('') : setCollections(result.collections),
-//     )
-//     .catch((error) => console.log(error));
-// }
-
 export function getUserPages(url, setCountPages) {
   axios
     .get(url)

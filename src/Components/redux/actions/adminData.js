@@ -24,11 +24,19 @@ export const getAllUsers = (url) => (dispatch) => {
     });
 };
 
-export const getAdminCollections = (url) => (dispatch) => {
-  axios
+export const getAdminCollections = (url) => async (dispatch) => {
+  await axios
     .get(url)
-    .then((data) => dispatch(adminCollections(data.data.collections)))
+    .then((data) => dispatch(adminCollections(data.data)))
     .catch((error) => {
-      console.log(error);
+      // console.log(error)
     });
+  // fetch(url, { method: 'GET' })
+  //   .then((response) => response.json())
+  //   .then((result) =>
+  //     result.length === 0
+  //       ? dispatch(adminCollections(''))
+  //       : dispatch(adminCollections(result.collections)),
+  //   )
+  //   .catch((error) => console.log(error));
 };

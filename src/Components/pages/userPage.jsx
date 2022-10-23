@@ -1,9 +1,7 @@
-/* eslint-disable no-unused-vars */
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useHistory } from 'react-router-dom';
-// import { getUserCollection } from '../services/getInfoRequests';
 import { paginate } from '../utils/paginate';
 
 import UserCollection from '../ui/userCollection';
@@ -19,19 +17,17 @@ import { getCollections } from '../redux/actions/userCollection';
 import Filter from '../ui/filter';
 
 function UserPage() {
-  const userId = localStorage.getItem('userId');
-
   let croppedCollection;
+  const userId = localStorage.getItem('userId');
   const { t } = useTranslation();
   const history = useHistory();
   const dispatch = useDispatch();
 
-  const [collections, setCollections] = useState([]);
   const [activeModal, setActiveModal] = useState('');
+
   const currentPage = useSelector(({ changeCurrentPage }) => changeCurrentPage.userPage);
   const userCollection = useSelector(({ userCollection }) => userCollection.collection);
   const filterParams = useSelector(({ filter }) => filter.filterValue);
-  const [countPage, setCountPage] = useState(1);
   const URL = `http://localhost:5000/api/user/${userId}/?filter=${filterParams} `;
 
   const toggleActiveModal = (value) => setActiveModal(+value);
@@ -39,9 +35,7 @@ function UserPage() {
   const updateCollectionsData = (link) => dispatch(getCollections(link ? link : URL));
 
   useEffect(() => {
-    if (!userId) {
-      history.push('/');
-    }
+    if (!userId) history.push('/');
   }, []);
 
   useEffect(() => {
@@ -57,12 +51,8 @@ function UserPage() {
 
   const changePage = (count) => dispatch(changeCurrentPageAtUser(count));
 
-  useEffect(() => {
-    setCountPage(currentPage);
-  }, [currentPage]);
-  if (userCollection) {
-    croppedCollection = paginate(userCollection, currentPage, 3);
-  }
+  if (userCollection) croppedCollection = paginate(userCollection, currentPage, 3);
+
   return (
     <>
       <NavBar />
@@ -93,13 +83,11 @@ function UserPage() {
           />
         )}
       </div>
-
       {userCollection && userCollection.length !== 0 && (
         <Filter
           options={[t('new'), t('old')]}
           filterValues={['new', 'old']}
           userId={userId}
-          // setCollections={setCollections}
           onUpdate={updateCollectionsData}
         />
       )}
