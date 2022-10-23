@@ -4,14 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import { getAllUsers } from '../redux/actions/adminData';
 import { Link, useHistory } from 'react-router-dom';
-import {
-  unblock,
-  block,
-  deleteUser,
-  getAdmin,
-  pickUpAdmin,
-  getUsers,
-} from '../services/adminRequests';
+import { unblock, block, deleteUser, getAdmin, pickUpAdmin } from '../services/adminRequests';
 
 import UserTableItem from '../ui/userTableItem';
 import EditButtons from '../common/buttons/editButtons';
@@ -31,7 +24,7 @@ function AdminPage() {
   const requests = [unblock, block, deleteUser, getAdmin, pickUpAdmin];
   const userId = localStorage.getItem('userId');
   const role = localStorage.getItem('role');
-  const allUsersURL = 'http://localhost:5000/api/all-users';
+  const allUsersURL = `${process.env.REACT_APP_DOMAIN_NAME}/api/all-users`;
 
   const dispatch = useDispatch();
   const allUsers = useSelector(({ adminData }) => adminData.users);
@@ -39,15 +32,11 @@ function AdminPage() {
   const updateUsers = () => dispatch(getAllUsers(allUsersURL));
 
   useEffect(() => {
-    if (role !== 'ADMIN') {
-      history.push('/');
-    }
+    if (role !== 'ADMIN') history.push('/');
   }, []);
 
   useEffect(() => {
-    if (role === 'ADMIN') {
-      updateUsers();
-    }
+    if (role === 'ADMIN') updateUsers();
   }, []);
 
   const handleChange = (target) => {
@@ -71,25 +60,19 @@ function AdminPage() {
   useEffect(() => {
     if (allUsers) {
       const admin = allUsers.find((item) => item._id === userId);
-      if (!admin || admin.roles[0] !== 'ADMIN') {
-        removeAdmin(admin);
-      }
+      if (!admin || admin.roles[0] !== 'ADMIN') removeAdmin(admin);
     }
   }, [allUsers]);
 
   const submitChanges = (buttonIndex) => {
     requests[buttonIndex](
-      `http://localhost:5000/api/change-status/${selectedUser.user}`,
+      `${process.env.REACT_APP_DOMAIN_NAME}/api/change-status/${selectedUser.user}`,
       updateUsers,
     );
   };
 
   const handlRequest = (buttonIndex) => {
-    if (selectedUser.user) {
-      submitChanges(buttonIndex);
-    } else {
-      setErrors(t('choose user'));
-    }
+    selectedUser.user ? submitChanges(buttonIndex) : setErrors(t('choose user'));
   };
 
   return (

@@ -17,6 +17,7 @@ function EditButtons({ onToggle, btnList }) {
     </div>
   );
 }
+
 EditButtons.propTypes = {
   onToggle: PropTypes.func.isRequired,
   btnList: PropTypes.arrayOf(PropTypes.string).isRequired,

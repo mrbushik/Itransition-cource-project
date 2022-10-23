@@ -10,6 +10,7 @@ function UserCollection({ authorName, description, icon, name, type, id, link, n
   Array.prototype.forEach.call(description.split('\n'), (item) => {
     descriptionParse.push(item);
   });
+
   return (
     <div className="border border-primary mb-3 me-4" style={{ width: '250px' }}>
       <Link to={`${link}${id}`} className="text-decoration-none">

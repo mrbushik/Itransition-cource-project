@@ -47,14 +47,11 @@ function Login() {
   };
 
   useEffect(() => {
-    if (localStorage.getItem('token')) {
-      history.push('/collection');
-    }
+    if (localStorage.getItem('token')) history.push('/collection');
   }, []);
 
   useEffect(() => {
     if (auth.isActivated === false) {
-      // writeUserData();
       setSuccessfulSigup(true);
       togleFormType();
     }

@@ -43,12 +43,7 @@ function CommentsForm({ collectionId }) {
   }, [comment]);
 
   const handleSubmit = () => {
-    if (comment.commentText) {
-      sendComment();
-      console.log(submitComment);
-    } else {
-      setError({ commentText: t('field required') });
-    }
+    comment.commentText ? sendComment() : setError({ commentText: t('field required') });
   };
 
   const handleChange = (target) => {

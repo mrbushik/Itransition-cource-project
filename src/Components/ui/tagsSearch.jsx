@@ -1,7 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getCollectonsByTag, getTagCollectonsTotal, getTags } from '../services/getInfoRequests';
 
 import { selectedTagSearch } from '../redux/actions/selectedTag';
 import { changeCurrentTagsPage } from '../redux/actions/currentPaginatePage';
@@ -20,21 +19,25 @@ function TagsSearch() {
   const tagsURL = 'http://localhost:5000/api/all-tags';
   const tagColectionsURL = `http://localhost:5000/api/get-collection-by-tag`;
 
-  const [collectionsLength, setCollectionsLength] = useState();
-
   useEffect(() => {
     dispatch(getCollectionsTags(tagsURL));
   }, []);
 
   const handleGetCollections = () => {
     const data = { tag: searchTag, page: currentPage };
-    getTagCollectonsTotal(tagColectionsURL, data, setCollectionsLength);
     dispatch(getCollectionsByTag(tagColectionsURL, data));
   };
 
   useEffect(() => {
     handleGetCollections();
   }, [searchTag, currentPage]);
+
+  useEffect(() => {
+    if (collectionsByTag.total !== 0 && Math.ceil(collectionsByTag.total / 3) < currentPage) {
+      dispatch(changeCurrentTagsPage(1));
+      handleGetCollections();
+    }
+  }, [collectionsByTag]);
 
   const handleTagClick = (e) => {
     dispatch(changeCurrentTagsPage(1));
@@ -61,8 +64,8 @@ function TagsSearch() {
               ))}
           </div>
           <div className="mt-4 d-flex justify-content-center flex-wrap">
-            {collectionsByTag &&
-              collectionsByTag.map((item) => (
+            {collectionsByTag.collections &&
+              collectionsByTag.collections.map((item) => (
                 <UserCollection
                   link={'/'}
                   description={item.description}
@@ -79,7 +82,7 @@ function TagsSearch() {
           </div>
           {collectionsByTag && (
             <Paginate
-              countCollections={collectionsLength}
+              countCollections={collectionsByTag.total}
               currentPage={currentPage}
               onPageChange={changePage}
             />

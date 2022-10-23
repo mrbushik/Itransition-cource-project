@@ -30,7 +30,8 @@ function EditItemsModal({
     name: '',
   });
 
-  const URL = `http://localhost:5000/api/change-post/${editItem.item}`;
+  const URL = `${process.env.REACT_APP_DOMAIN_NAME}/api/change-post/${editItem.item}`;
+  const deletePostURL = `${process.env.REACT_APP_DOMAIN_NAME}/api/delete-collection-post/${collectionId}`;
   const fieldValueInArray = fieldValue.map((item) => item.value);
   const isValid = Object.keys(errors).length === 0;
   const collectionsNames = posts.map((item) => item._id);
@@ -140,10 +141,7 @@ function EditItemsModal({
   };
 
   const deletePost = () => {
-    modalDeleteInOwner(
-      `http://localhost:5000/api/delete-collection-post/${collectionId}`,
-      editItem.item,
-    );
+    modalDeleteInOwner(deletePostURL, editItem.item);
     modalDelete(URL, onUpdateData);
     setEditItem({ item: '' });
   };

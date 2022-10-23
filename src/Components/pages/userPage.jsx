@@ -28,7 +28,7 @@ function UserPage() {
   const currentPage = useSelector(({ changeCurrentPage }) => changeCurrentPage.userPage);
   const userCollection = useSelector(({ userCollection }) => userCollection.collection);
   const filterParams = useSelector(({ filter }) => filter.filterValue);
-  const URL = `http://localhost:5000/api/user/${userId}/?filter=${filterParams} `;
+  const URL = `${process.env.REACT_APP_DOMAIN_NAME}/api/user/${userId}/?filter=${filterParams} `;
 
   const toggleActiveModal = (value) => setActiveModal(+value);
 

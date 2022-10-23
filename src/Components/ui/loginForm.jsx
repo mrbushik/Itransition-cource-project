@@ -12,6 +12,7 @@ import HideBtn from '../common/buttons/hideBtn';
 
 function LoginForm({ toggleFormType, onSubmit, successfulSigup, authData, loginError }) {
   const { t } = useTranslation();
+
   const [errors, setErrors] = useState({});
   const [activateEmail, setActivateEmail] = useState(false);
   const [data, setData] = useState({
@@ -22,9 +23,7 @@ function LoginForm({ toggleFormType, onSubmit, successfulSigup, authData, loginE
   const activationToggle = (params) => setActivateEmail(params);
 
   useEffect(() => {
-    if (loginError === 'User is not activated') {
-      activationToggle(true);
-    }
+    if (loginError === 'User is not activated') activationToggle(true);
   }, [loginError]);
 
   const handleChange = (target) => {
@@ -73,6 +72,7 @@ function LoginForm({ toggleFormType, onSubmit, successfulSigup, authData, loginE
   };
 
   const isValid = Object.keys(errors).length === 0;
+
   return (
     <>
       <TextField

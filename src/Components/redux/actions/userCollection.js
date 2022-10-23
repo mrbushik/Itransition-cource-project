@@ -70,7 +70,7 @@ export const getCollectionsByTag = (url, tag) => (dispatch) => {
   axios
     .post(url, tag)
     .then((data) => {
-      dispatch(colectionsByTags(data.data.collections));
+      dispatch(colectionsByTags(data.data));
     })
     .catch((error) => {
       console.log(error);

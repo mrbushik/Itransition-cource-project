@@ -8,20 +8,12 @@ function SwitchLanguage() {
 
   const handleCheck = () => {
     setCurrentValue(!currentValue);
-    if (language === 'en') {
-      i18n.changeLanguage('ru');
-      setLanguage('ru');
-    } else if (language === 'ru') {
-      i18n.changeLanguage('en');
-      setLanguage('en');
-    }
+    language === 'en'
+      ? i18n.changeLanguage('ru') && setLanguage('ru')
+      : i18n.changeLanguage('en') && setLanguage('en');
   };
   useEffect(() => {
-    if (language === 'ru') {
-      setCurrentValue(true);
-    } else {
-      setCurrentValue(false);
-    }
+    language === 'ru' ? setCurrentValue(true) : setCurrentValue(false);
   }, []);
 
   return (

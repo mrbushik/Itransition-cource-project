@@ -10,8 +10,8 @@ function LikeBtn(collectionId) {
   });
   const [errors, setErrors] = useState();
   const userId = localStorage.getItem('userId');
-  const putLikeURL = `http://localhost:5000/api/add-like/${collectionId.collectionId}`;
-  const checkLikeURL = `http://localhost:5000/api/check-like/${collectionId.collectionId}`;
+  const putLikeURL = `${process.env.REACT_APP_DOMAIN_NAME}/api/add-like/${collectionId.collectionId}`;
+  const checkLikeURL = `${process.env.REACT_APP_DOMAIN_NAME}/api/check-like/${collectionId.collectionId}`;
 
   const putLike = () => putLikeRequest(putLikeURL, userId, checkLike, setErrors);
 

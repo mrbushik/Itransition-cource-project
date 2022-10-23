@@ -2,12 +2,13 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
+import { validator } from '../../../utils/validator';
+
 import {
   editCollectionRequest,
   modalDeleteInOwner,
   modalDelete,
 } from '../../../services/modalRequests';
-import { validator } from '../../../utils/validator';
 
 import SelectField from '../../form/selectedField';
 import TextAreaField from '../../form/textAreaField';
@@ -15,6 +16,7 @@ import TextField from '../../form/textField';
 
 function EditModal({ modalType, collections, onActive, updateCollectionsData }) {
   let targetElement;
+  const selectedValue = [];
   const { t } = useTranslation();
 
   const [errors, setErrors] = useState({});
@@ -32,9 +34,7 @@ function EditModal({ modalType, collections, onActive, updateCollectionsData }) 
     }));
   };
 
-  if (editItem.item) {
-    targetElement = collections.find((item) => item._id === editItem.item);
-  }
+  if (editItem.item) targetElement = collections.find((item) => item._id === editItem.item);
 
   useEffect(() => {
     if (targetElement) {
@@ -48,7 +48,6 @@ function EditModal({ modalType, collections, onActive, updateCollectionsData }) 
     }
   }, [editItem.item]);
 
-  const selectedValue = [];
   for (let i = 0; i < collections.length; i++) {
     selectedValue.push({ option: collections[i].name, value: collections[i]._id });
   }
@@ -97,7 +96,10 @@ function EditModal({ modalType, collections, onActive, updateCollectionsData }) 
   };
 
   const deleteCollection = (URL, collectionId, ownerId) => {
-    modalDeleteInOwner(`http://localhost:5000/api/delete-collection-user/${ownerId}`, collectionId);
+    modalDeleteInOwner(
+      `${process.env.REACT_APP_DOMAIN_NAME}/api/delete-collection-user/${ownerId}`,
+      collectionId,
+    );
     modalDelete(URL, updateCollectionsData);
     setEditItem({ item: '' });
     onActive();
@@ -109,7 +111,7 @@ function EditModal({ modalType, collections, onActive, updateCollectionsData }) 
 
   const handleSubmit = () => {
     if (targetElement) {
-      const URL = `http://localhost:5000/api/change-collection/${targetElement._id}`;
+      const URL = `${process.env.REACT_APP_DOMAIN_NAME}/api/change-collection/${targetElement._id}`;
       targetRequest(URL, targetElement._id, targetElement._ownerId);
     }
   };
@@ -177,6 +179,7 @@ function EditModal({ modalType, collections, onActive, updateCollectionsData }) 
     </div>
   );
 }
+
 EditModal.propTypes = {
   modalType: PropTypes.string,
   collections: PropTypes.arrayOf(PropTypes.object).isRequired,

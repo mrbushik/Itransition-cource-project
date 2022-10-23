@@ -2,7 +2,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { getUserPages } from '../services/adminRequests';
 import { getAdminCollections } from '../redux/actions/adminData';
 import { changeCurrentPage } from '../redux/actions/currentPaginatePage';
 import { useTranslation } from 'react-i18next';
@@ -24,7 +23,7 @@ function AdminCollections() {
 
   const [page, setCurrentPage] = useState(1);
   const [activeModal, setActiveModal] = useState('');
-  const getCollectionsURL = `http://localhost:5000/api//all-collections?page=${currentPage}`;
+  const getCollectionsURL = `${process.env.REACT_APP_DOMAIN_NAME}/api//all-collections?page=${currentPage}`;
 
   const handleUpdateData = (url) => {
     dispatch(getAdminCollections(url ? url : getCollectionsURL));
@@ -37,7 +36,7 @@ function AdminCollections() {
   useEffect(() => {
     if (Math.ceil(adminCollections.total / 3) < adminCollections.page) {
       dispatch(changeCurrentPage(1));
-      handleUpdateData('http://localhost:5000/api//all-collections?page=1');
+      handleUpdateData(`${process.env.REACT_APP_DOMAIN_NAME}/api//all-collections?page=1`);
     }
   }, [adminCollections]);
 

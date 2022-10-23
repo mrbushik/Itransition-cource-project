@@ -13,6 +13,7 @@ function AddFieldForm({ handleChangeField, dataType, dataDescription, index, onD
   const handleChange = (e) => {
     handleChangeField(e.value, index, e.name);
   };
+
   const [errors, setErrors] = React.useState({});
   const validate = () => {
     const errors = validator({ type: dataType, description: dataDescription }, validatorConfig);

@@ -24,9 +24,7 @@ function UploadField({ name, onSave, isUrl }) {
   const uploadImage = async (e) => {
     setLoading(true);
     const isBigFile = checkFileSize(e.target.files[0].size);
-    if (!isBigFile) {
-      await uploadFile(e, onSave);
-    }
+    if (!isBigFile) await uploadFile(e, onSave);
     setLoading(false);
   };
 

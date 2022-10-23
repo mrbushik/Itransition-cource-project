@@ -17,7 +17,8 @@ function Modal({ onActive, updateCollectionsData }) {
   let err = 0;
   const userId = localStorage.getItem('userId');
   const userName = localStorage.getItem('userId');
-  const URL = 'http://localhost:5000/api/add-collection';
+  const URL = `${process.env.REACT_APP_DOMAIN_NAME}/api/add-collection`;
+
   const [collection, setCollection] = useState({
     name: '',
     photoUrl: '',
@@ -75,9 +76,7 @@ function Modal({ onActive, updateCollectionsData }) {
 
   const validateAddingFields = () => {
     for (let i = 0; i < fieldValue.length; i++) {
-      if (fieldValue[i].type === '' || fieldValue[i].description === '') {
-        err += 1;
-      }
+      if (fieldValue[i].type === '' || fieldValue[i].description === '') err += 1;
     }
     return err;
   };
@@ -107,11 +106,7 @@ function Modal({ onActive, updateCollectionsData }) {
 
   const handleChangeField = (event, index, fieldType) => {
     const inputdata = [...fieldValue];
-    if (fieldType === 'type') {
-      inputdata[index].type = event;
-    } else {
-      inputdata[index].description = event;
-    }
+    fieldType === 'type' ? (inputdata[index].type = event) : (inputdata[index].description = event);
     setFieldValue(inputdata);
   };
 
@@ -127,6 +122,7 @@ function Modal({ onActive, updateCollectionsData }) {
       [target.name]: target.value,
     }));
   };
+
   return (
     <>
       <div className="modal-dialog modal-dialog-centered  bg-light absolute-top mx-3 mt-3 p-3 dark-mode">

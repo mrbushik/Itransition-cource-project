@@ -11,6 +11,7 @@ function UsersCollections() {
   const params = useParams();
 
   const [collectionData, setCollectionData] = useState();
+
   useEffect(() => {
     getPosts(setCollectionData, params);
   }, []);
@@ -22,7 +23,6 @@ function UsersCollections() {
         <BackBtn backLink={'/'} />
         {collectionData && <LikeBtn collectionId={collectionData._id} />}
       </div>
-
       {collectionData && <PostsRender data={collectionData} />}
     </>
   );

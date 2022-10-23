@@ -15,7 +15,7 @@ function Searcher() {
       [target.name]: target.value,
     }));
   };
-
+  // don't ready component
   useEffect(() => {
     const request = setTimeout(() => {
       fullTextSearch(searchURL, searchInfo.searchText);

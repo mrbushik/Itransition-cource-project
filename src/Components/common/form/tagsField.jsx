@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
@@ -6,8 +7,8 @@ import { WithContext as ReactTags } from 'react-tag-input';
 import { getAllTags } from '../../services/getInfoRequests';
 
 function TagsField({ handleDelete, tags, handleAddition, error }) {
-  const tagsURL = 'http://localhost:5000/api/all-tags';
   const { t } = useTranslation();
+  const tagsURL = `${process.env.REACT_APP_DOMAIN_NAME}/api/all-tags`;
 
   const [suggestions, setSuggestions] = useState();
 
@@ -30,6 +31,7 @@ function TagsField({ handleDelete, tags, handleAddition, error }) {
   };
 
   const delimiters = [KeyCodes.comma, KeyCodes.enter];
+
   return (
     <>
       <div className="app">

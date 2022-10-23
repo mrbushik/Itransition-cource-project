@@ -7,6 +7,7 @@ function PostsRender({ data }) {
   const { t } = useTranslation();
   const postsTemplate = Object.values(data.postsTemplate);
   const postsTypeInfo = Object.values(data.postsTemplate);
+
   postsTypeInfo.splice(0, 1);
   postsTemplate.splice(0, 2);
   return (

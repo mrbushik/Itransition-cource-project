@@ -22,14 +22,13 @@ function CustomField({
   };
 
   useEffect(() => {
-    if (type === 'checkbox' && !checkboxDefault) {
-      handleChangeField(false, index);
-    }
+    if (type === 'checkbox' && !checkboxDefault) handleChangeField(false, index);
   }, []);
 
   const handleChangeTextArea = (e) => {
     handleChangeField(e.value, index);
   };
+
   return (
     <>
       <div className="mb-3">

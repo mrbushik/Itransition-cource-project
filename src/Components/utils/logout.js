@@ -1,5 +1,5 @@
 import { logoutRequest } from '../services/loginRequest';
-const logoutURL = 'http://localhost:5000/api/logout';
+const logoutURL = `${process.env.REACT_APP_DOMAIN_NAME}/api/logout`;
 const refreshToken = document.cookie;
 
 export function logout() {

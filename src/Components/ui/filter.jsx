@@ -19,7 +19,7 @@ function Filter({ options, filterValues, onUpdate, userId, setCollections }) {
     const findIndex = options.indexOf(value);
     dispatch(filterValue(filterValues[findIndex]));
     onUpdate(
-      `http://localhost:5000/api/user/${userId}/?filter=${filterValues[findIndex]} `,
+      `${process.env.REACT_APP_DOMAIN_NAME}/api/user/${userId}/?filter=${filterValues[findIndex]} `,
       setCollections,
     );
   };
