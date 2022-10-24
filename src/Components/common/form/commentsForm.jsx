@@ -7,14 +7,16 @@ import TextAreaField from './textAreaField';
 import { getCollectionComments } from '../../services/getInfoRequests';
 import CommentBody from '../../ui/commentBody';
 import { writeCommentRequest } from '../../services/createRequest';
+import { getToken } from '../../utils/token';
 
 function CommentsForm({ collectionId }) {
   const { t } = useTranslation();
   const user = localStorage.getItem('user');
   const userId = localStorage.getItem('userId');
+  const token = localStorage.getItem('token');
 
   const getCommentsURL = `http://localhost:5000/api/get-collection-comments/${collectionId}`;
-  const sendCommentURL = 'http://localhost:5000/api/write-comment';
+  const sendCommentURL = 'http://localhost:5000/api/add-comment';
 
   const [commentsData, setCommentsData] = useState();
   const [comment, setComment] = useState({ commentText: '' });
@@ -27,10 +29,14 @@ function CommentsForm({ collectionId }) {
     collectionId: collectionId,
   };
 
+  const config = {
+    headers: { Authorization: 'Bearer ' + token },
+  };
+
   const getAllCollectionComments = () => getCollectionComments(getCommentsURL, setCommentsData);
 
   const sendComment = () => {
-    writeCommentRequest(sendCommentURL, submitComment, getAllCollectionComments);
+    writeCommentRequest(sendCommentURL, submitComment, getAllCollectionComments, getToken());
     setComment({ commentText: '' });
   };
 
@@ -57,22 +63,24 @@ function CommentsForm({ collectionId }) {
     <div className="mx-3 comments-form">
       {commentsData &&
         commentsData.map((comment) => <CommentBody key={comment._id} commentData={comment} />)}
-      <div className="mt-5 me-5" style={{ maxWidth: '600px' }}>
-        <h5 className="mb-0">{t('write a comment')}</h5>
-        <div>
-          <TextAreaField
-            placeholder={t('write a comment')}
-            type="text"
-            name="commentText"
-            value={comment.commentText}
-            onChange={handleChange}
-            error={error.commentText}
-          />
-          <div className="btn btn-primary" onClick={handleSubmit}>
-            {t('send')}
+      {user && (
+        <div className="mt-5 me-5" style={{ maxWidth: '600px' }}>
+          <h5 className="mb-0">{t('write a comment')}</h5>
+          <div>
+            <TextAreaField
+              placeholder={t('write a comment')}
+              type="text"
+              name="commentText"
+              value={comment.commentText}
+              onChange={handleChange}
+              error={error.commentText}
+            />
+            <div className="btn btn-primary" onClick={handleSubmit}>
+              {t('send')}
+            </div>
           </div>
         </div>
-      </div>
+      )}
     </div>
   );
 }

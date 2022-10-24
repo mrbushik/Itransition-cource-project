@@ -9,11 +9,17 @@ function LikeBtn(collectionId) {
     likeCount: 0,
   });
   const [errors, setErrors] = useState();
+
+  const token = localStorage.getItem('token');
   const userId = localStorage.getItem('userId');
   const putLikeURL = `${process.env.REACT_APP_DOMAIN_NAME}/api/add-like/${collectionId.collectionId}`;
   const checkLikeURL = `${process.env.REACT_APP_DOMAIN_NAME}/api/check-like/${collectionId.collectionId}`;
 
-  const putLike = () => putLikeRequest(putLikeURL, userId, checkLike, setErrors);
+  const config = {
+    headers: { Authorization: 'Bearer ' + token },
+  };
+
+  const putLike = () => putLikeRequest(putLikeURL, userId, checkLike, setErrors, config);
 
   const checkLike = () => checkLikeRequest(checkLikeURL, userId, setLike);
 

@@ -12,6 +12,7 @@ import HideBtn from '../common/buttons/hideBtn';
 
 function LoginForm({ toggleFormType, onSubmit, successfulSigup, authData, loginError }) {
   const { t } = useTranslation();
+  const activateURL = `${process.env.REACT_APP_DOMAIN_NAME}/api/email`;
 
   const [errors, setErrors] = useState({});
   const [activateEmail, setActivateEmail] = useState(false);
@@ -21,9 +22,8 @@ function LoginForm({ toggleFormType, onSubmit, successfulSigup, authData, loginE
   });
 
   const activationToggle = (params) => setActivateEmail(params);
-
   useEffect(() => {
-    if (loginError === 'User is not activated') activationToggle(true);
+    if (loginError && loginError.message === 'User is not activated') activationToggle(true);
   }, [loginError]);
 
   const handleChange = (target) => {
@@ -68,7 +68,7 @@ function LoginForm({ toggleFormType, onSubmit, successfulSigup, authData, loginE
   }, [data]);
 
   const resendMail = (email) => {
-    activateRequest(email, setErrors);
+    activateRequest(activateURL, email, setErrors);
   };
 
   const isValid = Object.keys(errors).length === 0;
@@ -98,7 +98,7 @@ function LoginForm({ toggleFormType, onSubmit, successfulSigup, authData, loginE
           </div>
         </div>
       )}
-      {loginError === 'User is not activated' && (
+      {loginError && loginError.message === 'User is not activated' && (
         <div className="p-2 border border-danger mb-3">
           <HideBtn onDelete={activationToggle} />
           {activateEmail && <ActivateMail resendMail={resendMail} />}
@@ -119,7 +119,7 @@ function LoginForm({ toggleFormType, onSubmit, successfulSigup, authData, loginE
 }
 
 LoginForm.propTypes = {
-  loginError: PropTypes.string,
+  loginError: PropTypes.object,
   onSubmit: PropTypes.func,
   successfulSigup: PropTypes.bool,
   toggleFormType: PropTypes.func.isRequired,

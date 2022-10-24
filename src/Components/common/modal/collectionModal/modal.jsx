@@ -11,6 +11,7 @@ import TextField from '../../form/textField';
 import SelectField from '../../form/selectedField';
 import AddFieldForm from '../../form/addFieldForm';
 import TextAreaField from '../../form/textAreaField';
+import { getToken } from '../../../utils/token';
 
 function Modal({ onActive, updateCollectionsData }) {
   const { t } = useTranslation();
@@ -94,7 +95,7 @@ function Modal({ onActive, updateCollectionsData }) {
   const onSubmit = () => {
     if (isValid && collection.photoUrl && validateAddingFields() === 0) {
       sendingData.postsTemplate.push(...fieldValue);
-      createCollection(URL, sendingData, updateCollectionsData);
+      createCollection(URL, sendingData, updateCollectionsData, getToken());
       clearData();
     }
   };

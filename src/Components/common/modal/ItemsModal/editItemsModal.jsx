@@ -9,6 +9,7 @@ import CustomField from '../../form/customField';
 import SelectField from '../../form/selectedField';
 import TagsField from '../../form/tagsField';
 import TextField from '../../form/textField';
+import { getToken } from '../../../utils/token';
 
 function EditItemsModal({
   modalType,
@@ -137,12 +138,12 @@ function EditItemsModal({
       addTagsError();
       return;
     }
-    editPostRequest(URL, sendingData, onUpdateData);
+    editPostRequest(URL, sendingData, onUpdateData, getToken());
   };
 
   const deletePost = () => {
-    modalDeleteInOwner(deletePostURL, editItem.item);
-    modalDelete(URL, onUpdateData);
+    modalDeleteInOwner(deletePostURL, editItem.item, getToken());
+    modalDelete(URL, onUpdateData, getToken());
     setEditItem({ item: '' });
   };
 

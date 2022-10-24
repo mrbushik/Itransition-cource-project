@@ -3,7 +3,7 @@
     "english":"english",
     "russian":"russian",
     "main page":"Main page",
-    "my collection": "My collection",
+    "my collection": "My collections",
     "log out": "LOG OUT",
     "log in": "LOG IN",
     "admin panel": "Admin panel",
@@ -80,7 +80,7 @@
     "hide": "Hide",
     "show": "Show",
     "search through collections": "Search through collections",
-    "resend email": "You are registered, but have not confirmed your email. Write your email and send a confirmation email and follow the link from the email. And try logging in again",
+    "resend email": "You are registered, but have not confirmed your email. Write your email and send a confirmation email and follow the link from the email, and try logging in again",
     "new": "At first new collection",
     "old": "At first old collection",
     "display": "Display"

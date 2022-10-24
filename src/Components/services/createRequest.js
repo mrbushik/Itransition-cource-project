@@ -1,19 +1,15 @@
 import axios from 'axios';
-const token = localStorage.getItem('token');
-const config = {
-  headers: { Authorization: 'Bearer ' + token },
-};
-export async function createCollection(url, data, updateCollections) {
+export async function createCollection(url, data, updateCollections, token) {
   await axios
-    .post(url, data, config)
+    .post(url, data, token)
     .then((response) => updateCollections())
     .catch((error) => {
       console.log(error);
     });
 }
-export async function writeCommentRequest(url, data, getCollectionComments) {
+export async function writeCommentRequest(url, data, getCollectionComments, token) {
   await axios
-    .post(url, data, config)
+    .post(url, data, token)
     .then((response) => getCollectionComments())
     .catch((error) => {
       console.log(error);

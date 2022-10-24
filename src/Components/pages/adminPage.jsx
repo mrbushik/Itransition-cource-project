@@ -10,10 +10,12 @@ import UserTableItem from '../ui/userTableItem';
 import EditButtons from '../common/buttons/editButtons';
 import NavBar from '../navigation/navBar';
 import { logout } from '../utils/logout';
+import { getToken } from '../utils/token';
 
 function AdminPage() {
   const { t } = useTranslation();
   const history = useHistory();
+  const dispatch = useDispatch();
 
   const [selectedUser, setSelectedUser] = useState({
     user: '',
@@ -26,10 +28,9 @@ function AdminPage() {
   const role = localStorage.getItem('role');
   const allUsersURL = `${process.env.REACT_APP_DOMAIN_NAME}/api/all-users`;
 
-  const dispatch = useDispatch();
   const allUsers = useSelector(({ adminData }) => adminData.users);
 
-  const updateUsers = () => dispatch(getAllUsers(allUsersURL));
+  const updateUsers = () => dispatch(getAllUsers(allUsersURL, getToken()));
 
   useEffect(() => {
     if (role !== 'ADMIN') history.push('/');
@@ -68,6 +69,7 @@ function AdminPage() {
     requests[buttonIndex](
       `${process.env.REACT_APP_DOMAIN_NAME}/api/change-status/${selectedUser.user}`,
       updateUsers,
+      getToken(),
     );
   };
 

@@ -16,10 +16,12 @@ function CollectionPosts() {
   const { t } = useTranslation();
   const [collectionData, setCollectionData] = useState();
 
-  const handleUpdateData = () => getPosts(setCollectionData, params);
+  const postsURL = `${process.env.REACT_APP_DOMAIN_NAME}/api/collection/${params.Id}`;
+
+  const handleUpdateData = () => getPosts(postsURL, setCollectionData, params);
 
   useEffect(() => {
-    getPosts(setCollectionData, params);
+    getPosts(postsURL, setCollectionData, params);
   }, []);
 
   return (

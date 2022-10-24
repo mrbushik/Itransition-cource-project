@@ -14,6 +14,9 @@ function Login() {
   const { type } = useParams();
   const history = useHistory();
 
+  const singUpURL = `${process.env.REACT_APP_DOMAIN_NAME}/api/api/sign-up`;
+  const loginURL = `${process.env.REACT_APP_DOMAIN_NAME}/api/login`;
+
   const [formType, setFormType] = useState(type === 'register' ? type : 'login');
   const [successfulSigup, setSuccessfulSigup] = useState(false);
   const [errors, setErrors] = useState();
@@ -29,13 +32,11 @@ function Login() {
   };
 
   const sendingTargetForm = (data) => {
-    formType === 'login'
-      ? loginRequest('http://localhost:5000/api/login', data, setErrors, setAuth)
-      : registration(data);
+    formType === 'login' ? loginRequest(loginURL, data, setErrors, setAuth) : registration(data);
   };
 
   const registration = (data) => {
-    registrationRequest(data, setErrors, setAuth);
+    registrationRequest(singUpURL, data, setErrors, setAuth);
   };
 
   const writeUserData = () => {
@@ -104,7 +105,7 @@ function Login() {
                   <RegisterForm toggleFormType={togleFormType} onSubmit={handleSubmit} />
                 )}
               </div>
-              {errors && <span className="text-danger mt-2 mb-2">{errors}</span>}
+              {errors && <span className="text-danger mt-2 mb-2">{errors.message}</span>}
             </form>
           </div>
         </div>

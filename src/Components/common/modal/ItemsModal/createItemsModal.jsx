@@ -9,9 +9,12 @@ import { addPost } from '../../../services/modalRequests';
 import TextField from '../../form/textField';
 import TagsField from '../../form/tagsField';
 import CustomField from '../../form/customField';
+import { getToken } from '../../../utils/token';
 
 function CreateItemsModal({ onClose, fieldsCount, addingFields, collectionId, onUpdateData }) {
   const { t } = useTranslation();
+  const addPostURL = `${process.env.REACT_APP_DOMAIN_NAME}/api/add-posts`;
+
   const [postItem, setPostItem] = useState({ name: '' });
   const [tags, setTags] = useState([]);
   const [fieldValue, setFieldValue] = useState([]);
@@ -107,7 +110,7 @@ function CreateItemsModal({ onClose, fieldsCount, addingFields, collectionId, on
       addTagsError();
       return;
     }
-    addPost(sendingData, onUpdateData);
+    addPost(addPostURL, sendingData, onUpdateData, getToken());
     clearData();
   };
 

@@ -1,28 +1,18 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import { logout } from '../utils/logout';
+
 import SwitchLanguage from '../common/buttons/switchLanguage';
 import ThemeSwither from '../common/buttons/themeSwither';
-// import { logoutRequest } from '../services/loginRequest';
-import { logout } from '../utils/logout';
+
 function NavBar() {
   const { t } = useTranslation();
-
-  // const logoutURL = `${process.env.REACT_APP_DOMAIN_NAME}/api/logout`;
 
   const userName = localStorage.getItem('user');
   const userRole = localStorage.getItem('role');
 
   const [menu, setMenu] = useState(false);
-
-  // const deleteUserData = () => {
-  //   localStorage.removeItem('user');
-  //   localStorage.removeItem('token');
-  //   localStorage.removeItem('role');
-  //   localStorage.removeItem('userId');
-  //   logoutRequest(logoutURL);
-  //   document.cookie = '';
-  // };
 
   const toggleMenu = () => setMenu(!menu);
 

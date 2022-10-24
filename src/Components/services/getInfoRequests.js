@@ -1,45 +1,10 @@
 import axios from 'axios';
-
-const token = localStorage.getItem('token');
-const config = {
-  headers: { Authorization: 'Bearer ' + token },
-};
-
-// export function getUserCollection(url, setCollections) {
-//   axios
-//     .get(url, config)
-
-//     .then((response) => response)
-//     .then((response) =>
-//       response.data.collections.length === 0
-//         ? setCollections([])
-//         : setCollections(response.data.collections),
-//     )
-//     .catch((error) => console.log(error));
-// }
-
-export function getPosts(setCollectionData, params) {
+export function getPosts(url, setCollectionData) {
   axios
-    .get(`http://localhost:5000/api/collection/${params.Id}`)
+    .get(url)
     .then((data) => setCollectionData(data.data))
     .catch((error) => console.log(error));
 }
-
-// export function getNewPosts(url, setNewPosts) {
-//   axios
-//     .get(url)
-//     .then((data) => setNewPosts(data.data))
-//     .catch((error) => console.log(error));
-// }
-
-// export function getLagestCollections(url, setCollection) {
-//   axios
-//     .get(url)
-//     .then((data) => setCollection(data.data))
-//     .catch((error) => {
-//       console.log(error);
-//     });
-// }
 
 export function getAllTags(url, getTargetData, setSuggestions) {
   axios
@@ -68,16 +33,6 @@ export async function getCollectionComments(url, setCollections) {
     .then((data) => {
       setCollections(data.data);
     })
-    .catch((error) => {
-      console.log(error);
-    });
-}
-export async function fullTextSearch(url, data) {
-  await axios
-    .post(url, data)
-    // .then((data) => {
-    //   setCollections(data.data);
-    // })
     .catch((error) => {
       console.log(error);
     });

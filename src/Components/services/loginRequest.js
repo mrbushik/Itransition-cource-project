@@ -2,24 +2,23 @@ import axios from 'axios';
 export function loginRequest(url, data, setRequestStatus, setUserInfo) {
   axios
     .post(url, data)
-    .then((response) => response)
     .then((data) => setUserInfo(data.data))
     .catch((error) => {
       setRequestStatus(error.response.data);
     });
 }
-export function registrationRequest(data, setRequestStatus, setUserInfo) {
+export function registrationRequest(url, data, setRequestStatus, setUserInfo) {
   axios
-    .post('http://localhost:5000/api/sign-up', data)
+    .post(url, data)
     .then((data) => setUserInfo(data.data))
     .catch((error) => {
       setRequestStatus(error.response.data);
     });
 }
 
-export function activateRequest(data, setRequestStatus) {
+export function activateRequest(url, data, setRequestStatus) {
   axios
-    .post('http://localhost:5000/api/email', { email: data })
+    .post(url, { email: data })
     .then((data) => data.data)
     .catch((error) => {
       setRequestStatus(error);
@@ -27,10 +26,7 @@ export function activateRequest(data, setRequestStatus) {
 }
 
 export function logoutRequest(url, token) {
-  axios
-    .post(url, { refreshToken: token })
-    .then((response) => response)
-    .catch((error) => {
-      console.log(error);
-    });
+  axios.post(url, { refreshToken: token }).catch((error) => {
+    console.log(error);
+  });
 }

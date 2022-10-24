@@ -3,18 +3,21 @@ const initialState = {
   filterValue: 'new',
 };
 const filter = (state = initialState, action) => {
-  if (action.type === 'CHANGE_FILTER') {
-    return {
-      ...state,
-      filter: action.payload,
-    };
-  } else if (action.type === 'CHANGE_FILTER_VALUE') {
-    return {
-      ...state,
-      filterValue: action.payload,
-    };
+  switch (action.type) {
+    case 'CHANGE_FILTER':
+      return {
+        ...state,
+        filter: action.payload,
+      };
+    case 'CHANGE_FILTER_VALUE':
+      return {
+        ...state,
+        filterValue: action.payload,
+      };
+
+    default:
+      return state;
   }
-  return state;
 };
 
 export default filter;

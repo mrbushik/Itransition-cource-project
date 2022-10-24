@@ -1,8 +1,5 @@
 import axios from 'axios';
-const token = localStorage.getItem('token');
-const config = {
-  headers: { Authorization: 'Bearer ' + token },
-};
+
 export const userCollection = (theme) => ({
   type: 'CHANGE_COLLECTION',
   payload: theme,
@@ -28,9 +25,9 @@ export const colectionsByTags = (theme) => ({
   payload: theme,
 });
 
-export const getCollections = (url) => (dispatch) => {
+export const getCollections = (url, token) => (dispatch) => {
   axios
-    .get(url, config)
+    .get(url, token)
     .then((response) =>
       response.data.collections.length === 0
         ? dispatch(userCollection([]))

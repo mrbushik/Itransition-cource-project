@@ -12,10 +12,10 @@ function App() {
   return (
     <>
       <Switch>
+        <Route path="/login" component={Login} />
         <Route path="/admin-panel" component={AdminPage} />
         <Route path="/admin-collections/:Id" component={CollectionPosts} />
         <Route path="/admin-collections" component={AdminCollections} />
-        <Route path="/login" component={Login} />
         <Route path="/collection/:Id" component={CollectionPosts} />
         <Route path="/collection" component={UserPage} />
         <Route path="/:Id" component={UsersCollections} />

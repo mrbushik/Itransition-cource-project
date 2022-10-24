@@ -15,6 +15,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { changeCurrentPageAtUser } from '../redux/actions/currentPaginatePage';
 import { getCollections } from '../redux/actions/userCollection';
 import Filter from '../ui/filter';
+import { getToken } from '../utils/token';
 
 function UserPage() {
   let croppedCollection;
@@ -39,13 +40,13 @@ function UserPage() {
   }, []);
 
   useEffect(() => {
-    dispatch(getCollections(URL));
+    dispatch(getCollections(URL, getToken()));
   }, []);
 
   useEffect(() => {
-    if (Math.ceil(userCollection.length / 3) < currentPage) {
+    if (userCollection.length !== 0 && Math.ceil(userCollection.length / 3) < currentPage) {
       dispatch(changeCurrentPageAtUser(1));
-      dispatch(getCollections(URL));
+      dispatch(getCollections(URL, getToken()));
     }
   }, [userCollection]);
 

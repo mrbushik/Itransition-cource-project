@@ -13,6 +13,7 @@ import {
 import SelectField from '../../form/selectedField';
 import TextAreaField from '../../form/textAreaField';
 import TextField from '../../form/textField';
+import { getToken } from '../../../utils/token';
 
 function EditModal({ modalType, collections, onActive, updateCollectionsData }) {
   let targetElement;
@@ -92,15 +93,16 @@ function EditModal({ modalType, collections, onActive, updateCollectionsData }) 
   const isValid = Object.keys(errors).length === 0;
 
   const collectionEdit = (URL) => {
-    editCollectionRequest(URL, modifiedCollection, updateCollectionsData);
+    editCollectionRequest(URL, modifiedCollection, updateCollectionsData, getToken());
   };
 
   const deleteCollection = (URL, collectionId, ownerId) => {
     modalDeleteInOwner(
       `${process.env.REACT_APP_DOMAIN_NAME}/api/delete-collection-user/${ownerId}`,
       collectionId,
+      getToken(),
     );
-    modalDelete(URL, updateCollectionsData);
+    modalDelete(URL, updateCollectionsData, getToken());
     setEditItem({ item: '' });
     onActive();
   };
