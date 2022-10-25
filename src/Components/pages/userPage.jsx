@@ -56,7 +56,6 @@ function UserPage() {
 
   return (
     <>
-      <NavBar />
       <EditButtons
         onToggle={toggleActiveModal}
         btnList={
@@ -95,7 +94,7 @@ function UserPage() {
       {userCollection && (
         <div>
           <div className="mx-auto mt-4" style={{ width: '250px' }}>
-            {userCollection ? (
+            {userCollection &&
               croppedCollection.map((item, index) => (
                 <UserCollection
                   link={'collection/'}
@@ -109,10 +108,7 @@ function UserPage() {
                   collectionDescription={item.collectionDescription}
                   {...item}
                 />
-              ))
-            ) : (
-              <div> {t("haven't collections")}</div>
-            )}
+              ))}
           </div>
           {userCollection && (
             <Paginate

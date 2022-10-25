@@ -26,12 +26,11 @@ function MainPage() {
 
   return (
     <>
-      <NavBar />
-      {lagestCollection && lagestCollection.length > 0 ? (
+      {lagestCollection && lagestCollection.length > 0 && (
         <div>
           <Searcher />
           <TagsSearch />
-          {newPostsCollection && newPostsCollection.collections.length > 0 ? (
+          {newPostsCollection && newPostsCollection.collections.length > 0 && (
             <div>
               <h4 className="ms-3 mt-3">{t('last posts')}</h4>
               <div className="mt-4 d-flex justify-content-center flex-wrap">
@@ -52,10 +51,8 @@ function MainPage() {
                 ))}
               </div>
             </div>
-          ) : (
-            ''
           )}
-          {lagestCollection && lagestCollection.length > 0 ? (
+          {lagestCollection && lagestCollection.length > 0 && (
             <div>
               <h4 className="ms-3 mt-3">{t('lagest collections')}</h4>
               <div className="mt-4 d-flex justify-content-center flex-wrap">
@@ -75,11 +72,10 @@ function MainPage() {
                 ))}
               </div>
             </div>
-          ) : (
-            ''
           )}
         </div>
-      ) : (
+      )}
+      {lagestCollection && lagestCollection.length === 0 && (
         <div className="text-danger  mt-5 fs-5 text-center px-3">{t('without collections')}</div>
       )}
     </>

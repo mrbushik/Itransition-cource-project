@@ -2,19 +2,19 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
+import { useSelector } from 'react-redux';
 
 import { WithContext as ReactTags } from 'react-tag-input';
-import { getAllTags } from '../../services/getInfoRequests';
 
 function TagsField({ handleDelete, tags, handleAddition, error }) {
   const { t } = useTranslation();
-  const tagsURL = `${process.env.REACT_APP_DOMAIN_NAME}/api/all-tags`;
+  const allTags = useSelector(({ selectedTagSearch }) => selectedTagSearch.allTags);
 
   const [suggestions, setSuggestions] = useState();
 
   useEffect(() => {
-    getAllTags(tagsURL, getTargetData, setSuggestions);
-  }, [tags]);
+    getTargetData(allTags);
+  }, [allTags]);
 
   const getTargetData = (data) => {
     const suggestionsData = [];
@@ -22,7 +22,7 @@ function TagsField({ handleDelete, tags, handleAddition, error }) {
       const suggestionItem = { id: data[i], text: data[i] };
       suggestionsData.push(suggestionItem);
     }
-    return suggestionsData;
+    setSuggestions(suggestionsData);
   };
 
   const KeyCodes = {

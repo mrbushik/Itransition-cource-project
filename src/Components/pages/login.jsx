@@ -44,7 +44,6 @@ function Login() {
     localStorage.setItem('token', auth.accessToken);
     localStorage.setItem('role', auth.user.roles[0]);
     localStorage.setItem('userId', auth.user._id);
-    document.cookie = auth.refreshToken;
   };
 
   useEffect(() => {

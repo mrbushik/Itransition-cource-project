@@ -52,7 +52,6 @@ function AdminCollections() {
   const toggleActiveModal = (value) => setActiveModal(+value);
   return (
     <>
-      <NavBar />
       {adminCollections && adminCollections.collections.length > 0 ? (
         <div>
           <div>

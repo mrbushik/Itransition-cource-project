@@ -1,13 +1,23 @@
 const initialState = {
   selectedTagSearch: '',
+  allTags: [],
 };
+
 const selectedTagSearch = (state = initialState, action) => {
-  if (action.type === 'CHANGE_SELECTED_TAG_SEARCH') {
-    return {
-      selectedTagSearch: action.payload,
-    };
+  switch (action.type) {
+    case 'CHANGE_SELECTED_TAG_SEARCH':
+      return {
+        ...state,
+        selectedTagSearch: action.payload,
+      };
+    case 'ALL_TAGS':
+      return {
+        ...state,
+        allTags: action.payload,
+      };
+    default:
+      return state;
   }
-  return state;
 };
 
 export default selectedTagSearch;

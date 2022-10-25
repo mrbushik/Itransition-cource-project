@@ -13,10 +13,9 @@ function CommentsForm({ collectionId }) {
   const { t } = useTranslation();
   const user = localStorage.getItem('user');
   const userId = localStorage.getItem('userId');
-  const token = localStorage.getItem('token');
 
-  const getCommentsURL = `http://localhost:5000/api/get-collection-comments/${collectionId}`;
-  const sendCommentURL = 'http://localhost:5000/api/add-comment';
+  const getCommentsURL = `${process.env.REACT_APP_DOMAIN_NAME}/api/get-collection-comments/${collectionId}`;
+  const sendCommentURL = `${process.env.REACT_APP_DOMAIN_NAME}/api/add-comment`;
 
   const [commentsData, setCommentsData] = useState();
   const [comment, setComment] = useState({ commentText: '' });
@@ -29,11 +28,14 @@ function CommentsForm({ collectionId }) {
     collectionId: collectionId,
   };
 
-  const config = {
-    headers: { Authorization: 'Bearer ' + token },
-  };
-
   const getAllCollectionComments = () => getCollectionComments(getCommentsURL, setCommentsData);
+
+  useEffect(() => {
+    const massageInterval = setInterval(() => {
+      getAllCollectionComments();
+    }, 5000);
+    return () => clearInterval(massageInterval);
+  }, []);
 
   const sendComment = () => {
     writeCommentRequest(sendCommentURL, submitComment, getAllCollectionComments, getToken());

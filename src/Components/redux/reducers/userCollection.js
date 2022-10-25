@@ -1,5 +1,5 @@
 const initialState = {
-  collection: [],
+  collection: '',
   lagestCollection: '',
   lastPostCollection: '',
   collectionsTags: '',

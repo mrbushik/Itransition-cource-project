@@ -79,7 +79,6 @@ function AdminPage() {
 
   return (
     <>
-      <NavBar />
       <div className="d-flex justify-content-between flex-wrap">
         <EditButtons onToggle={handlRequest} btnList={buttons} />
         <div className="m-4">

@@ -6,16 +6,6 @@ export function getPosts(url, setCollectionData) {
     .catch((error) => console.log(error));
 }
 
-export function getAllTags(url, getTargetData, setSuggestions) {
-  axios
-    .get(url)
-    .then((data) => getTargetData(data.data))
-    .then((data) => setSuggestions(data))
-    .catch((error) => {
-      console.log(error);
-    });
-}
-
 export async function getTagCollectonsTotal(url, data, setCollectionsLength) {
   await axios
     .post(url, data)
@@ -33,6 +23,16 @@ export async function getCollectionComments(url, setCollections) {
     .then((data) => {
       setCollections(data.data);
     })
+    .catch((error) => {
+      console.log(error);
+    });
+}
+export async function fullTextSearch(url, data) {
+  await axios
+    .post(url, data)
+    // .then((data) => {
+    //   setCollections(data.data);
+    // })
     .catch((error) => {
       console.log(error);
     });

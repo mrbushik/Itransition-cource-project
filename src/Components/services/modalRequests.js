@@ -8,8 +8,8 @@ export function editCollectionRequest(url, data, updateCollectionsData, token) {
       console.log(error);
     });
 }
-export function addPost(url, data, onUpdateData, token) {
-  axios
+export async function addPost(url, data, onUpdateData, token) {
+  await axios
     .post(url, data, token)
     .then((response) => onUpdateData())
     .catch((error) => {

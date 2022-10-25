@@ -11,7 +11,6 @@ import CommentsForm from '../common/form/commentsForm';
 function UsersCollections() {
   const params = useParams();
   const postsURL = `${process.env.REACT_APP_DOMAIN_NAME}/api/collection/${params.Id}`;
-  // console.log(postsURL);
   const [collectionData, setCollectionData] = useState();
 
   useEffect(() => {
@@ -20,7 +19,6 @@ function UsersCollections() {
 
   return (
     <>
-      <NavBar />
       <div className="d-flex justify-content-between">
         <BackBtn backLink={'/'} />
         {collectionData && <LikeBtn collectionId={collectionData._id} />}

@@ -8,5 +8,4 @@ export function logout() {
   localStorage.removeItem('role');
   localStorage.removeItem('userId');
   logoutRequest(logoutURL, refreshToken);
-  document.cookie = '';
 }
