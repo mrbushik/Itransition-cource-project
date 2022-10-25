@@ -1,12 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import _ from 'lodash';
+import _range from 'lodash/range';
 
 function Paginate({ countCollections, currentPage, onPageChange }) {
   const pageCount = Math.ceil(countCollections / 3);
   if (pageCount === 1) return null;
 
-  const pages = _.range(1, pageCount + 1);
+  const pages = _range(1, pageCount + 1);
 
   return (
     <nav>
@@ -24,6 +24,7 @@ function Paginate({ countCollections, currentPage, onPageChange }) {
     </nav>
   );
 }
+
 Paginate.propTypes = {
   countCollections: PropTypes.number,
   currentPage: PropTypes.number,

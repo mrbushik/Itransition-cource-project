@@ -3,32 +3,60 @@ import { useTranslation } from 'react-i18next';
 import { fullTextSearch } from '../services/getInfoRequests';
 
 import TextField from '../common/form/textField';
+import UserCollection from './userCollection';
+import { useHistory } from 'react-router-dom';
 
 function Searcher() {
   const { t } = useTranslation();
+  const history = useHistory();
 
-  const searchURL = 'https://jsonplaceholder.typicode.com/posts';
-  const [searchInfo, setSearchInfo] = useState({ searchText: '' });
-  const handleChange = (target) => {
-    setSearchInfo((prevState) => ({
-      ...prevState,
-      [target.name]: target.value,
-    }));
+  // const searchURL = `${process.env.REACT_APP_DOMAIN_NAME}/api/search`;
+  const searchURL = `https://mrbushik-course-server.herokuapp.com/api/search`;
+
+  const [collections, setCollections] = useState('');
+  const [searchInfo, setSearchInfo] = useState('');
+
+  const handleChange = ({ target }) => {
+    setSearchInfo((prevState) => target.value);
   };
-  // don't ready component
   useEffect(() => {
+    if (!searchInfo) setCollections();
     const request = setTimeout(() => {
-      fullTextSearch(searchURL, searchInfo.searchText);
-    }, 500);
+      if (searchInfo) fullTextSearch(searchURL, searchInfo, setCollections);
+    }, 1000);
     return () => {
       clearTimeout(request);
     };
   }, [searchInfo]);
 
+  const cleanValues = (e) => {
+    // setCollections();
+    // console.log(e.target.value);
+    history.push(`/${collections[0]._id}`);
+  };
+
   return (
-    <div>
+    <div className="position-relative">
       <h3>{t('search through collections')}</h3>
-      <TextField name="searchText" value={searchInfo.searchText} onChange={handleChange} />
+      <input value={searchInfo.searchText} onChange={handleChange} />
+      {/* <TextField name="searchText" value={searchInfo.searchText} onChange={handleChange} /> */}
+      <div className="position-absolute bg-light ps-4" onClick={(e) => cleanValues(e)}>
+        {collections &&
+          collections.map((item, index) => (
+            <UserCollection
+              link={'/'}
+              description={item.description}
+              key={index}
+              id={item._id}
+              type={item.type}
+              authorName={item.ownerName}
+              icon={item.icon}
+              name={item.name}
+              collectionDescription={item.collectionDescription}
+              {...item}
+            />
+          ))}
+      </div>
     </div>
   );
 }

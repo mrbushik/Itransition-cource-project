@@ -8,8 +8,7 @@ import { useTranslation } from 'react-i18next';
 
 import UserCollection from '../ui/userCollection';
 import Paginate from '../common/paginate';
-import NavBar from '../navigation/navBar';
-import EditButtons from '../common/buttons/editButtons';
+import EditBtn from '../common/buttons/editBtn';
 import EditModal from '../common/modal/collectionModal/editModal';
 
 function AdminCollections() {
@@ -60,10 +59,7 @@ function AdminCollections() {
                 <div>
                   <div>
                     {role && adminCollections.collections.length !== 0 && (
-                      <EditButtons
-                        onToggle={toggleActiveModal}
-                        btnList={[t('edit'), t('delete')]}
-                      />
+                      <EditBtn onToggle={toggleActiveModal} btnList={[t('edit'), t('delete')]} />
                     )}
                   </div>
                 </div>

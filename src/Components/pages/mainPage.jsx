@@ -4,7 +4,6 @@ import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import { getLagestCollections, getLastPostCollections } from '../redux/actions/userCollection';
 
-import NavBar from '../navigation/navBar';
 import UserCollection from '../ui/userCollection';
 import TagsSearch from '../ui/tagsSearch';
 import Searcher from '../ui/searcher';
@@ -26,11 +25,11 @@ function MainPage() {
 
   return (
     <>
-      {lagestCollection && lagestCollection.length > 0 && (
+      {lagestCollection && lagestCollection.length && (
         <div>
           <Searcher />
           <TagsSearch />
-          {newPostsCollection && newPostsCollection.collections.length > 0 && (
+          {newPostsCollection && newPostsCollection.collections.length && (
             <div>
               <h4 className="ms-3 mt-3">{t('last posts')}</h4>
               <div className="mt-4 d-flex justify-content-center flex-wrap">
@@ -52,7 +51,7 @@ function MainPage() {
               </div>
             </div>
           )}
-          {lagestCollection && lagestCollection.length > 0 && (
+          {lagestCollection && lagestCollection.length && (
             <div>
               <h4 className="ms-3 mt-3">{t('lagest collections')}</h4>
               <div className="mt-4 d-flex justify-content-center flex-wrap">
@@ -75,7 +74,7 @@ function MainPage() {
           )}
         </div>
       )}
-      {lagestCollection && lagestCollection.length === 0 && (
+      {lagestCollection && !lagestCollection.length && (
         <div className="text-danger  mt-5 fs-5 text-center px-3">{t('without collections')}</div>
       )}
     </>

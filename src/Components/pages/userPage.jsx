@@ -7,8 +7,7 @@ import { paginate } from '../utils/paginate';
 import UserCollection from '../ui/userCollection';
 import Modal from '../common/modal/collectionModal/modal';
 import EditModal from '../../Components/common/modal/collectionModal/editModal';
-import EditButtons from '../common/buttons/editButtons';
-import NavBar from '../navigation/navBar';
+import EditBtn from '../common/buttons/editBtn';
 import Paginate from '../common/paginate';
 
 import { useDispatch, useSelector } from 'react-redux';
@@ -56,11 +55,9 @@ function UserPage() {
 
   return (
     <>
-      <EditButtons
+      <EditBtn
         onToggle={toggleActiveModal}
-        btnList={
-          userCollection.length !== 0 ? [t('create'), t('edit'), t('delete')] : [t('create')]
-        }
+        btnList={userCollection.length ? [t('create'), t('edit'), t('delete')] : [t('create')]}
       />
       <div>
         {activeModal === 0 && (

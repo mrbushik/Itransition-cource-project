@@ -5,7 +5,6 @@ import { useParams } from 'react-router-dom';
 
 import BackBtn from '../common/buttons/backBtn';
 import PostsRender from '../common/postsRender';
-import NavBar from '../navigation/navBar';
 import LikeBtn from '../common/buttons/likeBtn';
 import CommentsForm from '../common/form/commentsForm';
 function UsersCollections() {

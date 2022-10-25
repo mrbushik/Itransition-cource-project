@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-function EditButtons({ onToggle, btnList }) {
+function EditBtn({ onToggle, btnList }) {
   return (
     <div className="m-3 ">
       {btnList.map((item, index) => (
@@ -18,9 +18,9 @@ function EditButtons({ onToggle, btnList }) {
   );
 }
 
-EditButtons.propTypes = {
+EditBtn.propTypes = {
   onToggle: PropTypes.func.isRequired,
   btnList: PropTypes.arrayOf(PropTypes.string).isRequired,
 };
 
-export default EditButtons;
+export default EditBtn;

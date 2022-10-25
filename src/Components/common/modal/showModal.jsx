@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 
-import EditButtons from '../buttons/editButtons';
+import EditBtn from '../buttons/editBtn';
 import CreateItemsModal from './ItemsModal/createItemsModal';
 import EditItemsModal from './ItemsModal/editItemsModal';
 
@@ -13,7 +13,7 @@ function ShowModal({ btnList, collectionId, data, onUpdateData }) {
   const toggleActiveModal = (value) => setActiveModal(+value);
   return (
     <>
-      <EditButtons onToggle={toggleActiveModal} btnList={btnList} />
+      <EditBtn onToggle={toggleActiveModal} btnList={btnList} />
       {activeModal === 0 && (
         <CreateItemsModal
           fieldsCount={data.postsTemplate.length - 2}

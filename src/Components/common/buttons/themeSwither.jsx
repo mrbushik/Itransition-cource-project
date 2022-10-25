@@ -12,6 +12,7 @@ function ThemeSwither() {
   const onToggleTheme = (theme) => dispatch(changeTheme(theme));
 
   const handleChangeTeme = () => {
+    // TODO: change hardcodevalue to pseudo enum
     colorMod ? handlTheme(false, 'light') : handlTheme(true, 'dark');
   };
 

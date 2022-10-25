@@ -5,6 +5,7 @@ import { logout } from '../utils/logout';
 
 import SwitchLanguage from '../common/buttons/switchLanguage';
 import ThemeSwither from '../common/buttons/themeSwither';
+import Searcher from '../ui/searcher';
 
 function NavBar() {
   const { t } = useTranslation();
@@ -113,6 +114,7 @@ function NavBar() {
         <div className="mx-3 d-flex align-items-center px-3 dark-mode">
           <SwitchLanguage />
         </div>
+        {/* <Searcher /> */}
         <div className="mx-3 ">
           <ThemeSwither />
         </div>

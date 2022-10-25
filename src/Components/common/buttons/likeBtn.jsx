@@ -2,24 +2,21 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { checkLikeRequest, putLikeRequest } from '../../services/likeRequsts';
-
+import { getToken } from '../../utils/token';
+// TODO: поменять пропсы и сделать чтоб срвзу коллекция приходила
 function LikeBtn(collectionId) {
   const [like, setLike] = useState({
     putLike: false,
     likeCount: 0,
   });
+
   const [errors, setErrors] = useState();
 
-  const token = localStorage.getItem('token');
   const userId = localStorage.getItem('userId');
   const putLikeURL = `${process.env.REACT_APP_DOMAIN_NAME}/api/add-like/${collectionId.collectionId}`;
   const checkLikeURL = `${process.env.REACT_APP_DOMAIN_NAME}/api/check-like/${collectionId.collectionId}`;
 
-  const config = {
-    headers: { Authorization: 'Bearer ' + token },
-  };
-
-  const putLike = () => putLikeRequest(putLikeURL, userId, checkLike, setErrors, config);
+  const putLike = () => putLikeRequest(putLikeURL, userId, checkLike, setErrors, getToken());
 
   const checkLike = () => checkLikeRequest(checkLikeURL, userId, setLike);
 

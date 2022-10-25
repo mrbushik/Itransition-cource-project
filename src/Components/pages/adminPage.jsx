@@ -7,8 +7,7 @@ import { Link, useHistory } from 'react-router-dom';
 import { unblock, block, deleteUser, getAdmin, pickUpAdmin } from '../services/adminRequests';
 
 import UserTableItem from '../ui/userTableItem';
-import EditButtons from '../common/buttons/editButtons';
-import NavBar from '../navigation/navBar';
+import EditBtn from '../common/buttons/editBtn';
 import { logout } from '../utils/logout';
 import { getToken } from '../utils/token';
 
@@ -80,7 +79,7 @@ function AdminPage() {
   return (
     <>
       <div className="d-flex justify-content-between flex-wrap">
-        <EditButtons onToggle={handlRequest} btnList={buttons} />
+        <EditBtn onToggle={handlRequest} btnList={buttons} />
         <div className="m-4">
           <Link to="admin-collections">
             <div className="btn btn-secondary  ">{t('Check users collections')}</div>
