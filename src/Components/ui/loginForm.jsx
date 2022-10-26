@@ -9,6 +9,7 @@ import { activateRequest } from '../services/loginRequest';
 import TextField from '../common/form/textField';
 import ActivateMail from './activateMail';
 import HideBtn from '../common/buttons/hideBtn';
+import transtateKeys from '../translate/transtateKeys';
 
 function LoginForm({ toggleFormType, onSubmit, successfulSigup, authData, loginError }) {
   const { t } = useTranslation();
@@ -36,15 +37,15 @@ function LoginForm({ toggleFormType, onSubmit, successfulSigup, authData, loginE
   const validatorConfig = {
     password: {
       isRequired: {
-        message: t('field required'),
+        message: t(transtateKeys.FIELD_REQUIRED),
       },
     },
     email: {
       isRequired: {
-        message: t('field required'),
+        message: t(transtateKeys.FIELD_REQUIRED),
       },
       isEmail: {
-        message: t('email error'),
+        message: t(transtateKeys.FILE_ERROR),
       },
     },
   };
@@ -76,14 +77,14 @@ function LoginForm({ toggleFormType, onSubmit, successfulSigup, authData, loginE
   return (
     <>
       <TextField
-        label={t('email')}
+        label={t(transtateKeys.EMAIL)}
         name="email"
         value={data.email}
         onChange={handleChange}
         error={errors.email}
       />
       <TextField
-        label={t('password')}
+        label={t(transtateKeys.PASSWORD)}
         type="password"
         name="password"
         value={data.password}
@@ -92,9 +93,9 @@ function LoginForm({ toggleFormType, onSubmit, successfulSigup, authData, loginE
       />
       {successfulSigup && loginError !== 'User is not activated' && (
         <div className="m-3">
-          <p>{t('success register')}</p>
+          <p>{t(transtateKeys.SUCCESS_REGISTER)}</p>
           <div className="btn btn-secondary" onClick={() => resendMail(authData.email)}>
-            {t('resend')}
+            {t(transtateKeys.RESEND)}
           </div>
         </div>
       )}
@@ -109,10 +110,10 @@ function LoginForm({ toggleFormType, onSubmit, successfulSigup, authData, loginE
         type="submit"
         disabled={!isValid}
         onClick={(e) => handleSubmit(e)}>
-        {t('submit')}
+        {t(transtateKeys.SUBMIT)}
       </button>
       <a role="button" onClick={toggleFormType}>
-        {t('sing up')}
+        {t(transtateKeys.SING_UP)}
       </a>
     </>
   );

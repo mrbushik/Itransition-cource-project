@@ -15,6 +15,7 @@ import { changeCurrentPageAtUser } from '../redux/actions/currentPaginatePage';
 import { getCollections } from '../redux/actions/userCollection';
 import Filter from '../ui/filter';
 import { getToken } from '../utils/token';
+import transtateKeys from '../translate/transtateKeys';
 
 function UserPage() {
   let croppedCollection;
@@ -57,7 +58,11 @@ function UserPage() {
     <>
       <EditBtn
         onToggle={toggleActiveModal}
-        btnList={userCollection.length ? [t('create'), t('edit'), t('delete')] : [t('create')]}
+        btnList={
+          userCollection.length
+            ? [t(transtateKeys.CREATE), t(transtateKeys.EDIT), t(transtateKeys.DELETE)]
+            : [t(transtateKeys.CREATE)]
+        }
       />
       <div>
         {activeModal === 0 && (
@@ -116,7 +121,9 @@ function UserPage() {
         </div>
       )}
       {userCollection && userCollection.length === 0 && (
-        <div className="text-danger  mt-4 fs-5  text-center px-3">{t('none collections')}</div>
+        <div className="text-danger  mt-4 fs-5  text-center px-3">
+          {t(transtateKeys.NONE_COLLECTIONS)}
+        </div>
       )}
     </>
   );

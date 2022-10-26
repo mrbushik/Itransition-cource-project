@@ -6,6 +6,7 @@ import { logout } from '../utils/logout';
 import SwitchLanguage from '../common/buttons/switchLanguage';
 import ThemeSwither from '../common/buttons/themeSwither';
 import Searcher from '../ui/searcher';
+import transtateKeys from '../translate/transtateKeys';
 
 function NavBar() {
   const { t } = useTranslation();
@@ -23,7 +24,7 @@ function NavBar() {
         <div className="container-fluid  p-2 dark-mode">
           <div>
             <Link to="/" className="text-decoration-none">
-              {t('main page')}
+              {t(transtateKeys.MAIN_PAGE)}
             </Link>
           </div>
           <button className="navbar-toggler white-element" onClick={toggleMenu}>
@@ -34,17 +35,15 @@ function NavBar() {
               <li className="nav-item">
                 {userName && (
                   <Link to="/collection" className="text-decoration-none ms-3">
-                    {t('my collection')}
+                    {t(transtateKeys.MY_COLLECTON)}
                   </Link>
                 )}
               </li>
               <li>
-                {userRole === 'ADMIN' ? (
+                {userRole === 'ADMIN' && (
                   <Link to="/admin-panel" className="text-decoration-none ms-3">
-                    {t('admin panel')}
+                    {t(transtateKeys.ADMIN_PANEL)}
                   </Link>
-                ) : (
-                  ''
                 )}
               </li>
             </ul>
@@ -55,11 +54,11 @@ function NavBar() {
                 {userName && <div className="vr bg-dark white-element"></div>}
                 {userName ? (
                   <Link to="/login" className={'navbar-brand ms-2 '} onClick={logout}>
-                    {t('log out')}
+                    {t(transtateKeys.LOG_OUT)}
                   </Link>
                 ) : (
                   <Link to="/login" className={'navbar-brand ms-2 '} onClick={logout}>
-                    {t('log in')}
+                    {t(transtateKeys.LOG_IN)}
                   </Link>
                 )}
               </div>
@@ -67,18 +66,18 @@ function NavBar() {
           </div>
         </div>
       </nav>
-      {menu ? (
+      {menu && (
         <div className="nav-phone__menu pb-3 white-element bg-secondary bg-opacity-10 pt-3">
           <div className="text-center white-element ">
             {userName && <span className="fs-4 mx-2">{userName}</span>}
             {userName && <div className="vr bg-dark dark-mode"></div>}
             {userName ? (
               <Link to="/login" className={'navbar-brand ms-2 white-element'} onClick={logout}>
-                {t('log out')}
+                {t(transtateKeys.LOG_OUT)}
               </Link>
             ) : (
               <Link to="/login" className={'navbar-brand ms-2 white-element'} onClick={logout}>
-                {t('log in')}
+                {t(transtateKeys.LOG_IN)}
               </Link>
             )}
           </div>
@@ -86,17 +85,15 @@ function NavBar() {
             <li className="nav-item">
               {userName && (
                 <Link to="/collection" className="text-decoration-none ms-3 white-element">
-                  {t('my collection')}
+                  {t(transtateKeys.MY_COLLECTON)}
                 </Link>
               )}
             </li>
             <li>
-              {userRole === 'ADMIN' ? (
+              {userRole === 'ADMIN' && (
                 <Link to="/admin-panel" className="text-decoration-none ms-3 white-element">
-                  {t('admin panel')}
+                  {t(transtateKeys.ADMIN_PANEL)}
                 </Link>
-              ) : (
-                ''
               )}
             </li>
           </ul>
@@ -107,8 +104,6 @@ function NavBar() {
             <ThemeSwither />
           </div>
         </div>
-      ) : (
-        ''
       )}
       <div className="d-flex align-items-center justify-content-between dark-mode nav-toggle__buttons">
         <div className="mx-3 d-flex align-items-center px-3 dark-mode">

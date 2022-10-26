@@ -24,9 +24,9 @@ function PostsRender({ data }) {
             <table className="table mt-4">
               <thead>
                 <tr>
-                  <th scope="col">{t('id')}</th>
+                  <th scope="col">{t(transtateKeys.ID)}</th>
                   <th scope="col">{t(transtateKeys.TAGS)}</th>
-                  <th scope="col">{t('post name')}</th>
+                  <th scope="col">{t(transtateKeys.POST_NAME)}</th>
                   {postsTemplate?.map((item, index) => (
                     <th key={index}>{item.description}</th>
                   ))}

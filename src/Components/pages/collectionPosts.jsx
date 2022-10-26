@@ -11,6 +11,7 @@ import PostsRender from '../common/postsRender';
 import LikeBtn from '../common/buttons/likeBtn';
 import CommentsForm from '../common/form/commentsForm';
 import { getAllTags } from '../redux/actions/selectedTag';
+import transtateKeys from '../translate/transtateKeys';
 
 function CollectionPosts() {
   const params = useParams();
@@ -29,7 +30,6 @@ function CollectionPosts() {
 
   useEffect(() => {
     handleUpdateData();
-    // getPosts(postsURL, setCollectionData, params);
   }, []);
 
   return (
@@ -41,7 +41,9 @@ function CollectionPosts() {
       {collectionData && (
         <ShowModal
           btnList={
-            !collectionData.posts.length ? [t('create')] : [t('create'), t('edit'), t('delete')]
+            !collectionData.posts.length
+              ? [t(transtateKeys.CREATE)]
+              : [t(transtateKeys.CREATE), t(transtateKeys.EDIT), t(transtateKeys.DELETE)]
           }
           collectionId={params.Id}
           data={collectionData}

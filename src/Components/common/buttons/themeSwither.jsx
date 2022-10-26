@@ -2,18 +2,18 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { changeTheme } from '../../redux/actions/theme';
+import themeKeys from '../../theme/themeKeys';
 function ThemeSwither() {
   const dispatch = useDispatch();
   const theme = useSelector(({ theme }) => theme.theme);
   const currentTheme = localStorage.getItem('theme');
 
-  const [colorMod, setColorMod] = useState(currentTheme === 'dark' ? true : false);
+  const [colorMod, setColorMod] = useState(currentTheme === themeKeys.DARK ? true : false);
 
   const onToggleTheme = (theme) => dispatch(changeTheme(theme));
 
   const handleChangeTeme = () => {
-    // TODO: change hardcodevalue to pseudo enum
-    colorMod ? handlTheme(false, 'light') : handlTheme(true, 'dark');
+    colorMod ? handlTheme(false, themeKeys.LIGHT) : handlTheme(true, themeKeys.DARK);
   };
 
   const handlTheme = (mode, theme) => {
@@ -24,7 +24,7 @@ function ThemeSwither() {
 
   useEffect(() => {
     const body = document.querySelector('html');
-    theme === 'dark' ? body.classList.add('dark-page') : body.classList.remove('dark-page');
+    theme === themeKeys.DARK ? body.classList.add('dark-page') : body.classList.remove('dark-page');
   }, [colorMod]);
 
   return (

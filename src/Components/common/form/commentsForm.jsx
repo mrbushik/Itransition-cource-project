@@ -8,6 +8,7 @@ import { getCollectionComments } from '../../services/getInfoRequests';
 import CommentBody from '../../ui/commentBody';
 import { writeCommentRequest } from '../../services/createRequest';
 import { getToken } from '../../utils/token';
+import transtateKeys from '../../translate/transtateKeys';
 
 function CommentsForm({ collectionId }) {
   const { t } = useTranslation();
@@ -51,7 +52,9 @@ function CommentsForm({ collectionId }) {
   }, [comment]);
 
   const handleSubmit = () => {
-    comment.commentText ? sendComment() : setError({ commentText: t('field required') });
+    comment.commentText
+      ? sendComment()
+      : setError({ commentText: t(transtateKeys.FIELD_REQUIRED) });
   };
 
   const handleChange = (target) => {
@@ -68,10 +71,10 @@ function CommentsForm({ collectionId }) {
       ))}
       {user && (
         <div className="mt-5 me-5" style={{ maxWidth: '600px' }}>
-          <h5 className="mb-0">{t('write a comment')}</h5>
+          <h5 className="mb-0">{t(transtateKeys.WRITE_A_COMMENT)}</h5>
           <div>
             <TextAreaField
-              placeholder={t('write a comment')}
+              placeholder={t(transtateKeys.WRITE_A_COMMENT)}
               type="text"
               name="commentText"
               value={comment.commentText}
@@ -79,7 +82,7 @@ function CommentsForm({ collectionId }) {
               error={error.commentText}
             />
             <div className="btn btn-primary" onClick={handleSubmit}>
-              {t('send')}
+              {t(transtateKeys.SEND)}
             </div>
           </div>
         </div>

@@ -6,6 +6,7 @@ import { useTranslation } from 'react-i18next';
 
 import SelectField from './selectedField';
 import TextField from './textField';
+import transtateKeys from '../../translate/transtateKeys';
 
 function AddFieldForm({ handleChangeField, dataType, dataDescription, index, onDelete }) {
   const { t } = useTranslation();
@@ -27,12 +28,12 @@ function AddFieldForm({ handleChangeField, dataType, dataDescription, index, onD
   const validatorConfig = {
     type: {
       isRequired: {
-        message: t('field required'),
+        message: t(transtateKeys.FIELD_REQUIRED),
       },
     },
     description: {
       isRequired: {
-        message: t('field required'),
+        message: t(transtateKeys.FIELD_REQUIRED),
       },
     },
   };

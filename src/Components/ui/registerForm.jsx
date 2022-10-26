@@ -6,6 +6,7 @@ import { validator } from '../utils/validator';
 import PropTypes from 'prop-types';
 
 import TextField from '../common/form/textField';
+import transtateKeys from '../translate/transtateKeys';
 
 function RegisterForm({ toggleFormType, onSubmit }) {
   const { t } = useTranslation();
@@ -89,21 +90,21 @@ function RegisterForm({ toggleFormType, onSubmit }) {
   return (
     <>
       <TextField
-        label={t('username')}
+        label={t(transtateKeys.USERNAME)}
         name="username"
         value={data.username}
         onChange={handleChange}
         error={errors.username}
       />
       <TextField
-        label={t('email')}
+        label={t(transtateKeys.EMAIL)}
         name="email"
         value={data.email}
         onChange={handleChange}
         error={errors.email}
       />
       <TextField
-        label={t('password')}
+        label={t(transtateKeys.PASSWORD)}
         type="password"
         name="password"
         value={data.password}
@@ -111,7 +112,7 @@ function RegisterForm({ toggleFormType, onSubmit }) {
         error={errors.password}
       />
       <TextField
-        label={t('repeat password')}
+        label={t(transtateKeys.REPEATE_PASSWORD)}
         type="password"
         name="repeat"
         value={data.repeat}
@@ -123,10 +124,10 @@ function RegisterForm({ toggleFormType, onSubmit }) {
         type="submit"
         disabled={!isValid}
         onClick={(e) => handleSubmit(e)}>
-        {t('submit')}
+        {t(transtateKeys.SUBMIT)}
       </button>
       <a role="button" onClick={toggleFormType}>
-        {t('sing in')}
+        {t(transtateKeys.SING_IN)}
       </a>
     </>
   );

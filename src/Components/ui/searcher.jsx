@@ -40,21 +40,20 @@ function Searcher() {
       <input value={searchInfo.searchText} onChange={handleChange} />
       {/* <TextField name="searchText" value={searchInfo.searchText} onChange={handleChange} /> */}
       <div className="position-absolute bg-light ps-4" onClick={(e) => cleanValues(e)}>
-        {collections &&
-          collections.map((item, index) => (
-            <UserCollection
-              link={'/'}
-              description={item.description}
-              key={index}
-              id={item._id}
-              type={item.type}
-              authorName={item.ownerName}
-              icon={item.icon}
-              name={item.name}
-              collectionDescription={item.collectionDescription}
-              {...item}
-            />
-          ))}
+        {collections?.map((item, index) => (
+          <UserCollection
+            link={'/'}
+            description={item.description}
+            key={index}
+            id={item._id}
+            type={item.type}
+            authorName={item.ownerName}
+            icon={item.icon}
+            name={item.name}
+            collectionDescription={item.collectionDescription}
+            {...item}
+          />
+        ))}
       </div>
     </div>
   );

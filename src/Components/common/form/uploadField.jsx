@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 
 import { useTranslation } from 'react-i18next';
 import { uploadFile } from '../../services/modalRequests';
+import transtateKeys from '../../translate/transtateKeys';
 
 function UploadField({ name, onSave, isUrl }) {
   const [link, setLink] = useState('');
@@ -50,13 +51,13 @@ function UploadField({ name, onSave, isUrl }) {
           type="file"
           accept=".png,.jpeg,.jpg,.heic,.raw"
           className={getInputClasses()}
-          placeholder={t('upload field')}
+          placeholder={t(transtateKeys.UPLOAD_FIELD)}
           onChange={handleLink}
         />
         <button className="btn btn-outline-secondary" type="button" onClick={saveLink}>
-          {t('upload')}
+          {t(transtateKeys.UPLOAD)}
         </button>
-        {!isUrl && <p className="invalid-feedback text-danger">{t('upload error')}</p>}
+        {!isUrl && <p className="invalid-feedback text-danger">{t(transtateKeys.UPLOAD_ERROR)}</p>}
       </div>
       {errors && <div className="text-danger">{errors}</div>}
       {loading && <div className="lds-dual-ring "></div>}

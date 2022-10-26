@@ -10,6 +10,7 @@ import UserTableItem from '../ui/userTableItem';
 import EditBtn from '../common/buttons/editBtn';
 import { logout } from '../utils/logout';
 import { getToken } from '../utils/token';
+import transtateKeys from '../translate/transtateKeys';
 
 function AdminPage() {
   const { t } = useTranslation();
@@ -73,7 +74,7 @@ function AdminPage() {
   };
 
   const handlRequest = (buttonIndex) => {
-    selectedUser.user ? submitChanges(buttonIndex) : setErrors(t('choose user'));
+    selectedUser.user ? submitChanges(buttonIndex) : setErrors(t(transtateKeys.CHOOSE_USER));
   };
 
   return (
@@ -82,7 +83,7 @@ function AdminPage() {
         <EditBtn onToggle={handlRequest} btnList={buttons} />
         <div className="m-4">
           <Link to="admin-collections">
-            <div className="btn btn-secondary  ">{t('Check users collections')}</div>
+            <div className="btn btn-secondary  ">{t(transtateKeys.CHECK_USERS_COLLECTIONS)}</div>
           </Link>
         </div>
       </div>
@@ -91,10 +92,10 @@ function AdminPage() {
         <table className="table">
           <thead>
             <tr>
-              <th scope="col">{t('checkbox')}</th>
-              <th scope="col">{t('id')}</th>
-              <th scope="col">{t('username')}</th>
-              <th scope="col">{t('role')}</th>
+              <th scope="col">{t(transtateKeys.CHECKBOX)}</th>
+              <th scope="col">{t(transtateKeys.ID)}</th>
+              <th scope="col">{t(transtateKeys.USERNAME)}</th>
+              <th scope="col">{t(transtateKeys.ROLE)}</th>
             </tr>
           </thead>
           {allUsers && (

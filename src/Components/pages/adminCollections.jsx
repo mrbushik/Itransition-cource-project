@@ -10,6 +10,7 @@ import UserCollection from '../ui/userCollection';
 import Paginate from '../common/paginate';
 import EditBtn from '../common/buttons/editBtn';
 import EditModal from '../common/modal/collectionModal/editModal';
+import transtateKeys from '../translate/transtateKeys';
 
 function AdminCollections() {
   const role = localStorage.getItem('role');
@@ -51,29 +52,32 @@ function AdminCollections() {
   const toggleActiveModal = (value) => setActiveModal(+value);
   return (
     <>
-      {adminCollections && adminCollections.collections.length > 0 ? (
+      {adminCollections && adminCollections.collections.length ? (
         <div>
           <div>
             <div className="d-flex justify-content-between flex-wrap">
               {role === 'ADMIN' && (
                 <div>
                   <div>
-                    {role && adminCollections.collections.length !== 0 && (
-                      <EditBtn onToggle={toggleActiveModal} btnList={[t('edit'), t('delete')]} />
+                    {role && adminCollections.collections.length && (
+                      <EditBtn
+                        onToggle={toggleActiveModal}
+                        btnList={[t(transtateKeys.EDIT), t(transtateKeys.DELETE)]}
+                      />
                     )}
                   </div>
                 </div>
               )}
               <div className="m-4">
                 <Link to="admin-panel">
-                  <div className="btn btn-secondary">{t('to admin panel')}</div>
+                  <div className="btn btn-secondary">{t(transtateKeys.TO_ADMIN_PANEL)}</div>
                 </Link>
               </div>
             </div>
             {activeModal === 0 && adminCollections.collections && (
               <EditModal
                 collections={adminCollections.collections}
-                modalType={t('edit')}
+                modalType={t(transtateKeys.EDIT)}
                 onActive={toggleActiveModal}
                 updateCollectionsData={handleUpdateData}
               />
@@ -82,27 +86,25 @@ function AdminCollections() {
               <EditModal
                 collections={adminCollections.collections}
                 onActive={toggleActiveModal}
-                modalType={t('delete')}
+                modalType={t(transtateKeys.DELETE)}
                 updateCollectionsData={handleUpdateData}
               />
             )}
             <div className="mt-4 d-flex justify-content-center flex-wrap">
-              {adminCollections.collections
-                ? adminCollections.collections.map((item, index) => (
-                    <UserCollection
-                      link={'/admin-collections/'}
-                      description={item.description}
-                      key={index}
-                      id={item._id}
-                      type={item.type}
-                      authorName={item.ownerName}
-                      icon={item.icon}
-                      name={item.name}
-                      collectionDescription={item.collectionDescription}
-                      {...item}
-                    />
-                  ))
-                : ''}
+              {adminCollections?.collections?.map((item, index) => (
+                <UserCollection
+                  link={'/admin-collections/'}
+                  description={item.description}
+                  key={index}
+                  id={item._id}
+                  type={item.type}
+                  authorName={item.ownerName}
+                  icon={item.icon}
+                  name={item.name}
+                  collectionDescription={item.collectionDescription}
+                  {...item}
+                />
+              ))}
             </div>
           </div>
           {adminCollections.total > 3 && (
@@ -117,11 +119,11 @@ function AdminCollections() {
         <div>
           <div className="m-4">
             <Link to="admin-panel">
-              <div className="btn btn-secondary">{t('to admin panel')}</div>
+              <div className="btn btn-secondary">{t(transtateKeys.TO_ADMIN_PANEL)}</div>
             </Link>
           </div>
           {adminCollections.total === 0 && (
-            <p className="text-danger text-center fs-4">{t('none collections')}</p>
+            <p className="text-danger text-center fs-4">{t(transtateKeys.NONE_COLLECTIONS)}</p>
           )}
         </div>
       )}
