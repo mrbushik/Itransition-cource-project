@@ -63,8 +63,9 @@ function CommentsForm({ collectionId }) {
 
   return (
     <div className="mx-3 comments-form">
-      {commentsData &&
-        commentsData.map((comment) => <CommentBody key={comment._id} commentData={comment} />)}
+      {commentsData?.map((comment) => (
+        <CommentBody key={comment._id} commentData={comment} />
+      ))}
       {user && (
         <div className="mt-5 me-5" style={{ maxWidth: '600px' }}>
           <h5 className="mb-0">{t('write a comment')}</h5>

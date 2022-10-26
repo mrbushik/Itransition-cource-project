@@ -5,7 +5,6 @@ import PostItem from '../ui/postItem';
 import { useTranslation } from 'react-i18next';
 import transtateKeys from '../translate/transtateKeys';
 function PostsRender({ data }) {
-  // TODO: consaider to change t to readable varible nane
   const { t } = useTranslation();
   const postsTemplate = Object.values(data.postsTemplate);
   const postsTypeInfo = Object.values(data.postsTemplate);

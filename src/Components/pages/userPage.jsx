@@ -43,7 +43,7 @@ function UserPage() {
   }, []);
 
   useEffect(() => {
-    if (userCollection.length !== 0 && Math.ceil(userCollection.length / 3) < currentPage) {
+    if (userCollection.length && Math.ceil(userCollection.length / 3) < currentPage) {
       dispatch(changeCurrentPageAtUser(1));
       dispatch(getCollections(URL, getToken()));
     }
@@ -91,21 +91,20 @@ function UserPage() {
       {userCollection && (
         <div>
           <div className="mx-auto mt-4" style={{ width: '250px' }}>
-            {userCollection &&
-              croppedCollection.map((item, index) => (
-                <UserCollection
-                  link={'collection/'}
-                  description={item.description}
-                  key={index}
-                  id={item._id}
-                  type={item.type}
-                  authorName={item.ownerName}
-                  icon={item.icon}
-                  name={item.name}
-                  collectionDescription={item.collectionDescription}
-                  {...item}
-                />
-              ))}
+            {croppedCollection?.map((item, index) => (
+              <UserCollection
+                link={'collection/'}
+                description={item.description}
+                key={index}
+                id={item._id}
+                type={item.type}
+                authorName={item.ownerName}
+                icon={item.icon}
+                name={item.name}
+                collectionDescription={item.collectionDescription}
+                {...item}
+              />
+            ))}
           </div>
           {userCollection && (
             <Paginate

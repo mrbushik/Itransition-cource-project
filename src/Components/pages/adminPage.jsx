@@ -99,7 +99,7 @@ function AdminPage() {
           </thead>
           {allUsers && (
             <tbody>
-              {allUsers.map((user, index) => (
+              {allUsers.map((user) => (
                 <UserTableItem
                   selectedUser={selectedUser}
                   key={user._id}

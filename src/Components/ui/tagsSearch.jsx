@@ -16,8 +16,8 @@ function TagsSearch() {
   const currentPage = useSelector(({ changeCurrentPage }) => changeCurrentPage.tagPage);
   const searchTag = useSelector(({ selectedTagSearch }) => selectedTagSearch.selectedTagSearch);
 
-  const tagsURL = 'http://localhost:5000/api/all-tags';
-  const tagColectionsURL = `http://localhost:5000/api/get-collection-by-tag`;
+  const tagsURL = `${process.env.REACT_APP_DOMAIN_NAME}/api/all-tags`;
+  const tagColectionsURL = `${process.env.REACT_APP_DOMAIN_NAME}/api/get-collection-by-tag`;
 
   useEffect(() => {
     dispatch(getCollectionsTags(tagsURL));
@@ -48,7 +48,7 @@ function TagsSearch() {
 
   return (
     <>
-      {collectionsTags && collectionsTags.length > 0 && (
+      {collectionsTags && collectionsTags.length && (
         <div>
           <h4 className="text-center mt-4 mb-2">{t('tags cloud')}</h4>
           <div className="d-flex justify-content-center flex-wrap">
@@ -64,21 +64,20 @@ function TagsSearch() {
               ))}
           </div>
           <div className="mt-4 d-flex justify-content-center flex-wrap">
-            {collectionsByTag.collections &&
-              collectionsByTag.collections.map((item) => (
-                <UserCollection
-                  link={'/'}
-                  description={item.description}
-                  key={item._id}
-                  id={item._id}
-                  type={item.type}
-                  authorName={item.ownerName}
-                  icon={item.icon}
-                  name={item.name}
-                  collectionDescription={item.collectionDescription}
-                  {...item}
-                />
-              ))}
+            {collectionsByTag?.collections?.map((item) => (
+              <UserCollection
+                link={'/'}
+                description={item.description}
+                key={item._id}
+                id={item._id}
+                type={item.type}
+                authorName={item.ownerName}
+                icon={item.icon}
+                name={item.name}
+                collectionDescription={item.collectionDescription}
+                {...item}
+              />
+            ))}
           </div>
           {collectionsByTag && (
             <Paginate

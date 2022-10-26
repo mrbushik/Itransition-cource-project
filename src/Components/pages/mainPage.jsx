@@ -27,7 +27,7 @@ function MainPage() {
     <>
       {lagestCollection && lagestCollection.length && (
         <div>
-          <Searcher />
+          {/* <Searcher /> */}
           <TagsSearch />
           {newPostsCollection && newPostsCollection.collections.length && (
             <div>

@@ -12,9 +12,7 @@ function Paginate({ countCollections, currentPage, onPageChange }) {
     <nav>
       <ul className="pagination m-3">
         {pages.map((page) => (
-          <li
-            key={'page_' + page}
-            className={'page-item' + (page === currentPage ? ' active' : '')}>
+          <li key={'page_' + page} className={'page-item' + (page === currentPage ? 'active' : '')}>
             <button onClick={() => onPageChange(page)} className="page-link">
               {page}
             </button>

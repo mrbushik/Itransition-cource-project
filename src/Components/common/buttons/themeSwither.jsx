@@ -24,7 +24,7 @@ function ThemeSwither() {
 
   useEffect(() => {
     const body = document.querySelector('html');
-    theme === 'light' ? body.classList.remove('dark-page') : body.classList.add('dark-page');
+    theme === 'dark' ? body.classList.add('dark-page') : body.classList.remove('dark-page');
   }, [colorMod]);
 
   return (

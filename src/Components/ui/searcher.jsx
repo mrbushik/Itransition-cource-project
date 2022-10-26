@@ -10,8 +10,7 @@ function Searcher() {
   const { t } = useTranslation();
   const history = useHistory();
 
-  // const searchURL = `${process.env.REACT_APP_DOMAIN_NAME}/api/search`;
-  const searchURL = `https://mrbushik-course-server.herokuapp.com/api/search`;
+  const searchURL = `${process.env.REACT_APP_DOMAIN_NAME}/api/search`;
 
   const [collections, setCollections] = useState('');
   const [searchInfo, setSearchInfo] = useState('');

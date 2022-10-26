@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { checkLikeRequest, putLikeRequest } from '../../services/likeRequsts';
 import { getToken } from '../../utils/token';
 // TODO: поменять пропсы и сделать чтоб срвзу коллекция приходила
-function LikeBtn(collectionId) {
+function LikeBtn({ collectionId }) {
   const [like, setLike] = useState({
     putLike: false,
     likeCount: 0,
@@ -13,8 +13,8 @@ function LikeBtn(collectionId) {
   const [errors, setErrors] = useState();
 
   const userId = localStorage.getItem('userId');
-  const putLikeURL = `${process.env.REACT_APP_DOMAIN_NAME}/api/add-like/${collectionId.collectionId}`;
-  const checkLikeURL = `${process.env.REACT_APP_DOMAIN_NAME}/api/check-like/${collectionId.collectionId}`;
+  const putLikeURL = `${process.env.REACT_APP_DOMAIN_NAME}/api/add-like/${collectionId}`;
+  const checkLikeURL = `${process.env.REACT_APP_DOMAIN_NAME}/api/check-like/${collectionId}`;
 
   const putLike = () => putLikeRequest(putLikeURL, userId, checkLike, setErrors, getToken());
 

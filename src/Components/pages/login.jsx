@@ -14,7 +14,7 @@ function Login() {
   const { type } = useParams();
   const history = useHistory();
 
-  const singUpURL = `${process.env.REACT_APP_DOMAIN_NAME}/api/api/sign-up`;
+  const singUpURL = `${process.env.REACT_APP_DOMAIN_NAME}/api/sign-up`;
   const loginURL = `${process.env.REACT_APP_DOMAIN_NAME}/api/login`;
 
   const [formType, setFormType] = useState(type === 'register' ? type : 'login');

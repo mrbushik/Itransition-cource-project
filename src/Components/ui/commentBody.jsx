@@ -19,12 +19,11 @@ function CommentBody({ commentData }) {
         <p className="me-2 ">{t('autor')}</p>
         <p className="text-success">{commentData.userName}</p>
       </div>
-      {textCommentParse &&
-        textCommentParse.map((item, index) => (
-          <p className="ms-2 mb-0" key={index}>
-            {item}
-          </p>
-        ))}
+      {textCommentParse?.map((item, index) => (
+        <p className="ms-2 mb-0" key={index}>
+          {item}
+        </p>
+      ))}
       <p className="text-muted fw-semibold text-end comment-date me-2 mb-0">{commentCreateDate}</p>
     </div>
   );
