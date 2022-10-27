@@ -6,7 +6,6 @@ import { getLagestCollections, getLastPostCollections } from '../redux/actions/u
 
 import UserCollection from '../ui/userCollection';
 import TagsSearch from '../ui/tagsSearch';
-import Searcher from '../ui/searcher';
 import transtateKeys from '../translate/transtateKeys';
 
 function MainPage() {
@@ -28,7 +27,6 @@ function MainPage() {
     <>
       {lagestCollection && lagestCollection.length && (
         <div>
-          {/* <Searcher /> */}
           <TagsSearch />
           {newPostsCollection && newPostsCollection.collections.length && (
             <div>

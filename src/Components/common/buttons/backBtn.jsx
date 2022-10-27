@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import transtateKeys from '../../translate/transtateKeys';
+
 function BackBtn() {
   const { t } = useTranslation();
   const history = useHistory();

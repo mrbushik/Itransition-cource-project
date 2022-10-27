@@ -19,14 +19,12 @@ function NavBar() {
   const toggleMenu = () => setMenu(!menu);
 
   return (
-    <div className="bg-light">
+    <div className="bg-light grey-element">
       <nav className={'navbar navbar-expand-lg bg-light dark-mode'}>
-        <div className="container-fluid  p-2 dark-mode">
-          <div>
-            <Link to="/" className="text-decoration-none">
-              {t(transtateKeys.MAIN_PAGE)}
-            </Link>
-          </div>
+        <div className="container-fluid  p-2 ">
+          <Link to="/" className="text-decoration-none ">
+            {t(transtateKeys.MAIN_PAGE)}
+          </Link>
           <button className="navbar-toggler white-element" onClick={toggleMenu}>
             <span className="navbar-toggler-icon"></span>
           </button>
@@ -105,8 +103,8 @@ function NavBar() {
           </div>
         </div>
       )}
-      <div className="d-flex align-items-center justify-content-between dark-mode nav-toggle__buttons">
-        <div className="mx-3 d-flex align-items-center px-3 dark-mode">
+      <div className="d-flex align-items-center justify-content-between  nav-toggle__buttons ">
+        <div className="mx-3 d-flex align-items-center px-3 grey-element">
           <SwitchLanguage />
         </div>
         <div className="grey-element">

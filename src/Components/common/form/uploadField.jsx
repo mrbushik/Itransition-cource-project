@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-
 import { useTranslation } from 'react-i18next';
+
 import { uploadFile } from '../../services/modalRequests';
 import transtateKeys from '../../translate/transtateKeys';
 
@@ -12,13 +12,15 @@ function UploadField({ name, onSave, isUrl }) {
 
   const { t } = useTranslation();
 
+  const MAX_FILE_SIZE = 2100000;
+
   const checkFileSize = (fileSize) => {
-    if (fileSize > 2100000) {
-      setErrors(t('file error'));
+    if (fileSize > MAX_FILE_SIZE) {
+      setErrors(t(transtateKeys.FILE_ERROR));
       return true;
-    } else {
-      setErrors('');
     }
+
+    setErrors('');
     return false;
   };
 

@@ -29,22 +29,23 @@ function UserPage() {
   const currentPage = useSelector(({ changeCurrentPage }) => changeCurrentPage.userPage);
   const userCollection = useSelector(({ userCollection }) => userCollection.collection);
   const filterParams = useSelector(({ filter }) => filter.filterValue);
-  const URL = `${process.env.REACT_APP_DOMAIN_NAME}/api/user/${userId}/?filter=${filterParams} `;
+  const URL = `${process.env.REACT_APP_DOMAIN_NAME}/api/user/${userId}/?filter=${filterParams}`;
+
+  const PAGE_LIMIT = 3;
 
   const toggleActiveModal = (value) => setActiveModal(+value);
 
   const updateCollectionsData = (link) => dispatch(getCollections(link ? link : URL));
 
-  useEffect(() => {
-    if (!userId) history.push('/');
-  }, []);
+  const totalPages = () => userCollection.length / PAGE_LIMIT;
 
   useEffect(() => {
+    if (!userId) history.push('/');
     dispatch(getCollections(URL, getToken()));
   }, []);
 
   useEffect(() => {
-    if (userCollection.length && Math.ceil(userCollection.length / 3) < currentPage) {
+    if (userCollection.length && Math.ceil(totalPages()) < currentPage) {
       dispatch(changeCurrentPageAtUser(1));
       dispatch(getCollections(URL, getToken()));
     }
@@ -72,7 +73,7 @@ function UserPage() {
           <EditModal
             collections={croppedCollection}
             updateCollectionsData={updateCollectionsData}
-            modalType={t('edit')}
+            modalType={t(transtateKeys.EDIT)}
             onActive={toggleActiveModal}
           />
         )}
@@ -81,13 +82,13 @@ function UserPage() {
             updateCollectionsData={updateCollectionsData}
             collections={croppedCollection}
             onActive={toggleActiveModal}
-            modalType={t('delete')}
+            modalType={t(transtateKeys.DELETE)}
           />
         )}
       </div>
       {userCollection && userCollection.length !== 0 && (
         <Filter
-          options={[t('new'), t('old')]}
+          options={[t(transtateKeys.NEW), t(transtateKeys.OLD)]}
           filterValues={['new', 'old']}
           userId={userId}
           onUpdate={updateCollectionsData}

@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { changeTheme } from '../../redux/actions/theme';
 import themeKeys from '../../theme/themeKeys';
+
 function ThemeSwither() {
   const dispatch = useDispatch();
   const theme = useSelector(({ theme }) => theme.theme);

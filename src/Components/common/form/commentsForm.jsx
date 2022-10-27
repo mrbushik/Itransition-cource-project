@@ -4,11 +4,12 @@ import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 
 import TextAreaField from './textAreaField';
-import { getCollectionComments } from '../../services/getInfoRequests';
 import CommentBody from '../../ui/commentBody';
+import transtateKeys from '../../translate/transtateKeys';
+
+import { getCollectionComments } from '../../services/getInfoRequests';
 import { writeCommentRequest } from '../../services/createRequest';
 import { getToken } from '../../utils/token';
-import transtateKeys from '../../translate/transtateKeys';
 
 function CommentsForm({ collectionId }) {
   const { t } = useTranslation();

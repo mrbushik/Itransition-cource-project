@@ -10,6 +10,7 @@ import TextField from '../../form/textField';
 import TagsField from '../../form/tagsField';
 import CustomField from '../../form/customField';
 import { getToken } from '../../../utils/token';
+import transtateKeys from '../../../translate/transtateKeys';
 
 function CreateItemsModal({ onClose, fieldsCount, addingFields, collectionId, onUpdateData }) {
   const { t } = useTranslation();
@@ -31,10 +32,10 @@ function CreateItemsModal({ onClose, fieldsCount, addingFields, collectionId, on
   const validatorConfig = {
     name: {
       isRequired: {
-        message: t('field required'),
+        message: t(transtateKeys.FIELD_REQUIRED),
       },
       max: {
-        message: t('field max length'),
+        message: t(transtateKeys.FIELD_MAX_LENGTH),
         value: 30,
       },
     },
@@ -62,8 +63,8 @@ function CreateItemsModal({ onClose, fieldsCount, addingFields, collectionId, on
 
   const addTagsError = () => {
     const otherErrors = errors;
-    otherErrors.tags = t('field required');
-    setErrors({ tags: t('field required') });
+    otherErrors.tags = t(transtateKeys.FIELD_REQUIRED);
+    setErrors({ tags: t(transtateKeys.FIELD_REQUIRED) });
   };
 
   const handleAddition = (tag) => {
@@ -106,7 +107,7 @@ function CreateItemsModal({ onClose, fieldsCount, addingFields, collectionId, on
   };
 
   const onSubmit = () => {
-    if (tags.length === 0) {
+    if (!tags.length) {
       addTagsError();
       return;
     }
@@ -119,7 +120,7 @@ function CreateItemsModal({ onClose, fieldsCount, addingFields, collectionId, on
       <div className="modal-dialog modal-dialog-centered  bg-light absolute-top mx-3 mt-3 p-3 dark-mode">
         <div className="modal-content">
           <div className="modal-header">
-            <h5 className="modal-title">{t('new item')}</h5>
+            <h5 className="modal-title">{t(transtateKeys.NEW_ITEM)}</h5>
             <button type="button" className="close" onClick={onClose}>
               <span>x</span>
             </button>
@@ -134,32 +135,31 @@ function CreateItemsModal({ onClose, fieldsCount, addingFields, collectionId, on
             name="name"
             value={postItem.name}
             onChange={handleChange}
-            placeholder={t('post description')}
-            label={t('post description')}
+            placeholder={t(transtateKeys.POST_DESCRIPTION)}
+            label={t(transtateKeys.POST_DESCRIPTION)}
             error={errors.name}
           />
-          {fieldValue &&
-            fieldValue.map((item, index) => (
-              <CustomField
-                key={index}
-                label={addingFields[index].description}
-                type={addingFields[index].type}
-                handleChangeField={handleChangeField}
-                index={index}
-                value={item.value}
-                data={fieldValue.value}
-              />
-            ))}
+          {fieldValue?.map((item, index) => (
+            <CustomField
+              key={index}
+              label={addingFields[index].description}
+              type={addingFields[index].type}
+              handleChangeField={handleChangeField}
+              index={index}
+              value={item.value}
+              data={fieldValue.value}
+            />
+          ))}
           <div className="modal-footer">
             <button
               type="button"
               className="btn btn-primary "
               onClick={onSubmit}
               disabled={!isValid}>
-              {t('save')}
+              {t(transtateKeys.SAVE)}
             </button>
             <button type="button" className="btn btn-secondary mx-3" onClick={onClose}>
-              {t('close')}
+              {t(transtateKeys.CLOSE)}
             </button>
           </div>
         </div>

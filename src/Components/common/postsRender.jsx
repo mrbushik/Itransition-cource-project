@@ -1,9 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { useTranslation } from 'react-i18next';
 
 import PostItem from '../ui/postItem';
-import { useTranslation } from 'react-i18next';
 import transtateKeys from '../translate/transtateKeys';
+
 function PostsRender({ data }) {
   const { t } = useTranslation();
   const postsTemplate = Object.values(data.postsTemplate);

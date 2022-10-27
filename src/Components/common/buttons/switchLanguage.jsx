@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import i18n from '../../translate/languageParams';
 import useLocalStorage from '../../translate/recordLanguage';
+
 function SwitchLanguage() {
   const [currentValue, setCurrentValue] = useState('');
   const [language, setLanguage] = useLocalStorage('language', 'en');

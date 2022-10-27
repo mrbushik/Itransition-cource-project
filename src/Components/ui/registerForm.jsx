@@ -28,31 +28,31 @@ function RegisterForm({ toggleFormType, onSubmit, submiting }) {
   const validatorConfig = {
     username: {
       isRequired: {
-        message: t('field required'),
+        message: t(transtateKeys.FIELD_REQUIRED),
       },
       max: {
-        message: t('field max length'),
+        message: t(transtateKeys.FIELD_MAX_LENGTH),
         value: 30,
       },
     },
     email: {
       isRequired: {
-        message: t('field required'),
+        message: t(transtateKeys.FIELD_REQUIRED),
       },
       isEmail: {
-        message: t('email error'),
+        message: t(transtateKeys.EMAIL_ERROR),
       },
     },
     password: {
       isRequired: {
-        message: t('field required'),
+        message: t(transtateKeys.FIELD_REQUIRED),
       },
       min: {
-        message: t('password error'),
+        message: t(transtateKeys.PASSWORD_ERROR),
         value: 5,
       },
       max: {
-        message: t('field max length'),
+        message: t(transtateKeys.FIELD_MAX_LENGTH),
         value: 30,
       },
     },
@@ -67,7 +67,7 @@ function RegisterForm({ toggleFormType, onSubmit, submiting }) {
   const comparisonPasswords = () => {
     const passwordsData = Object.values(data);
     if (passwordsData[2] !== passwordsData[3]) {
-      setErrors((prevState) => ({ ...prevState, repeat: t("passwords don't match") }));
+      setErrors((prevState) => ({ ...prevState, repeat: t(transtateKeys.PASSWORDS_DONT_MATCH) }));
     }
   };
 

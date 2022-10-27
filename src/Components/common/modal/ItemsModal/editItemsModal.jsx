@@ -10,6 +10,7 @@ import SelectField from '../../form/selectedField';
 import TagsField from '../../form/tagsField';
 import TextField from '../../form/textField';
 import { getToken } from '../../../utils/token';
+import transtateKeys from '../../../translate/transtateKeys';
 
 function EditItemsModal({
   modalType,
@@ -45,10 +46,10 @@ function EditItemsModal({
   const validatorConfig = {
     name: {
       isRequired: {
-        message: t('field required'),
+        message: t(transtateKeys.FIELD_REQUIRED),
       },
       max: {
-        message: t('field max length'),
+        message: t(transtateKeys.FIELD_MAX_LENGTH),
         value: 30,
       },
     },
@@ -103,8 +104,8 @@ function EditItemsModal({
 
   const addTagsError = () => {
     const otherErrors = errors;
-    otherErrors.tags = t('field required');
-    setErrors({ tags: t('field required') });
+    otherErrors.tags = t(transtateKeys.FIELD_REQUIRED);
+    setErrors({ tags: t(transtateKeys.FIELD_REQUIRED) });
   };
 
   const handleChange = (target) => {
@@ -148,7 +149,7 @@ function EditItemsModal({
   };
 
   const handleSubmit = () => {
-    modalType === t('edit') ? editPost() : deletePost();
+    modalType === t(transtateKeys.EDIT) ? editPost() : deletePost();
   };
 
   return (
@@ -162,16 +163,16 @@ function EditItemsModal({
         </div>
         <div className="modal-body">
           <SelectField
-            label={t('choose post')}
+            label={t(transtateKeys.CHOOSE_POST)}
             name="item"
             options={collectionsNames}
-            defaultOption={t('choose')}
+            defaultOption={t(transtateKeys.CHOOSE)}
             onChange={handleChange}
             value={editItem.item}
             error={errors.item}
           />
         </div>
-        {modalType === t('edit') && editItem.item && (
+        {modalType === t(transtateKeys.EDIT) && editItem.item && (
           <>
             <TagsField
               handleDelete={handleDeleteTag}
@@ -183,22 +184,21 @@ function EditItemsModal({
               name="name"
               value={editItem.name}
               onChange={handleChange}
-              placeholder={t('post description')}
-              label={t('post description')}
+              placeholder={t(transtateKeys.POST_DESCRIPTION)}
+              label={t(transtateKeys.POST_DESCRIPTION)}
               error={errors.name}
             />
-            {fieldValue &&
-              fieldValue.map((item, index) => (
-                <CustomField
-                  key={index}
-                  label={postsTemplates[index].description}
-                  type={postsTemplates[index].type}
-                  handleChangeField={handleChangeField}
-                  index={index}
-                  value={item.value}
-                  checkboxDefault={true}
-                />
-              ))}
+            {fieldValue?.map((item, index) => (
+              <CustomField
+                key={index}
+                label={postsTemplates[index].description}
+                type={postsTemplates[index].type}
+                handleChangeField={handleChangeField}
+                index={index}
+                value={item.value}
+                checkboxDefault={true}
+              />
+            ))}
           </>
         )}
         <div className="modal-footer">
@@ -210,7 +210,7 @@ function EditItemsModal({
             {modalType}
           </button>
           <button type="button" className="btn btn-secondary mx-3" onClick={onClose}>
-            {t('close')}
+            {t(transtateKeys.CLOSE)}
           </button>
         </div>
       </div>

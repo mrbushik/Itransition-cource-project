@@ -96,7 +96,7 @@ function LoginForm({ toggleFormType, onSubmit, successfulSigup, authData, loginE
       {successfulSigup && loginError !== ACTIVATED_ERRORR && (
         <div className="m-3">
           <p>{t(transtateKeys.SUCCESS_REGISTER)}</p>
-          <div className="btn btn-secondary" onClick={() => resendMail(authData.email)}>
+          <div className="btn btn-secondary" onClick={() => resendMail(authData.user.email)}>
             {t(transtateKeys.RESEND)}
           </div>
         </div>

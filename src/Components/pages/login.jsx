@@ -11,6 +11,7 @@ import LoginForm from '../ui/loginForm';
 import RegisterForm from '../ui/registerForm';
 import transtateKeys from '../translate/transtateKeys';
 import { getRefreshToken } from '../utils/token';
+
 function Login() {
   const { t } = useTranslation();
   const { type } = useParams();
@@ -34,7 +35,6 @@ function Login() {
 
   const handleSubmit = (e, data) => {
     e.preventDefault();
-    // TODO translate in this component and other components
     toggleSubmit(true);
     sendingTargetForm(data);
     toggleSubmit(false);
@@ -61,19 +61,24 @@ function Login() {
   }, []);
 
   useEffect(() => {
-    if (auth) {
+    onSingIn();
+    onSendRequest();
+  }, [auth]);
+
+  const onSingIn = () => {
+    if (auth && auth.user.isActivated === false) {
       localStorage.setItem('refreshToken', auth.refreshToken);
       setSuccessfulSigup(true);
       togleFormType();
     }
-  }, [auth]);
+  };
 
-  useEffect(() => {
+  const onSendRequest = () => {
     if (auth && auth.user.isActivated === true) {
       writeUserData();
       history.push('/');
     }
-  }, [auth]);
+  };
 
   return (
     <>
@@ -100,7 +105,7 @@ function Login() {
             ) : (
               <h3 className="mb-4">{t(transtateKeys.SING_IN)}</h3>
             )}
-            <form className="dark-mode">
+            <form className="grey-element">
               <div className="mb-3">
                 {formType === 'login' ? (
                   <LoginForm

@@ -15,7 +15,7 @@ function Searcher() {
   const [searchInfo, setSearchInfo] = useState('');
 
   const handleChange = ({ target }) => {
-    setSearchInfo((prevState) => target.value);
+    setSearchInfo(target.value);
   };
   useEffect(() => {
     if (!searchInfo) setCollections();
@@ -33,7 +33,6 @@ function Searcher() {
 
   return (
     <div className="position-relative grey-element">
-      {/* <h3>{t(transtateKeys.SEARCH_THROUGH_COLLECTIONS)}</h3> */}
       <input
         className="search-input border-primary px-3 py-1"
         value={searchInfo.searchText}
@@ -44,21 +43,20 @@ function Searcher() {
       <div
         className="position-absolute bg-light ps-4 search-results"
         onClick={(e) => cleanValues(e)}>
-        {collections &&
-          collections.map((item, index) => (
-            <UserCollection
-              link={'/'}
-              description={item.description}
-              key={index}
-              id={item._id}
-              type={item.type}
-              authorName={item.ownerName}
-              icon={item.icon}
-              name={item.name}
-              collectionDescription={item.collectionDescription}
-              {...item}
-            />
-          ))}
+        {collections?.map((item, index) => (
+          <UserCollection
+            link={'/'}
+            description={item.description}
+            key={index}
+            id={item._id}
+            type={item.type}
+            authorName={item.ownerName}
+            icon={item.icon}
+            name={item.name}
+            collectionDescription={item.collectionDescription}
+            {...item}
+          />
+        ))}
       </div>
     </div>
   );

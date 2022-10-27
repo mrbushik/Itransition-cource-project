@@ -12,13 +12,19 @@ import SelectField from '../../form/selectedField';
 import AddFieldForm from '../../form/addFieldForm';
 import TextAreaField from '../../form/textAreaField';
 import { getToken } from '../../../utils/token';
+import transtateKeys from '../../../translate/transtateKeys';
 
 function Modal({ onActive, updateCollectionsData }) {
   const { t } = useTranslation();
-  let err = 0;
+  let addingFieldsErrorsCount = 0;
   const userId = localStorage.getItem('userId');
   const userName = localStorage.getItem('userId');
   const URL = `${process.env.REACT_APP_DOMAIN_NAME}/api/add-collection`;
+  const selectedOptions = [
+    t(transtateKeys.BOOKS),
+    t(transtateKeys.MUSIK),
+    t(transtateKeys.CLOTHES),
+  ];
 
   const [collection, setCollection] = useState({
     name: '',
@@ -45,21 +51,21 @@ function Modal({ onActive, updateCollectionsData }) {
   const validatorConfig = {
     name: {
       isRequired: {
-        message: t('field required'),
+        message: t(transtateKeys.FIELD_REQUIRED),
       },
       max: {
-        message: t('field max length'),
+        message: t(transtateKeys.FIELD_MAX_LENGTH),
         value: 30,
       },
     },
     theme: {
       isRequired: {
-        message: t('field required'),
+        message: t(transtateKeys.FIELD_REQUIRED),
       },
     },
     description: {
       isRequired: {
-        message: t('field required'),
+        message: t(transtateKeys.FIELD_REQUIRED),
       },
     },
   };
@@ -77,9 +83,10 @@ function Modal({ onActive, updateCollectionsData }) {
 
   const validateAddingFields = () => {
     for (let i = 0; i < fieldValue.length; i++) {
-      if (fieldValue[i].type === '' || fieldValue[i].description === '') err += 1;
+      if (fieldValue[i].type === '' || fieldValue[i].description === '')
+        addingFieldsErrorsCount += 1;
     }
-    return err;
+    return addingFieldsErrorsCount;
   };
 
   const clearData = () => {
@@ -93,7 +100,7 @@ function Modal({ onActive, updateCollectionsData }) {
   };
 
   const onSubmit = () => {
-    if (isValid && collection.photoUrl && validateAddingFields() === 0) {
+    if (isValid && collection.photoUrl && !validateAddingFields()) {
       sendingData.postsTemplate.push(...fieldValue);
       createCollection(URL, sendingData, updateCollectionsData, getToken());
       clearData();
@@ -129,7 +136,7 @@ function Modal({ onActive, updateCollectionsData }) {
       <div className="modal-dialog modal-dialog-centered  bg-light absolute-top mx-3 mt-3 p-3 dark-mode">
         <div className="modal-content">
           <div className="modal-header">
-            <h5 className="modal-title">{t('create collection')}</h5>
+            <h5 className="modal-title">{t(transtateKeys.CREATE_COLLECTION)}</h5>
             <button type="button" className="close" onClick={onActive}>
               <span>x</span>
             </button>
@@ -137,8 +144,8 @@ function Modal({ onActive, updateCollectionsData }) {
           <div className="modal-body">
             <div>
               <TextField
-                label={t('collection name')}
-                placeholder={t('collection name')}
+                label={t(transtateKeys.COLLECTION_NAME)}
+                placeholder={t(transtateKeys.COLLECTION_NAME)}
                 type="text"
                 name="name"
                 value={collection.name}
@@ -149,27 +156,27 @@ function Modal({ onActive, updateCollectionsData }) {
                 name="description"
                 value={collection.description}
                 onChange={handleChange}
-                placeholder={t('collection description')}
-                label={t('collection description')}
+                placeholder={t(transtateKeys.COLLECTION_DESCRIPTION)}
+                label={t(transtateKeys.COLLECTION_DESCRIPTION)}
                 error={errors.description}
               />
               <SelectField
-                label={t('choose collection')}
+                label={t(transtateKeys.CHOOSE_COLLECTION)}
                 name="theme"
-                options={[t('books'), t('music'), t('clothes')]}
-                defaultOption={t('choose')}
+                options={selectedOptions}
+                defaultOption={t(transtateKeys.CHOOSE)}
                 onChange={handleChange}
                 value={collection.theme}
                 error={errors.theme}
               />
             </div>
             <div>
-              <h5>{t('upload field')}</h5>
+              <h5>{t(transtateKeys.UPLOAD_FIELD)}</h5>
               <UploadField isUrl={collection.photoUrl} name="photoUrl" onSave={handleChange} />
             </div>
             <div>
               <div className="d-flex justify-content-between mt-3 mb-3">
-                <h5>{t('additional fields')}</h5>
+                <h5>{t(transtateKeys.ADDITIONAL_FIELDS)}</h5>
               </div>
               {fieldValue.map((data, index) => (
                 <AddFieldForm
@@ -183,7 +190,7 @@ function Modal({ onActive, updateCollectionsData }) {
               ))}
             </div>
             <button className="btn btn-secondary" onClick={() => handleAddField()}>
-              {t('add field')}
+              {t(transtateKeys.ADD_FIELD)}
             </button>
           </div>
           <div className="modal-footer">
@@ -192,10 +199,10 @@ function Modal({ onActive, updateCollectionsData }) {
               className="btn btn-primary "
               onClick={onSubmit}
               disabled={!isValid}>
-              {t('save')}
+              {t(transtateKeys.SAVE)}
             </button>
             <button type="button" className="btn btn-secondary mx-3" onClick={onActive}>
-              {t('close')}
+              {t(transtateKeys.CLOSE)}
             </button>
           </div>
         </div>

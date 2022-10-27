@@ -14,11 +14,17 @@ import SelectField from '../../form/selectedField';
 import TextAreaField from '../../form/textAreaField';
 import TextField from '../../form/textField';
 import { getToken } from '../../../utils/token';
+import transtateKeys from '../../../translate/transtateKeys';
 
 function EditModal({ modalType, collections, onActive, updateCollectionsData }) {
+  const { t } = useTranslation();
   let targetElement;
   const selectedValue = [];
-  const { t } = useTranslation();
+  const selectedOptions = [
+    t(transtateKeys.BOOKS),
+    t(transtateKeys.MUSIK),
+    t(transtateKeys.CLOTHES),
+  ];
 
   const [errors, setErrors] = useState({});
   const [editItem, setEditItem] = useState({
@@ -62,21 +68,21 @@ function EditModal({ modalType, collections, onActive, updateCollectionsData }) 
   const validatorConfig = {
     name: {
       isRequired: {
-        message: t('field required'),
+        message: t(transtateKeys.FIELD_REQUIRED),
       },
       max: {
-        message: t('field max length'),
+        message: t(transtateKeys.FIELD_MAX_LENGTH),
         value: 30,
       },
     },
     type: {
       isRequired: {
-        message: t('field required'),
+        message: t(transtateKeys.FIELD_REQUIRED),
       },
     },
     description: {
       isRequired: {
-        message: t('field required'),
+        message: t(transtateKeys.FIELD_REQUIRED),
       },
     },
   };
@@ -108,7 +114,9 @@ function EditModal({ modalType, collections, onActive, updateCollectionsData }) 
   };
 
   const targetRequest = (URL, collectionId, ownerId) => {
-    modalType === t('edit') ? collectionEdit(URL) : deleteCollection(URL, collectionId, ownerId);
+    modalType === t(transtateKeys.EDIT)
+      ? collectionEdit(URL)
+      : deleteCollection(URL, collectionId, ownerId);
   };
 
   const handleSubmit = () => {
@@ -129,19 +137,19 @@ function EditModal({ modalType, collections, onActive, updateCollectionsData }) 
         </div>
         <div className="modal-body">
           <SelectField
-            label={t('select collection')}
+            label={t(transtateKeys.SELECT_COLLECTION)}
             name="item"
             options={selectedValue}
-            defaultOption={t('choose')}
+            defaultOption={t(transtateKeys.CHOOSE)}
             onChange={handleChange}
             value={editItem.item}
             selectElement={true}
           />
         </div>
-        {modalType === t('edit') && editItem.item && editItem && (
+        {modalType === t(transtateKeys.EDIT) && editItem.item && editItem && (
           <div>
             <TextField
-              label={t('collection name')}
+              label={t(transtateKeys.COLLECTION_NAME)}
               type="text"
               name="name"
               value={editItem.name}
@@ -149,9 +157,9 @@ function EditModal({ modalType, collections, onActive, updateCollectionsData }) 
               error={errors.name}
             />
             <SelectField
-              label={t('choose collection')}
+              label={t(transtateKeys.CHOOSE_COLLECTION)}
               name="type"
-              options={[t('books'), t('music'), t('clothes')]}
+              options={selectedOptions}
               onChange={handleChange}
               value={editItem.type}
               error={errors.type}
@@ -159,7 +167,7 @@ function EditModal({ modalType, collections, onActive, updateCollectionsData }) 
             <TextAreaField
               name="description"
               value={editItem.description}
-              label={t('collection description')}
+              label={t(transtateKeys.COLLECTION_DESCRIPTION)}
               onChange={handleChange}
               error={errors.description}
             />
@@ -174,7 +182,7 @@ function EditModal({ modalType, collections, onActive, updateCollectionsData }) 
             {modalType}
           </button>
           <button type="button" className="btn btn-secondary mx-3" onClick={onActive}>
-            {t('close')}
+            {t(transtateKeys.CLOSE)}
           </button>
         </div>
       </div>

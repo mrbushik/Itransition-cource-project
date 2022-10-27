@@ -8,6 +8,7 @@ import { getCollectionsTags, getCollectionsByTag } from '../redux/actions/userCo
 import Paginate from '../common/paginate';
 import UserCollection from './userCollection';
 import { t } from 'i18next';
+import transtateKeys from '../translate/transtateKeys';
 
 function TagsSearch() {
   const dispatch = useDispatch();
@@ -19,6 +20,8 @@ function TagsSearch() {
   const tagsURL = `${process.env.REACT_APP_DOMAIN_NAME}/api/all-tags`;
   const tagColectionsURL = `${process.env.REACT_APP_DOMAIN_NAME}/api/get-collection-by-tag`;
 
+  const PAGE_LIMIT = 3;
+
   useEffect(() => {
     dispatch(getCollectionsTags(tagsURL));
   }, []);
@@ -28,12 +31,14 @@ function TagsSearch() {
     dispatch(getCollectionsByTag(tagColectionsURL, data));
   };
 
+  const totalPages = () => collectionsByTag.total / PAGE_LIMIT;
+
   useEffect(() => {
     handleGetCollections();
   }, [searchTag, currentPage]);
 
   useEffect(() => {
-    if (collectionsByTag.total !== 0 && Math.ceil(collectionsByTag.total / 3) < currentPage) {
+    if (collectionsByTag.total !== 0 && Math.ceil(totalPages()) < currentPage) {
       dispatch(changeCurrentTagsPage(1));
       handleGetCollections();
     }
@@ -50,18 +55,17 @@ function TagsSearch() {
     <>
       {collectionsTags && collectionsTags.length && (
         <div>
-          <h4 className="text-center mt-4 mb-2">{t('tags cloud')}</h4>
+          <h4 className="text-center mt-4 mb-2">{t(transtateKeys.TAGS_CLOUD)}</h4>
           <div className="d-flex justify-content-center flex-wrap">
-            {collectionsTags &&
-              collectionsTags.map((tag, index) => (
-                <span
-                  className={`ms-1 ${searchTag === tag ? 'text-success' : ''}`}
-                  style={{ cursor: 'pointer' }}
-                  key={index}
-                  onClick={(e) => handleTagClick(e)}>
-                  {tag}
-                </span>
-              ))}
+            {collectionsTags?.map((tag, index) => (
+              <span
+                className={`ms-1 ${searchTag === tag ? 'text-success' : ''}`}
+                style={{ cursor: 'pointer' }}
+                key={index}
+                onClick={(e) => handleTagClick(e)}>
+                {tag}
+              </span>
+            ))}
           </div>
           <div className="mt-4 d-flex justify-content-center flex-wrap">
             {collectionsByTag?.collections?.map((item) => (

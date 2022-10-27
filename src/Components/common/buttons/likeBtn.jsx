@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { checkLikeRequest, putLikeRequest } from '../../services/likeRequsts';
 import { getToken } from '../../utils/token';
-// TODO: поменять пропсы и сделать чтоб срвзу коллекция приходила
+
 function LikeBtn({ collectionId }) {
   const [like, setLike] = useState({
     putLike: false,

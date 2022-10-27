@@ -34,9 +34,10 @@ function AdminCollections() {
   }, []);
 
   useEffect(() => {
+    // TODO вынести в переменную то что мы считаем
     if (Math.ceil(adminCollections.total / 3) < adminCollections.page) {
       dispatch(changeCurrentPage(1));
-      handleUpdateData(`${process.env.REACT_APP_DOMAIN_NAME}/api//all-collections?page=1`);
+      handleUpdateData(`${process.env.REACT_APP_DOMAIN_NAME}/api/all-collections?page=1`);
     }
   }, [adminCollections]);
 

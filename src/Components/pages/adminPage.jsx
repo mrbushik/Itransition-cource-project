@@ -22,7 +22,14 @@ function AdminPage() {
   });
   const [errors, setErrors] = useState();
 
-  const buttons = [t('unblock'), t('block'), t('delete'), t('get admin'), t('pickUpAdmin')];
+  const buttons = [
+    t(transtateKeys.UNBLOCK),
+    t(transtateKeys.BLOCK),
+    t(transtateKeys.DELETE),
+    t(transtateKeys.GET_ADMIN),
+    t(transtateKeys.PIC_UP_ADMIN),
+  ];
+
   const requests = [unblock, block, deleteUser, getAdmin, pickUpAdmin];
   const userId = localStorage.getItem('userId');
   const role = localStorage.getItem('role');
@@ -33,11 +40,7 @@ function AdminPage() {
   const updateUsers = () => dispatch(getAllUsers(allUsersURL, getToken()));
 
   useEffect(() => {
-    if (role !== 'ADMIN') history.push('/');
-  }, []);
-
-  useEffect(() => {
-    if (role === 'ADMIN') updateUsers();
+    role === 'ADMIN' ? updateUsers() : history.push('/');
   }, []);
 
   const handleChange = (target) => {
