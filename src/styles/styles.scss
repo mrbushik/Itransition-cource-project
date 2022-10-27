@@ -66,6 +66,7 @@ body {
 
   .grey-element div{
     background-color: #242829 !important;
+    color: #fff !important;
   
   }
 
@@ -322,7 +323,10 @@ input:checked+.toggler:before {
 }
 .search-results{
   z-index: 2;
-  margin-top: 11px;
+  margin-top: 9px;
+}
+.cursor-pointer{
+  cursor: pointer;
 }
 
 @media(min-width: 991.5px) {

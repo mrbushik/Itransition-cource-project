@@ -36,24 +36,4 @@ export async function fullTextSearch(url, data, setCollections) {
     .catch((error) => {
       console.log(error);
     });
-  //   setCollections();
-  //   console.log(data);
-  //   var myHeaders = new Headers();
-  //   myHeaders.append('Content-Type', 'application/json');
-
-  //   var raw = JSON.stringify({
-  //     searchText: data,
-  //   });
-
-  //   var requestOptions = {
-  //     method: 'POST',
-  //     headers: myHeaders,
-  //     body: raw,
-  //     redirect: 'follow',
-  //   };
-
-  //   fetch('http://localhost:5000/api/search', requestOptions)
-  //     .then((response) => response.json())
-  //     .then((result) => setCollections(result))
-  //     .catch((error) => console.log('error', error));
 }

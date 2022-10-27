@@ -26,7 +26,6 @@ function LoginForm({ toggleFormType, onSubmit, successfulSigup, authData, loginE
 
   const activationToggle = (params) => setActivateEmail(params);
   useEffect(() => {
-    // TODO make value to constant
     if (loginError && loginError.message === ACTIVATED_ERRORR) activationToggle(true);
   }, [loginError]);
 

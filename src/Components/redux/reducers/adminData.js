@@ -1,6 +1,7 @@
 const initialState = {
   users: '',
   collections: '',
+  errors: '',
 };
 
 const adminData = (state = initialState, action) => {
@@ -14,6 +15,11 @@ const adminData = (state = initialState, action) => {
       return {
         ...state,
         collections: action.payload,
+      };
+    case 'ADMIN_ERRORS':
+      return {
+        ...state,
+        errors: action.payload,
       };
 
     default:

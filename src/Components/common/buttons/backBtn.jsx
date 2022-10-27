@@ -5,13 +5,15 @@ import { useHistory } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import transtateKeys from '../../translate/transtateKeys';
 
-function BackBtn() {
+function BackBtn({ backLink }) {
   const { t } = useTranslation();
   const history = useHistory();
 
+  const returnToTargetPage = () => (backLink ? history.push(backLink) : history.goBack());
+
   return (
     <>
-      <button className="btn btn-secondary ms-3 mt-3 back-btn" onClick={() => history.goBack()}>
+      <button className="btn btn-secondary ms-3 mt-3 back-btn" onClick={returnToTargetPage}>
         {t(transtateKeys.BACK)}
       </button>
     </>

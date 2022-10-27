@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
-import { getAllUsers } from '../redux/actions/adminData';
+import { adminErrors, getAllUsers } from '../redux/actions/adminData';
 import { Link, useHistory } from 'react-router-dom';
 import { unblock, block, deleteUser, getAdmin, pickUpAdmin } from '../services/adminRequests';
 
@@ -36,8 +36,9 @@ function AdminPage() {
   const allUsersURL = `${process.env.REACT_APP_DOMAIN_NAME}/api/all-users`;
 
   const allUsers = useSelector(({ adminData }) => adminData.users);
+  const requestErrors = useSelector(({ adminData }) => adminData.errors);
 
-  const updateUsers = () => dispatch(getAllUsers(allUsersURL, getToken()));
+  const updateUsers = () => dispatch(getAllUsers(allUsersURL, getToken(), setErrors));
 
   useEffect(() => {
     role === 'ADMIN' ? updateUsers() : history.push('/');
@@ -51,22 +52,29 @@ function AdminPage() {
     setErrors('');
   };
 
-  const removeAdmin = (admin) => {
-    if (!admin || admin.roles[0] === 'BLOCK') {
-      logout();
-      history.push('/login');
-    } else {
-      localStorage.setItem('role', 'USER');
-      history.push('/');
-    }
-  };
+  // TODO check this method
+
+  // const removeAdmin = (admin) => {
+  //   if (requestErrors) {
+  //     logout();
+  //     history.push('/login');
+  //   }
+  //   // if (!admin || admin.roles[0] === 'BLOCK') {
+  //   //   logout();
+  //   //   history.push('/login');
+  //   // } else {
+  //   //   localStorage.setItem('role', 'USER');
+  //   //   history.push('/');
+  //   // }
+  // };
 
   useEffect(() => {
-    if (allUsers) {
-      const admin = allUsers.find((item) => item._id === userId);
-      if (!admin || admin.roles[0] !== 'ADMIN') removeAdmin(admin);
+    if (requestErrors) {
+      logout();
+      history.push('/login');
+      dispatch(adminErrors(''));
     }
-  }, [allUsers]);
+  }, [requestErrors]);
 
   const submitChanges = (buttonIndex) => {
     requests[buttonIndex](

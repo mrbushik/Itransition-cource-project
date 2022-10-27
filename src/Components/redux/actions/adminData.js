@@ -10,12 +10,17 @@ export const adminCollections = (theme) => ({
   payload: theme,
 });
 
+export const adminErrors = (theme) => ({
+  type: 'ADMIN_ERRORS',
+  payload: theme,
+});
+
 export const getAllUsers = (url, token) => (dispatch) => {
   axios
     .get(url, token)
     .then((data) => dispatch(allUsers(data.data.users)))
     .catch((error) => {
-      console.log(error);
+      dispatch(adminErrors(error));
     });
 };
 
