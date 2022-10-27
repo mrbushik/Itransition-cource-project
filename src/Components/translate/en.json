@@ -83,6 +83,8 @@
     "resend email": "You are registered, but have not confirmed your email. Write your email and send a confirmation email and follow the link from the email, and try logging in again",
     "new": "At first new collection",
     "old": "At first old collection",
-    "display": "Display"
+    "display": "Display",
+    "search collections": "Search collections"
+
 
 }

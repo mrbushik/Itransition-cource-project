@@ -19,6 +19,8 @@ body {
 
   }
 
+
+
   h1,
   h2,
   h3,
@@ -60,8 +62,13 @@ body {
   .white-element {
     background-color: #fff !important;
     color: #111 !important;
+  }
+
+  .grey-element div{
+    background-color: #242829 !important;
   
   }
+
   .lds-dual-ring:after {
     content: " ";
     display: block;
@@ -298,18 +305,24 @@ input:checked+.toggler:before {
 .back-btn {
   height: fit-content;
 }
-.comments-form{
+
+.comments-form {
   margin-top: 50px;
   margin-bottom: 50px;
 }
 
-.comment-date{
+.comment-date {
   font-size: 14px;
-  
+
 }
-.dysplay{
+
+.dysplay {
   margin-bottom: -10px;
   margin-top: 30px;
+}
+.search-results{
+  z-index: 2;
+  margin-top: 11px;
 }
 
 @media(min-width: 991.5px) {

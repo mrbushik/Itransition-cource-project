@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { validator } from '../../utils/validator';
 import { useTranslation } from 'react-i18next';
@@ -15,13 +15,13 @@ function AddFieldForm({ handleChangeField, dataType, dataDescription, index, onD
     handleChangeField(e.value, index, e.name);
   };
 
-  const [errors, setErrors] = React.useState({});
+  const [errors, setErrors] = useState({});
   const validate = () => {
     const errors = validator({ type: dataType, description: dataDescription }, validatorConfig);
     setErrors(errors);
   };
 
-  React.useEffect(() => {
+  useEffect(() => {
     validate();
   }, [dataType, dataDescription]);
 
@@ -41,19 +41,20 @@ function AddFieldForm({ handleChangeField, dataType, dataDescription, index, onD
   return (
     <div className="mt-2">
       <button className="btn btn-danger float-end mb-2" onClick={() => onDelete(index)}>
-        delete
+        {t(transtateKeys.DELETE)}
       </button>
       <SelectField
-        label={t('Select field to add')}
+        label={t(transtateKeys.SELECT_FIELD_TO_ADD)}
         name="type"
+        // TODO make constant to default options
         options={['number', 'text', 'multiline text', 'checkbox', 'date']}
-        defaultOption={t('choose')}
+        defaultOption={t(transtateKeys.CHOOSE)}
         onChange={handleChange}
         value={dataType}
         error={errors.type}
       />
       <TextField
-        label={t('description')}
+        label={t(transtateKeys.DESCRIPTION)}
         type="text"
         name="description"
         value={dataDescription}

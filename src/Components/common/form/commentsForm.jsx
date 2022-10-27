@@ -32,6 +32,7 @@ function CommentsForm({ collectionId }) {
   const getAllCollectionComments = () => getCollectionComments(getCommentsURL, setCommentsData);
 
   useEffect(() => {
+    getAllCollectionComments();
     const massageInterval = setInterval(() => {
       getAllCollectionComments();
     }, 5000);
@@ -42,10 +43,6 @@ function CommentsForm({ collectionId }) {
     writeCommentRequest(sendCommentURL, submitComment, getAllCollectionComments, getToken());
     setComment({ commentText: '' });
   };
-
-  useEffect(() => {
-    getAllCollectionComments();
-  }, []);
 
   useEffect(() => {
     setError({ commentText: '' });

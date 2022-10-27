@@ -80,6 +80,7 @@ const transtateKeys = {
   NEW: 'new',
   OLD: 'old',
   DISPLAY: 'display',
+  SEARCH_COLLECTIONS: 'search collections',
 };
 
 export default transtateKeys;

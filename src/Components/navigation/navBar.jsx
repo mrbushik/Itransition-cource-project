@@ -109,7 +109,9 @@ function NavBar() {
         <div className="mx-3 d-flex align-items-center px-3 dark-mode">
           <SwitchLanguage />
         </div>
-        {/* <Searcher /> */}
+        <div className="grey-element">
+          <Searcher />
+        </div>
         <div className="mx-3 ">
           <ThemeSwither />
         </div>

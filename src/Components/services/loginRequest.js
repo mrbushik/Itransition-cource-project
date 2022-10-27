@@ -16,6 +16,15 @@ export function registrationRequest(url, data, setRequestStatus, setUserInfo) {
     });
 }
 
+export function autoLogin(url, token, setUserInfo) {
+  axios
+    .post(url, token)
+    .then((data) => (data.data ? setUserInfo(data.data) : ''))
+    .catch((error) => {
+      console.log(error);
+    });
+}
+
 export function activateRequest(url, data, setRequestStatus) {
   axios
     .post(url, { email: data })

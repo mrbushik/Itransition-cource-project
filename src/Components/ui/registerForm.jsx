@@ -8,7 +8,7 @@ import PropTypes from 'prop-types';
 import TextField from '../common/form/textField';
 import transtateKeys from '../translate/transtateKeys';
 
-function RegisterForm({ toggleFormType, onSubmit }) {
+function RegisterForm({ toggleFormType, onSubmit, submiting }) {
   const { t } = useTranslation();
   const [errors, setErrors] = useState({});
   const [data, setData] = useState({
@@ -85,7 +85,7 @@ function RegisterForm({ toggleFormType, onSubmit }) {
     onSubmit(e, submitData);
   };
 
-  const isValid = Object.keys(errors).length === 0;
+  const isValid = Object.keys(errors).length === 0 && !submiting;
 
   return (
     <>
