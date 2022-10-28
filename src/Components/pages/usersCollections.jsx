@@ -7,6 +7,7 @@ import BackBtn from '../common/buttons/backBtn';
 import PostsRender from '../common/postsRender';
 import LikeBtn from '../common/buttons/likeBtn';
 import CommentsForm from '../common/form/commentsForm';
+import ExportCsvBtn from '../common/buttons/exportCsvBtn';
 
 function UsersCollections() {
   const params = useParams();
@@ -21,6 +22,7 @@ function UsersCollections() {
     <>
       <div className="d-flex justify-content-between">
         <BackBtn backLink={'/'} />
+        <ExportCsvBtn data={collectionData} />
         {collectionData && <LikeBtn collectionId={collectionData._id} />}
       </div>
       {collectionData && <PostsRender data={collectionData} />}
