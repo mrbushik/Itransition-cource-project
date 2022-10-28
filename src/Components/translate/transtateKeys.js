@@ -81,6 +81,7 @@ const transtateKeys = {
   OLD: 'old',
   DISPLAY: 'display',
   SEARCH_COLLECTIONS: 'search collections',
+  EXPORT_CSV: 'csv export',
 };
 
 export default transtateKeys;

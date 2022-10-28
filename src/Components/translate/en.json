@@ -84,7 +84,10 @@
     "new": "At first new collection",
     "old": "At first old collection",
     "display": "Display",
-    "search collections": "Search collections"
+    "search collections": "Search collections",
+    "csv export": "Export to CSV"
+
+
 
 
 }

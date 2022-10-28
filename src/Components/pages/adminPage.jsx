@@ -31,7 +31,6 @@ function AdminPage() {
   ];
 
   const requests = [unblock, block, deleteUser, getAdmin, pickUpAdmin];
-  const userId = localStorage.getItem('userId');
   const role = localStorage.getItem('role');
   const allUsersURL = `${process.env.REACT_APP_DOMAIN_NAME}/api/all-users`;
 
@@ -51,22 +50,6 @@ function AdminPage() {
     }));
     setErrors('');
   };
-
-  // TODO check this method
-
-  // const removeAdmin = (admin) => {
-  //   if (requestErrors) {
-  //     logout();
-  //     history.push('/login');
-  //   }
-  //   // if (!admin || admin.roles[0] === 'BLOCK') {
-  //   //   logout();
-  //   //   history.push('/login');
-  //   // } else {
-  //   //   localStorage.setItem('role', 'USER');
-  //   //   history.push('/');
-  //   // }
-  // };
 
   useEffect(() => {
     if (requestErrors) {

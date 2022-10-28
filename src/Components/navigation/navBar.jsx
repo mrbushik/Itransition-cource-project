@@ -7,6 +7,7 @@ import SwitchLanguage from '../common/buttons/switchLanguage';
 import ThemeSwither from '../common/buttons/themeSwither';
 import Searcher from '../ui/searcher';
 import transtateKeys from '../translate/transtateKeys';
+import MobileNavBar from './mobileNavBar';
 
 function NavBar() {
   const { t } = useTranslation();
@@ -47,7 +48,6 @@ function NavBar() {
             </ul>
             <div>
               <div>
-                {' '}
                 {userName && <span className="fs-4 mx-2">{userName}</span>}
                 {userName && <div className="vr bg-dark white-element"></div>}
                 {userName ? (
@@ -64,45 +64,7 @@ function NavBar() {
           </div>
         </div>
       </nav>
-      {menu && (
-        <div className="nav-phone__menu pb-3 white-element bg-secondary bg-opacity-10 pt-3">
-          <div className="text-center white-element ">
-            {userName && <span className="fs-4 mx-2">{userName}</span>}
-            {userName && <div className="vr bg-dark dark-mode"></div>}
-            {userName ? (
-              <Link to="/login" className={'navbar-brand ms-2 white-element'} onClick={logout}>
-                {t(transtateKeys.LOG_OUT)}
-              </Link>
-            ) : (
-              <Link to="/login" className={'navbar-brand ms-2 white-element'} onClick={logout}>
-                {t(transtateKeys.LOG_IN)}
-              </Link>
-            )}
-          </div>
-          <ul className="navbar-nav me-auto mb-2 mb-lg-0 text-center ">
-            <li className="nav-item">
-              {userName && (
-                <Link to="/collection" className="text-decoration-none ms-3 white-element">
-                  {t(transtateKeys.MY_COLLECTON)}
-                </Link>
-              )}
-            </li>
-            <li>
-              {userRole === 'ADMIN' && (
-                <Link to="/admin-panel" className="text-decoration-none ms-3 white-element">
-                  {t(transtateKeys.ADMIN_PANEL)}
-                </Link>
-              )}
-            </li>
-          </ul>
-          <div className="mx-3 d-flex align-items-center px-3 white-element">
-            <SwitchLanguage />
-          </div>
-          <div className="mx-3 px-3 white-element">
-            <ThemeSwither />
-          </div>
-        </div>
-      )}
+      {menu && <MobileNavBar userName={userName} logout={logout} userRole={userRole} />}
       <div className="d-flex align-items-center justify-content-between  nav-toggle__buttons ">
         <div className="mx-3 d-flex align-items-center px-3 grey-element">
           <SwitchLanguage />
