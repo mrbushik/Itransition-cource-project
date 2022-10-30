@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { fullTextSearch } from '../services/getInfoRequests';
 
 import UserCollection from './userCollection';
-import transtateKeys from '../translate/transtateKeys';
+import translateKeys from '../translate/translateKeys';
 
 function Searcher() {
   const { t } = useTranslation();
@@ -44,7 +44,7 @@ function Searcher() {
           className="search-input border-primary px-3 py-1"
           value={searchInfo}
           onChange={handleChange}
-          placeholder={t(transtateKeys.SEARCH_COLLECTIONS)}
+          placeholder={t(translateKeys.SEARCH_COLLECTIONS)}
         />
         <span className="cursor-pointer fs-4 grey-element ms-4 " onClick={cleanInputValue}>
           x

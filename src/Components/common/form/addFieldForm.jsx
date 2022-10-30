@@ -6,7 +6,7 @@ import { useTranslation } from 'react-i18next';
 
 import SelectField from './selectedField';
 import TextField from './textField';
-import transtateKeys from '../../translate/transtateKeys';
+import translateKeys from '../../translate/translateKeys';
 
 function AddFieldForm({ handleChangeField, dataType, dataDescription, index, onDelete }) {
   const { t } = useTranslation();
@@ -28,12 +28,12 @@ function AddFieldForm({ handleChangeField, dataType, dataDescription, index, onD
   const validatorConfig = {
     type: {
       isRequired: {
-        message: t(transtateKeys.FIELD_REQUIRED),
+        message: t(translateKeys.FIELD_REQUIRED),
       },
     },
     description: {
       isRequired: {
-        message: t(transtateKeys.FIELD_REQUIRED),
+        message: t(translateKeys.FIELD_REQUIRED),
       },
     },
   };
@@ -41,20 +41,20 @@ function AddFieldForm({ handleChangeField, dataType, dataDescription, index, onD
   return (
     <div className="mt-2">
       <button className="btn btn-danger float-end mb-2" onClick={() => onDelete(index)}>
-        {t(transtateKeys.DELETE)}
+        {t(translateKeys.DELETE)}
       </button>
       <SelectField
-        label={t(transtateKeys.SELECT_FIELD_TO_ADD)}
+        label={t(translateKeys.SELECT_FIELD_TO_ADD)}
         name="type"
         // TODO make constant to default options
         options={['number', 'text', 'multiline text', 'checkbox', 'date']}
-        defaultOption={t(transtateKeys.CHOOSE)}
+        defaultOption={t(translateKeys.CHOOSE)}
         onChange={handleChange}
         value={dataType}
         error={errors.type}
       />
       <TextField
-        label={t(transtateKeys.DESCRIPTION)}
+        label={t(translateKeys.DESCRIPTION)}
         type="text"
         name="description"
         value={dataDescription}

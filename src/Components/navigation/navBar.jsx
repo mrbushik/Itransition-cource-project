@@ -6,7 +6,7 @@ import { logout } from '../utils/logout';
 import SwitchLanguage from '../common/buttons/switchLanguage';
 import ThemeSwither from '../common/buttons/themeSwither';
 import Searcher from '../ui/searcher';
-import transtateKeys from '../translate/transtateKeys';
+import translateKeys from '../translate/translateKeys';
 import MobileNavBar from './mobileNavBar';
 
 function NavBar() {
@@ -24,7 +24,7 @@ function NavBar() {
       <nav className={'navbar navbar-expand-lg bg-light dark-mode'}>
         <div className="container-fluid  p-2 ">
           <Link to="/" className="text-decoration-none ">
-            {t(transtateKeys.MAIN_PAGE)}
+            {t(translateKeys.MAIN_PAGE)}
           </Link>
           <button className="navbar-toggler white-element" onClick={toggleMenu}>
             <span className="navbar-toggler-icon"></span>
@@ -34,14 +34,14 @@ function NavBar() {
               <li className="nav-item">
                 {userName && (
                   <Link to="/collection" className="text-decoration-none ms-3">
-                    {t(transtateKeys.MY_COLLECTON)}
+                    {t(translateKeys.MY_COLLECTON)}
                   </Link>
                 )}
               </li>
               <li>
                 {userRole === 'ADMIN' && (
                   <Link to="/admin-panel" className="text-decoration-none ms-3">
-                    {t(transtateKeys.ADMIN_PANEL)}
+                    {t(translateKeys.ADMIN_PANEL)}
                   </Link>
                 )}
               </li>
@@ -52,11 +52,11 @@ function NavBar() {
                 {userName && <div className="vr bg-dark white-element"></div>}
                 {userName ? (
                   <Link to="/login" className={'navbar-brand ms-2 '} onClick={logout}>
-                    {t(transtateKeys.LOG_OUT)}
+                    {t(translateKeys.LOG_OUT)}
                   </Link>
                 ) : (
                   <Link to="/login" className={'navbar-brand ms-2 '} onClick={logout}>
-                    {t(transtateKeys.LOG_IN)}
+                    {t(translateKeys.LOG_IN)}
                   </Link>
                 )}
               </div>

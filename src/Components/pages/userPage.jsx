@@ -15,7 +15,7 @@ import { changeCurrentPageAtUser } from '../redux/actions/currentPaginatePage';
 import { getCollections } from '../redux/actions/userCollection';
 import Filter from '../ui/filter';
 import { getToken } from '../utils/token';
-import transtateKeys from '../translate/transtateKeys';
+import transtateKeys from '../translate/translateKeys';
 
 function UserPage() {
   let croppedCollection;
@@ -32,6 +32,7 @@ function UserPage() {
   const URL = `${process.env.REACT_APP_DOMAIN_NAME}/api/user/${userId}/?filter=${filterParams}`;
 
   const PAGE_LIMIT = 3;
+  const DEFAULT_COLLECTION_PAGE = 1;
 
   const toggleActiveModal = (value) => setActiveModal(+value);
 
@@ -46,7 +47,7 @@ function UserPage() {
 
   useEffect(() => {
     if (userCollection.length && Math.ceil(totalPages()) < currentPage) {
-      dispatch(changeCurrentPageAtUser(1));
+      dispatch(changeCurrentPageAtUser(DEFAULT_COLLECTION_PAGE));
       dispatch(getCollections(URL, getToken()));
     }
   }, [userCollection]);
@@ -86,8 +87,7 @@ function UserPage() {
           />
         )}
       </div>
-      {/* TODO change and test  */}
-      {userCollection && userCollection.length !== 0 && (
+      {userCollection.length !== 0 && (
         <Filter
           options={[t(transtateKeys.NEW), t(transtateKeys.OLD)]}
           filterValues={['new', 'old']}
@@ -122,8 +122,7 @@ function UserPage() {
           )}
         </div>
       )}
-      {/* TODO check this  */}
-      {!userCollection && (
+      {userCollection && !userCollection.length && (
         <div className="text-danger  mt-4 fs-5  text-center px-3">
           {t(transtateKeys.NONE_COLLECTIONS)}
         </div>

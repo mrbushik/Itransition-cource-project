@@ -10,7 +10,7 @@ import UserCollection from '../ui/userCollection';
 import Paginate from '../common/paginate';
 import EditBtn from '../common/buttons/editBtn';
 import EditModal from '../common/modal/collectionModal/editModal';
-import transtateKeys from '../translate/transtateKeys';
+import translateKeys from '../translate/translateKeys';
 
 function AdminCollections() {
   const PAGE_LIMIT = 3;
@@ -65,7 +65,7 @@ function AdminCollections() {
                     {role && adminCollections.collections.length && (
                       <EditBtn
                         onToggle={toggleActiveModal}
-                        btnList={[t(transtateKeys.EDIT), t(transtateKeys.DELETE)]}
+                        btnList={[t(translateKeys.EDIT), t(translateKeys.DELETE)]}
                       />
                     )}
                   </div>
@@ -73,14 +73,14 @@ function AdminCollections() {
               )}
               <div className="m-4">
                 <Link to="admin-panel">
-                  <div className="btn btn-secondary">{t(transtateKeys.TO_ADMIN_PANEL)}</div>
+                  <div className="btn btn-secondary">{t(translateKeys.TO_ADMIN_PANEL)}</div>
                 </Link>
               </div>
             </div>
             {activeModal === 0 && adminCollections.collections && (
               <EditModal
                 collections={adminCollections.collections}
-                modalType={t(transtateKeys.EDIT)}
+                modalType={t(translateKeys.EDIT)}
                 onActive={toggleActiveModal}
                 updateCollectionsData={handleUpdateData}
               />
@@ -89,7 +89,7 @@ function AdminCollections() {
               <EditModal
                 collections={adminCollections.collections}
                 onActive={toggleActiveModal}
-                modalType={t(transtateKeys.DELETE)}
+                modalType={t(translateKeys.DELETE)}
                 updateCollectionsData={handleUpdateData}
               />
             )}
@@ -122,11 +122,11 @@ function AdminCollections() {
         <div>
           <div className="m-4">
             <Link to="admin-panel">
-              <div className="btn btn-secondary">{t(transtateKeys.TO_ADMIN_PANEL)}</div>
+              <div className="btn btn-secondary">{t(translateKeys.TO_ADMIN_PANEL)}</div>
             </Link>
           </div>
           {adminCollections.total === 0 && (
-            <p className="text-danger text-center fs-4">{t(transtateKeys.NONE_COLLECTIONS)}</p>
+            <p className="text-danger text-center fs-4">{t(translateKeys.NONE_COLLECTIONS)}</p>
           )}
         </div>
       )}

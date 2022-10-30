@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next';
 import SwitchLanguage from '../common/buttons/switchLanguage';
 import ThemeSwither from '../common/buttons/themeSwither';
 import Searcher from '../ui/searcher';
-import transtateKeys from '../translate/transtateKeys';
+import translateKeys from '../translate/translateKeys';
 
 function MobileNavBar({ userName, logout, userRole }) {
   const { t } = useTranslation();
@@ -17,11 +17,11 @@ function MobileNavBar({ userName, logout, userRole }) {
         {userName && <span className="vr bg-dark separator "></span>}
         {userName ? (
           <Link to="/login" className={'navbar-brand ms-2 text-primary'} onClick={logout}>
-            {t(transtateKeys.LOG_OUT)}
+            {t(translateKeys.LOG_OUT)}
           </Link>
         ) : (
           <Link to="/login" className={'navbar-brand ms-2 white-element'} onClick={logout}>
-            {t(transtateKeys.LOG_IN)}
+            {t(translateKeys.LOG_IN)}
           </Link>
         )}
       </div>
@@ -29,14 +29,14 @@ function MobileNavBar({ userName, logout, userRole }) {
         <li className="nav-item">
           {userName && (
             <Link to="/collection" className="text-decoration-none ms-3 white-element">
-              {t(transtateKeys.MY_COLLECTON)}
+              {t(translateKeys.MY_COLLECTON)}
             </Link>
           )}
         </li>
         <li>
           {userRole === 'ADMIN' && (
             <Link to="/admin-panel" className="text-decoration-none ms-3 white-element">
-              {t(transtateKeys.ADMIN_PANEL)}
+              {t(translateKeys.ADMIN_PANEL)}
             </Link>
           )}
         </li>

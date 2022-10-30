@@ -8,7 +8,7 @@ import { getCollectionsTags, getCollectionsByTag } from '../redux/actions/userCo
 import Paginate from '../common/paginate';
 import UserCollection from './userCollection';
 import { t } from 'i18next';
-import transtateKeys from '../translate/transtateKeys';
+import translateKeys from '../translate/translateKeys';
 
 function TagsSearch() {
   const dispatch = useDispatch();
@@ -55,7 +55,7 @@ function TagsSearch() {
     <>
       {collectionsTags && collectionsTags.length && (
         <div>
-          <h4 className="text-center mt-4 mb-2">{t(transtateKeys.TAGS_CLOUD)}</h4>
+          <h4 className="text-center mt-4 mb-2">{t(translateKeys.TAGS_CLOUD)}</h4>
           <div className="d-flex justify-content-center flex-wrap">
             {collectionsTags?.map((tag, index) => (
               <span

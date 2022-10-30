@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 
 import { WithContext as ReactTags } from 'react-tag-input';
-import transtateKeys from '../../translate/transtateKeys';
+import translateKeys from '../../translate/translateKeys';
 
 function TagsField({ handleDelete, tags, handleAddition, error }) {
   const { t } = useTranslation();
@@ -36,7 +36,7 @@ function TagsField({ handleDelete, tags, handleAddition, error }) {
   return (
     <>
       <div className="app">
-        <h5 className="mt-3"> {t(transtateKeys.TAGS)}</h5>
+        <h5 className="mt-3"> {t(translateKeys.TAGS)}</h5>
         <div>
           <ReactTags
             tags={tags}
@@ -45,7 +45,7 @@ function TagsField({ handleDelete, tags, handleAddition, error }) {
             handleDelete={handleDelete}
             handleAddition={handleAddition}
             inputFieldPosition="bottom"
-            placeholder={t(transtateKeys.WRITE_TAG)}
+            placeholder={t(translateKeys.WRITE_TAG)}
             autocomplete
           />
         </div>

@@ -12,7 +12,7 @@ import SelectField from '../../form/selectedField';
 import AddFieldForm from '../../form/addFieldForm';
 import TextAreaField from '../../form/textAreaField';
 import { getToken } from '../../../utils/token';
-import transtateKeys from '../../../translate/transtateKeys';
+import translateKeys from '../../../translate/translateKeys';
 
 function Modal({ onActive, updateCollectionsData }) {
   const { t } = useTranslation();
@@ -21,9 +21,9 @@ function Modal({ onActive, updateCollectionsData }) {
   const userName = localStorage.getItem('userId');
   const URL = `${process.env.REACT_APP_DOMAIN_NAME}/api/add-collection`;
   const selectedOptions = [
-    t(transtateKeys.BOOKS),
-    t(transtateKeys.MUSIK),
-    t(transtateKeys.CLOTHES),
+    t(translateKeys.BOOKS),
+    t(translateKeys.MUSIK),
+    t(translateKeys.CLOTHES),
   ];
 
   const [collection, setCollection] = useState({
@@ -51,21 +51,21 @@ function Modal({ onActive, updateCollectionsData }) {
   const validatorConfig = {
     name: {
       isRequired: {
-        message: t(transtateKeys.FIELD_REQUIRED),
+        message: t(translateKeys.FIELD_REQUIRED),
       },
       max: {
-        message: t(transtateKeys.FIELD_MAX_LENGTH),
+        message: t(translateKeys.FIELD_MAX_LENGTH),
         value: 30,
       },
     },
     theme: {
       isRequired: {
-        message: t(transtateKeys.FIELD_REQUIRED),
+        message: t(translateKeys.FIELD_REQUIRED),
       },
     },
     description: {
       isRequired: {
-        message: t(transtateKeys.FIELD_REQUIRED),
+        message: t(translateKeys.FIELD_REQUIRED),
       },
     },
   };
@@ -136,7 +136,7 @@ function Modal({ onActive, updateCollectionsData }) {
       <div className="modal-dialog modal-dialog-centered  bg-light absolute-top mx-3 mt-3 p-3 dark-mode">
         <div className="modal-content">
           <div className="modal-header">
-            <h5 className="modal-title">{t(transtateKeys.CREATE_COLLECTION)}</h5>
+            <h5 className="modal-title">{t(translateKeys.CREATE_COLLECTION)}</h5>
             <button type="button" className="close" onClick={onActive}>
               <span>x</span>
             </button>
@@ -144,8 +144,8 @@ function Modal({ onActive, updateCollectionsData }) {
           <div className="modal-body">
             <div>
               <TextField
-                label={t(transtateKeys.COLLECTION_NAME)}
-                placeholder={t(transtateKeys.COLLECTION_NAME)}
+                label={t(translateKeys.COLLECTION_NAME)}
+                placeholder={t(translateKeys.COLLECTION_NAME)}
                 type="text"
                 name="name"
                 value={collection.name}
@@ -156,27 +156,27 @@ function Modal({ onActive, updateCollectionsData }) {
                 name="description"
                 value={collection.description}
                 onChange={handleChange}
-                placeholder={t(transtateKeys.COLLECTION_DESCRIPTION)}
-                label={t(transtateKeys.COLLECTION_DESCRIPTION)}
+                placeholder={t(translateKeys.COLLECTION_DESCRIPTION)}
+                label={t(translateKeys.COLLECTION_DESCRIPTION)}
                 error={errors.description}
               />
               <SelectField
-                label={t(transtateKeys.CHOOSE_COLLECTION)}
+                label={t(translateKeys.CHOOSE_COLLECTION)}
                 name="theme"
                 options={selectedOptions}
-                defaultOption={t(transtateKeys.CHOOSE)}
+                defaultOption={t(translateKeys.CHOOSE)}
                 onChange={handleChange}
                 value={collection.theme}
                 error={errors.theme}
               />
             </div>
             <div>
-              <h5>{t(transtateKeys.UPLOAD_FIELD)}</h5>
+              <h5>{t(translateKeys.UPLOAD_FIELD)}</h5>
               <UploadField isUrl={collection.photoUrl} name="photoUrl" onSave={handleChange} />
             </div>
             <div>
               <div className="d-flex justify-content-between mt-3 mb-3">
-                <h5>{t(transtateKeys.ADDITIONAL_FIELDS)}</h5>
+                <h5>{t(translateKeys.ADDITIONAL_FIELDS)}</h5>
               </div>
               {fieldValue.map((data, index) => (
                 <AddFieldForm
@@ -190,7 +190,7 @@ function Modal({ onActive, updateCollectionsData }) {
               ))}
             </div>
             <button className="btn btn-secondary" onClick={() => handleAddField()}>
-              {t(transtateKeys.ADD_FIELD)}
+              {t(translateKeys.ADD_FIELD)}
             </button>
           </div>
           <div className="modal-footer">
@@ -199,10 +199,10 @@ function Modal({ onActive, updateCollectionsData }) {
               className="btn btn-primary "
               onClick={onSubmit}
               disabled={!isValid}>
-              {t(transtateKeys.SAVE)}
+              {t(translateKeys.SAVE)}
             </button>
             <button type="button" className="btn btn-secondary mx-3" onClick={onActive}>
-              {t(transtateKeys.CLOSE)}
+              {t(translateKeys.CLOSE)}
             </button>
           </div>
         </div>

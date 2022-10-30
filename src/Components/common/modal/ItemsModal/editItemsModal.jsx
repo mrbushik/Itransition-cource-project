@@ -10,7 +10,7 @@ import SelectField from '../../form/selectedField';
 import TagsField from '../../form/tagsField';
 import TextField from '../../form/textField';
 import { getToken } from '../../../utils/token';
-import transtateKeys from '../../../translate/transtateKeys';
+import translateKeys from '../../../translate/translateKeys';
 
 function EditItemsModal({
   modalType,
@@ -45,10 +45,10 @@ function EditItemsModal({
   const validatorConfig = {
     name: {
       isRequired: {
-        message: t(transtateKeys.FIELD_REQUIRED),
+        message: t(translateKeys.FIELD_REQUIRED),
       },
       max: {
-        message: t(transtateKeys.FIELD_MAX_LENGTH),
+        message: t(translateKeys.FIELD_MAX_LENGTH),
         value: 30,
       },
     },
@@ -103,8 +103,8 @@ function EditItemsModal({
 
   const addTagsError = () => {
     const otherErrors = errors;
-    otherErrors.tags = t(transtateKeys.FIELD_REQUIRED);
-    setErrors({ tags: t(transtateKeys.FIELD_REQUIRED) });
+    otherErrors.tags = t(translateKeys.FIELD_REQUIRED);
+    setErrors({ tags: t(translateKeys.FIELD_REQUIRED) });
   };
 
   const handleChange = (target) => {
@@ -148,7 +148,7 @@ function EditItemsModal({
   };
 
   const handleSubmit = () => {
-    modalType === t(transtateKeys.EDIT) ? editPost() : deletePost();
+    modalType === t(translateKeys.EDIT) ? editPost() : deletePost();
   };
 
   const isValid = !Object.keys(errors).length;
@@ -164,16 +164,16 @@ function EditItemsModal({
         </div>
         <div className="modal-body">
           <SelectField
-            label={t(transtateKeys.CHOOSE_POST)}
+            label={t(translateKeys.CHOOSE_POST)}
             name="item"
             options={collectionsNames}
-            defaultOption={t(transtateKeys.CHOOSE)}
+            defaultOption={t(translateKeys.CHOOSE)}
             onChange={handleChange}
             value={editItem.item}
             error={errors.item}
           />
         </div>
-        {modalType === t(transtateKeys.EDIT) && editItem.item && (
+        {modalType === t(translateKeys.EDIT) && editItem.item && (
           <>
             <TagsField
               handleDelete={handleDeleteTag}
@@ -185,8 +185,8 @@ function EditItemsModal({
               name="name"
               value={editItem.name}
               onChange={handleChange}
-              placeholder={t(transtateKeys.POST_DESCRIPTION)}
-              label={t(transtateKeys.POST_DESCRIPTION)}
+              placeholder={t(translateKeys.POST_DESCRIPTION)}
+              label={t(translateKeys.POST_DESCRIPTION)}
               error={errors.name}
             />
             {fieldValue?.map((item, index) => (
@@ -211,7 +211,7 @@ function EditItemsModal({
             {modalType}
           </button>
           <button type="button" className="btn btn-secondary mx-3" onClick={onClose}>
-            {t(transtateKeys.CLOSE)}
+            {t(translateKeys.CLOSE)}
           </button>
         </div>
       </div>

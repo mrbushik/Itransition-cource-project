@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 
 import { uploadFile } from '../../services/modalRequests';
-import transtateKeys from '../../translate/transtateKeys';
+import translateKeys from '../../translate/translateKeys';
 
 function UploadField({ name, onSave, isUrl }) {
   const [link, setLink] = useState('');
@@ -16,7 +16,7 @@ function UploadField({ name, onSave, isUrl }) {
 
   const checkFileSize = (fileSize) => {
     if (fileSize > MAX_FILE_SIZE) {
-      setErrors(t(transtateKeys.FILE_ERROR));
+      setErrors(t(translateKeys.FILE_ERROR));
       return true;
     }
 
@@ -53,13 +53,13 @@ function UploadField({ name, onSave, isUrl }) {
           type="file"
           accept=".png,.jpeg,.jpg,.heic,.raw"
           className={getInputClasses()}
-          placeholder={t(transtateKeys.UPLOAD_FIELD)}
+          placeholder={t(translateKeys.UPLOAD_FIELD)}
           onChange={handleLink}
         />
         <button className="btn btn-outline-secondary" type="button" onClick={saveLink}>
-          {t(transtateKeys.UPLOAD)}
+          {t(translateKeys.UPLOAD)}
         </button>
-        {!isUrl && <p className="invalid-feedback text-danger">{t(transtateKeys.UPLOAD_ERROR)}</p>}
+        {!isUrl && <p className="invalid-feedback text-danger">{t(translateKeys.UPLOAD_ERROR)}</p>}
       </div>
       {errors && <div className="text-danger">{errors}</div>}
       {loading && <div className="lds-dual-ring "></div>}

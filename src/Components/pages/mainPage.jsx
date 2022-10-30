@@ -6,7 +6,7 @@ import { getLagestCollections, getLastPostCollections } from '../redux/actions/u
 
 import UserCollection from '../ui/userCollection';
 import TagsSearch from '../ui/tagsSearch';
-import transtateKeys from '../translate/transtateKeys';
+import translateKeys from '../translate/translateKeys';
 
 function MainPage() {
   const { t } = useTranslation();
@@ -30,7 +30,7 @@ function MainPage() {
           <TagsSearch />
           {newPostsCollection && newPostsCollection.collections.length && (
             <div>
-              <h4 className="ms-3 mt-3">{t(transtateKeys.LAST_POSTS)}</h4>
+              <h4 className="ms-3 mt-3">{t(translateKeys.LAST_POSTS)}</h4>
               <div className="mt-4 d-flex justify-content-center flex-wrap">
                 {newPostsCollection.collections.map((item, index) => (
                   <UserCollection
@@ -52,7 +52,7 @@ function MainPage() {
           )}
           {lagestCollection && lagestCollection.length && (
             <div>
-              <h4 className="ms-3 mt-3">{t(transtateKeys.LAGEST_COLLECTIONS)}</h4>
+              <h4 className="ms-3 mt-3">{t(translateKeys.LAGEST_COLLECTIONS)}</h4>
               <div className="mt-4 d-flex justify-content-center flex-wrap">
                 {lagestCollection.map((item, index) => (
                   <UserCollection
@@ -75,7 +75,7 @@ function MainPage() {
       )}
       {lagestCollection && !lagestCollection.length && (
         <div className="text-danger  mt-5 fs-5 text-center px-3">
-          {t(transtateKeys.WITHOUT_COLLECTIONS)}
+          {t(translateKeys.WITHOUT_COLLECTIONS)}
         </div>
       )}
     </>

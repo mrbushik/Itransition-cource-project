@@ -1,4 +1,4 @@
-const transtateKeys = {
+const translateKeys = {
   MAIN_PAGE: 'main page',
   MY_COLLECTON: 'my collection',
   LOG_OUT: 'log out',
@@ -84,4 +84,4 @@ const transtateKeys = {
   EXPORT_CSV: 'csv export',
 };
 
-export default transtateKeys;
+export default translateKeys;

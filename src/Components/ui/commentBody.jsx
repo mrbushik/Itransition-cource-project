@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 import { getDate } from '../utils/getDate';
-import transtateKeys from '../translate/transtateKeys';
+import translateKeys from '../translate/translateKeys';
 
 function CommentBody({ commentData }) {
   const { t } = useTranslation();
@@ -17,7 +17,7 @@ function CommentBody({ commentData }) {
   return (
     <div className="border border-primary mb-3 pb-3">
       <div className="d-flex ms-2 mt-2">
-        <p className="me-2 ">{t(transtateKeys.AUTOR)}</p>
+        <p className="me-2 ">{t(translateKeys.AUTOR)}</p>
         <p className="text-success">{commentData.userName}</p>
       </div>
       {textCommentParse?.map((item, index) => (

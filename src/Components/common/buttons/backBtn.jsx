@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import { useHistory } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import transtateKeys from '../../translate/transtateKeys';
+import translateKeys from '../../translate/translateKeys';
 
 function BackBtn({ backLink }) {
   const { t } = useTranslation();
@@ -14,7 +14,7 @@ function BackBtn({ backLink }) {
   return (
     <>
       <button className="btn btn-secondary ms-3 mt-3 back-btn" onClick={returnToTargetPage}>
-        {t(transtateKeys.BACK)}
+        {t(translateKeys.BACK)}
       </button>
     </>
   );

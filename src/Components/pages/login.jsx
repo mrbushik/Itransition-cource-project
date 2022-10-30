@@ -10,7 +10,7 @@ import ThemeSwither from '../common/buttons/themeSwither';
 import SwitchLanguage from '../common/buttons/switchLanguage';
 import LoginForm from '../ui/loginForm';
 import RegisterForm from '../ui/registerForm';
-import transtateKeys from '../translate/transtateKeys';
+import translateKeys from '../translate/translateKeys';
 
 function Login() {
   const { t } = useTranslation();
@@ -88,7 +88,7 @@ function Login() {
         </div>
         <div className="my-3">
           <Link to="/">
-            <div className="btn btn-secondary">{t(transtateKeys.TO_MAIN_PAGE)}</div>
+            <div className="btn btn-secondary">{t(translateKeys.TO_MAIN_PAGE)}</div>
           </Link>
         </div>
       </div>
@@ -96,9 +96,9 @@ function Login() {
         <div className="row ">
           <div className="col-md-6 offset-md-3 shadow p-4  dark-mode">
             {formType === 'register' ? (
-              <h3 className="mb-4">{t(transtateKeys.SING_UP)}</h3>
+              <h3 className="mb-4">{t(translateKeys.SING_UP)}</h3>
             ) : (
-              <h3 className="mb-4">{t(transtateKeys.SING_IN)}</h3>
+              <h3 className="mb-4">{t(translateKeys.SING_IN)}</h3>
             )}
             <form className="grey-element">
               <div className="mb-3">

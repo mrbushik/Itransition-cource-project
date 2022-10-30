@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import transtateKeys from '../translate/transtateKeys';
+import translateKeys from '../translate/translateKeys';
 
 function UserCollection({ authorName, description, icon, name, type, id, link, newPost }) {
   const { t } = useTranslation();
@@ -17,7 +17,7 @@ function UserCollection({ authorName, description, icon, name, type, id, link, n
       <Link to={`${link}${id}`} className="text-decoration-none">
         {newPost && (
           <div>
-            <h5 className="mx-3 ms-2 mb-1">{t(transtateKeys.ADDED_POST)}:</h5>
+            <h5 className="mx-3 ms-2 mb-1">{t(translateKeys.ADDED_POST)}:</h5>
             <div className="mx-2">
               <span className="text-success fs-6 fw-semibold" style={{ overflowWrap: 'anywhere' }}>
                 {newPost}
@@ -25,10 +25,10 @@ function UserCollection({ authorName, description, icon, name, type, id, link, n
             </div>
           </div>
         )}
-        <span className="text-decoration-none text-reset ms-2"> {t(transtateKeys.AUTOR)}:</span>
+        <span className="text-decoration-none text-reset ms-2"> {t(translateKeys.AUTOR)}:</span>
         <span className="ms-3">{authorName}</span>
         <div>
-          <span className="text-decoration-none text-reset ms-2"> {t(transtateKeys.TYPE)}:</span>
+          <span className="text-decoration-none text-reset ms-2"> {t(translateKeys.TYPE)}:</span>
           <span className="ms-3">{type}</span>
         </div>
         <div className="m-2">

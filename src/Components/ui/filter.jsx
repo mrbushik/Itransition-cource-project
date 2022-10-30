@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { filter, filterValue } from '../redux/actions/filter';
 
 import SelectField from '../common/form/selectedField';
-import transtateKeys from '../translate/transtateKeys';
+import translateKeys from '../translate/translateKeys';
 
 function Filter({ options, filterValues, onUpdate, userId, setCollections }) {
   const dispatch = useDispatch();
@@ -27,7 +27,7 @@ function Filter({ options, filterValues, onUpdate, userId, setCollections }) {
 
   return (
     <div>
-      <h5 className="ms-3  dysplay">{t(transtateKeys.DISPLAY)}</h5>
+      <h5 className="ms-3  dysplay">{t(translateKeys.DISPLAY)}</h5>
       <SelectField name="type" options={options} onChange={handleChange} value={newFilter} />
     </div>
   );

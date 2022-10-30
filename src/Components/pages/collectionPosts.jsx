@@ -11,7 +11,7 @@ import PostsRender from '../common/postsRender';
 import LikeBtn from '../common/buttons/likeBtn';
 import CommentsForm from '../common/form/commentsForm';
 import { getAllTags } from '../redux/actions/selectedTag';
-import transtateKeys from '../translate/transtateKeys';
+import translateKeys from '../translate/translateKeys';
 import ExportCsvBtn from '../common/buttons/exportCsvBtn';
 
 function CollectionPosts() {
@@ -44,8 +44,8 @@ function CollectionPosts() {
         <ShowModal
           btnList={
             !collectionData.posts.length
-              ? [t(transtateKeys.CREATE)]
-              : [t(transtateKeys.CREATE), t(transtateKeys.EDIT), t(transtateKeys.DELETE)]
+              ? [t(translateKeys.CREATE)]
+              : [t(translateKeys.CREATE), t(translateKeys.EDIT), t(translateKeys.DELETE)]
           }
           collectionId={params.Id}
           data={collectionData}

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 
 import PostItem from '../ui/postItem';
-import transtateKeys from '../translate/transtateKeys';
+import translateKeys from '../translate/translateKeys';
 
 function PostsRender({ data }) {
   const { t } = useTranslation();
@@ -25,9 +25,9 @@ function PostsRender({ data }) {
             <table className="table mt-4">
               <thead>
                 <tr>
-                  <th scope="col">{t(transtateKeys.ID)}</th>
-                  <th scope="col">{t(transtateKeys.TAGS)}</th>
-                  <th scope="col">{t(transtateKeys.POST_NAME)}</th>
+                  <th scope="col">{t(translateKeys.ID)}</th>
+                  <th scope="col">{t(translateKeys.TAGS)}</th>
+                  <th scope="col">{t(translateKeys.POST_NAME)}</th>
                   {postsTemplate?.map((item, index) => (
                     <th key={index}>{item.description}</th>
                   ))}

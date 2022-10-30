@@ -10,7 +10,7 @@ import UserTableItem from '../ui/userTableItem';
 import EditBtn from '../common/buttons/editBtn';
 import { logout } from '../utils/logout';
 import { getToken } from '../utils/token';
-import transtateKeys from '../translate/transtateKeys';
+import translateKeys from '../translate/translateKeys';
 
 function AdminPage() {
   const { t } = useTranslation();
@@ -23,11 +23,11 @@ function AdminPage() {
   const [errors, setErrors] = useState();
 
   const buttons = [
-    t(transtateKeys.UNBLOCK),
-    t(transtateKeys.BLOCK),
-    t(transtateKeys.DELETE),
-    t(transtateKeys.GET_ADMIN),
-    t(transtateKeys.PIC_UP_ADMIN),
+    t(translateKeys.UNBLOCK),
+    t(translateKeys.BLOCK),
+    t(translateKeys.DELETE),
+    t(translateKeys.GET_ADMIN),
+    t(translateKeys.PIC_UP_ADMIN),
   ];
 
   const requests = [unblock, block, deleteUser, getAdmin, pickUpAdmin];
@@ -68,7 +68,7 @@ function AdminPage() {
   };
 
   const handlRequest = (buttonIndex) => {
-    selectedUser.user ? submitChanges(buttonIndex) : setErrors(t(transtateKeys.CHOOSE_USER));
+    selectedUser.user ? submitChanges(buttonIndex) : setErrors(t(translateKeys.CHOOSE_USER));
   };
 
   return (
@@ -77,7 +77,7 @@ function AdminPage() {
         <EditBtn onToggle={handlRequest} btnList={buttons} />
         <div className="m-4">
           <Link to="admin-collections">
-            <div className="btn btn-secondary  ">{t(transtateKeys.CHECK_USERS_COLLECTIONS)}</div>
+            <div className="btn btn-secondary  ">{t(translateKeys.CHECK_USERS_COLLECTIONS)}</div>
           </Link>
         </div>
       </div>
@@ -86,10 +86,10 @@ function AdminPage() {
         <table className="table">
           <thead>
             <tr>
-              <th scope="col">{t(transtateKeys.CHECKBOX)}</th>
-              <th scope="col">{t(transtateKeys.ID)}</th>
-              <th scope="col">{t(transtateKeys.USERNAME)}</th>
-              <th scope="col">{t(transtateKeys.ROLE)}</th>
+              <th scope="col">{t(translateKeys.CHECKBOX)}</th>
+              <th scope="col">{t(translateKeys.ID)}</th>
+              <th scope="col">{t(translateKeys.USERNAME)}</th>
+              <th scope="col">{t(translateKeys.ROLE)}</th>
             </tr>
           </thead>
           {allUsers && (

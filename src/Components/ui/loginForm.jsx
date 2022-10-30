@@ -9,7 +9,7 @@ import { activateRequest } from '../services/loginRequest';
 import TextField from '../common/form/textField';
 import ActivateMail from './activateMail';
 import HideBtn from '../common/buttons/hideBtn';
-import transtateKeys from '../translate/transtateKeys';
+import translateKeys from '../translate/translateKeys';
 
 function LoginForm({ toggleFormType, onSubmit, successfulSingUp, authData, loginError }) {
   const { t } = useTranslation();
@@ -40,15 +40,15 @@ function LoginForm({ toggleFormType, onSubmit, successfulSingUp, authData, login
   const validatorConfig = {
     password: {
       isRequired: {
-        message: t(transtateKeys.FIELD_REQUIRED),
+        message: t(translateKeys.FIELD_REQUIRED),
       },
     },
     email: {
       isRequired: {
-        message: t(transtateKeys.FIELD_REQUIRED),
+        message: t(translateKeys.FIELD_REQUIRED),
       },
       isEmail: {
-        message: t(transtateKeys.EMAIL_ERROR),
+        message: t(translateKeys.EMAIL_ERROR),
       },
     },
   };
@@ -80,14 +80,14 @@ function LoginForm({ toggleFormType, onSubmit, successfulSingUp, authData, login
   return (
     <>
       <TextField
-        label={t(transtateKeys.EMAIL)}
+        label={t(translateKeys.EMAIL)}
         name="email"
         value={data.email}
         onChange={handleChange}
         error={errors.email}
       />
       <TextField
-        label={t(transtateKeys.PASSWORD)}
+        label={t(translateKeys.PASSWORD)}
         type="password"
         name="password"
         value={data.password}
@@ -96,9 +96,9 @@ function LoginForm({ toggleFormType, onSubmit, successfulSingUp, authData, login
       />
       {successfulSingUp && !activateEmail && (
         <div className="m-3">
-          <p>{t(transtateKeys.SUCCESS_REGISTER)}</p>
+          <p>{t(translateKeys.SUCCESS_REGISTER)}</p>
           <div className="btn btn-secondary" onClick={() => resendMail(authData.user.email)}>
-            {t(transtateKeys.RESEND)}
+            {t(translateKeys.RESEND)}
           </div>
         </div>
       )}
@@ -113,10 +113,10 @@ function LoginForm({ toggleFormType, onSubmit, successfulSingUp, authData, login
         type="submit"
         disabled={!isValid}
         onClick={(e) => handleSubmit(e)}>
-        {t(transtateKeys.SUBMIT)}
+        {t(translateKeys.SUBMIT)}
       </button>
       <a role="button" onClick={toggleFormType}>
-        {t(transtateKeys.SING_UP)}
+        {t(translateKeys.SING_UP)}
       </a>
     </>
   );

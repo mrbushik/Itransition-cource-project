@@ -10,7 +10,7 @@ import TextField from '../../form/textField';
 import TagsField from '../../form/tagsField';
 import CustomField from '../../form/customField';
 import { getToken } from '../../../utils/token';
-import transtateKeys from '../../../translate/transtateKeys';
+import translateKeys from '../../../translate/translateKeys';
 
 function CreateItemsModal({ onClose, fieldsCount, addingFields, collectionId, onUpdateData }) {
   const { t } = useTranslation();
@@ -32,10 +32,10 @@ function CreateItemsModal({ onClose, fieldsCount, addingFields, collectionId, on
   const validatorConfig = {
     name: {
       isRequired: {
-        message: t(transtateKeys.FIELD_REQUIRED),
+        message: t(translateKeys.FIELD_REQUIRED),
       },
       max: {
-        message: t(transtateKeys.FIELD_MAX_LENGTH),
+        message: t(translateKeys.FIELD_MAX_LENGTH),
         value: 30,
       },
     },
@@ -62,8 +62,8 @@ function CreateItemsModal({ onClose, fieldsCount, addingFields, collectionId, on
 
   const addTagsError = () => {
     const otherErrors = errors;
-    otherErrors.tags = t(transtateKeys.FIELD_REQUIRED);
-    setErrors({ tags: t(transtateKeys.FIELD_REQUIRED) });
+    otherErrors.tags = t(translateKeys.FIELD_REQUIRED);
+    setErrors({ tags: t(translateKeys.FIELD_REQUIRED) });
   };
 
   const handleAddition = (tag) => {
@@ -121,7 +121,7 @@ function CreateItemsModal({ onClose, fieldsCount, addingFields, collectionId, on
       <div className="modal-dialog modal-dialog-centered  bg-light absolute-top mx-3 mt-3 p-3 dark-mode">
         <div className="modal-content">
           <div className="modal-header">
-            <h5 className="modal-title">{t(transtateKeys.NEW_ITEM)}</h5>
+            <h5 className="modal-title">{t(translateKeys.NEW_ITEM)}</h5>
             <button type="button" className="close" onClick={onClose}>
               <span>x</span>
             </button>
@@ -136,8 +136,8 @@ function CreateItemsModal({ onClose, fieldsCount, addingFields, collectionId, on
             name="name"
             value={postItem.name}
             onChange={handleChange}
-            placeholder={t(transtateKeys.POST_DESCRIPTION)}
-            label={t(transtateKeys.POST_DESCRIPTION)}
+            placeholder={t(translateKeys.POST_DESCRIPTION)}
+            label={t(translateKeys.POST_DESCRIPTION)}
             error={errors.name}
           />
           {fieldValue?.map((item, index) => (
@@ -157,10 +157,10 @@ function CreateItemsModal({ onClose, fieldsCount, addingFields, collectionId, on
               className="btn btn-primary "
               onClick={onSubmit}
               disabled={!isValid}>
-              {t(transtateKeys.SAVE)}
+              {t(translateKeys.SAVE)}
             </button>
             <button type="button" className="btn btn-secondary mx-3" onClick={onClose}>
-              {t(transtateKeys.CLOSE)}
+              {t(translateKeys.CLOSE)}
             </button>
           </div>
         </div>

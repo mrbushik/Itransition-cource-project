@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { CSVLink } from 'react-csv';
-import transtateKeys from '../../translate/transtateKeys';
+import translateKeys from '../../translate/translateKeys';
 
 function ExportCsvBtn({ data }) {
   const { t } = useTranslation();
@@ -66,7 +66,7 @@ function ExportCsvBtn({ data }) {
   return (
     <div className="mt-3">
       <CSVLink data={tableData} headers={headers} filename="parents.csv">
-        <button className="btn btn-primary mb-2">{t(transtateKeys.EXPORT_CSV)}</button>
+        <button className="btn btn-primary mb-2">{t(translateKeys.EXPORT_CSV)}</button>
       </CSVLink>
     </div>
   );

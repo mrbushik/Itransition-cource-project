@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { validator } from '../utils/validator';
 
 import TextField from '../common/form/textField';
-import transtateKeys from '../translate/transtateKeys';
+import translateKeys from '../translate/translateKeys';
 
 function ActivateMail({ resendMail }) {
   const { t } = useTranslation();
@@ -15,10 +15,10 @@ function ActivateMail({ resendMail }) {
   const validatorConfig = {
     email: {
       isRequired: {
-        message: t(transtateKeys.FIELD_REQUIRED),
+        message: t(translateKeys.FIELD_REQUIRED),
       },
       isEmail: {
-        message: t(transtateKeys.EMAIL_ERROR),
+        message: t(translateKeys.EMAIL_ERROR),
       },
     },
   };
@@ -45,9 +45,9 @@ function ActivateMail({ resendMail }) {
   return (
     <div>
       <div className="m-3">
-        <p>{t(transtateKeys.RESEND_EMAIL)}</p>
+        <p>{t(translateKeys.RESEND_EMAIL)}</p>
         <TextField
-          label={t(transtateKeys.EMAIL)}
+          label={t(translateKeys.EMAIL)}
           type="text"
           name="email"
           value={email.email}
@@ -58,7 +58,7 @@ function ActivateMail({ resendMail }) {
           className="btn btn-secondary"
           onClick={() => resendMail(email.email)}
           disabled={!isValid}>
-          {t(transtateKeys.SEND_EMAIL)}
+          {t(translateKeys.SEND_EMAIL)}
         </div>
       </div>
     </div>

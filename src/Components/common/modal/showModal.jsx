@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next';
 import EditBtn from '../buttons/editBtn';
 import CreateItemsModal from './ItemsModal/createItemsModal';
 import EditItemsModal from './ItemsModal/editItemsModal';
-import transtateKeys from '../../translate/transtateKeys';
+import translateKeys from '../../translate/translateKeys';
 
 function ShowModal({ btnList, collectionId, data, onUpdateData }) {
   const { t } = useTranslation();
@@ -35,7 +35,7 @@ function ShowModal({ btnList, collectionId, data, onUpdateData }) {
           )}
           onClose={toggleActiveModal}
           fieldsCount={data.postsTemplate.length - DEFAULT_POSTS_FIELDS_LENGTH}
-          modalType={t(transtateKeys.EDIT)}
+          modalType={t(translateKeys.EDIT)}
           onUpdateData={onUpdateData}
         />
       )}
@@ -48,7 +48,7 @@ function ShowModal({ btnList, collectionId, data, onUpdateData }) {
           )}
           onClose={toggleActiveModal}
           fieldsCount={data.postsTemplate.length - DEFAULT_POSTS_FIELDS_LENGTH}
-          modalType={t(transtateKeys.DELETE)}
+          modalType={t(translateKeys.DELETE)}
           onUpdateData={onUpdateData}
           collectionId={collectionId}
         />

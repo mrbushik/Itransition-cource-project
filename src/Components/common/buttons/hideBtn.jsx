@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import transtateKeys from '../../translate/transtateKeys';
+import translateKeys from '../../translate/translateKeys';
 
 function HideBtn({ onDelete }) {
   const [show, setShow] = useState(true);
@@ -37,7 +37,7 @@ function HideBtn({ onDelete }) {
           <path d="M3.35 5.47c-.18.16-.353.322-.518.487A13.134 13.134 0 0 0 1.172 8l.195.288c.335.48.83 1.12 1.465 1.755C4.121 11.332 5.881 12.5 8 12.5c.716 0 1.39-.133 2.02-.36l.77.772A7.029 7.029 0 0 1 8 13.5C3 13.5 0 8 0 8s.939-1.721 2.641-3.238l.708.709zm10.296 8.884-12-12 .708-.708 12 12-.708.708z" />
         </svg>
       )}
-      {!show ? t(transtateKeys.SHOW) : t(transtateKeys.HIDE)}
+      {!show ? t(translateKeys.SHOW) : t(translateKeys.HIDE)}
     </div>
   );
 }

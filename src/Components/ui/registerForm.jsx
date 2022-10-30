@@ -6,7 +6,7 @@ import { validator } from '../utils/validator';
 import PropTypes from 'prop-types';
 
 import TextField from '../common/form/textField';
-import transtateKeys from '../translate/transtateKeys';
+import translateKeys from '../translate/translateKeys';
 
 function RegisterForm({ toggleFormType, onSubmit }) {
   const { t } = useTranslation();
@@ -28,31 +28,31 @@ function RegisterForm({ toggleFormType, onSubmit }) {
   const validatorConfig = {
     username: {
       isRequired: {
-        message: t(transtateKeys.FIELD_REQUIRED),
+        message: t(translateKeys.FIELD_REQUIRED),
       },
       max: {
-        message: t(transtateKeys.FIELD_MAX_LENGTH),
+        message: t(translateKeys.FIELD_MAX_LENGTH),
         value: 30,
       },
     },
     email: {
       isRequired: {
-        message: t(transtateKeys.FIELD_REQUIRED),
+        message: t(translateKeys.FIELD_REQUIRED),
       },
       isEmail: {
-        message: t(transtateKeys.EMAIL_ERROR),
+        message: t(translateKeys.EMAIL_ERROR),
       },
     },
     password: {
       isRequired: {
-        message: t(transtateKeys.FIELD_REQUIRED),
+        message: t(translateKeys.FIELD_REQUIRED),
       },
       min: {
-        message: t(transtateKeys.PASSWORD_ERROR),
+        message: t(translateKeys.PASSWORD_ERROR),
         value: 5,
       },
       max: {
-        message: t(transtateKeys.FIELD_MAX_LENGTH),
+        message: t(translateKeys.FIELD_MAX_LENGTH),
         value: 30,
       },
     },
@@ -67,7 +67,7 @@ function RegisterForm({ toggleFormType, onSubmit }) {
   const comparisonPasswords = () => {
     const passwordsData = Object.values(data);
     if (passwordsData[2] !== passwordsData[3]) {
-      setErrors((prevState) => ({ ...prevState, repeat: t(transtateKeys.PASSWORDS_DONT_MATCH) }));
+      setErrors((prevState) => ({ ...prevState, repeat: t(translateKeys.PASSWORDS_DONT_MATCH) }));
     }
   };
 
@@ -90,21 +90,21 @@ function RegisterForm({ toggleFormType, onSubmit }) {
   return (
     <>
       <TextField
-        label={t(transtateKeys.USERNAME)}
+        label={t(translateKeys.USERNAME)}
         name="username"
         value={data.username}
         onChange={handleChange}
         error={errors.username}
       />
       <TextField
-        label={t(transtateKeys.EMAIL)}
+        label={t(translateKeys.EMAIL)}
         name="email"
         value={data.email}
         onChange={handleChange}
         error={errors.email}
       />
       <TextField
-        label={t(transtateKeys.PASSWORD)}
+        label={t(translateKeys.PASSWORD)}
         type="password"
         name="password"
         value={data.password}
@@ -112,7 +112,7 @@ function RegisterForm({ toggleFormType, onSubmit }) {
         error={errors.password}
       />
       <TextField
-        label={t(transtateKeys.REPEATE_PASSWORD)}
+        label={t(translateKeys.REPEATE_PASSWORD)}
         type="password"
         name="repeat"
         value={data.repeat}
@@ -124,10 +124,10 @@ function RegisterForm({ toggleFormType, onSubmit }) {
         type="submit"
         disabled={!isValid}
         onClick={(e) => handleSubmit(e)}>
-        {t(transtateKeys.SUBMIT)}
+        {t(translateKeys.SUBMIT)}
       </button>
       <a role="button" onClick={toggleFormType}>
-        {t(transtateKeys.SING_IN)}
+        {t(translateKeys.SING_IN)}
       </a>
     </>
   );
