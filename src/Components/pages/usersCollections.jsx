@@ -21,7 +21,7 @@ function UsersCollections() {
   return (
     <>
       <div className="d-flex justify-content-between">
-        <BackBtn backLink={'/'} />
+        <BackBtn />
         <ExportCsvBtn data={collectionData} />
         {collectionData && <LikeBtn collectionId={collectionData._id} />}
       </div>

@@ -14,6 +14,8 @@ import translateKeys from '../translate/translateKeys';
 
 function AdminCollections() {
   const PAGE_LIMIT = 3;
+  const DEFAULT_COLLECTION_PAGE = 1;
+
   const role = localStorage.getItem('role');
   const history = useHistory();
   const dispatch = useDispatch();
@@ -37,8 +39,8 @@ function AdminCollections() {
   }, []);
 
   useEffect(() => {
-    if (Math.ceil(totalPages()) < adminCollections.page) {
-      dispatch(changeCurrentPage(1));
+    if (Math.ceil(totalPages()) < adminCollections.page && adminCollections.total) {
+      dispatch(changeCurrentPage(DEFAULT_COLLECTION_PAGE));
       handleUpdateData(`${process.env.REACT_APP_DOMAIN_NAME}/api/all-collections?page=1`);
     }
   }, [adminCollections]);
@@ -125,7 +127,7 @@ function AdminCollections() {
               <div className="btn btn-secondary">{t(translateKeys.TO_ADMIN_PANEL)}</div>
             </Link>
           </div>
-          {adminCollections.total === 0 && (
+          {adminCollections && !adminCollections.total && (
             <p className="text-danger text-center fs-4">{t(translateKeys.NONE_COLLECTIONS)}</p>
           )}
         </div>

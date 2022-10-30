@@ -20,7 +20,8 @@ function Modal({ onActive, updateCollectionsData }) {
   const userId = localStorage.getItem('userId');
   const userName = localStorage.getItem('userId');
   const URL = `${process.env.REACT_APP_DOMAIN_NAME}/api/add-collection`;
-  const selectedOptions = [
+
+  const SELECTED_OPTIONS = [
     t(translateKeys.BOOKS),
     t(translateKeys.MUSIK),
     t(translateKeys.CLOTHES),
@@ -83,8 +84,7 @@ function Modal({ onActive, updateCollectionsData }) {
 
   const validateAddingFields = () => {
     for (let i = 0; i < fieldValue.length; i++) {
-      if (fieldValue[i].type === '' || fieldValue[i].description === '')
-        addingFieldsErrorsCount += 1;
+      if (!fieldValue[i].type || !fieldValue[i].description) addingFieldsErrorsCount += 1;
     }
     return addingFieldsErrorsCount;
   };
@@ -163,7 +163,7 @@ function Modal({ onActive, updateCollectionsData }) {
               <SelectField
                 label={t(translateKeys.CHOOSE_COLLECTION)}
                 name="theme"
-                options={selectedOptions}
+                options={SELECTED_OPTIONS}
                 defaultOption={t(translateKeys.CHOOSE)}
                 onChange={handleChange}
                 value={collection.theme}

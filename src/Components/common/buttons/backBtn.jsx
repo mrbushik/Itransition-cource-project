@@ -5,11 +5,11 @@ import { useHistory } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import translateKeys from '../../translate/translateKeys';
 
-function BackBtn({ backLink }) {
+function BackBtn() {
   const { t } = useTranslation();
   const history = useHistory();
 
-  const returnToTargetPage = () => (backLink ? history.push(backLink) : history.goBack());
+  const returnToTargetPage = () => history.goBack();
 
   return (
     <>

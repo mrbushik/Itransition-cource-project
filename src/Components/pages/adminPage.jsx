@@ -17,9 +17,7 @@ function AdminPage() {
   const history = useHistory();
   const dispatch = useDispatch();
 
-  const [selectedUser, setSelectedUser] = useState({
-    user: '',
-  });
+  const [selectedUser, setSelectedUser] = useState({ user: '' });
   const [errors, setErrors] = useState();
 
   const buttons = [

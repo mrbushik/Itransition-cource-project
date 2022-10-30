@@ -68,7 +68,7 @@ function CommentsForm({ collectionId }) {
         <CommentBody key={comment._id} commentData={comment} />
       ))}
       {user && (
-        <div className="mt-5 me-5" style={{ maxWidth: '600px' }}>
+        <div className="mt-5 me-5 comment-input">
           <h5 className="mb-0">{t(translateKeys.WRITE_A_COMMENT)}</h5>
           <div>
             <TextAreaField

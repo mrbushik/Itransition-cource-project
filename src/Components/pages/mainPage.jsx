@@ -3,7 +3,7 @@ import React, { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import { getLagestCollections, getLastPostCollections } from '../redux/actions/userCollection';
-
+import { isEmpty } from 'lodash';
 import UserCollection from '../ui/userCollection';
 import TagsSearch from '../ui/tagsSearch';
 import translateKeys from '../translate/translateKeys';
@@ -25,10 +25,10 @@ function MainPage() {
 
   return (
     <>
-      {lagestCollection && lagestCollection.length && (
+      {lagestCollection && !!lagestCollection.length && (
         <div>
           <TagsSearch />
-          {newPostsCollection && newPostsCollection.collections.length && (
+          {newPostsCollection && !!newPostsCollection.collections.length && (
             <div>
               <h4 className="ms-3 mt-3">{t(translateKeys.LAST_POSTS)}</h4>
               <div className="mt-4 d-flex justify-content-center flex-wrap">
@@ -50,7 +50,7 @@ function MainPage() {
               </div>
             </div>
           )}
-          {lagestCollection && lagestCollection.length && (
+          {lagestCollection && !!lagestCollection.length && (
             <div>
               <h4 className="ms-3 mt-3">{t(translateKeys.LAGEST_COLLECTIONS)}</h4>
               <div className="mt-4 d-flex justify-content-center flex-wrap">

@@ -13,15 +13,13 @@ function UserCollection({ authorName, description, icon, name, type, id, link, n
   });
 
   return (
-    <div className="border border-primary mb-3 me-4" style={{ width: '250px' }}>
+    <div className="border border-primary mb-3 me-4 user-collection">
       <Link to={`${link}${id}`} className="text-decoration-none">
         {newPost && (
           <div>
             <h5 className="mx-3 ms-2 mb-1">{t(translateKeys.ADDED_POST)}:</h5>
             <div className="mx-2">
-              <span className="text-success fs-6 fw-semibold" style={{ overflowWrap: 'anywhere' }}>
-                {newPost}
-              </span>
+              <span className="text-success fs-6 fw-semibold new-post">{newPost}</span>
             </div>
           </div>
         )}
@@ -32,13 +30,8 @@ function UserCollection({ authorName, description, icon, name, type, id, link, n
           <span className="ms-3">{type}</span>
         </div>
         <div className="m-2">
-          <div className="d-flex justify-content-center  mt-2 mb-2" style={{ height: '200px' }}>
-            <img
-              className="rounded-0"
-              style={{ maxWidth: '200px', maxHeight: '200px' }}
-              src={icon}
-              alt="img"
-            />
+          <div className="d-flex justify-content-center  mt-2 mb-2 h-200">
+            <img className="rounded-0 collection-img" src={icon} alt="img" />
           </div>
           <h4>{name}</h4>
           {descriptionParse.map((item, index) => (

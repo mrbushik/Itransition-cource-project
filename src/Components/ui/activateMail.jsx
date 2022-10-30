@@ -26,7 +26,7 @@ function ActivateMail({ resendMail }) {
   const validate = () => {
     const errors = validator(email, validatorConfig);
     setErrors(errors);
-    return Object.keys(errors).length === 0;
+    return !Object.keys(errors).length;
   };
 
   useEffect(() => {
@@ -40,7 +40,7 @@ function ActivateMail({ resendMail }) {
     }));
   };
 
-  const isValid = Object.keys(errors).length === 0;
+  const isValid = !Object.keys(errors).length;
 
   return (
     <div>

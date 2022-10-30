@@ -10,6 +10,7 @@ import translateKeys from '../../translate/translateKeys';
 
 function AddFieldForm({ handleChangeField, dataType, dataDescription, index, onDelete }) {
   const { t } = useTranslation();
+  const SELECTED_OPTIONS = ['number', 'text', 'multiline text', 'checkbox', 'date'];
 
   const handleChange = (e) => {
     handleChangeField(e.value, index, e.name);
@@ -46,8 +47,7 @@ function AddFieldForm({ handleChangeField, dataType, dataDescription, index, onD
       <SelectField
         label={t(translateKeys.SELECT_FIELD_TO_ADD)}
         name="type"
-        // TODO make constant to default options
-        options={['number', 'text', 'multiline text', 'checkbox', 'date']}
+        options={SELECTED_OPTIONS}
         defaultOption={t(translateKeys.CHOOSE)}
         onChange={handleChange}
         value={dataType}

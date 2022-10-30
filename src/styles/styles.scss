@@ -313,6 +313,15 @@ input:checked+.toggler:before {
   margin-bottom: 50px;
 }
 
+.comment-input{
+  max-width: 600px;
+}
+
+.post-tags{
+  max-width: 200px;
+  word-wrap: break-word;
+}
+
 .comment-date {
   font-size: 14px;
 
@@ -321,6 +330,23 @@ input:checked+.toggler:before {
 .dysplay {
   margin-bottom: -10px;
   margin-top: 30px;
+}
+
+.user-collection{
+width: 250px;
+}
+
+.h-200 {
+  height: 200px;
+}
+
+.collection-img{
+  max-width: 200px;
+  max-height: 200px;
+}
+
+.new-post{
+  overflow-wrap: anywhere;
 }
 
 .search-results {
@@ -332,6 +358,9 @@ input:checked+.toggler:before {
   cursor: pointer;
 }
 
+.flag-img{
+  width: 40px;
+}
 
 @media(min-width: 991.5px) {
   .nav-phone__menu {

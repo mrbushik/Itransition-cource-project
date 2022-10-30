@@ -2,7 +2,7 @@ import React from 'react';
 
 function TagsRender({ tags }) {
   return (
-    <td style={{ maxWidth: '200px', wordWrap: 'break-word' }}>
+    <td className="post-tags">
       {tags.map((item, index) => (
         <span key={index}> {item}</span>
       ))}

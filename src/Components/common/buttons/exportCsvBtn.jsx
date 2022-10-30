@@ -2,6 +2,8 @@
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { CSVLink } from 'react-csv';
+import PropTypes from 'prop-types';
+
 import translateKeys from '../../translate/translateKeys';
 
 function ExportCsvBtn({ data }) {
@@ -71,5 +73,9 @@ function ExportCsvBtn({ data }) {
     </div>
   );
 }
+
+ExportCsvBtn.propTypes = {
+  data: PropTypes.object,
+};
 
 export default ExportCsvBtn;

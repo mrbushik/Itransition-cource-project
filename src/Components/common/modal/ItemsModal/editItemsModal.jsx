@@ -36,7 +36,7 @@ function EditItemsModal({
   const deletePostURL = `${process.env.REACT_APP_DOMAIN_NAME}/api/delete-collection-post/${collectionId}`;
   const fieldValueInArray = fieldValue.map((item) => item.value);
   const collectionsNames = posts.map((item) => item._id);
-
+  const DEFAULT_FIELD_LENGTH = 2;
   const sendingData = {
     fields: [editItem.name, ...fieldValueInArray],
     tags: tags.map((item) => item.text),
@@ -65,7 +65,7 @@ function EditItemsModal({
 
   const getFieldData = () => {
     let count = fieldsCount;
-    const targetFields = targetElement.fields.slice(1, fieldsCount + 2);
+    const targetFields = targetElement.fields.slice(1, fieldsCount + DEFAULT_FIELD_LENGTH);
 
     return createFields(count, targetFields);
   };
@@ -134,7 +134,7 @@ function EditItemsModal({
   };
 
   const editPost = () => {
-    if (tags.length === 0) {
+    if (!tags.length) {
       addTagsError();
       return;
     }

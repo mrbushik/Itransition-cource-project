@@ -22,7 +22,7 @@ function SwitchLanguage() {
       <img
         src="https://upload.wikimedia.org/wikipedia/commons/a/ae/Flag_of_the_United_Kingdom.svg"
         alt="en"
-        style={{ width: '40px' }}
+        className="flag-img"
       />
       <label className="switch">
         <input type="checkbox" checked={currentValue ? true : false} onChange={handleCheck} />
@@ -31,7 +31,7 @@ function SwitchLanguage() {
       <img
         src="https://upload.wikimedia.org/wikipedia/commons/3/37/Flag_of_Russia_%28bordered%29.svg"
         alt="ru"
-        style={{ width: '40px' }}
+        className="flag-img"
       />
     </>
   );

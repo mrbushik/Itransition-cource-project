@@ -21,6 +21,7 @@ function TagsSearch() {
   const tagColectionsURL = `${process.env.REACT_APP_DOMAIN_NAME}/api/get-collection-by-tag`;
 
   const PAGE_LIMIT = 3;
+  const DEFAULT_TAG_PAGE = 1;
 
   useEffect(() => {
     dispatch(getCollectionsTags(tagsURL));
@@ -38,14 +39,14 @@ function TagsSearch() {
   }, [searchTag, currentPage]);
 
   useEffect(() => {
-    if (collectionsByTag.total !== 0 && Math.ceil(totalPages()) < currentPage) {
+    if (collectionsByTag.total && Math.ceil(totalPages()) < currentPage) {
       dispatch(changeCurrentTagsPage(1));
       handleGetCollections();
     }
   }, [collectionsByTag]);
 
   const handleTagClick = (e) => {
-    dispatch(changeCurrentTagsPage(1));
+    dispatch(changeCurrentTagsPage(DEFAULT_TAG_PAGE));
     dispatch(selectedTagSearch(e.target.outerText));
   };
 
@@ -53,14 +54,13 @@ function TagsSearch() {
 
   return (
     <>
-      {collectionsTags && collectionsTags.length && (
+      {collectionsTags && !!collectionsTags.length && (
         <div>
           <h4 className="text-center mt-4 mb-2">{t(translateKeys.TAGS_CLOUD)}</h4>
           <div className="d-flex justify-content-center flex-wrap">
             {collectionsTags?.map((tag, index) => (
               <span
-                className={`ms-1 ${searchTag === tag ? 'text-success' : ''}`}
-                style={{ cursor: 'pointer' }}
+                className={`ms-1 cursor-pointer ${searchTag === tag ? 'text-success' : ''}`}
                 key={index}
                 onClick={(e) => handleTagClick(e)}>
                 {tag}
