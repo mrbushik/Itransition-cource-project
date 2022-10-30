@@ -87,7 +87,7 @@ function UserPage() {
           />
         )}
       </div>
-      {!!userCollection.length && (
+      {userCollection.length > 1 && (
         <Filter
           options={[t(transtateKeys.NEW), t(transtateKeys.OLD)]}
           filterValues={['new', 'old']}

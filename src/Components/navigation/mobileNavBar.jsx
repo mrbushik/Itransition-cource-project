@@ -7,7 +7,7 @@ import ThemeSwither from '../common/buttons/themeSwither';
 import Searcher from '../ui/searcher';
 import translateKeys from '../translate/translateKeys';
 
-function MobileNavBar({ userName, logout, userRole }) {
+function MobileNavBar({ userName, logout, userRole, refreshToken }) {
   const { t } = useTranslation();
 
   return (
@@ -16,11 +16,17 @@ function MobileNavBar({ userName, logout, userRole }) {
         {userName && <span className="fs-4 mx-2">{userName}</span>}
         {userName && <span className="vr bg-dark separator "></span>}
         {userName ? (
-          <Link to="/login" className={'navbar-brand ms-2 text-primary'} onClick={logout}>
+          <Link
+            to="/login"
+            className={'navbar-brand ms-2 text-primary'}
+            onClick={() => logout(refreshToken)}>
             {t(translateKeys.LOG_OUT)}
           </Link>
         ) : (
-          <Link to="/login" className={'navbar-brand ms-2 white-element'} onClick={logout}>
+          <Link
+            to="/login"
+            className={'navbar-brand ms-2 white-element'}
+            onClick={() => logout(refreshToken)}>
             {t(translateKeys.LOG_IN)}
           </Link>
         )}

@@ -45,13 +45,14 @@ function Login() {
 
   const writeUserData = () => {
     localStorage.setItem('user', auth.user.username);
-    localStorage.setItem('token', auth.accessToken);
+    localStorage.setItem('accessToken', auth.accessToken);
     localStorage.setItem('role', auth.user.roles[0]);
     localStorage.setItem('userId', auth.user._id);
+    localStorage.setItem('refreshToken', auth.refreshToken);
   };
 
   useEffect(() => {
-    if (localStorage.getItem('token')) history.push('/collection');
+    if (localStorage.getItem('accessToken')) history.push('/');
     autoLogin(autoLoginURL, getRefreshToken(), setAuth);
   }, []);
 
@@ -62,7 +63,7 @@ function Login() {
 
   const onSingIn = () => {
     if (auth && !auth.user.isActivated) {
-      localStorage.setItem('refreshToken', auth.refreshToken);
+      localStorage.setItem('autoLogin', auth.refreshToken);
       setSuccessfulSigup(true);
       togleFormType();
     }

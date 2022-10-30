@@ -14,6 +14,7 @@ function NavBar() {
 
   const userName = localStorage.getItem('user');
   const userRole = localStorage.getItem('role');
+  const refreshToken = localStorage.getItem('refreshToken');
 
   const [menu, setMenu] = useState(false);
 
@@ -51,11 +52,17 @@ function NavBar() {
                 {userName && <span className="fs-4 mx-2">{userName}</span>}
                 {userName && <div className="vr bg-dark white-element"></div>}
                 {userName ? (
-                  <Link to="/login" className={'navbar-brand ms-2 '} onClick={logout}>
+                  <Link
+                    to="/login"
+                    className={'navbar-brand ms-2 '}
+                    onClick={() => logout(refreshToken)}>
                     {t(translateKeys.LOG_OUT)}
                   </Link>
                 ) : (
-                  <Link to="/login" className={'navbar-brand ms-2 '} onClick={logout}>
+                  <Link
+                    to="/login"
+                    className={'navbar-brand ms-2 '}
+                    onClick={() => logout(refreshToken)}>
                     {t(translateKeys.LOG_IN)}
                   </Link>
                 )}
@@ -64,7 +71,14 @@ function NavBar() {
           </div>
         </div>
       </nav>
-      {menu && <MobileNavBar userName={userName} logout={logout} userRole={userRole} />}
+      {menu && (
+        <MobileNavBar
+          userName={userName}
+          logout={logout}
+          userRole={userRole}
+          refreshToken={refreshToken}
+        />
+      )}
       <div className="d-flex align-items-center justify-content-between  nav-toggle__buttons ">
         <div className="mx-3 d-flex align-items-center px-3 grey-element">
           <SwitchLanguage />

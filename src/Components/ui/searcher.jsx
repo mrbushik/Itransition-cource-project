@@ -50,7 +50,7 @@ function Searcher() {
           x
         </span>
       </div>
-      {Array.isArray(collections) && (
+      {Array.isArray(collections) && !!collections.length && (
         <div
           className="position-absolute bg-light ps-4 search-results pt-4"
           onClick={cleanCollections}>
