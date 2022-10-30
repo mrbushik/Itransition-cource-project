@@ -21,7 +21,8 @@ function Modal({ onActive, updateCollectionsData }) {
   const userName = localStorage.getItem('userId');
   const URL = `${process.env.REACT_APP_DOMAIN_NAME}/api/add-collection`;
 
-  const SELECTED_OPTIONS = [
+  const SELECTED_OPTIONS = ['books', 'music', 'clothes'];
+  const SELECTED_TRANSLATED_OPTIONS = [
     t(translateKeys.BOOKS),
     t(translateKeys.MUSIK),
     t(translateKeys.CLOTHES),
@@ -47,6 +48,12 @@ function Modal({ onActive, updateCollectionsData }) {
     ],
     type: collection.theme,
     description: collection.description,
+  };
+
+  const getSelectedValue = () => {
+    const themeIndex = SELECTED_OPTIONS.indexOf(collection.theme);
+    if (themeIndex === -1) return '';
+    return SELECTED_TRANSLATED_OPTIONS[themeIndex];
   };
 
   const validatorConfig = {
@@ -131,6 +138,11 @@ function Modal({ onActive, updateCollectionsData }) {
     }));
   };
 
+  const handleChangeChoose = (target) => {
+    const optionIndex = SELECTED_TRANSLATED_OPTIONS.indexOf(target.value);
+    setCollection((prevState) => ({ ...prevState, [target.name]: SELECTED_OPTIONS[optionIndex] }));
+  };
+
   return (
     <>
       <div className="modal-dialog modal-dialog-centered  bg-light absolute-top mx-3 mt-3 p-3 dark-mode">
@@ -163,10 +175,10 @@ function Modal({ onActive, updateCollectionsData }) {
               <SelectField
                 label={t(translateKeys.CHOOSE_COLLECTION)}
                 name="theme"
-                options={SELECTED_OPTIONS}
+                options={SELECTED_TRANSLATED_OPTIONS}
                 defaultOption={t(translateKeys.CHOOSE)}
-                onChange={handleChange}
-                value={collection.theme}
+                onChange={handleChangeChoose}
+                value={getSelectedValue()}
                 error={errors.theme}
               />
             </div>

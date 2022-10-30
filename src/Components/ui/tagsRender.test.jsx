@@ -7,6 +7,5 @@ describe('TagsRender', () => {
   it('TagsRender renders', () => {
     render(<TagsRender tags={tags} />);
     expect(screen.getByText('#Great')).toBeInTheDocument();
-    expect(screen.getByRole('')).toBeInTheDocument();
   });
 });

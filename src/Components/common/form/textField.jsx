@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 
-function TextField({ label, type, name, value, onChange, error, group, placeholder, onBlur }) {
+function TextField({ label, type, name, value, onChange, error, group, placeholder }) {
   const [showPassword, setShowPassword] = useState(false);
 
   const handleChange = ({ target }) => {

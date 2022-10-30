@@ -10,10 +10,29 @@ import translateKeys from '../../translate/translateKeys';
 
 function AddFieldForm({ handleChangeField, dataType, dataDescription, index, onDelete }) {
   const { t } = useTranslation();
+
   const SELECTED_OPTIONS = ['number', 'text', 'multiline text', 'checkbox', 'date'];
+  const SELECTED_TRANSLATED_OPTIONS = [
+    t(translateKeys.NUMBER),
+    t(translateKeys.TEXT),
+    t(translateKeys.MULTILINE_TEXT),
+    t(translateKeys.CHECKBOX_FIELD),
+    t(translateKeys.DATE),
+  ];
+
+  const handleChangeChoose = (e) => {
+    const optionIndex = SELECTED_TRANSLATED_OPTIONS.indexOf(e.value);
+    handleChangeField(SELECTED_OPTIONS[optionIndex], index, e.name);
+  };
 
   const handleChange = (e) => {
     handleChangeField(e.value, index, e.name);
+  };
+
+  const getSelectedValue = () => {
+    const themeIndex = SELECTED_OPTIONS.indexOf(dataType);
+    if (themeIndex === -1) return '';
+    return SELECTED_TRANSLATED_OPTIONS[themeIndex];
   };
 
   const [errors, setErrors] = useState({});
@@ -47,10 +66,10 @@ function AddFieldForm({ handleChangeField, dataType, dataDescription, index, onD
       <SelectField
         label={t(translateKeys.SELECT_FIELD_TO_ADD)}
         name="type"
-        options={SELECTED_OPTIONS}
+        options={SELECTED_TRANSLATED_OPTIONS}
         defaultOption={t(translateKeys.CHOOSE)}
-        onChange={handleChange}
-        value={dataType}
+        onChange={handleChangeChoose}
+        value={getSelectedValue()}
         error={errors.type}
       />
       <TextField

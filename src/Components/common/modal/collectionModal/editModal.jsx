@@ -20,7 +20,9 @@ function EditModal({ modalType, collections, onActive, updateCollectionsData }) 
   const { t } = useTranslation();
   let targetElement;
   const selectedValue = [];
-  const selectedOptions = [
+
+  const SELECTED_OPTIONS = ['books', 'music', 'clothes'];
+  const SELECTED_TRANSLATED_OPTIONS = [
     t(translateKeys.BOOKS),
     t(translateKeys.MUSIK),
     t(translateKeys.CLOTHES),
@@ -39,6 +41,11 @@ function EditModal({ modalType, collections, onActive, updateCollectionsData }) 
       ...prevState,
       [target.name]: target.value,
     }));
+  };
+
+  const handleChangeChoose = (target) => {
+    const optionIndex = SELECTED_TRANSLATED_OPTIONS.indexOf(target.value);
+    setEditItem((prevState) => ({ ...prevState, [target.name]: SELECTED_OPTIONS[optionIndex] }));
   };
 
   if (editItem.item) targetElement = collections.find((item) => item._id === editItem.item);
@@ -97,6 +104,11 @@ function EditModal({ modalType, collections, onActive, updateCollectionsData }) 
   }, [editItem]);
 
   const isValid = !Object.keys(errors).length;
+
+  const getSelectedValue = () => {
+    const themeIndex = SELECTED_OPTIONS.indexOf(editItem.type);
+    return SELECTED_TRANSLATED_OPTIONS[themeIndex];
+  };
 
   const collectionEdit = (URL) => {
     editCollectionRequest(URL, modifiedCollection, updateCollectionsData, getToken());
@@ -159,9 +171,9 @@ function EditModal({ modalType, collections, onActive, updateCollectionsData }) 
             <SelectField
               label={t(translateKeys.CHOOSE_COLLECTION)}
               name="type"
-              options={selectedOptions}
-              onChange={handleChange}
-              value={editItem.type}
+              options={SELECTED_TRANSLATED_OPTIONS}
+              onChange={handleChangeChoose}
+              value={getSelectedValue()}
               error={errors.type}
             />
             <TextAreaField

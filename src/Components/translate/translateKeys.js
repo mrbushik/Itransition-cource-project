@@ -82,6 +82,11 @@ const translateKeys = {
   DISPLAY: 'display',
   SEARCH_COLLECTIONS: 'search collections',
   EXPORT_CSV: 'csv export',
+  NUMBER: 'number',
+  TEXT: 'text',
+  MULTILINE_TEXT: 'multiline text',
+  CHECKBOX_FIELD: 'checkbox field',
+  DATE: 'date',
 };
 
 export default translateKeys;

@@ -8,6 +8,19 @@ function UserCollection({ authorName, description, icon, name, type, id, link, n
   const { t } = useTranslation();
   const descriptionParse = [];
 
+  const COLLECTION_TYPES = ['books', 'music', 'clothes'];
+  const COLLECTION_TRANSLATED_TYPES = [
+    t(translateKeys.BOOKS),
+    t(translateKeys.MUSIK),
+    t(translateKeys.CLOTHES),
+  ];
+
+  const getSelectedValue = () => {
+    const themeIndex = COLLECTION_TYPES.indexOf(type);
+    console.log(themeIndex);
+    return COLLECTION_TRANSLATED_TYPES[themeIndex];
+  };
+
   Array.prototype.forEach.call(description.split('\n'), (item) => {
     descriptionParse.push(item);
   });
@@ -27,7 +40,7 @@ function UserCollection({ authorName, description, icon, name, type, id, link, n
         <span className="ms-3">{authorName}</span>
         <div>
           <span className="text-decoration-none text-reset ms-2"> {t(translateKeys.TYPE)}:</span>
-          <span className="ms-3">{type}</span>
+          <span className="ms-3">{getSelectedValue()}</span>
         </div>
         <div className="m-2">
           <div className="d-flex justify-content-center  mt-2 mb-2 h-200">
