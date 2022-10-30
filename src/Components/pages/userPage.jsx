@@ -86,6 +86,7 @@ function UserPage() {
           />
         )}
       </div>
+      {/* TODO change and test  */}
       {userCollection && userCollection.length !== 0 && (
         <Filter
           options={[t(transtateKeys.NEW), t(transtateKeys.OLD)]}
@@ -121,7 +122,8 @@ function UserPage() {
           )}
         </div>
       )}
-      {userCollection && userCollection.length === 0 && (
+      {/* TODO check this  */}
+      {!userCollection && (
         <div className="text-danger  mt-4 fs-5  text-center px-3">
           {t(transtateKeys.NONE_COLLECTIONS)}
         </div>

@@ -11,11 +11,11 @@ import ActivateMail from './activateMail';
 import HideBtn from '../common/buttons/hideBtn';
 import transtateKeys from '../translate/transtateKeys';
 
-function LoginForm({ toggleFormType, onSubmit, successfulSigup, authData, loginError, submiting }) {
+function LoginForm({ toggleFormType, onSubmit, successfulSingUp, authData, loginError }) {
   const { t } = useTranslation();
   const activateURL = `${process.env.REACT_APP_DOMAIN_NAME}/api/email`;
 
-  const ACTIVATED_ERRORR = 'User is not activated';
+  const ACTIVATED_ERROR = 'User is not activated';
 
   const [errors, setErrors] = useState({});
   const [activateEmail, setActivateEmail] = useState(false);
@@ -25,8 +25,9 @@ function LoginForm({ toggleFormType, onSubmit, successfulSigup, authData, loginE
   });
 
   const activationToggle = (params) => setActivateEmail(params);
+
   useEffect(() => {
-    if (loginError && loginError.message === ACTIVATED_ERRORR) activationToggle(true);
+    if (loginError && loginError.message === ACTIVATED_ERROR) activationToggle(true);
   }, [loginError]);
 
   const handleChange = (target) => {
@@ -55,7 +56,7 @@ function LoginForm({ toggleFormType, onSubmit, successfulSigup, authData, loginE
   const validate = () => {
     const errors = validator(data, validatorConfig);
     setErrors(errors);
-    return Object.keys(errors).length === 0;
+    return !Object.keys(errors).length;
   };
 
   const handleSubmit = (e) => {
@@ -73,7 +74,8 @@ function LoginForm({ toggleFormType, onSubmit, successfulSigup, authData, loginE
   const resendMail = (email) => {
     activateRequest(activateURL, email, setErrors);
   };
-  const isValid = Object.keys(errors).length === 0 && !submiting;
+
+  const isValid = !Object.keys(errors).length;
 
   return (
     <>
@@ -92,7 +94,7 @@ function LoginForm({ toggleFormType, onSubmit, successfulSigup, authData, loginE
         onChange={handleChange}
         error={errors.password}
       />
-      {successfulSigup && loginError !== ACTIVATED_ERRORR && (
+      {successfulSingUp && !activateEmail && (
         <div className="m-3">
           <p>{t(transtateKeys.SUCCESS_REGISTER)}</p>
           <div className="btn btn-secondary" onClick={() => resendMail(authData.user.email)}>
@@ -100,7 +102,7 @@ function LoginForm({ toggleFormType, onSubmit, successfulSigup, authData, loginE
           </div>
         </div>
       )}
-      {loginError && loginError.message === ACTIVATED_ERRORR && (
+      {loginError && loginError.message === ACTIVATED_ERROR && (
         <div className="p-2 border border-danger mb-3">
           <HideBtn onDelete={activationToggle} />
           {activateEmail && <ActivateMail resendMail={resendMail} />}
@@ -123,7 +125,7 @@ function LoginForm({ toggleFormType, onSubmit, successfulSigup, authData, loginE
 LoginForm.propTypes = {
   loginError: PropTypes.object,
   onSubmit: PropTypes.func,
-  successfulSigup: PropTypes.bool,
+  successfulSingUp: PropTypes.bool,
   toggleFormType: PropTypes.func.isRequired,
 };
 

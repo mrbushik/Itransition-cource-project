@@ -8,7 +8,7 @@ import PropTypes from 'prop-types';
 import TextField from '../common/form/textField';
 import transtateKeys from '../translate/transtateKeys';
 
-function RegisterForm({ toggleFormType, onSubmit, submiting }) {
+function RegisterForm({ toggleFormType, onSubmit }) {
   const { t } = useTranslation();
   const [errors, setErrors] = useState({});
   const [data, setData] = useState({
@@ -61,7 +61,7 @@ function RegisterForm({ toggleFormType, onSubmit, submiting }) {
   const validate = () => {
     const errors = validator(data, validatorConfig);
     setErrors(errors);
-    return Object.keys(errors).length === 0;
+    return !Object.keys(errors).length;
   };
 
   const comparisonPasswords = () => {
@@ -85,7 +85,7 @@ function RegisterForm({ toggleFormType, onSubmit, submiting }) {
     onSubmit(e, submitData);
   };
 
-  const isValid = Object.keys(errors).length === 0 && !submiting;
+  const isValid = !Object.keys(errors).length;
 
   return (
     <>

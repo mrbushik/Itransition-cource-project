@@ -4,13 +4,13 @@ import React, { useEffect, useState } from 'react';
 import { useParams, useHistory, Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { autoLogin, loginRequest, registrationRequest } from '../services/loginRequest';
+import { getRefreshToken } from '../utils/token';
 
 import ThemeSwither from '../common/buttons/themeSwither';
 import SwitchLanguage from '../common/buttons/switchLanguage';
 import LoginForm from '../ui/loginForm';
 import RegisterForm from '../ui/registerForm';
 import transtateKeys from '../translate/transtateKeys';
-import { getRefreshToken } from '../utils/token';
 
 function Login() {
   const { t } = useTranslation();
@@ -24,20 +24,15 @@ function Login() {
   const [formType, setFormType] = useState(type === 'register' ? type : 'login');
   const [successfulSigup, setSuccessfulSigup] = useState(false);
   const [errors, setErrors] = useState();
-  const [submiting, setSubmiting] = useState(false);
   const [auth, setAuth] = useState();
 
   const togleFormType = () => {
     setFormType((pervState) => (pervState === 'register' ? 'login' : 'register'));
   };
 
-  const toggleSubmit = (value) => setSubmiting(value);
-
   const handleSubmit = (e, data) => {
     e.preventDefault();
-    toggleSubmit(true);
     sendingTargetForm(data);
-    toggleSubmit(false);
   };
 
   const sendingTargetForm = (data) => {
@@ -66,7 +61,7 @@ function Login() {
   }, [auth]);
 
   const onSingIn = () => {
-    if (auth && auth.user.isActivated === false) {
+    if (auth && !auth.user.isActivated) {
       localStorage.setItem('refreshToken', auth.refreshToken);
       setSuccessfulSigup(true);
       togleFormType();
@@ -74,7 +69,7 @@ function Login() {
   };
 
   const onSendRequest = () => {
-    if (auth && auth.user.isActivated === true) {
+    if (auth && auth.user.isActivated) {
       writeUserData();
       history.push('/');
     }
@@ -111,16 +106,14 @@ function Login() {
                   <LoginForm
                     toggleFormType={togleFormType}
                     onSubmit={handleSubmit}
-                    successfulSigup={successfulSigup}
+                    successfulSingUp={successfulSigup}
                     authData={auth}
                     loginError={errors}
-                    submiting={submiting}
                   />
                 ) : (
                   <RegisterForm
                     toggleFormType={togleFormType}
                     onSubmit={handleSubmit}
-                    submiting={submiting}
                     registerError={errors}
                   />
                 )}

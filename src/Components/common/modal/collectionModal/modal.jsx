@@ -79,7 +79,7 @@ function Modal({ onActive, updateCollectionsData }) {
     validate();
   }, [collection]);
 
-  const isValid = Object.keys(errors).length === 0;
+  const isValid = !Object.keys(errors).length;
 
   const validateAddingFields = () => {
     for (let i = 0; i < fieldValue.length; i++) {

@@ -35,7 +35,6 @@ function EditItemsModal({
   const URL = `${process.env.REACT_APP_DOMAIN_NAME}/api/change-post/${editItem.item}`;
   const deletePostURL = `${process.env.REACT_APP_DOMAIN_NAME}/api/delete-collection-post/${collectionId}`;
   const fieldValueInArray = fieldValue.map((item) => item.value);
-  const isValid = Object.keys(errors).length === 0;
   const collectionsNames = posts.map((item) => item._id);
 
   const sendingData = {
@@ -151,6 +150,8 @@ function EditItemsModal({
   const handleSubmit = () => {
     modalType === t(transtateKeys.EDIT) ? editPost() : deletePost();
   };
+
+  const isValid = !Object.keys(errors).length;
 
   return (
     <div className="modal-dialog modal-dialog-centered bg-light absolute-top mx-3 mt-3 p-3 dark-mode">

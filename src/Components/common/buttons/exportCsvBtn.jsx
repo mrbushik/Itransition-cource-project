@@ -14,12 +14,14 @@ function ExportCsvBtn({ data }) {
   const [tableData, setTableData] = useState([]);
 
   useEffect(() => {
-    if (data && data.postsTemplate) getHeaders();
+    if (data) {
+      getHeaders();
+    }
   }, [data]);
 
   useEffect(() => {
     getTableInfo();
-  }, [headers]);
+  }, [headers, data]);
 
   const getHeaders = () => {
     if (!headers.length) {
@@ -44,7 +46,6 @@ function ExportCsvBtn({ data }) {
 
     const targetPostData = {};
     getDefaultPostValues(targetPostData, postNames, post);
-
     getOtherPostValues(postNames, targetPostData, postAddingFields);
 
     return targetPostData;

@@ -12,6 +12,7 @@ import LikeBtn from '../common/buttons/likeBtn';
 import CommentsForm from '../common/form/commentsForm';
 import { getAllTags } from '../redux/actions/selectedTag';
 import transtateKeys from '../translate/transtateKeys';
+import ExportCsvBtn from '../common/buttons/exportCsvBtn';
 
 function CollectionPosts() {
   const params = useParams();
@@ -36,6 +37,7 @@ function CollectionPosts() {
     <>
       <div className="d-flex justify-content-between align-items-center flex-wrap">
         <BackBtn backLink={'/collection'} />
+        <ExportCsvBtn data={collectionData} />
         <LikeBtn collectionId={params.Id} />
       </div>
       {collectionData && (

@@ -13,6 +13,7 @@ import EditModal from '../common/modal/collectionModal/editModal';
 import transtateKeys from '../translate/transtateKeys';
 
 function AdminCollections() {
+  const PAGE_LIMIT = 3;
   const role = localStorage.getItem('role');
   const history = useHistory();
   const dispatch = useDispatch();
@@ -25,6 +26,8 @@ function AdminCollections() {
   const [activeModal, setActiveModal] = useState('');
   const getCollectionsURL = `${process.env.REACT_APP_DOMAIN_NAME}/api//all-collections?page=${currentPage}`;
 
+  const totalPages = () => adminCollections.total / PAGE_LIMIT;
+
   const handleUpdateData = (url) => {
     dispatch(getAdminCollections(url ? url : getCollectionsURL));
   };
@@ -34,8 +37,7 @@ function AdminCollections() {
   }, []);
 
   useEffect(() => {
-    // TODO вынести в переменную то что мы считаем
-    if (Math.ceil(adminCollections.total / 3) < adminCollections.page) {
+    if (Math.ceil(totalPages()) < adminCollections.page) {
       dispatch(changeCurrentPage(1));
       handleUpdateData(`${process.env.REACT_APP_DOMAIN_NAME}/api/all-collections?page=1`);
     }
@@ -108,7 +110,7 @@ function AdminCollections() {
               ))}
             </div>
           </div>
-          {adminCollections.total > 3 && (
+          {adminCollections.total > PAGE_LIMIT && (
             <Paginate
               countCollections={adminCollections.total}
               currentPage={page}

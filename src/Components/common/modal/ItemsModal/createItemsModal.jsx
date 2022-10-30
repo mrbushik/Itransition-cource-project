@@ -49,7 +49,6 @@ function CreateItemsModal({ onClose, fieldsCount, addingFields, collectionId, on
   useEffect(() => {
     validate();
   }, [postItem]);
-  const isValid = Object.keys(errors).length === 0;
 
   const handleDeleteTag = (i) => {
     setTags(tags.filter((tag, index) => index !== i));
@@ -114,6 +113,8 @@ function CreateItemsModal({ onClose, fieldsCount, addingFields, collectionId, on
     addPost(addPostURL, sendingData, onUpdateData, getToken());
     clearData();
   };
+
+  const isValid = !Object.keys(errors).length;
 
   return (
     <>

@@ -96,7 +96,7 @@ function EditModal({ modalType, collections, onActive, updateCollectionsData }) 
     validate();
   }, [editItem]);
 
-  const isValid = Object.keys(errors).length === 0;
+  const isValid = !Object.keys(errors).length;
 
   const collectionEdit = (URL) => {
     editCollectionRequest(URL, modifiedCollection, updateCollectionsData, getToken());
