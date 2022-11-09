@@ -1,3 +1,10 @@
+## View the project in the browser
+
+Due to hosting, the first download will last 15 seconds please wait.
+
+You can dismiss the project by [https://itransition-cource-progect.web.app](clicking here)
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
