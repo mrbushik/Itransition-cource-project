@@ -2,7 +2,7 @@
 
 Due to hosting, the first download will last 15 seconds please wait.
 
-You can dismiss the project by [https://itransition-cource-progect.web.app](clicking here)
+You can dismiss the project by [clicking here](https://itransition-cource-progect.web.app).
 
 
 # Getting Started with Create React App
